@@ -32,7 +32,7 @@
                 <!-- Text -->
                 <div class="col-lg-5">
                     <span class="know-badge">KNOW US</span>
-                    <h2 class="section-title mb-3">About Our <span>Company</span></h2>
+                    <h1 class="section-title mb-3">About Our <span>Company</span></h1>
                     <p class="about-text mb-3">
                         Mobile finance is not a new service in Nepal and is in use for over a decade. However, the
                         proportion of digital transactions is still low compared to traditional financial transactions. To

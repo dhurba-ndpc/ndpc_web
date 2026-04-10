@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navMain">
             <ul class="navbar-nav mx-auto gap-1">
-                <li class="nav-item"><a class="nav-link active  pill-trace" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link active  pill-trace" href="{{ url('/') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('about') }}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Our Product</a></li>
                 <li class="nav-item dropdown">
@@ -19,7 +19,7 @@
                         <li><a class="dropdown-item" href="#">Circulars</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">News/Blogs</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('blogs') }}">News/Blogs</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Career</a>
                     <ul class="dropdown-menu">
@@ -27,7 +27,7 @@
                         <li><a class="dropdown-item" href="#">Internship</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('contact') }}">Contact</a></li>
             </ul>
             <a href="#" class="nav-link btn-touch ms-2">Get In Touch <i class="bi bi-arrow-right"></i></a>
         </div>
