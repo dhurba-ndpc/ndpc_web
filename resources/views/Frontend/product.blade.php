@@ -91,8 +91,7 @@
                         Lending</button></li>
                 <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5">Payment
                         Switch</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
-                        data-bs-target="#tab6">Loyalty</button>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6">Loyalty</button>
                 </li>
             </ul>
 
@@ -105,14 +104,29 @@
                     <div class="row align-items-center">
 
                         <!-- Left Image -->
-                        <div class="col-lg-6 mb-4">
-                            <div class="image-box">
+                        <div class="col-lg-5 mb-4">
+                            {{-- <div class="image-box">
                                 <img src="{{ asset('frontend/images/Mission.jpg') }}" class="img-fluid">
+                            </div> --}}
+                            <div class="about-img-wrap">
+                                <div class="circular_floting_circle"></div>
+                                
+                                <div class="img_wrap_1">
+                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
+                                        onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
+                                        alt="About NDPC" class="about-img">
+                                </div>
+                                <div class="trusted-badge glass-panel">
+                                    <i class="bi bi-shield-fill-check"></i>
+                                    <span>
+                                        Trusted <span>Financial</span><br>Partner for Nepal
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Right Content -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 offset-lg-1">
 
                             <h3 class="content-title">Namaste pay services</h3>
                             <p class="content-desc">
@@ -176,5 +190,3 @@
         </div>
     </section>
 @endsection
-
- 

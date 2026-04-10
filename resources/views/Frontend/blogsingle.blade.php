@@ -103,22 +103,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <!-- Subscribe -->
-                    <div class="card sidebar-card">
-                        <div class="card-body">
-                            <h5 class="sidebar-title">Stay Up to Date</h5>
-                            <p class="text-muted small">
-                                Subscribe to our newsletter for the latest updates.
-                            </p>
-
-                            <form>
-                                <input type="email" class="form-control mb-3" placeholder="Enter your email">
-                                <button class="btn btn-primary w-100">Subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- MAIN CONTENT -->
@@ -163,32 +147,6 @@
                                     seamless
                                     digital transactions.</li>
                             </ol>
-
-                        </div>
-
-                        <!-- Comments -->
-                        <div class="comments mt-5">
-                            <h5 class="mb-4">Comments (2)</h5>
-
-                            <div class="comment-box">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex">
-                                        <div class="avatar">S</div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0">Sujan Tamang</h6>
-                                            <small>April 23, 2024</small>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <p class="mt-3">
-                                    Great article! Digital payments are definitely the future.
-                                    I’m excited to see how Nepal embraces this change.
-                                </p>
-
-                                <button class="btn btn-sm btn-primary">Reply</button>
-                            </div>
 
                         </div>
                     </div>

@@ -32,7 +32,7 @@
             <!-- Header -->
             <div class="row align-items-center mb-4">
                 <div class="col-md-6 section-title">
-                    <h1>Notices</h1>
+                      <h1 class="section-title mb-3">Our&nbsp;<span>Notices</span></h1>
                     <p>Latest news and announcements from NDPC</p>
                 </div>
 
@@ -53,8 +53,8 @@
                         <span class="tag">IS Audit</span>
                         <h5>Extension of submission date for proposal on Information System (IS) Audit</h5>
                         <div class="notice-footer">
-                            <span>4 days ago</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;4 days ago</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>
@@ -65,8 +65,8 @@
                         <span class="tag">Quotation</span>
                         <h5>Sealed Quotation Request notice-Outsource Employee</h5>
                         <div class="notice-footer">
-                            <span>4 days ago</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;4 days ago</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>
@@ -77,8 +77,8 @@
                         <span class="tag">IS Audit</span>
                         <h5>Invitation for proposal on Information System (IS) Audit</h5>
                         <div class="notice-footer">
-                            <span>1 week ago</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;1 week ago</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@
                         <span class="tag">RTI</span>
                         <h5>NDPC - RTI (01/07/2082 - 30/09/2082)</h5>
                         <div class="notice-footer">
-                            <span>1 week ago</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;1 week ago</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>
@@ -101,8 +101,8 @@
                         <span class="tag">General Meeting</span>
                         <h5>Notice for 5th Annual General Meeting</h5>
                         <div class="notice-footer">
-                            <span>April 15, 2024</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;April 15, 2024</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>
@@ -113,8 +113,8 @@
                         <span class="tag">General Meeting</span>
                         <h5>Notice for 5th Annual General Meeting</h5>
                         <div class="notice-footer">
-                            <span>April 15, 2024</span>
-                            <a href="#" class="btn btn-notice">View Notice</a>
+                            <span><i class="bi bi-calendar-fill"></i>&nbsp;April 15, 2024</span>
+                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i class="bi bi-eye-fill"></i></a>
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,7 @@
         <div class="container">
 
             <div class="mb-4">
-                <h4 class="fw-semibold">Reports - <span class="text_gradient_header">Download Links</span></h4>
+                <h1 class="section-title mb-3">Reports&nbsp;<span>Download Links</span></h1>
             </div>
 
             <div class="card">

@@ -33,7 +33,7 @@
                     <div class="col-lg-7">
                         <div class="contact_detial_wrapper">
                             <div class="contact_header_wrapper">
-                                <h2 class="text_gradient_header"><u>Connect with us</u></h2>
+                                <h1 class="section-title mb-3">Connect<span>&nbsp;With Us</span></h1>
                                 <p>Experience the future of seamless transactions. Corporate Nepal offers secure, instant,
                                     and reliable digital payment solutions tailored for your business growth. Go cashless
                                     today!</p>
