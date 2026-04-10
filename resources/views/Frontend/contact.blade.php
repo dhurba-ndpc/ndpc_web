@@ -44,10 +44,10 @@
                                     <li><span class="bi bi-send-fill"></span>
                                         Tripureshwor, Kathmandu, Nepal
                                     </li>
-                                    <li><span class="bi bi-telephone"></span>
+                                    <li><span class="bi bi-telephone-fill"></span>
                                         +977-1-4117100, +977-1-4117200
                                     </li>
-                                    <li>
+                                    <li> 
                                         <span class="bi bi-phone-fill"></span>
                                         +977-9800000000
                                     </li>

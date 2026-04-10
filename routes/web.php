@@ -14,3 +14,15 @@ Route::get('/contact', function () {
 Route::get('/blogs', function () {
     return view('frontend/blogs');
 });
+Route::get('/notice', function () {
+    return view('frontend/notice');
+});
+Route::get('/report', function () {
+    return view('frontend/report');
+});
+Route::get('/blog-single', function () {
+    return view('frontend/blogsingle');
+});
+Route::get('/product', function () {
+    return view('frontend/product');
+});

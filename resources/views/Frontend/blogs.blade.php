@@ -48,8 +48,8 @@
                                 undergone a remarkable shift, dr...</p>
                         </div>
                         <div class="news-footer">
-                            <a href="#" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
-                            <a href="">
+                            <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
                             </a>
                         </div>
@@ -69,8 +69,8 @@
                                 plays an important role in e...</p>
                         </div>
                         <div class="news-footer">
-                            <a href="#" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
-                            <a href="">
+                            <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
                             </a>
                         </div>
