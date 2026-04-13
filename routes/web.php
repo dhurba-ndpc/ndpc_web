@@ -32,3 +32,9 @@ Route::get('/vacancy', function () {
 Route::get('/vacancy-result', function () {
     return view('frontend/vacancy_result');
 });
+Route::get('/member', function () {
+    return view('frontend/member');
+});
+Route::get('/employee-quaterly', function () {
+    return view('frontend/employee_quaterly');
+});

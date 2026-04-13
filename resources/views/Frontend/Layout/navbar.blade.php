@@ -10,7 +10,14 @@
         <div class="collapse navbar-collapse" id="navMain">
             <ul class="navbar-nav mx-auto gap-1">
                 <li class="nav-item"><a class="nav-link {{ Route::is('home') ? 'active' : '' }}" href="{{ url('/') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link {{ Route::is('about') ? 'active' : '' }}" href="{{ url('about') }}">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ Route::is('about') || Route::is('member') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item {{ Route::is('about') ? 'active' : '' }}" href="{{ url('about') }}">About Us</a></li>
+                        <li><a class="dropdown-item {{ Route::is('member') ? 'active' : '' }}" href="{{ url('member') }}">Members</a></li>
+                        <li><a class="dropdown-item {{ Route::is('employee-quaterly') ? 'active' : '' }}" href="{{ url('employee-quaterly') }}">Employee Quarterly</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item"><a class="nav-link {{ Route::is('product') ? 'active' : '' }}" href="{{ url('product') }}">Our Product</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ Route::is('notice') || Route::is('report') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown">Notices</a>
