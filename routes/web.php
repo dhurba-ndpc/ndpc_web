@@ -26,3 +26,9 @@ Route::get('/blog-single', function () {
 Route::get('/product', function () {
     return view('frontend/product');
 });
+Route::get('/vacancy', function () {
+    return view('frontend/vacancy');
+});
+Route::get('/vacancy-result', function () {
+    return view('frontend/vacancy_result');
+});

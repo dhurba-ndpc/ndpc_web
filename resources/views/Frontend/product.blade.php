@@ -67,6 +67,7 @@
         </div>
     </section>
     <section class="solutions-section py-5" id="company_product_details">
+
         <div class="container">
 
             <!-- Title -->
@@ -110,7 +111,7 @@
                             </div> --}}
                             <div class="about-img-wrap">
                                 <div class="circular_floting_circle"></div>
-                                
+
                                 <div class="img_wrap_1">
                                     <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
                                         onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
@@ -187,6 +188,197 @@
 
             </div>
 
+        </div>
+    </section>
+
+    <section class="services-section">
+
+        <div class="container">
+            <p class="news-label mb-0">Services</p>
+            <h2 class="news-title mb-5">What We Offer For You</h2>
+
+            <div class="row row-gap-custom">
+
+                <!-- Top-up -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-phone service-icon"></i>
+                            <h4 class="service-title">Top-up</h4>
+                        </div>
+                        <p class="service-text">
+                            With just a few taps, you can top up your phone anytime, anywhere, ensuring you never run out of
+                            talk time.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Utility Bill Payments -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-credit-card-2-front service-icon"></i>
+                            <h4 class="service-title">Utility Bill Payments</h4>
+                        </div>
+                        <p class="service-text">
+                            Effortlessly pay all your utility bills, including electricity, internet, landline, TV, and
+                            water, with just one click using Namaste Pay.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ticket Booking -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-ticket-perforated service-icon"></i>
+                            <h4 class="service-title">Ticket Booking</h4>
+                        </div>
+                        <p class="service-text">
+                            Whether you’re planning a business trip or a vacation, experience the convenience of booking
+                            your tickets with Namaste Pay.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Merchant Payment -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-qr-code-scan service-icon"></i>
+                            <h4 class="service-title">Merchant Payment</h4>
+                        </div>
+                        <p class="service-text">
+                            Scan QR codes and make payments easily for the products and services you desire. No need to
+                            worry about carrying cash when Namaste Pay is your payment partner.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Reward Points -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-stars service-icon"></i>
+                            <h4 class="service-title">Reward Points</h4>
+                        </div>
+                        <p class="service-text">
+                            Namaste Pay is not only the payment app but also you can get rewards and loyalty points. You
+                            will earn those points while you make transactions via Namaste Pay.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fund Transfer -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <i class="bi bi-wallet2 service-icon"></i>
+                            <h4 class="service-title">Fund Transfer</h4>
+                        </div>
+                        <p class="service-text">
+                            With Namaste Pay, transferring funds between Namaste Pay wallets and from Namaste Pay wallets to
+                            bank accounts is simple and convenient.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="features-section">
+        <div class="prayer-flags"></div>
+        <div class="container">
+
+            <!-- Heading -->
+
+
+            <p class="news-label mb-0">Features</p>
+            <h2 class="news-title mb-5">What We Offer For You</h2>
+
+            <!-- Cards -->
+            <div class="row g-4">
+
+                <!-- Card 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center">
+                        <div class="icon-circle">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Fast Registration</h4>
+                        <p class="feature-text">
+                            Experience the convenience of fast registration with Namaste Pay.
+                            Register yourself quickly and effortlessly, saving your valuable time.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center">
+                        <div class="icon-circle">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <h4 class="feature-title">Easy Transaction</h4>
+                        <p class="feature-text">
+                            Namaste Pay simplifies all your financial transactions, from paying bills
+                            to transferring money with secure experience.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center">
+                        <div class="icon-circle">
+                            <i class="bi bi-qr-code"></i>
+                        </div>
+                        <h4 class="feature-title">QR Code Payment</h4>
+                        <p class="feature-text">
+                            Convenient QR code payment service allows you to make transactions
+                            simply by scanning QR code using mobile phone.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-card text-center">
+                        <div class="icon-circle">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4 class="feature-title">Secure and Reliable</h4>
+                        <p class="feature-text">
+                            Regulated by Nepal Rastra Bank, Namaste Pay ensures advanced security
+                            measures to protect your personal data.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="wallet-card text-center position-relative">
+
+                        <div class="icon-tab">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+
+                        <div class="card-body p-5">
+                            <h6 class="text-blue fw-semibold mb-2">Get Ready</h6>
+                            <h1 class="main-title fw-bold">Digital Wallet Redefined.</h1>
+                        </div>
+
+                        <button class="btn btn-pill-cta ">
+                            Want To Know More?
+                        </button>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection

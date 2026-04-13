@@ -26,8 +26,9 @@
      padding: 0;
      box-sizing: border-box;
  }
- .btn{
-    border-radius: 24px !important;
+
+ .btn {
+     border-radius: 24px !important;
  }
 
  .btn-outline-primary:hover,
@@ -324,9 +325,9 @@
  }
 
  .about-text {
-     font-size: .84rem;
+     font-size: 15px;
      color: #555;
-     line-height: 1.9;
+     line-height: 1.6;
  }
 
  .about-img-wrap {
@@ -2083,8 +2084,8 @@
  .custom-tabs .nav-link {
      border: none;
      background: none;
-     color: #6b7280;
-     font-size: 14px;
+     color: #9a9a9a;
+     font-size: 15px;
      padding: 12px 18px;
      font-weight: 500;
      position: relative;
@@ -2166,7 +2167,7 @@
  }
 
  .stats-card p {
-     font-size: 13px;
+     font-size: 15px;
      margin-top: 10px;
  }
 
@@ -2216,7 +2217,7 @@
  }
 
  #company_product_details {
-     background: linear-gradient(to bottom, #0000000d, #ffffff7a);
+     background: linear-gradient(to bottom, #0000000d, #fff0);
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
@@ -2229,7 +2230,7 @@
  }
 
  #solutionTab {
-     border-color: #003893;
+     border-color: #9a9a9a54;
      border-width: 2px;
  }
 
@@ -2239,4 +2240,510 @@
      align-items: first baseline;
  }
 
+ /* ************************************ */
+ .services-section {
+     position: relative;
+     padding: 50px 0;
+     background: linear-gradient(to bottom, #fff0, #0000000d);
+ }
+
+ .service-card {
+     background: #ffffff;
+     border-radius: 26px;
+     padding: 25px;
+     height: 100%;
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+     transition: all 0.3s ease;
+     border: 1px solid #f0f0f0;
+ }
+
+ .service-card:hover {
+     transform: translateY(-6px);
+     box-shadow: 0 18px 35px rgba(0, 0, 0, 0.08);
+ }
+
+ .service-header {
+     display: flex;
+     align-items: center;
+     margin-bottom: 20px;
+ }
+
+ .service-icon {
+     font-size: 42px;
+     color: #003893;
+     margin-right: 18px;
+     line-height: 1;
+ }
+
+ .service-title {
+     font-size: 24px;
+     font-weight: 600;
+     margin: 0;
+     color: #1c2230;
+ }
+
+ .service-text {
+     font-size: 15px;
+     color: #6c757d;
+     line-height: 1.7;
+     margin: 0;
+ }
+
+ .row-gap-custom {
+     row-gap: 30px;
+ }
+
+ /* Responsive */
+ @media (max-width: 992px) {
+     .section-title {
+         font-size: 42px;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .section-title {
+         font-size: 34px;
+         margin-bottom: 40px;
+     }
+
+     .service-title {
+         font-size: 22px;
+     }
+
+     .service-text {
+         font-size: 16px;
+     }
+
+     .service-card {
+         padding: 28px;
+     }
+ }
+
+ @media (max-width: 576px) {
+     .section-title {
+         font-size: 28px;
+     }
+
+     .service-icon {
+         font-size: 34px;
+     }
+ }
+
+ /* ************************************ */
+ /* Section */
+ .features-section {
+     position: relative;
+     padding: 50px 0;
+     background: linear-gradient(rgba(245, 245, 245, 0.7), rgba(218, 218, 218, 0.7)), url('../frontend/images/background_about.jpg');
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     background-attachment: fixed;
+ }
+
+ /* Card */
+ .feature-card {
+     position: relative;
+     background: #ffffff;
+     border-radius: 24px;
+     padding: 25px;
+     height: 100%;
+     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+     transition: all 0.3s ease;
+     border: none;
+ }
+
+ .feature-card:hover {
+     transform: translateY(-6px);
+     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+ }
+
+ /* Icon Circle */
+ .icon-circle {
+     width: 70px;
+     height: 70px;
+     background: linear-gradient(135deg, #003893, #4ea7ff);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto 30px auto;
+ }
+
+ .icon-circle i {
+     font-size: 32px;
+     color: #fff;
+ }
+
+ /* Title */
+ .feature-title {
+     font-size: 24px;
+     font-weight: 600;
+     color: #20243a;
+     margin-bottom: 16px;
+ }
+
+ /* Text */
+ .feature-text {
+     font-size: 15px;
+     line-height: 1.8;
+     color: #6c757d;
+     font-weight: 400;
+ }
+
+ /* Responsive */
+ @media (max-width: 992px) {
+     .section-title {
+         font-size: 42px;
+     }
+
+     .feature-card {
+         margin-bottom: 30px;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .section-title {
+         font-size: 34px;
+     }
+
+     .feature-title {
+         font-size: 20px;
+     }
+
+     .feature-text {
+         font-size: 16px;
+     }
+ }
+
+ /* ******************************************* */
+ .wallet-wrapper {
+     position: relative;
+     padding: 50px 0;
+ }
+
+
+
+ /* The White Card */
+ .wallet-card {
+     transform: perspective(500px) rotateX(30deg);
+     background: linear-gradient(rgba(245, 245, 245, 0.36), rgb(245, 245, 245)), url('../frontend/images/tow.png');
+     border-radius: 45px;
+     max-width: 750px;
+     width: 100%;
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+     border: 1px solid rgba(255, 255, 255, 0.8);
+     margin: 60px auto;
+     background-size: contain;
+ }
+
+ /* Top Right Icon Tab */
+ .icon-tab {
+     position: absolute;
+     top: -2px;
+     right: 40px;
+     background: #003893;
+     padding: 12px 20px;
+     border-radius: 0 0 20px 20px;
+     /* Rounded at bottom */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+     border: 1px solid rgba(0, 0, 0, 0.05);
+     border-top: none;
+ }
+
+ .icon-tab i {
+     font-size: 1.8rem;
+     color: #fff;
+ }
+
+ /* Typography */
+ .text-blue {
+     color: #003893;
+     letter-spacing: 0.5px;
+ }
+
+ .main-title {
+     color: #1e293b;
+     font-size: 38px;
+     letter-spacing: -1px;
+ }
+
+ /* The Pill Button Overlap */
+ .btn-pill-cta {
+     position: absolute;
+     bottom: -24px;
+     background-color: #003893 !important;
+     color: #fff !important;
+     left: 50%;
+     transform: translateX(-50%);
+     padding: 18px 60px;
+     border-radius: 50px;
+     font-weight: 500;
+     font-size: 1.2rem;
+     border: 4px solid #060b13;
+     /* Same color as background to create 'cutout' look */
+     transition: all 0.3s ease;
+ }
+
+ .btn-pill-cta:hover {
+     background-color: #1e44a3;
+     color: white;
+     transform: translateX(-50%) translateY(-3px);
+ }
+
+ /* Responsive adjustments */
+ @media (max-width: 768px) {
+     .main-title {
+         font-size: 2rem;
+     }
+
+     .wallet-card {
+         margin: 0 15px;
+     }
+
+     .btn-pill-cta {
+         padding: 12px 30px;
+         font-size: 1rem;
+         bottom: -25px;
+     }
+ }
+
+
+
+ /* ******************************************* */
  /* product page  */
+
+ .bg-light {
+     background-color: #eaeaea !important;
+ }
+
+ /* vacancy Page  */
+ .job-vacancy-card {
+ 
+     border-radius: 12px;
+     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+     border: 1px solid #e1e1e1;
+ }
+
+ .description-text strong {
+     color: black;
+ }
+
+ .job-title {
+     font-size: 26px !important;
+     font-weight: 600 !important;
+     margin-bottom: 15px;
+ }
+
+ .posted-date {
+     color: #999;
+     font-size: 0.9rem;
+ }
+
+ /* Badge Customization */
+ #job_vacancy_section_wrapper {
+     position: relative;
+     padding: 50px 0;
+ }
+
+ #job_vacancy_section_wrapper::before {
+     content: '';
+     position: absolute;
+     top: -185px;
+     left: 0;
+     background-image: url('../frontend/images/wave.png');
+     height: 200px;
+     width: 100%;
+     background-size: 100%;
+     z-index: 99;
+ }
+
+ .badge_custom-badge {
+     background-color: #e1e1e1;
+     font-size: 13px;
+     padding: 3px 12px;
+     border-radius: 30px;
+ }
+
+ .custom-badge {
+     font-weight: 400 !important;
+     padding: 8px 16px !important;
+     border-radius: 50px !important;
+     background-color: #f0f0f0 !important;
+     color: #333 !important;
+ }
+
+ .badge-expired {
+     background-color: #000000;
+     color: #fff;
+     padding: 8px 16px;
+     border-radius: 50px;
+     font-weight: 400;
+ }
+
+ /* Description and Read More */
+ .description-text {
+     line-height: 1.6;
+     font-size: 15px;
+     color: #555;
+ }
+
+ .more-content {
+     display: none;
+     /* Hidden by default for jQuery */
+ }
+
+ .read-more-btn {
+     color: #0066cc;
+     text-decoration: none;
+     font-weight: 500;
+     font-size: 0.95rem;
+ }
+
+ .read-more-btn:hover {
+     text-decoration: underline;
+ }
+
+ /* Button Styles */
+ .btn-apply {
+     border: 1.5px solid #666;
+     background: transparent;
+     color: #666;
+     border-radius: 50px;
+     font-weight: 500;
+     transition: all 0.3s ease;
+ }
+
+ .btn-apply {
+     background: #003893 !important;
+     color: #fff !important;
+ }
+
+ .btn-apply:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+ }
+
+ #job_vacancy_section_wrapper div>.job-vacancy-card:not(:last-child) {
+     margin-bottom: 30px;
+ }
+
+ .vacancy_modal .modal-header {
+     background-color: #001b48;
+     color: #fff;
+ }
+
+ .vacancy_modal label {
+     font-weight: 500;
+     color: #333;
+     margin-bottom: 10px;
+ }
+
+ .vacancy_modal input::-webkit-input-placeholder {
+     /* Chrome/Opera/Safari */
+     color: rgb(204, 204, 204);
+ }
+
+ .vacancy_modal input::-moz-placeholder {
+     /* Firefox 19+ */
+     color: rgb(204, 204, 204);
+ }
+
+ .vacancy_modal input:-ms-input-placeholder {
+     /* IE 10+ */
+     color: rgb(204, 204, 204);
+ }
+
+ .vacancy_modal input:-moz-placeholder {
+     /* Firefox 18- */
+     color: rgb(204, 204, 204);
+ }
+
+
+ /* vacancy Page  */
+
+ /* vacancy result page  */
+
+ #vacancy_result_wrapper {
+     position: relative;
+     padding: 50px 0;
+ }
+
+ #vacancy_result_wrapper::before {
+     content: '';
+     position: absolute;
+     top: -185px;
+     left: 0;
+     background-image: url('../frontend/images/wave.png');
+     height: 200px;
+     width: 100%;
+     background-size: 100%;
+     z-index: 99;
+ }
+
+ /* Card Styling */
+ .result-card {
+     background: #ffffff;
+     border-radius: 20px;
+     overflow: hidden;
+     max-width: 950px;
+ }
+
+ .card-header-custom {
+     background: #0d47a1;
+     /* Deep Material Blue */
+     background: linear-gradient(90deg, #0d47a1 0%, #1976d2 100%);
+ }
+
+ /* List Containers */
+ .list-container {
+     border-radius: 12px;
+     height: 100%;
+     border: 1px solid #e2e8f0;
+     transition: transform 0.2s ease;
+ }
+
+ .selected-bg {
+     background-color: #f0f7ff;
+     border-color: #bfdbfe;
+ }
+
+ .waiting-bg {
+     background-color: #f8fafc;
+ }
+
+ .list-header {
+     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+ }
+
+ /* Table Refinement */
+ .table {
+     margin-bottom: 0;
+ }
+
+ .table th {
+     background: transparent !important;
+ }
+
+ .table td {
+     padding: 12px 8px;
+     background: transparent !important;
+ }
+
+ /* Tracking/Letter Spacing */
+ .tracking-wider {
+     letter-spacing: 2px;
+ }
+
+ /* Responsive adjustments */
+ @media (max-width: 768px) {
+     .header-title {
+         font-size: 1.75rem;
+     }
+
+     .card-body {
+         padding: 1.5rem !important;
+     }
+ }
+
+ /* vacancy result page  */
