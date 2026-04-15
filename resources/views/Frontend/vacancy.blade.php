@@ -31,13 +31,13 @@
             <div class="job-vacancy-card p-4">
                 <div class="d-flex justify-content-between align-items-start align-items-center mb-3">
                     <h2 class="job-title h4 mb-0">MIS Officer</h2>
-                    <small class="posted-date">Posted on: 2 months ago</small>
+                    <small class="posted-date">Expire on: 1 months from now</small>
                 </div>
 
                 <div class="job-tags mb-4">
                     <span class="badge_custom-badge">Kathmandu</span>
                     <span class="badge_custom-badge mx-2">Full-time</span>
-                    <span class="badge badge-expired">Expired</span>
+                   
                 </div>
 
                 <div class="job-description">
@@ -61,13 +61,13 @@
             <div class="job-vacancy-card p-4">
                 <div class="d-flex justify-content-between align-items-start align-items-center mb-3">
                     <h2 class="job-title h4 mb-0">MIS Officer</h2>
-                    <small class="posted-date">Posted on: 2 months ago</small>
+                    <small class="posted-date">Expire on: 1 months from now</small>
                 </div>
 
                 <div class="job-tags mb-4">
                     <span class="badge_custom-badge">Kathmandu</span>
                     <span class="badge_custom-badge mx-2">Full-time</span>
-                    <span class="badge badge-expired">Expired</span>
+                   
                 </div>
 
                 <div class="job-description">

@@ -47,7 +47,7 @@
                                     <li><span class="bi bi-telephone-fill"></span>
                                         +977-1-4117100, +977-1-4117200
                                     </li>
-                                    <li> 
+                                    <li>
                                         <span class="bi bi-phone-fill"></span>
                                         +977-9800000000
                                     </li>
@@ -58,7 +58,10 @@
                                 </ul>
                             </div>
                             <div class="google_map_wrapper">
-                                <iframe src="https://maps.app.goo.gl/uETjPQZ8PgnUrvWW8" frameborder="0"></iframe>
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.6564078069805!2d85.3135884!3d27.6970125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a6b438f1b5%3A0x96ee929f5203636b!2sNepal%20Digital%20Payments%20Company!5e0!3m2!1sen!2snp!4v1776232517895!5m2!1sen!2snp"
+                                    style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                             <div class="social_icon_wrapper">
                                 <div class="text_label">

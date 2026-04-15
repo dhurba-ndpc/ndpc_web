@@ -40,7 +40,7 @@
                     <i class="bi bi-person-check-fill text-white fs-4"></i>
                 </div>
 
-                <div class="card-body p-4 p-md-5">
+                <div class="card-body p-4">
                     <div class="row mb-4 border-bottom pb-3">
                         <div class="col-sm-6 mb-2 mb-sm-0">
                             <p class="mb-0 text-muted small">Published Date</p>

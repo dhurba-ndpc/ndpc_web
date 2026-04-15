@@ -2,7 +2,7 @@
      --blue: #1a3a8f;
      --red: #e8192c;
      --light: #f4f7fc;
-     --dark: #0d1b3e;
+     --dark: #193980;
      --gray: #6b7280;
      --bg: #f7f2eb;
      --size-small: 110px;
@@ -52,6 +52,26 @@
  }
 
  /* ── NAVBAR ── */
+
+ .dropdown-item.active {
+
+     background-color: var(--dark) !important;
+
+ }
+
+ .dropdown-item:focus,
+ .dropdown-item:hover {
+     background-color: #19398045 !important;
+     color: #000 !important;
+ }
+
+ .dropdown-menu {
+     padding: 0 !important;
+ }
+
+ .dropdown-menu[data-bs-popper] {
+     top: calc(100% + 18px) !important;
+ }
 
  .scrolled_nav {
      background-color: #ffffff !important;
@@ -1286,6 +1306,11 @@
  }
 
  /* Layout: avatars (left) + description (right) */
+
+ .custom_employee_quater_slider_wrapper {
+     position: relative;
+ }
+
  .tcl {
      display: flex;
      align-items: center;
@@ -1500,9 +1525,7 @@
  }
 
  .contact_header_wrapper p {
-     font-family: Poppins;
-     font-weight: 400;
-     font-size: 16px;
+     font-size: 15px;
  }
 
  .contact_detail_wrapper {
@@ -2050,11 +2073,6 @@
  }
 
  /* Global */
- body {
-     font-family: 'Poppins', sans-serif !important;
-     background-color: #f5f7fb;
-     color: #1a1a1a;
- }
 
  .solutions-section {
      background: #ffffff;
@@ -2217,7 +2235,7 @@
  }
 
  #company_product_details {
-     background: linear-gradient(to bottom, #0000000d, #fff0);
+     background: linear-gradient(to bottom, #f4f7fc, #f4f7fc00);
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
@@ -2832,19 +2850,200 @@
  }
 
  #bord_member_photo_wrapper {
-    position: relative;
+     position: relative;
      padding: 50px 0;
  }
+
  #bord_member_photo_wrapper::before {
-	content: '';
-	position: absolute;
-	top: -185px;
-	left: 0;
-	background-image: url('../frontend/images/wave.png');
-	height: 200px;
-	width: 100%;
-	background-size: 100%;
-	z-index: 99;
-}
+     content: '';
+     position: absolute;
+     top: -185px;
+     left: 0;
+     background-image: url('../frontend/images/wave.png');
+     height: 200px;
+     width: 100%;
+     background-size: 100%;
+     z-index: 99;
+ }
 
  /* member of team page   */
+
+
+ /* employee quater  */
+ #employee_quater_wrapper {
+     position: relative;
+     padding: 50px 0;
+ }
+
+ #employee_quater_wrapper::before {
+     content: '';
+     position: absolute;
+     top: -185px;
+     left: 0;
+     background-image: url('../frontend/images/wave.png');
+     height: 200px;
+     width: 100%;
+     background-size: 100%;
+     z-index: 99;
+ }
+
+ .tcl.employee_quarter_tcl {
+     justify-content: center;
+ }
+
+ .custom_employee_quater_slider_wrapper>div>#slotNext,
+ .custom_employee_quater_slider_wrapper>div>#slotPrev {
+     opacity: 0.3;
+     transform: scale(0.9);
+     transition: all 0.3s ease;
+ }
+
+ .tc-avatar_quater {
+     text-decoration: none;
+ }
+
+ .custom_employee_quater_slider_wrapper #slotCenter::before {
+     display: none;
+ }
+
+ /* ───────── Card ───────── */
+ .employee_quarter {
+     background: linear-gradient(160deg, #1a3a80 0%, #142c64 60%, #0f2040 100%);
+     border-radius: 20px;
+     width: 340px;
+     padding: 36px 28px 32px;
+     text-align: center;
+     position: relative;
+     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+     overflow: hidden;
+ }
+
+ /* subtle decorative blobs */
+ .employee_quarter::before,
+ .employee_quarter::after {
+     content: '';
+     position: absolute;
+     border-radius: 50%;
+     opacity: 0.06;
+     background: #fff;
+ }
+
+ .employee_quarter::before {
+     width: 200px;
+     height: 200px;
+     top: -60px;
+     right: -60px;
+ }
+
+ .employee_quarter::after {
+     width: 140px;
+     height: 140px;
+     bottom: -40px;
+     left: -40px;
+ }
+
+ /* ───────── Heading ───────── */
+ .eq-title {
+     font-size: 14px;
+     font-weight: 700 !important;
+     letter-spacing: 1.2px;
+     text-transform: uppercase;
+     color: #ffffff !important;
+     margin-bottom: 24px;
+ }
+
+ /* ───────── Avatar ring ───────── */
+ .eq-avatar-wrap {
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     padding: 4px;
+     background: linear-gradient(135deg, #5b8dee, #93b4f5);
+     margin: 0 auto 24px;
+     box-shadow: 0 8px 24px rgba(91, 141, 238, 0.4);
+ }
+
+ .eq-avatar-wrap img {
+     width: 100%;
+     height: 100%;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 3px solid #1e3a6e;
+ }
+
+ /* ───────── Name ───────── */
+ .eq-name {
+     font-size: 18px;
+     font-weight: 700 !important;
+     color: #ffffff !important;
+     letter-spacing: 0.5px;
+     margin-bottom: 4px;
+ }
+
+ /* ───────── Role ───────── */
+ .eq-role {
+     font-size: 13px;
+     font-weight: 400 !important;
+     color: #a8c4f0 !important;
+     margin-bottom: 14px;
+ }
+
+ /* ───────── Quarter badge ───────── */
+ .eq-quarter {
+     display: inline-flex;
+     align-items: center;
+     gap: 7px;
+     background: rgba(255, 255, 255, 0.08);
+     border: 1px solid rgba(255, 255, 255, 0.12);
+     border-radius: 30px;
+     padding: 6px 18px;
+     font-size: 13px;
+     font-weight: 500 !important;
+     color: #d0e4ff !important;
+     margin-bottom: 22px;
+ }
+
+ .eq-quarter .bi {
+     font-size: 15px;
+     color: #7eb3ff !important;
+ }
+
+ /* ───────── Divider ───────── */
+ .eq-divider {
+     border: none;
+     border-top: 1px solid rgba(255, 255, 255, 0.1);
+     margin: 0 0 18px;
+ }
+
+ /* ───────── Message ───────── */
+ .eq-message {
+     font-size: 13px !important;
+     font-weight: 400 !important;
+     color: #c8deff !important;
+     line-height: 1.65;
+     margin: 0;
+ }
+
+ /* ───────── Corner icons ───────── */
+ .eq-corner {
+     position: absolute;
+     opacity: 0.15;
+     color: #ffffff !important;
+ }
+
+ .eq-corner-tl {
+     top: 16px;
+     left: 16px;
+     font-size: 22px;
+ }
+
+ .eq-corner-br {
+     bottom: 16px;
+     right: 16px;
+     font-size: 26px;
+ }
+
+ /* employee quater  */
+
+
+ 
