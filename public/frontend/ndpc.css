@@ -363,7 +363,7 @@
 
  .section-about {
      position: relative;
-     padding: 70px 0;
+     padding: 50px 0;
      background: #fff;
  }
 
@@ -510,7 +510,7 @@
  .mvg-section {
      position: relative;
      background: var(--light);
-     padding: 60px 0;
+     padding: 50px 0;
  }
 
  .mvg-card {
@@ -646,7 +646,7 @@
 
  /*  NEWS / BLOGS  */
  .news-section {
-     padding: 70px 0;
+     padding: 50px 0;
      background: #f8fbff;
  }
 

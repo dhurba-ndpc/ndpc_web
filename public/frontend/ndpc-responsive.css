@@ -18,4 +18,12 @@
     .about-img-wrap {
         margin-top: 25px;
     }
+
+    .mvg-card {
+        text-align: center;
+    }
+
+    .mvg-icon {
+        margin: 0 auto 16px;
+    }
 }
