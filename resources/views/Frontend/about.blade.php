@@ -85,7 +85,7 @@
         style="background-image:url('{{ asset('frontend/images/background_about.png') }}')">
         <div class="container">
             <div class="text-center mb-5">
-                <span class="text-primary-blue fw-semibold small">Leading Team</span>
+                <span class="text-primary-blue fw-bold small">LEADING TEAM</span>
                 <h2 class="fw-bold text-navy mt-1">Meet Our Leadership</h2>
             </div>
 
@@ -248,7 +248,7 @@
         style='background-image:url("{{ asset('frontend/images/background1.jpg') }}")'>
         <div class="container position-relative" style="z-index:2;">
             <div class="row align-items-center g-4">
-                <div class="col-lg-8 m-auto text-center">
+                <div class="col-lg-9 m-auto text-center">
                     <span class="built-badge">WHAT WE WANT</span>
                     <h2 class="banner-title">Our primary goal is of financial inclusion across the nation - ensuring that
                         every individual has access to quality, affordable financial services. </h2>
@@ -262,7 +262,7 @@
     <section id="testimonial_customer_says" class="py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <span class="text-primary-blue fw-semibold small">Testimonials</span>
+                <span class="text-primary-blue fw-bold small">TESTIMONAILS</span>
                 <h2 class="fw-bold text-navy mt-1">What Our Leaders Say!</h2>
             </div>
             <div class="row">

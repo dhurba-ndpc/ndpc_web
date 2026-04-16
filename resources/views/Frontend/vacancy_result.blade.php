@@ -30,7 +30,7 @@
         <div class="container">
            
              <div class="text-center mb-5">
-                <span class="text-primary-blue fw-semibold small">Vacancy Result</span>
+                <span class="text-primary-blue fw-bold small">VACANCY RESULT</span>
                 <h2 class="fw-bold text-navy mt-1">We Welcome You To Our Team.</h2>
             </div>
 

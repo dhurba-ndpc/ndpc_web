@@ -37,20 +37,20 @@
                 <div class="job-tags mb-4">
                     <span class="badge_custom-badge">Kathmandu</span>
                     <span class="badge_custom-badge mx-2">Full-time</span>
-                   
+
                 </div>
 
                 <div class="job-description">
                     <p class="description-text mb-2">
                         We are looking for a detail-oriented <strong>Laravel Developer</strong> to manage and report key
                         operational data including sales, stock, production, attendance, and accounts.
-                        <span class="more-content">
-                            This role plays a vital part in supporting management through accurate, timely, and insightful
-                            data reporting. Additional responsibilities include maintaining data integrity and generating
-                            monthly performance audits.
-                        </span>
+
+                        This role plays a vital part in supporting management through accurate, timely, and insightful
+                        data reporting. Additional responsibilities include maintaining data integrity and generating
+                        monthly performance audits.
+
                     </p>
-                    <a href="javascript:void(0)" class="read-more-btn">Read More</a>
+                    <a href="{{ url('job-detail')}}" class="read-more-btn">Read More</a>
                 </div>
 
                 <div class="mt-4">
@@ -67,20 +67,20 @@
                 <div class="job-tags mb-4">
                     <span class="badge_custom-badge">Kathmandu</span>
                     <span class="badge_custom-badge mx-2">Full-time</span>
-                   
+
                 </div>
 
                 <div class="job-description">
                     <p class="description-text mb-2">
                         We are looking for a detail-oriented <strong>Officer</strong> to manage and report key
                         operational data including sales, stock, production, attendance, and accounts.
-                        <span class="more-content">
-                            This role plays a vital part in supporting management through accurate, timely, and insightful
-                            data reporting. Additional responsibilities include maintaining data integrity and generating
-                            monthly performance audits.
-                        </span>
+
+                        This role plays a vital part in supporting management through accurate, timely, and insightful
+                        data reporting. Additional responsibilities include maintaining data integrity and generating
+                        monthly performance audits.
+
                     </p>
-                    <a href="javascript:void(0)" class="read-more-btn">Read More</a>
+                    <a href="{{ url('job-detail')}}" class="read-more-btn">Read More</a>
                 </div>
 
                 <div class="mt-4">
@@ -91,7 +91,8 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade vacancy_modal" id="vacancyModal_1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade vacancy_modal" id="vacancyModal_1" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,7 +110,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="phone">Phone Number</label>
-                        <input type="text" class="form-control" id="phone" placeholder="Enter your phone number">   
+                        <input type="text" class="form-control" id="phone" placeholder="Enter your phone number">
                     </div>
                     <div class="form-group mt-3">
                         <label for="resume">Upload Resume</label>
@@ -125,21 +126,4 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.read-more-btn').on('click', function() {
-                var $content = $(this).siblings('.description-text').find('.more-content');
-
-                $content.slideToggle(300); // Smooth sliding effect
-
-                // Toggle the text
-                if ($(this).text() === "Read More") {
-                    $(this).text("Read Less");
-                } else {
-                    $(this).text("Read More");
-                }
-            });
-        });
-    </script>
-@endpush
+ 

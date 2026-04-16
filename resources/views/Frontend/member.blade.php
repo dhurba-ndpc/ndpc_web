@@ -31,7 +31,7 @@
         <div class="container">
             
              <div class="text-center mb-5">
-                <span class="text-primary-blue fw-semibold small">About Us</span>
+                <span class="text-primary-blue fw-bold small">ABOUT US</span>
                 <h2 class="fw-bold text-navy mt-1">Our Board Of Directors</h2>
             </div>
 

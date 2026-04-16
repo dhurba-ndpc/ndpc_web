@@ -106,7 +106,7 @@
                 </div>
 
                 <!-- MAIN CONTENT -->
-                <div class="col-lg-9 ">
+                <div class="col-lg-9 py-5">
 
                     <div class="single_blog_detail_content  py-5">
                         <!-- Blog Title -->

@@ -368,7 +368,7 @@
                         </div>
 
                         <div class="card-body p-5">
-                            <h6 class="text-blue fw-semibold mb-2">Get Ready</h6>
+                            <h6 class="text-blue fw-bold mb-2">Get Ready</h6>
                             <h1 class="main-title fw-bold">Digital Wallet Redefined.</h1>
                         </div>
 

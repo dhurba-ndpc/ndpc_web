@@ -38,3 +38,6 @@ Route::get('/member', function () {
 Route::get('/employee-quaterly', function () {
     return view('frontend/employee_quaterly');
 });
+Route::get('/job-detail', function () {
+    return view('frontend/job_detail');
+});

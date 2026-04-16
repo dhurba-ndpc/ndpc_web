@@ -134,10 +134,12 @@
         <div class="container position-relative" style="z-index:2;">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6">
-                    <span class="built-badge">BUILT FOR NEPAL</span>
-                    <h2 class="banner-title">Hassle Free Financial<br>Transactions.</h2>
-                    <p class="banner-sub">Fast and secure digital financial services, at your finger tips.</p>
-                    <a href="#" class="btn-banner">Read More <i class="bi bi-arrow-right"></i></a>
+                    <div class="dark_banner_info">
+                        <span class="built-badge">BUILT FOR NEPAL</span>
+                        <h2 class="banner-title">Hassle Free Financial<br>Transactions.</h2>
+                        <p class="banner-sub">Fast and secure digital financial services, at your finger tips.</p>
+                        <a href="#" class="btn-banner">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
                 <div class="col-lg-6 text-center">
                     {{-- for now It is blank --}}
@@ -156,10 +158,10 @@
                 <!-- ── FEATURED ── -->
                 <div class="col-lg-5 col-md-12 featured-col">
                     <div class="sec-heading">Featured</div>
-                    
-                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900&q=80"
-                            alt="Featured Image" class="featured-img" />
-                    
+
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900&q=80" alt="Featured Image"
+                        class="featured-img" />
+
 
 
                     <div class="featured-meta">
@@ -177,7 +179,8 @@
                         75,00,000 to the Government of Nepal's Physical Infrastructure Reconstruction...
                     </div>
 
-                    <a href="#" class="featured-link">Read the full story &nbsp;<i class="bi bi-arrow-right"></i></a>
+                    <a href="#" class="featured-link">Read the full story &nbsp;<i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
 
                 <!-- ── ARCHIVE ── -->
@@ -193,8 +196,11 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
-                            <a href=""><div class="archive-title">Foneloan Partners with Rastriya Banijya Bank to Expand the Reach of
-                                Digital Credit</div></a>
+                            <a href="">
+                                <div class="archive-title">Foneloan Partners with Rastriya Banijya Bank to Expand the Reach
+                                    of
+                                    Digital Credit</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Feb 19, 2026</div>
                         </div>
                     </div>
@@ -205,8 +211,10 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Product</div>
-                            <a href=""><div class="archive-title">Kumari Smart Makes Credit Even More Flexible With The Latest
-                                Foneloan Update</div></a>
+                            <a href="">
+                                <div class="archive-title">Kumari Smart Makes Credit Even More Flexible With The Latest
+                                    Foneloan Update</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Feb 06, 2026</div>
                         </div>
                     </div>
@@ -217,7 +225,9 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
-                            <a href=""><div class="archive-title">Sabai Sadhai Sangai: A Promise 17 Years in the Making</div></a>
+                            <a href="">
+                                <div class="archive-title">Sabai Sadhai Sangai: A Promise 17 Years in the Making</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Jan 25, 2026</div>
                         </div>
                     </div>
@@ -228,8 +238,11 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
-                            <a href=""><div class="archive-title">Fonepay Celebrates Six Years of Enabling Seamless Digital Payments
-                                Across Nepal</div></a>
+                            <a href="">
+                                <div class="archive-title">Fonepay Celebrates Six Years of Enabling Seamless Digital
+                                    Payments
+                                    Across Nepal</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Oct 01, 2025</div>
                         </div>
                     </div>
@@ -240,7 +253,10 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
-                            <a href=""><div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital Payments</div></a>
+                            <a href="">
+                                <div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital
+                                    Payments</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Sep 04, 2025</div>
                         </div>
                     </div>
@@ -251,7 +267,10 @@
                             class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
-                            <a href=""><div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital Payments</div></a> 
+                            <a href="">
+                                <div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital
+                                    Payments</div>
+                            </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Sep 01, 2025</div>
                         </div>
                     </div>
@@ -370,7 +389,7 @@
     <!-- ══════════════ GALLERY / MILESTONES ══════════════ -->
     <section class="gallery-section" id="gallery">
         <div class="container">
-            <p class="gallery-label">Our Gallery</p>
+            <p class="gallery-label">OUR GALLERY</p>
             <h2 class="gallery-title">Our Milestones</h2>
             <div class="owl-carousel owl-theme" id="gallery_wrap">
                 <div>

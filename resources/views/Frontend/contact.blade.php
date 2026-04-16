@@ -1,6 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
+    
     <section class="page_top_banner" style="background-image:url('{{ asset('frontend/images/page_top_banner.jpg') }}')">
         <div class="container">
             <div class="row">
@@ -120,7 +121,7 @@
                                     Captcha Placeholder
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 text-center">
                                     <button type="submit" class="btn btn-contact">Send Message &nbsp;
                                         <span class="bi bi-send-fill"></span>
                                     </button>
