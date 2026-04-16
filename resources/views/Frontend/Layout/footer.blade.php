@@ -1,7 +1,7 @@
 <!-- ══════════════ FOOTER ══════════════ -->
 <footer>
     <div class="container">
-        <div class="row g-5">
+        <div class="row">
             <!-- Col 1 – Logo + Contact -->
             <div class="col-lg-3 col-md-6">
                 <div class="footer-logo mb-3">
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Col 2 – Company Links -->
-            <div class="col-lg-2 col-md-3 col-6">
+            <div class="col-lg-2 col-md-3 col-6 offset-lg-1">
                 <h6 class="footer-heading">Company</h6>
                 <ul class="footer-links">
                     <li><a href="#">Home</a></li>

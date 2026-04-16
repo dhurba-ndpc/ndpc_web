@@ -28,7 +28,7 @@
     <!-- ══════════════ ABOUT ══════════════ -->
     <section class="section-about" id="about">
         <div class="container">
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center">
                 <!-- Text -->
                 <div class="col-lg-5">
                     <span class="know-badge">KNOW US</span>

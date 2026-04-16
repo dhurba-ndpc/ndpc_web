@@ -1,0 +1,21 @@
+@media (max-width:576px) {
+    .hero {
+        min-height: auto
+    }
+
+    .dots-pattern {
+        display: none;
+    }
+
+    .trusted-badge {
+        position: relative;
+        bottom: unset;
+        right: unset;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .about-img-wrap {
+        margin-top: 25px;
+    }
+}

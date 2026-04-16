@@ -11,16 +11,16 @@
                             <div class="col-lg-12 justify-content-center d-flex">
                                 <h1>Contact Us</h1>
                             </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
+                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
                                 <p>Welcome to our company! We are a team of dedicated professionals committed to providing
                                     the best
                                     services to our clients. Welcome to our company! We are a team of dedicated
                                     professionals
                                     committed to providing the best services to our clients.</p>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
+                            </div> --}}
+                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
                                 <span>Home -> Contact Us</span>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

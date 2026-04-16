@@ -41,3 +41,9 @@ Route::get('/employee-quaterly', function () {
 Route::get('/job-detail', function () {
     return view('frontend/job_detail');
 });
+Route::get('/album', function(){
+    return view('frontend.album');
+});
+Route::get('/gallery', function(){
+    return view('frontend.gallery');
+});
