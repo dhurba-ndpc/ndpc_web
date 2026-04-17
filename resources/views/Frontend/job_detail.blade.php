@@ -72,12 +72,12 @@
                                     <div class="jd-meta-sep"></div>
                                     <div class="jd-meta-item">
                                         <i class="bi bi-geo-alt"></i>
-                                        New York, USA (Hybrid)
+                                        Kathmandu Nepal
                                     </div>
                                     <div class="jd-meta-sep"></div>
                                     <div class="jd-meta-item">
-                                        <i class="bi bi-currency-dollar"></i>
-                                        USD 6k – 7.5k / month
+                                        <i class="bi bi-currency-rupee"></i>
+                                        NRS 60k – 80.5k / month
                                     </div>
                                 </div>
 

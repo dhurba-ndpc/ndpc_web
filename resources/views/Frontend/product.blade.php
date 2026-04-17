@@ -203,6 +203,21 @@
                     </div>
 
                 </div>
+                <div class="tab-pane fade text-center" id="tab2">
+                    <i>2.Sorry, no results found.</i>
+                </div>
+                <div class="tab-pane fade text-center" id="tab3">
+                      <i>3.Sorry, no results found.</i>
+                </div>
+                <div class="tab-pane fade text-center" id="tab4">
+                      <i>4.Sorry, no results found.</i>
+                </div>
+                <div class="tab-pane fade text-center" id="tab5">
+                      <i>5.Sorry, no results found.</i>
+                </div>
+                <div class="tab-pane fade text-center" id="tab6">
+                      <i>6.Sorry, no results found.</i>
+                </div>
 
             </div>
 
