@@ -261,19 +261,7 @@
                         </div>
                     </div>
 
-                    <!-- Item 6 -->
-                    <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&q=80"
-                            class="archive-thumb" alt="" />
-                        <div class="archive-body">
-                            <div class="archive-cat">Press Release</div>
-                            <a href="">
-                                <div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital
-                                    Payments</div>
-                            </a>
-                            <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Sep 01, 2025</div>
-                        </div>
-                    </div>
+                     
 
                 </div>
             </div>
