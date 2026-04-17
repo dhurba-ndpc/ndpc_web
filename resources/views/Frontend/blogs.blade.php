@@ -37,7 +37,7 @@
 
             <div class="row g-3">
                 <!-- Card 1 -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Blog'" alt="Blog 1">
@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/e8192c/fff?text=QR+Code'" alt="Blog 2">
@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/333/fff?text=KYC'" alt="Blog 3">
@@ -98,7 +98,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/555/fff?text=USSD'" alt="Blog 4">
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Security'"
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Security'"
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Security'"
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
                         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80"
                             onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Security'"

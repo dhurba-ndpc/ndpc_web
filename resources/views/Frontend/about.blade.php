@@ -30,7 +30,7 @@
     <!-- ══════════════ ABOUT ══════════════ -->
     <section class="section-about" id="about">
         <div class="container">
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center">
                 <!-- Text -->
                 <div class="col-lg-5">
                     <span class="know-badge">KNOW US</span>
@@ -247,7 +247,7 @@
     <section class="banner-section" id="about_banner_section"
         style='background-image:url("{{ asset('frontend/images/background1.jpg') }}")'>
         <div class="container position-relative" style="z-index:2;">
-            <div class="row align-items-center g-4">
+            <div class="row align-items-center">
                 <div class="col-lg-9 m-auto text-center">
                     <span class="built-badge">WHAT WE WANT</span>
                     <h2 class="banner-title">Our primary goal is of financial inclusion across the nation - ensuring that
@@ -270,7 +270,7 @@
                     <div class="tcl" role="region" aria-label="Testimonials">
                         <!-- LEFT: fixed slots -->
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-xl-4 col-lg-5 col-md-12">
                                 <div class="custom_testimonial_slider_wrapper">
                                     <div class="tc-stack">
                                         <div id="slotPrev" class="tc-slot prev"></div>
@@ -285,7 +285,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-xl-8 col-lg-7 col-md-12">
                                 <!-- RIGHT: description of current (center) -->
                                 <div class="tc-description_info">
                                     <div class="tc-card">

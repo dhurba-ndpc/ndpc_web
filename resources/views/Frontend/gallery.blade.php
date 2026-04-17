@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="gallery-card">
                         <a href="{{ asset('frontend/images/a2.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
                             <img src="{{ asset('frontend/images/a2.jpg') }}" alt="Gallery image 1">
@@ -50,7 +50,7 @@
                         <div class="gallery-thumb-title">Image #1</div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="gallery-card">
                         <a href="{{ asset('frontend/images/background1.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
                             <img src="{{ asset('frontend/images/background1.jpg') }}" alt="Gallery image 2">
@@ -58,7 +58,7 @@
                         <div class="gallery-thumb-title">Image #2</div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="gallery-card">
                         <a href="{{ asset('frontend/images/Goal.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
                             <img src="{{ asset('frontend/images/Goal.jpg') }}" alt="Gallery image 3">
@@ -66,7 +66,39 @@
                         <div class="gallery-thumb-title">Image #3</div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="gallery-card">
+                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
+                        </a>
+                        <div class="gallery-thumb-title">Image #4</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="gallery-card">
+                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
+                        </a>
+                        <div class="gallery-thumb-title">Image #4</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="gallery-card">
+                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
+                        </a>
+                        <div class="gallery-thumb-title">Image #4</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="gallery-card">
+                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
+                        </a>
+                        <div class="gallery-thumb-title">Image #4</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="gallery-card">
                         <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
                             <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">

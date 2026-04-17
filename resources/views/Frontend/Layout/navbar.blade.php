@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMain">
-            <ul class="navbar-nav mx-auto gap-1">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link {{ Route::is('home') ? 'active' : '' }}"
                         href="{{ url('/') }}">Home</a></li>
                 <li class="nav-item dropdown">

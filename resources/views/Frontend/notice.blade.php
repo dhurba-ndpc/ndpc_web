@@ -48,7 +48,7 @@
             <div class="row g-4">
 
                 <!-- Card 1 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">IS Audit</span>
                         <h5>Extension of submission date for proposal on Information System (IS) Audit</h5>
@@ -60,7 +60,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">Quotation</span>
                         <h5>Sealed Quotation Request notice-Outsource Employee</h5>
@@ -72,7 +72,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">IS Audit</span>
                         <h5>Invitation for proposal on Information System (IS) Audit</h5>
@@ -84,7 +84,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">RTI</span>
                         <h5>NDPC - RTI (01/07/2082 - 30/09/2082)</h5>
@@ -96,7 +96,7 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">General Meeting</span>
                         <h5>Notice for 5th Annual General Meeting</h5>
@@ -108,7 +108,7 @@
                 </div>
 
                 <!-- Card 6 -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="notice-card">
                         <span class="tag">General Meeting</span>
                         <h5>Notice for 5th Annual General Meeting</h5>

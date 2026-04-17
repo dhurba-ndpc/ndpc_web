@@ -30,7 +30,7 @@
     <section id="album_wrapper" class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
                             <img src="{{ asset('frontend/images/a2.jpg') }}" alt="Album thumbnail">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
                             <img src="{{ asset('frontend/images/Access2Finance.jpg') }}" alt="Album thumbnail">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
                             <img src="{{ asset('frontend/images/background1.jpg') }}" alt="Album thumbnail">
@@ -69,7 +69,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="album-card">
+                        <div class="album-thumb">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Album thumbnail">
+                        </div>
+                        <div class="album-card-body">
+                            <span class="album-label">Album</span>
+                            <h5 class="album-title">NDPC Photo Gallery</h5>
+                            <p class="album-text">Explore our latest events, team moments, and company highlights.</p>
+                            <a href="{{ url('gallery')}}" class="btn-album">Open Gallery <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="album-card">
+                        <div class="album-thumb">
+                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Album thumbnail">
+                        </div>
+                        <div class="album-card-body">
+                            <span class="album-label">Album</span>
+                            <h5 class="album-title">NDPC Photo Gallery</h5>
+                            <p class="album-text">Explore our latest events, team moments, and company highlights.</p>
+                            <a href="{{ url('gallery')}}" class="btn-album">Open Gallery <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
                             <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Album thumbnail">

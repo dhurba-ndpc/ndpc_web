@@ -69,18 +69,18 @@
         </div>
     </section>
     <!-- ══════════════ MISSION / VISION / GOAL ══════════════ -->
-    <section class="mvg-section">
+     <section class="mvg-section">
         <div class="prayer-flags"></div>
         <div class="container">
-            <div class="row g-4">
+            <div class="row">
                 <!-- Mission -->
                 <div class="col-lg-4 col-md-6">
                     <div class="mvg-card">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-sm-3">
                                 <div class="mvg-icon"><i class="bi bi-hand-thumbs-up-fill"></i></div>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 col-sm-9">
 
                                 <p class="mvg-num">01</p>
                                 <h4 class="mvg-title">Mission</h4>
@@ -94,10 +94,10 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mvg-card">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-sm-3">
                                 <div class="mvg-icon"><i class="bi bi-eye-fill"></i></div>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 col-sm-9">
 
                                 <p class="mvg-num">02</p>
                                 <h4 class="mvg-title">Vision</h4>
@@ -112,10 +112,10 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mvg-card">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-sm-3">
                                 <div class="mvg-icon"><i class="bi bi-bullseye"></i></div>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 col-sm-9">
 
                                 <p class="mvg-num">03</p>
                                 <h4 class="mvg-title">Goal</h4>
@@ -130,7 +130,7 @@
     </section>
     <!-- ══════════════ DARK BANNER ══════════════ -->
 
-    <section class="banner-section" style='background-image:url("{{ asset('frontend/images/ads_image.jpg') }}")'>
+    <section class="banner-section" style='background : url("{{ asset('frontend/images/ads_image.jpg') }}")'>
         <div class="container position-relative" style="z-index:2;">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6">
@@ -392,84 +392,149 @@
             <p class="gallery-label">OUR GALLERY</p>
             <h2 class="gallery-title">Our Milestones</h2>
             <div class="owl-carousel owl-theme" id="gallery_wrap">
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
-                            alt="NDPC 4th AGM">
-                        <div class="gallery-caption">NDPC 4th AGM</div>
-                    </div>
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
+                        alt="NDPC 4th AGM">
+                    <div class="gallery-caption">NDPC 4th AGM</div>
                 </div>
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
-                            alt="Oath Taking">
-                        <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
-                            Upadhyaya</div>
-                    </div>
+
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
+                        alt="Oath Taking">
+                    <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
+                        Upadhyaya</div>
                 </div>
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
-                            alt="NDPC 3rd AGM">
-                        <div class="gallery-caption">NDPC 3rd AGM</div>
-                    </div>
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
+                        alt="NDPC 3rd AGM">
+                    <div class="gallery-caption">NDPC 3rd AGM</div>
                 </div>
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
-                            alt="NDPC 4th AGM">
-                        <div class="gallery-caption">NDPC 4th AGM</div>
-                    </div>
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
+                        alt="NDPC 4th AGM">
+                    <div class="gallery-caption">NDPC 4th AGM</div>
                 </div>
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
-                            alt="Oath Taking">
-                        <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
-                            Upadhyaya</div>
-                    </div>
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
+                        alt="Oath Taking">
+                    <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
+                        Upadhyaya</div>
                 </div>
-                <div>
-                    <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
-                            onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
-                            alt="NDPC 3rd AGM">
-                        <div class="gallery-caption">NDPC 3rd AGM</div>
-                    </div>
+
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
+                        onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
+                        alt="NDPC 3rd AGM">
+                    <div class="gallery-caption">NDPC 3rd AGM</div>
                 </div>
+
             </div>
         </div>
         {{-- gallery-nav galleryNext galleryTrack --}}
 
 
     </section>
+    <section id="online_pay_logo_wrapper" class="brand-section py-5">
+        <div class="container">
+            <div class="row align-items-end mb-4">
+                <div class="col-lg-7">
+                    <p class="section-label text-uppercase mb-2">Trusted by</p>
+                    <h2 class="section-title">Reliable logos for payment partners and financial networks</h2>
+                </div>
+                <div class="col-lg-5 text-lg-end">
+                    <p class="text-muted mb-0">A minimal, confident brand showcase built for desktop clarity and mobile
+                        polish.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="owl-carousel owl-theme logo-carousel" id="online_pay_logo_carousel">
+                        <div class="item">
+                            <div class="logo-card">
+                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 1">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="logo-card">
+                                <img src="{{ asset('frontend/images/img2.jpg') }}" alt="Partner Logo 2">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="logo-card">
+                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 3">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="logo-card">
+                                <img src="{{ asset('frontend/images/img2.jpg') }}" alt="Partner Logo 4">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="logo-card">
+                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
 @push('scripts')
     <script>
-        $('#gallery_wrap').owlCarousel({
-            loop: true,
-            margin: 10,
-            responsiveClass: true,
-            nav: true,
-            responsive: {
-                0: {
-                    items: 1,
-
-                },
-                600: {
-                    items: 2,
-
-                },
-                1000: {
-                    items: 4,
-
+        $(function() {
+            $('#gallery_wrap').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    600: {
+                        items: 2,
+                    },
+                    1000: {
+                        items: 4,
+                    }
                 }
-            }
-        })
+            });
+
+            $('#online_pay_logo_carousel').owlCarousel({
+                loop: true,
+                margin: 24,
+                autoplay: true,
+                autoplayTimeout: 3200,
+                autoplayHoverPause: true,
+                dots: false,
+                nav: false,
+                navText: ['<i class="bi bi-chevron-left"></i>', '<i class="bi bi-chevron-right"></i>'],
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    576: {
+                        items: 2,
+                    },
+                    768: {
+                        items: 3,
+                    },
+                    992: {
+                        items: 5,
+                    }
+                }
+            });
+        });
     </script>
 @endpush

@@ -80,22 +80,40 @@
                 </p>
             </div>
 
-            <!-- Tabs -->
-            <ul class="nav nav-tabs justify-content-center custom-tabs mb-5" id="solutionTab">
-                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1">Namaste
-                        pay services</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
-                        data-bs-target="#tab2">Neobanking</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">Digital
-                        Wallet</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4">Digital
-                        Lending</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5">Payment
-                        Switch</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6">Loyalty</button>
+
+            <!-- Tabs (Desktop Only) -->
+            <ul class="nav nav-tabs justify-content-center custom-tabs mb-5 d-md-flex" id="solutionTab">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1">Namaste pay
+                        services</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2">Neobanking</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">Digital Wallet</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4">Digital Lending</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5">Payment Switch</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6">Loyalty</button>
                 </li>
             </ul>
-
+            <!-- Dropdown (Mobile Only) -->
+            <div class="mb-4 mobile_menu_tab_select">
+                <select class="form-select" id="tabDropdown">
+                    <option value="#tab1" selected>Namaste pay services</option>
+                    <option value="#tab2">Neobanking</option>
+                    <option value="#tab3">Digital Wallet</option>
+                    <option value="#tab4">Digital Lending</option>
+                    <option value="#tab5">Payment Switch</option>
+                    <option value="#tab6">Loyalty</option>
+                </select>
+            </div>
             <!-- Tab Content -->
             <div class="tab-content">
 
@@ -382,3 +400,23 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        document.getElementById('tabDropdown').addEventListener('change', function() {
+            var selectedTab = this.value;
+
+            // Activate selected tab
+            var triggerEl = document.querySelector('[data-bs-target="' + selectedTab + '"]');
+            var tab = new bootstrap.Tab(triggerEl);
+            tab.show();
+        });
+
+        // Sync dropdown when tab clicked (desktop → mobile sync)
+        var tabButtons = document.querySelectorAll('#solutionTab button');
+        tabButtons.forEach(function(btn) {
+            btn.addEventListener('shown.bs.tab', function(event) {
+                document.getElementById('tabDropdown').value = event.target.getAttribute('data-bs-target');
+            });
+        });
+    </script>
+@endpush
