@@ -110,6 +110,9 @@
      z-index: 99;
  }
 
+ .page_top_banner {
+     background-position: center;
+ }
 
  /*  NAVBAR  */
 
@@ -3698,6 +3701,6 @@
      display: none !important;
  }
 
- #gallery_wrap .owl-stage-outer{
-    padding: 14px 0px 0;
+ #gallery_wrap .owl-stage-outer {
+     padding: 14px 0px 0;
  }
