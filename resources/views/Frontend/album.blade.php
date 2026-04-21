@@ -85,7 +85,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
-                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Album thumbnail">
+                            <img src="{{ asset('frontend/images/z2.jpg') }}" alt="Album thumbnail">
                         </div>
                         <div class="album-card-body">
                             <span class="album-label">Album</span>
@@ -98,7 +98,7 @@
                 <div class="col-md-6 col-lg-4 col-xl-3">
                     <div class="album-card">
                         <div class="album-thumb">
-                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Album thumbnail">
+                            <img src="{{ asset('frontend/images/z1.png') }}" alt="Album thumbnail">
                         </div>
                         <div class="album-card-body">
                             <span class="album-label">Album</span>

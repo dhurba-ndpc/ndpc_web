@@ -43,7 +43,7 @@
             <div class="col-lg-4 col-md-6">
                 <h6 class="footer-heading">Information Officer / Spokesperson</h6>
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <img class="officer-img" src="{{ asset('frontend/images/avatar_girl.jpg') }}"
+                    <img class="officer-img" src="{{ asset('frontend/images/ShwetaBagla.jpg') }}"
                         alt="Information Officer">
                     <div class="footer-officer">
                         <p style="color:#fff;font-weight:600;">Ms. Shweta Baija</p>

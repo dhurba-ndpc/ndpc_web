@@ -42,12 +42,10 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/Goal.jpg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z2.jpg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
-                                            <a href="#">How to Protect
-                                                Your Online
-                                                Payments</a>
+                                            <a href="#">Prospects and Challenges of Digital Payment in Nepal</a>
                                             <span><i class="bi bi-calendar"></i>&nbsp;April 20, 2024</span>
                                         </div>
                                     </div>
@@ -55,11 +53,11 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/a2.jpg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z3.jpeg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
-                                            <a href="#">Top 5 Trends in Fintech
-                                                for 2024</a>
+                                            <a href="#">QR Codes: The ‘Driving Force’ Behind Fostering the Adoption of
+                                                Digital Payments in Nepal</a>
                                             <span><i class="bi bi-calendar"></i>&nbsp;April 20, 2024</span>
                                         </div>
                                     </div>
@@ -67,11 +65,10 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/background1.jpg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z4.jpg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
-                                            <a href="#">Understanding Mobile
-                                                Wallets: A Beginner's Guide</a>
+                                            <a href="#">KYC: Beyond the Compliance Requirement</a>
                                             <span><i class="bi bi-calendar"></i>&nbsp;April 20, 2024</span>
                                         </div>
                                     </div>
@@ -79,11 +76,10 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z5.jpeg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
-                                            <a href="#">Secure Your E-commerce
-                                                Business: Tips and Tricks</a>
+                                            <a href="#">Namaste Pay USSD (Offline) Mode</a>
                                             <span><i class="bi bi-calendar"></i>&nbsp;April 20, 2024</span>
                                         </div>
                                     </div>
@@ -91,11 +87,10 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/Goal.jpg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z6.jpeg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
-                                            <a href="#">Blockchain Technology and
-                                                Its Impact on Payments</a>
+                                            <a href="#">Ensuring Namaste Pay Security</a>
                                             <span><i class="bi bi-calendar"></i>&nbsp;April 20, 2024</span>
                                         </div>
                                     </div>
@@ -110,7 +105,7 @@
 
                     <div class="single_blog_detail_content  py-5">
                         <!-- Blog Title -->
-                        <h2 class="blog-title mb-2">The Future of Digital Payments in Nepal</h2>
+                        <h2 class="blog-title mb-2">Prospects and Challenges of Digital Payment in Nepal</h2>
 
                         <!-- Meta -->
                         <div class="blog-meta mb-4">
@@ -121,31 +116,56 @@
 
                         <!-- Image -->
                         <div class="blog-image mb-4">
-                            <img src="{{ asset('frontend/images/a2.jpg') }}" class="img-fluid rounded">
+                            <img src="{{ asset('frontend/images/z2.jpg') }}" class="img-fluid rounded">
                         </div>
 
                         <!-- Content -->
                         <div class="blog-content">
 
-                            <h5>Digital Payments and Their Rise in Nepal</h5>
+                            <h5>Prospects and Challenges of Digital Payment in Nepal</h5>
                             <p>
-                                Nepal’s adoption of digital payments has seen significant growth in recent years.
-                                Increased access to smartphones and improved internet connectivity have driven this shift.
+                                In recent years, Nepal's financial ecosystem has undergone a remarkable shift, driven by the
+                                transformative impact of the COVID-19 pandemic, and shifting consumer behaviors. This
+                                transformation has driven digital payments to the forefront, with projections indicating a
+                                substantial growth trajectory. According to Statista shows that by 2024, Nepal is expected
+                                to witness a total transaction value of US$3,621.00 million, with a further surge to
+                                US$6,105.00 million by 2028 with a 13.95% annual rate (CAGR 2024-2028). This increasing rate
+                                indicates that the digital payment landscape has been transforming more towards digital
+                                economy. Notably, QR code-based transactions have risen, marking an unbelievable increase of
+                                189.53% in FY 2022/23 compared to the previous fiscal year (Payment Oversight Report, NRB,
+                                2023), evidence to the rapid adoption of digital payment solutions in Nepal.
                             </p>
 
-                            <h5>Key Drivers of Digital Payment Adoption</h5>
+                            <h5>Prospects </h5>
 
                             <ol>
-                                <li><strong>Increased Smartphone Penetration:</strong> QR codes are simple to use and only
-                                    require smartphone cameras to scan and pay. Thus, it is user-friendly, which enhances
-                                    customer experiences with its simplicity feature. QR codes are simple to use and only
-                                    require smartphone cameras to scan and pay. Thus, it is user-friendly, which enhances
-                                    customer experiences with its simplicity feature.</li>
-                                <li><strong>Government Initiatives:</strong> Policies supporting cashless transactions are
-                                    accelerating adoption.</li>
-                                <li><strong>Improved Internet Connectivity:</strong> Reliable internet services enable
-                                    seamless
-                                    digital transactions.</li>
+                                <li><strong>Smartphone Penetration</strong>: As per data of Nepal Population and Housing
+                                    Census Statistic report (2021) the use of smartphone penetration rate stands 72.94%,
+                                    which means smartphones have become universal in Nepal, making digital payment platforms
+                                    more accessible, particularly among the younger population.&nbsp;</li>
+                                <li><strong>Cost of Connectivity:&nbsp;</strong>The reduction in connectivity costs from USD
+                                    2.25/GB in 2019 to USD 0.46/GB in 2023 has made digital transactions more affordable for
+                                    a broader segment of the population.</li>
+                                <li><strong>Government Support:&nbsp;</strong>The governmental of Nepal has initiated a
+                                    program "Digital Framework Nepal" with a motto to foster a digital Nepal by 2030. This
+                                    governmental initiative provides a favorable environment for digital payment adoption
+                                    and encouraging further innovation and investment in Nepal.</li>
+                                <li><strong>Indigenous Fintech Startups: L</strong>ocal companies such as eSewa, Khalti,
+                                    IMEPay and Namaste Pay are driving digital payment adoption by offering fast,
+                                    convenient, and secure alternatives to traditional banking services.</li>
+                                <li><strong>Cross-Border Transactions:</strong> The collaborative efforts between the
+                                    "National Payment Corporation of India (NPCI)" and “NCHL” and “Fonepay” has anticipated
+                                    the commencement of digital payment gateway between Nepal and India has further impose
+                                    the possibility to surge digital payment in Nepal.</li>
+                                <li><strong>Remittance Solutions:&nbsp;</strong>according to the current macroeconomic and
+                                    financial situation of the NRB report (2023/24), the significant increase in remittance
+                                    inflows, as indicated by a 27.1% increment in FY 2022/23 compared to the previous year,
+                                    underscores the potential of digital payment platforms to offer cost-effective and
+                                    efficient remittance solutions, bridging the gap between senders and recipients.</li>
+                                <li><strong>Emerging e-Commerce growth:&nbsp;</strong>Moreover, Nepal's position as the 79th
+                                    in global e-commerce rankings, with forecasted revenue of US$679.7 million by 2024
+                                    (<i>eCommerce Market Nepal)</i>, presents a profitable opportunity for digital payment
+                                    service providers to cater to the growing online market.</li>
                             </ol>
 
                         </div>

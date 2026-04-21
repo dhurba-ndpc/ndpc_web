@@ -55,9 +55,7 @@
                         <div class="circular_floting_circle"></div>
                         <div class="dots-pattern"></div>
                         <div class="img_wrap_1">
-                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
-                                onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
-                                alt="About NDPC" class="about-img">
+                            <img src="{{ asset('frontend/images/z1.png') }}" alt="About NDPC" class="about-img">
                         </div>
                         <div class="trusted-badge glass-panel">
                             <i class="bi bi-shield-fill-check"></i>
@@ -301,31 +299,22 @@
                     <div id="tcSource" hidden="">
 
                         <div class="tc-item" data-index="0">
-                            <a class="tc-avatar"><img src="{{ asset('frontend/images/PrakashBhandari.jpg') }}"
-                                    alt="Sophia Lee"></a>
+                            <a class="tc-avatar"><img src="{{ asset('frontend/images/s1.jpg') }}" alt="Sophia Lee"></a>
                             <div class="tc-meta">
                                 <p class="tc-name">Dipak Khadka</p>
-                                <p class="tc-role">customer</p>
+                                <p class="tc-role">Chair Person</p>
                             </div>
                             <div class="tc-desc" hidden="">
                                 <p>
-                                    At Nepal Digital Payments Company Limited (NDPC), our mission is to promote financial
-                                    inclusion and digital empowerment throughout Nepal by providing secure, innovative, and
-                                    accessible mobile financial services. We harness technology to bridge gaps, enhance
-                                    daily life, and drive economic growth. Our solutions are designed to be reliable,
-                                    user-friendly, and inclusive, enabling individuals from all regions and economic
-                                    backgrounds to confidently participate in the digital economy.</p>
-                                <p>Nepal's terrain being largely mountainous or hilly and internet connectivity can be
-                                    limited, we have implemented USSD technology to deliver financial services to every
-                                    corner of the country. This GSM-based solution operates without the need for internet,
-                                    data, or even smartphones, making it an essential tool in our mission to reach
-                                    underserved populations.</p>
-                                <p>Our USSD platform is more than just convenient; it acts as a digital bridge for those
-                                    without access to traditional banking. Users can easily perform transactions, ensuring
-                                    that even the most remote communities are part of Nepal’s digital transformation. As we
-                                    continue to innovate, our dedication to security, accessibility, and social impact
-                                    remains steadfast. Together, we are laying the groundwork for a fully digital and
-                                    financially inclusive Nepal.
+                                    Nepal Digital Payments Company Limited (NDPC) was established to leverage advanced
+                                    communication and financial technologies to promote financial inclusion and provide
+                                    accessible digital payment solutions across Nepal. The company is committed to serving
+                                    both urban and rural populations, with a focus on reaching unbanked and underserved
+                                    communities.</p>
+                                <p>NDPC delivers innovative digital payment services that improve efficiency and offer
+                                    value-added services (VAS) to users. The platform is built with seamless integration,
+                                    strong security standards, and a user-friendly interface to ensure a convenient and
+                                    reliable payment experience.
                                 </p>
                             </div>
                         </div>
@@ -333,8 +322,8 @@
                             <a class="tc-avatar"><img src="{{ asset('frontend/images/PrakashBhandari.jpg') }}"
                                     alt="Sophia Lee"></a>
                             <div class="tc-meta">
-                                <p class="tc-name">Dipika shrestha</p>
-                                <p class="tc-role">customer</p>
+                                <p class="tc-name">Prakash Bhandari </p>
+                                <p class="tc-role">Chief Human Resource & Finance Officer</p>
                             </div>
                             <div class="tc-desc" hidden="">
                                 <p>
@@ -362,9 +351,10 @@
                             <a class="tc-avatar"><img src="{{ asset('frontend/images/RabinKumarShrestha.png') }}"
                                     alt="Sophia Lee"></a>
                             <div class="tc-meta">
-                                <p class="tc-name">Dipika Mainali</p>
-                                <p class="tc-role">customer</p>
+                                <p class="tc-name">Rabin Kumar Shrestha</p>
+                                <p class="tc-role">Chief Technology Officer</p>
                             </div>
+
                             <div class="tc-desc" hidden="">
                                 <p>
                                     At Nepal Digital Payments Company Limited (NDPC), our mission is to promote financial
@@ -414,8 +404,8 @@
                             <a class="tc-avatar"><img src="{{ asset('frontend/images/ShwetaBagla.jpg') }}"
                                     alt="Sophia Lee"></a>
                             <div class="tc-meta">
-                                <p class="tc-name">Sanjeeb Kumar Deo</p>
-                                <p class="tc-role">CEO</p>
+                                <p class="tc-name">Shweta Bagla </p>
+                                <p class="tc-role">Chief Commercial Officer</p>
                             </div>
                             <div class="tc-desc" hidden="">
                                 <p>

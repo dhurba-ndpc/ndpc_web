@@ -8,7 +8,7 @@
                     <img src="{{ asset('frontend/images/a1.jpg') }}" class="d-block w-100" alt="...">
                 </div> --}}
                 <div class="carousel-item active">
-                    <img src="{{ asset('frontend/images/a2.jpg') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('frontend/images/bbb1.jpg') }}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                     <img src="{{ asset('frontend/images/a3.png') }}" class="d-block w-100" alt="...">
@@ -36,13 +36,13 @@
                     <p class="about-text mb-3">
                         Mobile finance is not a new service in Nepal and is in use for over a decade. However, the
                         proportion of digital transactions is still low compared to traditional financial transactions. To
-                        help fill the gap faster and realize a digital economy soon, an idea of a national level, dedicated
-                        digital financial service provider got shape when a Memorandum of Understanding (MoU) was signed in
-                        Jestha, 2076 between Nepal Doorsanchar Company Limited and Rastriya Banijya Bank.
+                        help fill the gap faster and realize a digital economy sooner, an idea of a national level,
+                        dedicated digital financial service provider got shape when a Memorandum of Understanding (MoU) was
+                        signed in Jestha, 2076 between Nepal Doorsanchar Company Limited and Rastriya Banijya Bank.
                     </p>
                     <p class="about-text">
-                        The farmer is a stalwart creating economic prosperity, and the latter is also tasked with leading
-                        commercial bank with nationwide coverage ……
+                        The former is a state-owned telecom operator, and the latter is also state-owned leading commercial
+                        bank with nationwide coverage
                     </p>
                     <a href="#" class="btn-readmore">Read More <i class="bi bi-arrow-right"></i></a>
                 </div>
@@ -53,9 +53,7 @@
                         <div class="circular_floting_circle"></div>
                         <div class="dots-pattern"></div>
                         <div class="img_wrap_1">
-                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
-                                onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
-                                alt="About NDPC" class="about-img">
+                            <img src="{{ asset('frontend/images/z1.png') }}" alt="About NDPC" class="about-img">
                         </div>
                         <div class="trusted-badge glass-panel">
                             <i class="bi bi-shield-fill-check"></i>
@@ -69,7 +67,7 @@
         </div>
     </section>
     <!-- ══════════════ MISSION / VISION / GOAL ══════════════ -->
-     <section class="mvg-section">
+    <section class="mvg-section">
         <div class="prayer-flags"></div>
         <div class="container">
             <div class="row">
@@ -159,8 +157,7 @@
                 <div class="col-lg-5 col-md-12 featured-col">
                     <div class="sec-heading">Featured</div>
 
-                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900&q=80" alt="Featured Image"
-                        class="featured-img" />
+                    <img src="{{ asset('frontend/images/z2.jpg') }}" alt="Featured Image" class="featured-img" />
 
 
 
@@ -171,12 +168,13 @@
                     </div>
 
                     <div class="featured-title">
-                        Group Contributes to Nepal's Physical Infrastructure Reconstruction Fund
+                        Prospects and Challenges of Digital Payment in Nepal
                     </div>
 
                     <div class="featured-excerpt">
-                        eSewa Ltd and Fonepay Payment Service Ltd jointly contribute a total of NPR
-                        75,00,000 to the Government of Nepal's Physical Infrastructure Reconstruction...
+                        In recent years, Nepal's financial ecosystem has undergone a remarkable shift, driven by the
+                        transformative impact of the COVID-19 pandemic, and shifting consumer behaviors. This transformation
+                        has driven digital payments to the forefront.
                     </div>
 
                     <a href="#" class="featured-link">Read the full story &nbsp;<i
@@ -192,14 +190,12 @@
 
                     <!-- Item 1 -->
                     <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300&q=80"
-                            class="archive-thumb" alt="" />
+                        <img src="{{ asset('frontend/images/z3.jpeg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
                             <a href="">
-                                <div class="archive-title">Foneloan Partners with Rastriya Banijya Bank to Expand the Reach
-                                    of
-                                    Digital Credit</div>
+                                <div class="archive-title">QR Codes: The ‘Driving Force’ Behind Fostering the Adoption of
+                                    Digital Payments in Nepal.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Feb 19, 2026</div>
                         </div>
@@ -207,13 +203,11 @@
 
                     <!-- Item 2 -->
                     <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&q=80"
-                            class="archive-thumb" alt="" />
+                        <img src="{{ asset('frontend/images/z4.jpg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Product</div>
                             <a href="">
-                                <div class="archive-title">Kumari Smart Makes Credit Even More Flexible With The Latest
-                                    Foneloan Update</div>
+                                <div class="archive-title">KYC: Beyond the Compliance Requirement.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Feb 06, 2026</div>
                         </div>
@@ -221,12 +215,11 @@
 
                     <!-- Item 3 -->
                     <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&q=80"
-                            class="archive-thumb" alt="" />
+                        <img src="{{ asset('frontend/images/z5.jpeg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
                             <a href="">
-                                <div class="archive-title">Sabai Sadhai Sangai: A Promise 17 Years in the Making</div>
+                                <div class="archive-title">Namaste Pay USSD (Offline) Mode.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Jan 25, 2026</div>
                         </div>
@@ -234,14 +227,11 @@
 
                     <!-- Item 4 -->
                     <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&q=80"
-                            class="archive-thumb" alt="" />
+                        <img src="{{ asset('frontend/images/z6.jpeg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
                             <a href="">
-                                <div class="archive-title">Fonepay Celebrates Six Years of Enabling Seamless Digital
-                                    Payments
-                                    Across Nepal</div>
+                                <div class="archive-title">Ensuring Namaste Pay Security</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Oct 01, 2025</div>
                         </div>
@@ -249,25 +239,23 @@
 
                     <!-- Item 5 -->
                     <div class="archive-item">
-                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&q=80"
-                            class="archive-thumb" alt="" />
+                        <img src="{{ asset('frontend/images/z7.jpg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
                             <a href="">
-                                <div class="archive-title">Fonepay Integrate CityPAY Wallet to Expand Nepal's Digital
-                                    Payments</div>
+                                <div class="archive-title">Indian tourist in nepal? No stress just scan and pay. Accept
+                                    instant payment via phonepe & BHIM app with Nameste Pay.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Sep 04, 2025</div>
                         </div>
                     </div>
 
-                     
 
                 </div>
             </div>
         </div>
     </section>
-    <!-- ══════════════ NEWS / BLOGS ══════════════ -->
+    <!-- ══════════════ NEWS / BLOGS this section not in use ══════════════ -->
     <section class="news-section d-none" id="blogs">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between mb-1">
@@ -282,8 +270,7 @@
                 <!-- Card 1 -->
                 <div class="col-lg col-md-6">
                     <div class="news-card">
-                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=80"
-                            onerror="this.src='https://via.placeholder.com/400x150/1a3a8f/fff?text=Blog'" alt="Blog 1">
+                        <img src="{{ asset('frontend/images/z7.jpg') }}" alt="Blog 1">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
                             <h6 class="news-heading">Prospects and Challenges of Digital Payment in Nepal</h6>
@@ -382,48 +369,35 @@
             <div class="owl-carousel owl-theme" id="gallery_wrap">
 
                 <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
-                        alt="NDPC 4th AGM">
-                    <div class="gallery-caption">NDPC 4th AGM</div>
+                    <img src="{{ asset('frontend/images/q1.jpg') }}" alt="NDPC 4th AGM">
+                    <div class="gallery-caption">Product Launch Ceremony</div>
                 </div>
 
 
                 <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
-                        alt="Oath Taking">
-                    <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
-                        Upadhyaya</div>
+                    <img src="{{ asset('frontend/images/q2.jpeg') }}" alt="Oath Taking">
+                    <div class="gallery-caption">Oath-taking ceremony of newly appointed Chairperson Ms. Reena Dongol</div>
                 </div>
 
                 <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
-                        alt="NDPC 3rd AGM">
-                    <div class="gallery-caption">NDPC 3rd AGM</div>
+                    <img src="{{ asset('frontend/images/q3.jpg') }}" alt="NDPC 3rd AGM">
+                    <div class="gallery-caption">Inception of NDPC</div>
                 </div>
 
                 <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/1a3a8f/fff?text=NDPC+4th+AGM'"
-                        alt="NDPC 4th AGM">
+                    <img src="{{ asset('frontend/images/q4.jpg') }}" alt="NDPC 4th AGM">
+                    <div class="gallery-caption">Digital Literacy Session during Global Money Week 2025</div>
+                </div>
+
+                <div class="gallery-card">
+                    <img src="{{ asset('frontend/images/q5.jpg') }}" alt="Oath Taking">
                     <div class="gallery-caption">NDPC 4th AGM</div>
                 </div>
 
                 <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/e8192c/fff?text=Oath-taking+Ceremony'"
-                        alt="Oath Taking">
-                    <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal
-                        Upadhyaya</div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80"
-                        onerror="this.src='https://via.placeholder.com/600x220/0d1b3e/fff?text=NDPC+3rd+AGM'"
-                        alt="NDPC 3rd AGM">
-                    <div class="gallery-caption">NDPC 3rd AGM</div>
+                    <img src="{{ asset('frontend/images/q6.jpg') }}" alt="NDPC 3rd AGM">
+                    <div class="gallery-caption">Oath-taking ceremony of former Chairperson, Mr. Jhabindra Lal Upadhyaya
+                    </div>
                 </div>
 
             </div>
@@ -434,44 +408,18 @@
     </section>
     <section id="online_pay_logo_wrapper" class="brand-section py-5">
         <div class="container">
-            <div class="row align-items-end mb-4">
-                <div class="col-lg-7">
-                    <p class="section-label text-uppercase mb-2">Trusted by</p>
-                    <h2 class="section-title">Reliable logos for payment partners and financial networks</h2>
-                </div>
-                <div class="col-lg-5 text-lg-end">
-                    <p class="text-muted mb-0">A minimal, confident brand showcase built for desktop clarity and mobile
-                        polish.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="owl-carousel owl-theme logo-carousel" id="online_pay_logo_carousel">
-                        <div class="item">
-                            <div class="logo-card">
-                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 1">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="logo-card">
-                                <img src="{{ asset('frontend/images/img2.jpg') }}" alt="Partner Logo 2">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="logo-card">
-                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 3">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="logo-card">
-                                <img src="{{ asset('frontend/images/img2.jpg') }}" alt="Partner Logo 4">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="logo-card">
-                                <img src="{{ asset('frontend/images/img1.jpg') }}" alt="Partner Logo 5">
-                            </div>
-                        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <p class="section-label text-uppercase mb-2">Download Now</p>
+                    <h2 class="section-title">Get the NDPC App</h2>
+                    <p class="text-muted mb-4">Available on Google Play and App Store for seamless digital payments.</p>
+                    <div class="app-links d-flex justify-content-center gap-4">
+                        <a href="#" class="app-link">
+                            <img src="{{ asset('frontend/images/Google-Play-Logo.png') }}" alt="Download on Google Play">
+                        </a>
+                        <a href="#" class="app-link">
+                            <img src="{{ asset('frontend/images/appstore.png') }}" alt="Download on App Store">
+                        </a>
                     </div>
                 </div>
             </div>

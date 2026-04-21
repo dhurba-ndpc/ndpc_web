@@ -34,15 +34,16 @@
                     <span class="know-badge">Nameste Pay</span>
                     <h1 class="section-title mb-3">Our <span>Products</span></h1>
                     <p class="about-text mb-3">
-                        Mobile finance is not a new service in Nepal and is in use for over a decade. However, the
-                        proportion of digital transactions is still low compared to traditional financial transactions. To
-                        help fill the gap faster and realize a digital economy soon, an idea of a national level, dedicated
-                        digital financial service provider got shape when a Memorandum of Understanding (MoU) was signed in
-                        Jestha, 2076 between Nepal Doorsanchar Company Limited and Rastriya Banijya Bank.
+                        Namaste Pay is the mobile financial service run by Nepal Digital Payments Company Limited. It is the
+                        first of its kind in terms of providing both online and offline mobile wallet service in the
+                        Nepalese market. With this feature both smartphone and feature phone users can use the service
+                        anytime and anyplace.
                     </p>
                     <p class="about-text">
-                        The farmer is a stalwart creating economic prosperity, and the latter is also tasked with leading
-                        commercial bank with nationwide coverage ……
+                        The wallet will be identified by the mobile number of the user. Thus it shall be easier to work with
+                        compared to the long and difficult-to-remember bank accounts. Even people without a bank account
+                        shall be able to use the service. They shall be able to load their account at the nearby Namaste Pay
+                        agents.
                     </p>
                 </div>
                 <!-- Image -->
@@ -51,9 +52,7 @@
                         <div class="circular_floting_circle"></div>
                         <div class="dots-pattern"></div>
                         <div class="img_wrap_1">
-                            <img src="{{ asset('frontend/images/Access2Finance.jpg') }}"
-                                onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
-                                alt="About NDPC" class="about-img">
+                            <img src="{{ asset('frontend/images/Access2Finance.jpg') }}" alt="About NDPC" class="about-img">
                         </div>
                         <div class="trusted-badge glass-panel">
                             <i class="bi bi-shield-fill-check"></i>
@@ -131,9 +130,7 @@
                                 <div class="circular_floting_circle"></div>
 
                                 <div class="img_wrap_1">
-                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
-                                        onerror="this.src='https://via.placeholder.com/700x300/1a3a8f/ffffff?text=NDPC+Team'"
-                                        alt="About NDPC" class="about-img">
+                                    <img src="{{ asset('frontend/images/z2.jpg') }}" alt="About NDPC" class="about-img">
                                 </div>
                                 <div class="trusted-badge glass-panel">
                                     <i class="bi bi-shield-fill-check"></i>
@@ -207,16 +204,16 @@
                     <i>2.Sorry, no results found.</i>
                 </div>
                 <div class="tab-pane fade text-center" id="tab3">
-                      <i>3.Sorry, no results found.</i>
+                    <i>3.Sorry, no results found.</i>
                 </div>
                 <div class="tab-pane fade text-center" id="tab4">
-                      <i>4.Sorry, no results found.</i>
+                    <i>4.Sorry, no results found.</i>
                 </div>
                 <div class="tab-pane fade text-center" id="tab5">
-                      <i>5.Sorry, no results found.</i>
+                    <i>5.Sorry, no results found.</i>
                 </div>
                 <div class="tab-pane fade text-center" id="tab6">
-                      <i>6.Sorry, no results found.</i>
+                    <i>6.Sorry, no results found.</i>
                 </div>
 
             </div>

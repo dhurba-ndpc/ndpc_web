@@ -456,7 +456,7 @@
  }
 
  .glass-panel {
-     background: rgba(255, 255, 255, 0.2);
+     background: rgba(255, 255, 255, 0.5);
      backdrop-filter: blur(10px);
      -webkit-backdrop-filter: blur(10px);
      border: 2px solid rgba(255, 255, 255, 0.3);
@@ -994,7 +994,6 @@
  .brand-section .section-title {
      font-size: 2.05rem;
      line-height: 1.15;
-     max-width: 560px;
  }
 
  .brand-section .logo-carousel {
@@ -1004,6 +1003,47 @@
 
  .brand-section .logo-carousel .item {
      padding: 0 12px;
+ }
+
+ .playstore_link {
+     display: flex;
+     justify-content: space-evenly;
+ }
+
+ .brand-section .playstore_link img {
+     max-height: 60px;
+     width: auto;
+     transition: transform 0.3s ease;
+     cursor: pointer;
+     opacity: 0.9;
+ }
+
+ .brand-section .playstore_link img:hover {
+     transform: scale(1.05);
+     opacity: 1;
+ }
+
+ .brand-section .app-links {
+     /* flex and justify-content-center from class */
+ }
+
+ .brand-section .app-link {
+     display: inline-block;
+     transition: transform 0.3s ease;
+ }
+
+ .brand-section .app-link:hover {
+     transform: scale(1.05);
+ }
+
+ .brand-section .app-link img {
+     max-height: 60px;
+     width: auto;
+     opacity: 0.9;
+ }
+
+ .brand-section .app-link img:hover {
+     opacity: 1;
  }
 
  .brand-section .logo-card {
@@ -1088,6 +1128,16 @@
      .brand-section .logo-card {
          min-height: 92px;
          padding: 18px 16px;
+     }
+
+     .playstore_link {
+         flex-direction: column;
+         gap: 16px;
+     }
+
+     .app-links {
+         flex-direction: column;
+         gap: 16px;
      }
  }
 
@@ -2075,6 +2125,9 @@
 
 
  /* notice page  */
+ .notice-card_title_wrap {
+     min-height: 145px;
+ }
 
  .section-notice {
      padding: 60px 0;
