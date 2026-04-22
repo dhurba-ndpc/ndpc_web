@@ -8,7 +8,8 @@
                     <img src="{{ asset('frontend/images/logo_white.png') }}" alt="">
                 </div>
                 <div class="footer_info">
-                    <p>At Nepal Digital Payments Company Limited (NDPC), our mission is to promote financial inclusion.</p>
+                    <p>At Nepal Digital Payments Company Limited (NDPC), our mission is to promote financial inclusion.
+                    </p>
                 </div>
                 <div class="footer-contact">
                     <p><i class="bi bi-telephone-fill"></i> +977-1-4117100, +977-1-4117200</p>
@@ -21,10 +22,10 @@
             <div class="col-lg-2 col-md-3 col-6 offset-lg-1">
                 <h6 class="footer-heading">Company</h6>
                 <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Notices</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="{{ url('/about') }}">About Us</a></li>
+                    <li><a href="{{ url('/notice') }}">Notices</a></li>
+                    <li><a href="{{ url('/contact') }}">Contact Us</a></li>
                 </ul>
             </div>
 
@@ -32,10 +33,10 @@
             <div class="col-lg-2 col-md-3 col-6">
                 <h6 class="footer-heading">Useful Links</h6>
                 <ul class="footer-links">
-                    <li><a href="#">Our Product</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="{{ url('/product') }}">Our Product</a></li>
+                    <li><a href="{{ url('/blogs') }}">Blogs</a></li>
+                    <li><a href="{{ url('/') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url('/') }}">Terms &amp; Conditions</a></li>
                 </ul>
             </div>
 
@@ -56,7 +57,11 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>© All rights reserved. Nepal Digital Payment Company Ltd. (NDPC)</p>
+            <p>2024 -
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>&nbsp; &copy; All rights reserved. Nepal Digital Payment Company Ltd. (NDPC)
+            </p>
             <div class="social-icons">
                 <a href="#"><i class="bi bi-facebook"></i></a>
                 <a href="#"><i class="bi bi-instagram"></i></a>
@@ -68,3 +73,24 @@
 </footer>
 <!-- Floating Action Button -->
 <a href="#" class="fab-btn"><i class="bi bi-arrow-up"></i></a>
+<script>
+    window.addEventListener('scroll', function() {
+        const scrollBtn = document.querySelector('.fab-btn');
+
+        // If we scroll down more than 200px from the top
+        if (window.scrollY > 200) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+
+    // Optional: Smooth scroll to top when clicked
+    document.querySelector('.fab-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>

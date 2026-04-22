@@ -22,6 +22,8 @@
                                 href="{{ url('member') }}">Members</a></li>
                         <li><a class="dropdown-item {{ Route::is('employee-quaterly') ? 'active' : '' }}"
                                 href="{{ url('employee-quaterly') }}">Employee Quarterly</a></li>
+                        <li><a class="dropdown-item {{ Route::is('page') ? 'active' : '' }}"
+                                href="{{ url('page') }}">Organization Chart</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link {{ Route::is('product') ? 'active' : '' }}"

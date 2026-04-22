@@ -47,3 +47,6 @@ Route::get('/album', function(){
 Route::get('/gallery', function(){
     return view('frontend.gallery');
 });
+Route::get('/page', function(){
+    return view('frontend.default_page');
+});

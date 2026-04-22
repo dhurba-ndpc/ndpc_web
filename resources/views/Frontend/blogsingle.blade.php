@@ -53,7 +53,7 @@
                                 <li>
                                     <div class="recent_single_list">
                                         <div class="recent_single_list_image">
-                                            <img src="{{ asset('frontend/images/z3.jpeg') }}" alt="">
+                                            <img src="{{ asset('frontend/images/z3.jpg') }}" alt="">
                                         </div>
                                         <div class="recent_single_list_content">
                                             <a href="#">QR Codes: The ‘Driving Force’ Behind Fostering the Adoption of

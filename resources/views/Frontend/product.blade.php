@@ -87,30 +87,20 @@
                         services</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2">Neobanking</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2">Corporate Wallet</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">Digital Wallet</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">SIM Distribution System</button>
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4">Digital Lending</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5">Payment Switch</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab6">Loyalty</button>
-                </li>
+                 
             </ul>
             <!-- Dropdown (Mobile Only) -->
             <div class="mb-4 mobile_menu_tab_select">
                 <select class="form-select" id="tabDropdown">
                     <option value="#tab1" selected>Namaste pay services</option>
-                    <option value="#tab2">Neobanking</option>
-                    <option value="#tab3">Digital Wallet</option>
-                    <option value="#tab4">Digital Lending</option>
-                    <option value="#tab5">Payment Switch</option>
-                    <option value="#tab6">Loyalty</option>
+                    <option value="#tab2">Corporate Wallet</option>
+                    <option value="#tab3">SIM Distribution System</option>
+                   
                 </select>
             </div>
             <!-- Tab Content -->
@@ -200,21 +190,93 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade text-center" id="tab2">
-                    <i>2.Sorry, no results found.</i>
+                <div class="tab-pane fade" id="tab2">
+                   
+                    <div class="row align-items-center">
+
+                        <!-- Left Image -->
+                        <div class="col-lg-5 mb-4">
+                            {{-- <div class="image-box">
+                                <img src="{{ asset('frontend/images/Mission.jpg') }}" class="img-fluid">
+                            </div> --}}
+                            <div class="about-img-wrap">
+                                <div class="circular_floting_circle"></div>
+
+                                <div class="img_wrap_1">
+                                    <img src="{{ asset('frontend/images/z2.jpg') }}" alt="About NDPC" class="about-img">
+                                </div>
+                                <div class="trusted-badge glass-panel">
+                                    <i class="bi bi-shield-fill-check"></i>
+                                    <span>
+                                        Trusted <span>Financial</span><br>Partner for Nepal
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Content -->
+                        <div class="col-lg-6 offset-lg-1">
+
+                            <h3 class="content-title">Corporate Wallet</h3>
+                            <p class="content-desc">
+                                By seamlessly integrating mobile, web and branch banking, our Omnichannel Banking solution
+                                is designed to unify and elevate the customer experience.
+                            </p>
+
+                            <button class="btn btn-outline-primary mb-4">Discover More</button>
+
+                            <!-- Stats Card -->
+                            <div class="stats-card">
+
+                                <div class="mb-3">
+                                    <strong>USE CASE</strong>
+                                </div>
+
+                                <p class="small text-muted">
+                                    Trusted by 50+ banks enabling a consistent digital experience to millions of users, our
+                                    platform integrates seamlessly with legacy infrastructure to eliminate operational
+                                    silos. By leveraging enterprise-grade security and real-time analytics, we empower
+                                    institutions to scale rapidly while maintaining the highest standards of consumer trust.
+                                </p>
+
+                                <div class="row text-center mt-4">
+                                    <div class="col-6 mb-3">
+                                        <div class="score_counter">
+                                            <h4>50+</h4>
+                                            <small>Banks</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="score_counter">
+                                            <h4>23M+</h4>
+                                            <small>Customers</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="score_counter">
+                                            <h4>2.2M+</h4>
+                                            <small>Transactions Daily</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="score_counter">
+                                            <h4>75%</h4>
+                                            <small>Reduction</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="tab-pane fade text-center" id="tab3">
-                    <i>3.Sorry, no results found.</i>
+                    <i>3.Sorry, Content Not Available.</i>
                 </div>
-                <div class="tab-pane fade text-center" id="tab4">
-                    <i>4.Sorry, no results found.</i>
-                </div>
-                <div class="tab-pane fade text-center" id="tab5">
-                    <i>5.Sorry, no results found.</i>
-                </div>
-                <div class="tab-pane fade text-center" id="tab6">
-                    <i>6.Sorry, no results found.</i>
-                </div>
+                
 
             </div>
 
@@ -402,9 +464,9 @@
                             <h1 class="main-title fw-bold">Digital Wallet Redefined.</h1>
                         </div>
 
-                        <button class="btn btn-pill-cta ">
+                        <a href="{{ url('about')}}" class="btn btn-pill-cta ">
                             Want To Know More?
-                        </button>
+                        </a>
 
                     </div>
                 </div>

@@ -42,7 +42,8 @@
                         <img src="{{ asset('frontend/images/z2.jpg') }}" alt="Blog 1">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
-                            <h6 class="news-heading">Prospects and Challenges of Digital Payment in Nepal</h6>
+                            <h6 class="news-heading"><a href="{{ url('/blog-single') }}">Prospects and Challenges of Digital Payment in
+                                    Nepal</a></h6>
                             <p class="news-excerpt">In recent years, Nepal's financial ecosystem has undergone a remarkable
                                 shift, driven by the transformative impact of the COVID-19 pandemic, and shifting consumer
                                 behaviors.</p>
@@ -50,9 +51,9 @@
                         <div class="news-footer">
                             <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i
                                     class="bi bi-arrow-right"></i></a>
-                            <a href="{{ url('/blog-single') }}">
+                            {{-- <a href="{{ url('/blog-single') }}">
                                 <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -60,20 +61,19 @@
                 <!-- Card 2 -->
                 <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="news-card">
-                        <img src="{{ asset('frontend/images/z3.jpeg') }}" alt="Blog 2">
+                        <img src="{{ asset('frontend/images/z3.jpg') }}" alt="Blog 2">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
-                            <h6 class="news-heading">QR Codes: The 'Driving Force' Behind Fostering the Adoption of Digital
-                                Payments in Nepal</h6>
+                            <h6 class="news-heading"><a href="{{ url('/blog-single') }}">QR Codes: The 'Driving Force' Behind Fostering the
+                                    Adoption of Digital
+                                    Payments in Nepal</a></h6>
                             <p class="news-excerpt">In the digital age, where convenience is paramount, Quick Response (QR)
                                 plays an important role in accelerating the adoption of digital payments.</p>
                         </div>
                         <div class="news-footer">
                             <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i
                                     class="bi bi-arrow-right"></i></a>
-                            <a href="{{ url('/blog-single') }}">
-                                <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
-                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -84,15 +84,13 @@
                         <img src="{{ asset('frontend/images/z4.jpg') }}" alt="Blog 3">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
-                            <h6 class="news-heading">KYC: Beyond the Compliance Requirement</h6>
+                            <h6 class="news-heading"><a href="{{ url('/blog-single') }}">KYC: Beyond the Compliance Requirement</a></h6>
                             <p class="news-excerpt">Nepal Rastra Bank (NRB) has made a mandatory Know Your Customer (KYC)
                                 requirement for digital wallet companies since Shrawan 2081 for carrying out financial.</p>
                         </div>
                         <div class="news-footer">
-                            <a href="#" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
-                            <a href="">
-                                <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
-                            </a>
+                            <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
+
                         </div>
                     </div>
                 </div>
@@ -103,16 +101,14 @@
                         <img src="{{ asset('frontend/images/z5.jpeg') }}" alt="Blog 4">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
-                            <h6 class="news-heading">Namaste Pay USSD (Offline) Mode</h6>
+                            <h6 class="news-heading"><a href="{{ url('/blog-single') }}">Namaste Pay USSD (Offline) Mode</a></h6>
                             <p class="news-excerpt">USSD stands for ‘Unstructured Supplementary Service Data (USSD) is a
                                 technology that operates on the GSM network, ensuring widespread coverage and availability
                                 for customers.</p>
                         </div>
                         <div class="news-footer">
-                            <a href="#" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
-                            <a href="">
-                                <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
-                            </a>
+                            <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
+
                         </div>
                     </div>
                 </div>
@@ -123,16 +119,14 @@
                         <img src="{{ asset('frontend/images/z6.jpeg') }}" alt="Blog 5">
                         <div class="news-body">
                             <p class="news-meta"><i class="bi bi-clock me-1"></i>1 year ago</p>
-                            <h6 class="news-heading">Ensuring Namaste Pay Security</h6>
+                            <h6 class="news-heading"><a href="{{ url('/blog-single') }}">Ensuring Namaste Pay Security</a></h6>
                             <p class="news-excerpt">Namaste Pay is a convenient mobile financial service (MFS) tool for
                                 managing your finances, but it's essential to prioritize security to protect your money and
                                 personal information.</p>
                         </div>
                         <div class="news-footer">
-                            <a href="#" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
-                            <a href="">
-                                <div class="btn-circle"><i class="bi bi-arrow-right"></i></div>
-                            </a>
+                            <a href="{{ url('/blog-single') }}" class="btn-read-sm">Read More <i class="bi bi-arrow-right"></i></a>
+
                         </div>
                     </div>
                 </div>

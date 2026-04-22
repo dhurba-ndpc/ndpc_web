@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/ndpc-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.theme.default.min.css') }}" />
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('frontend/plugins/lightbox2-2.12.0/dist/css/lightbox.min.css')}}">
 </head>

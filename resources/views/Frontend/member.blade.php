@@ -8,7 +8,7 @@
                     <div class="top_banner_content">
                         <div class="row">
                             <div class="col-lg-12 justify-content-center d-flex">
-                                <h1>About Us</h1>
+                                <h1>Members</h1>
                             </div>
                             <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
                                 <p>Welcome to our company! We are a team of dedicated professionals committed to providing
@@ -18,7 +18,7 @@
                                     committed to providing the best services to our clients.</p>
                             </div>
                             <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> About Us</span>
+                                <span>Home -> Members</span>
                             </div>
                         </div>
                     </div>
