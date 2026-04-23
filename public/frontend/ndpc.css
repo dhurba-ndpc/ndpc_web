@@ -1887,7 +1887,7 @@
  .contact_detail_wrapper ul li {
      list-style: none;
      display: flex;
-     align-items: flex-start;
+     align-items: center;
      gap: 0.9rem;
      margin-bottom: 1rem;
      font-weight: 400;
