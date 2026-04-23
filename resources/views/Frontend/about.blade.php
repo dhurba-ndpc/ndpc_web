@@ -159,7 +159,7 @@
                             </div>
                             <div class="col-lg-8">
 
-                                <p class="mvg-num">01</p>
+                                {{-- <p class="mvg-num">01</p> --}}
                                 <h4 class="mvg-title">Mission</h4>
                                 <b>To become a trusted and reliable payment partner for seamless payment experience with
                                     innovation, reliability and transparency.</b>
@@ -182,7 +182,7 @@
                     <div class="mvg-card about_mvg-card">
                         <div class="row">
                             <div class="col-lg-8">
-                                <p class="mvg-num">02</p>
+                                {{-- <p class="mvg-num">02</p> --}}
                                 <h4 class="mvg-title">Vision</h4>
                                 <b>Help to improve financial inclusion through the  use of modern communication and
                                     financial technologies.</b>
@@ -217,7 +217,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <p class="mvg-num">03</p>
+                                {{-- <p class="mvg-num">03</p> --}}
                                 <h4 class="mvg-title">Goal</h4>
                                 <b>To provide an easy, affordable, innovative and reliable digital payment solution to
                                     customers.</b>

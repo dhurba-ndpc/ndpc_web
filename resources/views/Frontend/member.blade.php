@@ -29,13 +29,12 @@
     </section>
     <section id="bord_member_photo_wrapper">
         <div class="container">
-            
-             <div class="text-center mb-5">
+
+            <div class="text-center mb-5">
                 <span class="text-primary-blue fw-bold small">ABOUT US</span>
                 <h2 class="fw-bold text-navy mt-1">Our Board Of Directors</h2>
             </div>
-
-            <div class="row g-4 justify-content-center">
+            <div class="row g-4 mb-5 justify-content-center">
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="director-card shadow-sm border-0 text-center h-100">
                         <div class="p-4 d-flex flex-column h-100">
@@ -52,6 +51,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+               
 
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="director-card shadow-sm border-0 text-center h-100">

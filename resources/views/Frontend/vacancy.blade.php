@@ -31,7 +31,7 @@
             
             <div class="job-vacancy-card p-4">
                 <div class="d-flex justify-content-between align-items-start align-items-center mb-3">
-                    <h2 class="job-title h4 mb-0">MIS Officer</h2>
+                    <h2 class="job-title h4 mb-0">Laravel Developer</h2>
                     <small class="posted-date">Expire on: 1 months from now</small>
                 </div>
 
@@ -55,7 +55,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <button class="btn btn-apply px-4 py-2" data-bs-toggle="modal" data-bs-target="#vacancyModal_1">Easy Apply</button>
+                    {{-- <button class="btn btn-apply px-4 py-2" data-bs-toggle="modal" data-bs-target="#vacancyModal_1">Apply</button> --}}
+                      {{-- <span class="job-actions-divider">or</span> --}}
+                    <a href="https://merojob.com/" class="btn btn-apply px-4 py-2">Apply</a>
                 </div>
             </div>
             <div class="job-vacancy-card p-4">
@@ -83,8 +85,10 @@
                     <a href="{{ url('job-detail')}}" class="read-more-btn">Read More</a>
                 </div>
 
-                <div class="mt-4">
-                    <button class="btn btn-apply px-4 py-2">Easy Apply</button>
+                <div class="mt-4 job-actions-wrapper">
+                    {{-- <button class="btn btn-apply px-4 py-2">Apply</button> --}}
+                    {{-- <span class="job-actions-divider">or</span> --}}
+                     <a href="https://merojob.com/" class="btn btn-apply px-4 py-2">Apply</a>
                 </div>
             </div>
         </div>
@@ -111,63 +115,63 @@
     <div class="modal fade vacancy_modal" id="vacancyModal_1" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(25, 57, 128, 0.2);">
+            <div class="modal-content vacancy-modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header" style="background: linear-gradient(135deg, var(--dark) 0%, #152f66 100%); border: none; padding: 30px 30px 20px;">
+                <div class="modal-header vacancy-modal-header">
                     <div style="width: 100%;">
-                        <h2 class="modal-title" id="exampleModalLabel" style="color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0;">Apply for Laravel Developer</h2>
-                        <p style="color: rgba(255,255,255,0.8); margin: 8px 0 0 0; font-size: 0.95rem;">Join our team and make an impact</p>
+                        <h2 class="modal-title vacancy-modal-title" id="exampleModalLabel">Apply for Laravel Developer</h2>
+                        <p class="vacancy-modal-subtitle">Join our team and make an impact</p>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px; top: 20px;"></button>
+                    <button type="button" class="btn-close btn-close-white vacancy-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body" style="padding: 30px;">
+                <div class="modal-body vacancy-modal-body">
                     <form id="vacancyApplicationForm_1">
                         <!-- Full Name Field -->
-                        <div class="form-group mb-4">
-                            <label for="vacancy1FullName" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Full Name <span style="color: var(--red);">*</span></label>
-                            <input type="text" class="form-control" id="vacancy1FullName" placeholder="Enter your full name" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="vacancy1FullName" class="vacancy-form-label">Full Name <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control vacancy-form-input" id="vacancy1FullName" placeholder="Enter your full name" required>
                         </div>
 
                         <!-- Email Field -->
-                        <div class="form-group mb-4">
-                            <label for="vacancy1Email" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Email Address <span style="color: var(--red);">*</span></label>
-                            <input type="email" class="form-control" id="vacancy1Email" placeholder="your.email@example.com" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="vacancy1Email" class="vacancy-form-label">Email Address <span class="required-asterisk">*</span></label>
+                            <input type="email" class="form-control vacancy-form-input" id="vacancy1Email" placeholder="your.email@example.com" required>
                         </div>
 
                         <!-- Phone Field -->
-                        <div class="form-group mb-4">
-                            <label for="vacancy1Phone" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Phone Number <span style="color: var(--red);">*</span></label>
-                            <input type="tel" class="form-control" id="vacancy1Phone" placeholder="+977-XXXXXXXXXX" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="vacancy1Phone" class="vacancy-form-label">Phone Number <span class="required-asterisk">*</span></label>
+                            <input type="tel" class="form-control vacancy-form-input" id="vacancy1Phone" placeholder="+977-XXXXXXXXXX" required>
                         </div>
 
                         <!-- Resume Upload Field -->
-                        <div class="form-group mb-4">
-                            <label for="vacancy1Resume" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Upload Your Resume <span style="color: var(--red);">*</span></label>
-                            <div style="position: relative; border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease;" id="vacancyResumeDropZone_1">
+                        <div class="vacancy-form-group">
+                            <label for="vacancy1Resume" class="vacancy-form-label">Upload Your Resume <span class="required-asterisk">*</span></label>
+                            <div class="vacancy-drop-zone" id="vacancyResumeDropZone_1">
                                 <input type="file" class="form-control" id="vacancy1Resume" accept=".pdf,.doc,.docx" required style="display: none;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2" style="margin: 0 auto 8px; opacity: 0.6;">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2" class="vacancy-drop-zone-icon">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                     <polyline points="17 8 12 3 7 8"></polyline>
                                     <line x1="12" y1="3" x2="12" y2="15"></line>
                                 </svg>
-                                <p style="color: var(--text-mid); font-weight: 600; margin: 0 0 4px;">Click to upload or drag and drop</p>
-                                <p style="color: var(--text-soft); font-size: 0.85rem; margin: 0;">PDF, DOC, or DOCX (Max 5MB)</p>
+                                <p class="vacancy-drop-zone-text">Click to upload or drag and drop</p>
+                                <p class="vacancy-drop-zone-subtext">PDF, DOC, or DOCX (Max 5MB)</p>
                             </div>
                         </div>
 
                         <!-- Cover Letter / Additional Info -->
-                        <div class="form-group mb-4">
-                            <label for="vacancy1Message" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Why Should We Hire You? (Optional)</label>
-                            <textarea class="form-control" id="vacancy1Message" rows="4" placeholder="Share your experience and why you're a great fit for this position..." style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem; resize: vertical;"></textarea>
+                        <div class="vacancy-form-group">
+                            <label for="vacancy1Message" class="vacancy-form-label">Why Should We Hire You? (Optional)</label>
+                            <textarea class="form-control vacancy-form-textarea" id="vacancy1Message" rows="4" placeholder="Share your experience and why you're a great fit for this position..."></textarea>
                         </div>
 
                         <!-- Terms Checkbox -->
-                        <div class="form-group mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="vacancy1Terms" required style="width: 18px; height: 18px; cursor: pointer;">
-                                <label class="form-check-label" for="vacancy1Terms" style="color: var(--text-mid); font-size: 0.9rem; cursor: pointer; margin-left: 8px;">
+                        <div class="vacancy-form-group">
+                            <div class="vacancy-form-check">
+                                <input class="form-check-input vacancy-form-check-input" type="checkbox" id="vacancy1Terms" required>
+                                <label class="vacancy-form-check-label" for="vacancy1Terms">
                                     I agree that my information will be reviewed by the hiring team
                                 </label>
                             </div>
@@ -176,9 +180,9 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="modal-footer" style="border-top: 1px solid var(--border); padding: 20px 30px; background: #fafbfc;">
-                    <button type="button" class="btn" style="color: var(--text-mid); background: transparent; border: 1px solid var(--border); border-radius: 24px; padding: 8px 24px; font-weight: 600; transition: all 0.2s ease;" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="vacancyApplicationForm_1" class="btn btn-apply" style="padding: 8px 30px;">
+                <div class="vacancy-modal-footer">
+                    <button type="button" class="btn vacancy-modal-btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="vacancyApplicationForm_1" class="btn btn-apply vacancy-modal-btn-submit">
                         <span>Send Application</span>
                     </button>
                 </div>
@@ -283,47 +287,47 @@
     <!-- General Application Modal - Auto-trigger on Page Visit -->
     <div class="modal fade vacancy_modal" id="generalApplicationModal" tabindex="-1" aria-labelledby="generalApplicationLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(25, 57, 128, 0.2);">
+            <div class="modal-content vacancy-modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header" style="background: linear-gradient(135deg, var(--dark) 0%, #152f66 100%); border: none; padding: 30px 30px 20px;">
+                <div class="modal-header vacancy-modal-header">
                     <div style="width: 100%;">
-                        <h2 class="modal-title" id="generalApplicationLabel" style="color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0;">Join Our Team</h2>
-                        <p style="color: rgba(255,255,255,0.8); margin: 8px 0 0 0; font-size: 0.95rem;">Explore exciting career opportunities with us</p>
+                        <h2 class="modal-title vacancy-modal-title" id="generalApplicationLabel">Join Our Team</h2>
+                        <p class="vacancy-modal-subtitle">Explore exciting career opportunities with us</p>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px; top: 20px;"></button>
+                    <button type="button" class="btn-close btn-close-white vacancy-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body" style="padding: 30px;">
-                    <div style="background: #f4f7fc; padding: 16px; border-radius: 12px; margin-bottom: 24px; border-left: 4px solid var(--ndpc_style);">
-                        <p style="margin: 0; color: var(--text-mid); font-size: 0.95rem; line-height: 1.6;">
+                <div class="modal-body vacancy-modal-body">
+                    <div class="vacancy-info-box">
+                        <p>
                             <strong>Welcome!</strong> We're always looking for talented professionals to join our growing team. Submit your general application below, and we'll keep your profile on file. Whenever a position matches your skills and experience, we'll reach out to you directly.
                         </p>
                     </div>
 
                     <form id="generalApplicationForm">
                         <!-- Full Name Field -->
-                        <div class="form-group mb-4">
-                            <label for="generalFullName" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Full Name <span style="color: var(--red);">*</span></label>
-                            <input type="text" class="form-control" id="generalFullName" placeholder="Enter your full name" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="generalFullName" class="vacancy-form-label">Full Name <span class="required-asterisk">*</span></label>
+                            <input type="text" class="form-control vacancy-form-input" id="generalFullName" placeholder="Enter your full name" required>
                         </div>
 
                         <!-- Email Field -->
-                        <div class="form-group mb-4">
-                            <label for="generalEmail" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Email Address <span style="color: var(--red);">*</span></label>
-                            <input type="email" class="form-control" id="generalEmail" placeholder="your.email@example.com" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="generalEmail" class="vacancy-form-label">Email Address <span class="required-asterisk">*</span></label>
+                            <input type="email" class="form-control vacancy-form-input" id="generalEmail" placeholder="your.email@example.com" required>
                         </div>
 
                         <!-- Phone Field -->
-                        <div class="form-group mb-4">
-                            <label for="generalPhone" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Phone Number <span style="color: var(--red);">*</span></label>
-                            <input type="tel" class="form-control" id="generalPhone" placeholder="+977-XXXXXXXXXX" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="generalPhone" class="vacancy-form-label">Phone Number <span class="required-asterisk">*</span></label>
+                            <input type="tel" class="form-control vacancy-form-input" id="generalPhone" placeholder="+977-XXXXXXXXXX" required>
                         </div>
 
                         <!-- Position Interest Field -->
-                        <div class="form-group mb-4">
-                            <label for="generalPosition" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Position of Interest <span style="color: var(--red);">*</span></label>
-                            <select class="form-control" id="generalPosition" required style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem;">
+                        <div class="vacancy-form-group">
+                            <label for="generalPosition" class="vacancy-form-label">Position of Interest <span class="required-asterisk">*</span></label>
+                            <select class="form-control vacancy-form-input" id="generalPosition" required>
                                 <option value="">-- Select a position --</option>
                                 <option value="MIS Officer">MIS Officer</option>
                                 <option value="Laravel Developer">Laravel Developer</option>
@@ -332,31 +336,31 @@
                         </div>
 
                         <!-- Resume Upload Field -->
-                        <div class="form-group mb-4">
-                            <label for="generalResume" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Upload Your Resume <span style="color: var(--red);">*</span></label>
-                            <div style="position: relative; border: 2px dashed var(--border); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease;" id="resumeDropZone">
+                        <div class="vacancy-form-group">
+                            <label for="generalResume" class="vacancy-form-label">Upload Your Resume <span class="required-asterisk">*</span></label>
+                            <div class="vacancy-drop-zone" id="resumeDropZone">
                                 <input type="file" class="form-control" id="generalResume" accept=".pdf,.doc,.docx" required style="display: none;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2" style="margin: 0 auto 8px; opacity: 0.6;">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2" class="vacancy-drop-zone-icon">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                     <polyline points="17 8 12 3 7 8"></polyline>
                                     <line x1="12" y1="3" x2="12" y2="15"></line>
                                 </svg>
-                                <p style="color: var(--text-mid); font-weight: 600; margin: 0 0 4px;">Click to upload or drag and drop</p>
-                                <p style="color: var(--text-soft); font-size: 0.85rem; margin: 0;">PDF, DOC, or DOCX (Max 5MB)</p>
+                                <p class="vacancy-drop-zone-text">Click to upload or drag and drop</p>
+                                <p class="vacancy-drop-zone-subtext">PDF, DOC, or DOCX (Max 5MB)</p>
                             </div>
                         </div>
 
                         <!-- Cover Letter / Additional Info -->
-                        <div class="form-group mb-4">
-                            <label for="generalMessage" style="color: var(--text-dark); font-weight: 600; margin-bottom: 8px; display: block;">Tell Us About Yourself (Optional)</label>
-                            <textarea class="form-control" id="generalMessage" rows="4" placeholder="Share your career goals, skills, and what makes you a great fit for our team..." style="border-radius: 8px; border: 1px solid var(--border); padding: 10px 14px; font-size: 0.95rem; resize: vertical;"></textarea>
+                        <div class="vacancy-form-group">
+                            <label for="generalMessage" class="vacancy-form-label">Tell Us About Yourself (Optional)</label>
+                            <textarea class="form-control vacancy-form-textarea" id="generalMessage" rows="4" placeholder="Share your career goals, skills, and what makes you a great fit for our team..."></textarea>
                         </div>
 
                         <!-- Terms Checkbox -->
-                        <div class="form-group mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="generalTerms" required style="width: 18px; height: 18px; cursor: pointer;">
-                                <label class="form-check-label" for="generalTerms" style="color: var(--text-mid); font-size: 0.9rem; cursor: pointer; margin-left: 8px;">
+                        <div class="vacancy-form-group">
+                            <div class="vacancy-form-check">
+                                <input class="form-check-input vacancy-form-check-input" type="checkbox" id="generalTerms" required>
+                                <label class="vacancy-form-check-label" for="generalTerms">
                                     I agree to be contacted about job opportunities and company updates
                                 </label>
                             </div>
@@ -365,9 +369,9 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="modal-footer" style="border-top: 1px solid var(--border); padding: 20px 30px; background: #fafbfc;">
-                    <button type="button" class="btn" style="color: var(--text-mid); background: transparent; border: 1px solid var(--border); border-radius: 24px; padding: 8px 24px; font-weight: 600; transition: all 0.2s ease;" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="generalApplicationForm" class="btn btn-apply" style="padding: 8px 30px;">
+                <div class="vacancy-modal-footer">
+                    <button type="button" class="btn vacancy-modal-btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="generalApplicationForm" class="btn btn-apply vacancy-modal-btn-submit">
                         <span id="submitButtonText">Submit Application</span>
                     </button>
                 </div>

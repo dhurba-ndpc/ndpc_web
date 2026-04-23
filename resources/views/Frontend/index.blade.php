@@ -8,11 +8,15 @@
                     <img src="{{ asset('frontend/images/a1.jpg') }}" class="d-block w-100" alt="...">
                 </div> --}}
                 <div class="carousel-item active">
+                    <img src="{{ asset('frontend/images/bbb2.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item ">
                     <img src="{{ asset('frontend/images/bbb1.jpg') }}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                     <img src="{{ asset('frontend/images/a3.png') }}" class="d-block w-100" alt="...">
                 </div>
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,7 +48,7 @@
                         The former is a state-owned telecom operator, and the latter is also state-owned leading commercial
                         bank with nationwide coverage
                     </p>
-                    <a href="{{ url('/about')}}" class="btn-readmore">Read More <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ url('/about') }}" class="btn-readmore">Read More <i class="bi bi-arrow-right"></i></a>
                 </div>
 
                 <!-- Image -->
@@ -136,7 +140,7 @@
                         <span class="built-badge">BUILT FOR NEPAL</span>
                         <h2 class="banner-title">Hassle Free Financial<br>Transactions.</h2>
                         <p class="banner-sub">Fast and secure digital financial services, at your finger tips.</p>
-                        <a href="{{ url('/about')}}" class="btn-banner">Read More <i class="bi bi-arrow-right"></i></a>
+                        <a href="{{ url('/about') }}" class="btn-banner">Read More <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
@@ -177,7 +181,7 @@
                         has driven digital payments to the forefront.
                     </div>
 
-                    <a href="{{ url('/blog-single')}}" class="featured-link">Read the full story &nbsp;<i
+                    <a href="{{ url('/blog-single') }}" class="featured-link">Read the full story &nbsp;<i
                             class="bi bi-arrow-right"></i></a>
                 </div>
 
@@ -185,7 +189,8 @@
                 <div class="col-lg-6 offset-lg-1 col-md-12 archive-col">
                     <div class="archive-top">
                         <div class="sec-heading mb-0">Archive</div>
-                        <a href="{{ url('/blogs')}}" class="view-all">View All Blogs <i class="bi bi-arrow-right"></i></a>
+                        <a href="{{ url('/blogs') }}" class="view-all">View All Blogs <i
+                                class="bi bi-arrow-right"></i></a>
                     </div>
 
                     <!-- Item 1 -->
@@ -193,7 +198,7 @@
                         <img src="{{ asset('frontend/images/z3.jpg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
-                            <a href="{{ url('/blog-single')}}">
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="archive-title">QR Codes: The ‘Driving Force’ Behind Fostering the Adoption of
                                     Digital Payments in Nepal.</div>
                             </a>
@@ -206,7 +211,7 @@
                         <img src="{{ asset('frontend/images/z4.jpg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Product</div>
-                            <a href="{{ url('/blog-single')}}">
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="archive-title">KYC: Beyond the Compliance Requirement.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Feb 06, 2026</div>
@@ -218,7 +223,7 @@
                         <img src="{{ asset('frontend/images/z5.jpeg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
-                            <a href="{{ url('/blog-single')}}">
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="archive-title">Namaste Pay USSD (Offline) Mode.</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Jan 25, 2026</div>
@@ -230,7 +235,7 @@
                         <img src="{{ asset('frontend/images/z6.jpeg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Event</div>
-                            <a href="{{ url('/blog-single')}}">
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="archive-title">Ensuring Namaste Pay Security</div>
                             </a>
                             <div class="archive-date"><i class="bi bi-clock"></i>&nbsp;Oct 01, 2025</div>
@@ -242,7 +247,7 @@
                         <img src="{{ asset('frontend/images/z7.jpg') }}" class="archive-thumb" alt="" />
                         <div class="archive-body">
                             <div class="archive-cat">Press Release</div>
-                            <a href="{{ url('/blog-single')}}">
+                            <a href="{{ url('/blog-single') }}">
                                 <div class="archive-title">Indian tourist in nepal? No stress just scan and pay. Accept
                                     instant payment via phonepe & BHIM app with Nameste Pay.</div>
                             </a>
