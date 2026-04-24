@@ -1031,9 +1031,7 @@
      opacity: 1;
  }
 
- .brand-section .app-links {
-     /* flex and justify-content-center from class */
- }
+ 
 
  .brand-section .app-link {
      display: inline-block;
