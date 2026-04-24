@@ -1,0 +1,133 @@
+/* =========================================
+   AUTO DARK MODE  try
+   ========================================= */
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --blue: #4f7cff;
+        --red: #ff4d5a;
+
+        --light: #0f172a;
+        --surface: #111827;
+        --card: #1f2937;
+
+        --text-dark: #f9fafb;
+        --text-mid: #d1d5db;
+        --text-soft: #9ca3af;
+
+        --border: #374151;
+        --blue-light: #1e293b;
+
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+        --shadow-md: 0 6px 24px rgba(0,0,0,0.5);
+    }
+
+    /* ===== GLOBAL ===== */
+    body {
+        background: var(--light);
+        color: var(--text-dark);
+    }
+
+    /* ===== TEXT ===== */
+    p,
+    span {
+        color: var(--text-mid);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-dark);
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar,
+    .scrolled_nav {
+        background: var(--surface) !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: var(--text-dark) !important;
+    }
+
+    /* ===== CARDS ===== */
+    .card,
+    .news-card,
+    .gallery-card,
+    .team-card,
+    .job-vacancy-card,
+    .service-card,
+    .feature-card,
+    .sidebar-card {
+        background: var(--card);
+        color: var(--text-mid);
+        border-color: var(--border);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section-about,
+    .mvg-section,
+    .gallery-section,
+    .news-section,
+    .services-section,
+    .features-section,
+    .solutions-section {
+        background: var(--light);
+    }
+
+    /* ===== INPUTS ===== */
+    input,
+    textarea,
+    .form-control {
+        background: var(--surface);
+        color: var(--text-dark);
+        border-color: var(--border);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--text-soft);
+    }
+
+    /* ===== NEWS ===== */
+    .news-body,
+    .news-footer {
+        background: var(--card);
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-caption {
+        background: var(--card);
+        color: var(--text-dark);
+    }
+
+    /* ===== SEARCH ===== */
+    .search-box {
+        background: var(--surface);
+        border-color: var(--border);
+    }
+
+    .search-box input {
+        background: transparent;
+        color: var(--text-dark);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+        background: #020617;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact_form_wrapper,
+    .contact_detail_wrapper {
+        background: var(--card);
+    }
+
+    /* ===== PAGINATION ===== */
+    .page-link {
+        color: var(--text-mid);
+    }
+
+    .page-link:hover {
+        color: var(--blue);
+    }
+}

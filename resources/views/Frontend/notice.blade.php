@@ -32,7 +32,7 @@
             <!-- Header -->
             <div class="row align-items-center mb-4">
                 <div class="col-md-6 section-title">
-                    <h1 class="section-title mb-3">Our&nbsp;<span>Notices</span></h1>
+                    <h1 class="section-title mb-3 last_word_span_by_js">Our&nbsp;Notices </h1>
                     <p>Latest news and announcements from NDPC</p>
                 </div>
 
@@ -133,3 +133,17 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        $('.last_word_span_by_js').each(function() {
+            var text = $(this).text().trim();
+            var words = text.split(/\s+/);
+            var lastWord = words.pop();
+
+            $(this).html(
+                words.join(" ") + (words.length > 0 ? " " : "") + '<span class="last-word">' + lastWord +
+                '</span>'
+            );
+        });
+    </script>
+@endpush

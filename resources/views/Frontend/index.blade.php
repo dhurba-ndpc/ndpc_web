@@ -36,7 +36,7 @@
                 <!-- Text -->
                 <div class="col-lg-5">
                     <span class="know-badge">KNOW US</span>
-                    <h1 class="section-title mb-3">About Our <span>Company</span></h1>
+                    <h1 class="section-title mb-3 last_word_span_by_js">About Our Company</h1>
                     <p class="about-text mb-3">
                         Mobile finance is not a new service in Nepal and is in use for over a decade. However, the
                         proportion of digital transactions is still low compared to traditional financial transactions. To
@@ -455,31 +455,18 @@
                     }
                 }
             });
-
-            // $('#online_pay_logo_carousel').owlCarousel({
-            //     loop: true,
-            //     margin: 24,
-            //     autoplay: true,
-            //     autoplayTimeout: 3200,
-            //     autoplayHoverPause: true,
-            //     dots: false,
-            //     nav: false,
-            //     navText: ['<i class="bi bi-chevron-left"></i>', '<i class="bi bi-chevron-right"></i>'],
-            //     responsive: {
-            //         0: {
-            //             items: 1,
-            //         },
-            //         576: {
-            //             items: 2,
-            //         },
-            //         768: {
-            //             items: 3,
-            //         },
-            //         992: {
-            //             items: 5,
-            //         }
-            //     }
-            // });
+        });
+    </script>
+    <script>
+        $('.last_word_span_by_js').each(function() {
+            var text = $(this).text().trim();
+            var words = text.split(/\s+/);
+            var lastWord = words.pop();
+            
+            $(this).html(
+                words.join(" ") + (words.length > 0 ? " " : "") + '<span class="last-word">' + lastWord +
+                '</span>'
+            );
         });
     </script>
 @endpush

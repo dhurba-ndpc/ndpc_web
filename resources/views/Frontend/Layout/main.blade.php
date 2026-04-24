@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('frontend/ndpc.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/ndpc-cleaned.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/ndpc-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.theme.default.min.css') }}" />
@@ -20,7 +20,7 @@
     {{-- favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('frontend/favicon/favicon-96x96.png') }}" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="{{ asset('frontend/favicon/favicon.svg') }}" />
-    <link rel="shortcut icon" href="{{ asset('frontend/favicon/favicon-96x96.png') }}" sizes="96x96"/>
+    <link rel="shortcut icon" href="{{ asset('frontend/favicon/favicon-96x96.png') }}" sizes="96x96" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('frontend/favicon/apple-touch-icon.png') }}" />
     <link rel="manifest" href="{{ asset('frontend/favicon/site.webmanifest') }}" />
     {{-- favicon --}}
@@ -39,6 +39,22 @@
     <script src="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/lightbox2-2.12.0/dist/js/lightbox.min.js') }}"></script>
     @stack('scripts')
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+        }
+    </script>
 </body>
 
 </html>

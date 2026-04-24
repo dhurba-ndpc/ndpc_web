@@ -32,7 +32,7 @@
                 <!-- Text -->
                 <div class="col-lg-5">
                     <span class="know-badge">Nameste Pay</span>
-                    <h1 class="section-title mb-3">Our <span>Products</span></h1>
+                    <h1 class="section-title mb-3 last_word_span_by_js">Our Products</h1>
                     <p class="about-text mb-3">
                         Namaste Pay is the mobile financial service run by Nepal Digital Payments Company Limited. It is the
                         first of its kind in terms of providing both online and offline mobile wallet service in the
@@ -92,7 +92,7 @@
                 <li class="nav-item">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">SIM Distribution System</button>
                 </li>
-                 
+
             </ul>
             <!-- Dropdown (Mobile Only) -->
             <div class="mb-4 mobile_menu_tab_select">
@@ -100,7 +100,7 @@
                     <option value="#tab1" selected>Namaste pay services</option>
                     <option value="#tab2">Corporate Wallet</option>
                     <option value="#tab3">SIM Distribution System</option>
-                   
+
                 </select>
             </div>
             <!-- Tab Content -->
@@ -191,7 +191,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="tab2">
-                   
+
                     <div class="row align-items-center">
 
                         <!-- Left Image -->
@@ -276,7 +276,7 @@
                 <div class="tab-pane fade text-center" id="tab3">
                     <i>3.Sorry, Content Not Available.</i>
                 </div>
-                
+
 
             </div>
 
@@ -464,7 +464,7 @@
                             <h1 class="main-title fw-bold">Digital Wallet Redefined.</h1>
                         </div>
 
-                        <a href="{{ url('about')}}" class="btn btn-pill-cta ">
+                        <a href="{{ url('about') }}" class="btn btn-pill-cta ">
                             Want To Know More?
                         </a>
 
@@ -476,6 +476,7 @@
 @endsection
 @push('scripts')
     <script>
+        // tab to dropdown query
         document.getElementById('tabDropdown').addEventListener('change', function() {
             var selectedTab = this.value;
 
@@ -491,6 +492,18 @@
             btn.addEventListener('shown.bs.tab', function(event) {
                 document.getElementById('tabDropdown').value = event.target.getAttribute('data-bs-target');
             });
+        });
+    </script>
+    <script>
+        $('.last_word_span_by_js').each(function() {
+            var text = $(this).text().trim();
+            var words = text.split(/\s+/);
+            var lastWord = words.pop();
+
+            $(this).html(
+                words.join(" ") + (words.length > 0 ? " " : "") + '<span class="last-word">' + lastWord +
+                '</span>'
+            );
         });
     </script>
 @endpush

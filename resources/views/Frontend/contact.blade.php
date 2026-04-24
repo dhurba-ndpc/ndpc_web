@@ -1,7 +1,6 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    
     <section class="page_top_banner" style="background-image:url('{{ asset('frontend/images/page_top_banner.jpg') }}')">
         <div class="container">
             <div class="row">
@@ -136,3 +135,4 @@
             </div>
     </section>
 @endsection
+ 
