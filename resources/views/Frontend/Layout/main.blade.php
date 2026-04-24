@@ -39,22 +39,7 @@
     <script src="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/lightbox2-2.12.0/dist/js/lightbox.min.js') }}"></script>
     @stack('scripts')
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-
-            if (document.body.classList.contains("dark-mode")) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
-            }
-        }
-
-        // Load saved theme
-        if (localStorage.getItem("theme") === "dark") {
-            document.body.classList.add("dark-mode");
-        }
-    </script>
+   
 </body>
 
 </html>
