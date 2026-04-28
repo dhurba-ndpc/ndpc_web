@@ -1,0 +1,94 @@
+.login_logo_image {
+	width: 276px;
+}
+
+.previewImg_wrapper {
+	width: 100%;
+	height: 200px;
+	border: 2px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	object-fit: contain;
+}
+
+.aboutPage_lang_tab li {
+	flex: none !important;
+}
+
+.table thead th {
+	border-top: 0;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	letter-spacing: 0.05em;
+}
+
+.badge-pill {
+	font-weight: 500;
+	padding: 0.5em 0.8em;
+}
+
+.img-thumbnail {
+	padding: 0.15rem;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+	border-radius: 0.35rem;
+}
+
+.nav-tabs .nav-link {
+	border: none;
+	border-bottom: 3px solid transparent;
+	color: #858796;
+	transition: all 0.3s ease;
+	font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+	border-bottom-color: #4e73df;
+	color: #4e73df;
+}
+
+.nav-tabs .nav-link.active {
+	border-bottom-color: #4e73df;
+	color: #4e73df;
+	background-color: transparent;
+}
+
+.card-header {
+	border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.form-label {
+	font-weight: 600;
+	color: #495057;
+	margin-bottom: 0.5rem;
+}
+
+.form-control:focus {
+	border-color: #4e73df;
+	box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.btn {
+	border-radius: 0.35rem;
+	padding: 0.6rem 1.2rem;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.border-left-primary {
+	border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+	border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-warning {
+	border-left: 0.25rem solid #f6c23e !important;
+}

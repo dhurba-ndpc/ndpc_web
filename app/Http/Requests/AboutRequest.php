@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+class AboutRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        $isUpdate = request()->isMethod('put') || request()->isMethod('patch');
+        return [
+            'badge_text_en'  => ['required', 'string', 'max:255'],
+            'title_en'       => ['required', 'string', 'max:255'],
+            'description_en' => ['required', 'string'],
+
+            'badge_text_ne'  => ['required', 'string', 'max:255'],
+            'title_ne'       => ['required', 'string', 'max:255'],
+            'description_ne' => ['required', 'string'],
+
+            'glass_text'     => ['required', 'string', 'max:255'],
+            'image' => [$isUpdate ? 'nullable' : 'required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'is_active'      => ['nullable'],
+        ];
+    }
+}

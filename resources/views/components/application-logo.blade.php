@@ -1,0 +1,1 @@
+<img class="login_logo_image" src="{{ asset('backend/img/ndpc_logo.png')}}" alt="">
