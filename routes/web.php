@@ -3,7 +3,9 @@
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
     Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('users', UserController::class)->names('users');
+    Route::resource('permission', PermissionController::class)->names('permission');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

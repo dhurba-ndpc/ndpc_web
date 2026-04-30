@@ -92,3 +92,37 @@
 .border-left-warning {
 	border-left: 0.25rem solid #f6c23e !important;
 }
+
+.form-section-title {
+	border-left: 4px solid #4e73df;
+	padding-left: 10px;
+	margin-bottom: 20px;
+}
+
+.input-group-text {
+	background-color: #f8f9fc;
+	border-right: none;
+}
+
+.form-control-custom {
+	border-left: none;
+	border-radius: 0 0.35rem 0.35rem 0;
+}
+
+.form-control-custom:focus {
+	border-color: #d1d3e2;
+	box-shadow: none;
+}
+
+.nav-pills-custom .nav-link {
+	color: #858796;
+	font-weight: 600;
+	padding: 10px 20px;
+}
+
+.nav-pills-custom .nav-link.active {
+	background: white;
+	color: #4e73df;
+	border-bottom: 3px solid #4e73df;
+	border-radius: 0;
+}

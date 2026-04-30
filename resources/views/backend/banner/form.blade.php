@@ -108,7 +108,7 @@
         const placeholder = document.getElementById('placeholderText');
         const fileName = event.target.value.split('\\').pop();
         
-        // Update label text
+       
         event.target.nextElementSibling.innerText = fileName;
 
         if (file) {
@@ -123,7 +123,7 @@
     }
 </script>
 <style>
-    /* Styling for the custom switch to make it look nicer */
+ 
     .custom-control-label { cursor: pointer; }
     .btn-icon-split .text { padding: 0.375rem 0.75rem; }
 </style>

@@ -146,7 +146,84 @@
         </div>
     </section>
 {{-- ********************************************************************************************** --}}
+<div class="form-group">
+                                        <label class="small font-weight-bold text-dark text-uppercase">Permission
+                                            Capabilities</label>
+                                        <div class="bg-light p-3 rounded border">
+                                            <div class="custom-control custom-checkbox custom-control-inline mb-2">
+                                                <input type="checkbox" class="custom-control-input" id="check1">
+                                                <label class="custom-control-label" for="check1">Read Data</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox custom-control-inline mb-2">
+                                                <input type="checkbox" class="custom-control-input" id="check2">
+                                                <label class="custom-control-label" for="check2">Write Data</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox custom-control-inline mb-2">
+                                                <input type="checkbox" class="custom-control-input" id="check3">
+                                                <label class="custom-control-label" for="check3">Delete Data</label>
+                                            </div>
+                                        </div>
+                                    </div>
 {{-- ********************************************************************************************** --}}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+        <thead class="bg-light">
+            <tr class="text-xs font-weight-bold text-dark text-uppercase">
+                <th>ID</th>
+                <th>Role Designation</th>
+                <th>Permissions</th>
+                <th>Users Count</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="small text-dark">
+            @forelse($roles as $role)
+                <tr>
+                    <td class="align-middle">#{{ $role->id }}</td>
+                    <td class="align-middle font-weight-bold text-primary">
+                        {{ $role->name }}
+                    </td>
+                    <td class="align-middle">
+                        @foreach($role->permissions as $permission)
+                            @php
+                                // Optional: Logic to change badge color based on permission name
+                                $color = 'primary';
+                                if(str_contains($permission->name, 'delete')) $color = 'danger';
+                                if(str_contains($permission->name, 'write')) $color = 'success';
+                            @endphp
+                            <span class="badge badge-{{ $color }} px-2 py-1 mb-1">
+                                {{ strtoupper($permission->name) }}
+                            </span>
+                        @endforeach
+                    </td>
+                    <td class="align-middle">
+                        <span class="badge badge-dark badge-counter">{{ $role->users_count }} Users</span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <div class="btn-group">
+                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-circle btn-sm btn-info shadow-sm">
+                                <i class="fas fa-edit fa-xs"></i>
+                            </a>
+                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-circle btn-sm btn-danger shadow-sm mx-1" onclick="return confirm('Delete this role?')">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">
+                        No roles have been configured in the architecture yet.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
 {{-- ********************************************************************************************** --}}
 {{-- ********************************************************************************************** --}}
 {{-- ********************************************************************************************** --}}
