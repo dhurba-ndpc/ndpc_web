@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+ 
 
 class RolePermissionSeeder extends Seeder
 {
@@ -14,35 +13,39 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Clear cache
+
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Define Models
-        $models = ['Banner'];
+        $models = $this->getModels();
 
-        // Define Actions
-        $actions = ['view', 'create', 'edit', 'delete'];
+        $actions = ['View', 'Create', 'Edit', 'Delete'];
 
-        $permissions = [];
+        $allPermissions = [];
 
-        // Create Permissions Dynamically
         foreach ($models as $model) {
             foreach ($actions as $action) {
-                $permissions[] = Permission::firstOrCreate([
-                    'name' => $model . '.' . $action
+                $permission = Permission::firstOrCreate([
+                    'name' => "{$model}-{$action}",
+                    'guard_name' => 'web',
                 ]);
+
+                $allPermissions[] = $permission->name;
             }
         }
 
-        // Roles
-        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin']);
-        
+        $this->command->info('Permissions seeded successfully.');
+    }
+    public function getModels()
+    {
+        $models = [];
+        $path = app_path('Models');
 
-        // Assign Permissions
+        foreach (scandir($path) as $file) {
+            if ($file !== '.' && $file !== '..') {
+                $models[] = str_replace('.php', '', $file);
+            }
+        }
 
-        // Super Admin → All permissions
-        $superAdmin->syncPermissions($permissions);
-
-        
+        return $models;
     }
 }

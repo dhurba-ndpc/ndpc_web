@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\HandlesUploads;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 abstract class AdminBaseController extends Controller
@@ -43,6 +44,8 @@ abstract class AdminBaseController extends Controller
         $uploadedFiles = [];
 
         try {
+            DB::beginTransaction();
+
             $data = $this->uploadFiles(
                 $request,
                 $this->uploadFields,
@@ -56,13 +59,14 @@ abstract class AdminBaseController extends Controller
             }
 
             $this->model->create($data);
-
+            DB::commit();
             return redirect()->route($this->routePrefix)
                 ->with('success', class_basename($this->model) . ' Created successfully');
         } catch (\Exception $e) {
+            DB::rollBack();
             foreach ($uploadedFiles as $filePath) {
-                if (Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
                 }
             }
 

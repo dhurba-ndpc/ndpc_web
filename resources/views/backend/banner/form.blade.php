@@ -2,7 +2,16 @@
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Banner Management</h1>
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">Banner Management</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('banner.index') }}">Banners</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ isset($data) ? 'Edit Banner' : 'Create Banner' }}</li>
+                </ol>
+            </nav>
+        </div>
         <a href="{{ route('banner.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-list fa-sm text-white-50 mr-2"></i> View List
         </a>
@@ -80,14 +89,17 @@
 
                                 <hr>
 
-                                <div class="mt-4">
+                                <div class="form-actions mt-4">
                                     <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-save"></i>
                                         </span>
                                         <span class="text">{{ isset($data) ? 'Update Changes' : 'Save Banner' }}</span>
                                     </button>
-                                    <a href="{{ route('banner.index') }}" class="btn btn-light btn-icon-split ml-2">
+                                    <a href="{{ route('banner.index') }}" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-times"></i>
+                                        </span>
                                         <span class="text">Cancel</span>
                                     </a>
                                 </div>

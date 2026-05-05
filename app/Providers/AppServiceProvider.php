@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\About;
+use App\Models\Banner;
+use App\Policies\PermissionPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // it is Maping multiple models to one policy
+        $models = [
+        Banner::class,
+        About::class,
+        
+    ];
+
+    foreach ($models as $model) {
+        Gate::policy($model, PermissionPolicy::class);
+    }
     }
 }

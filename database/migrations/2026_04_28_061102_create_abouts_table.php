@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text('description_en');  
 
             
-            $table->string('badge_text_ne');
-            $table->string('title_ne');
-            $table->text('description_ne'); 
+            $table->string('badge_text_ne')->nullable();
+            $table->string('title_ne')->nullable();
+            $table->text('description_ne')->nullable(); 
 
           
             $table->string('glass_text')->nullable();
@@ -29,6 +29,7 @@ return new class extends Migration
 
           
             $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

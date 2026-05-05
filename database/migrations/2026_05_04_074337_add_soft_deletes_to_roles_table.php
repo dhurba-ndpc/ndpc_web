@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image');
-            $table->boolean('is_active')->default(true);
+        $tableNames = config('permission.table_names');
+        Schema::table($tableNames['roles'], function (Blueprint $table) {
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -26,6 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        $tableNames = config('permission.table_names');
+
+        Schema::table($tableNames['roles'], function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

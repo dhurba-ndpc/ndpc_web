@@ -2,12 +2,21 @@
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ isset($data) ? 'Edit About Content' : 'Create About Content' }}</h1>
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">{{ isset($data) ? 'Edit About Content' : 'Create About Content' }}</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('about.index') }}">About</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ isset($data) ? 'Edit About' : 'Create About' }}</li>
+                </ol>
+            </nav>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 ">
                 <div class="card-header py-3 bg-primary">
                     <h6 class="m-0 font-weight-bold text-white">
                         <i class="fas fa-info-circle"></i> About Information
@@ -61,7 +70,7 @@
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link {{ $errors->has('title_ne') || $errors->has('description_ne') || $errors->has('badge_text_ne') ? 'text-danger font-weight-bold' : '' }}" id="nepali-tab" data-bs-toggle="tab" data-bs-target="#nepali" type="button" role="tab" aria-controls="nepali" aria-selected="false">
+                                        <button class="nav-link" id="nepali-tab" data-bs-toggle="tab" data-bs-target="#nepali" type="button" role="tab" aria-controls="nepali" aria-selected="false">
                                             <i class="fas fa-language"></i> नेपाली
                                         </button>
                                     </li>
@@ -201,19 +210,13 @@
 
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
-                                    <label for="is_active" class="form-label">
-                                        <i class="fas fa-check-circle text-success"></i> Status
-                                    </label>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" 
-                                               type="checkbox" 
-                                               id="is_active" 
-                                               name="is_active" 
-                                               value="1"
-                                               {{ isset($data) && $data->is_active ? 'checked' : (old('is_active') ? 'checked' : '') }}>
-                                        <label class="form-check-label" for="is_active">
-                                            Active (Toggle to make this About visible on the website front-end.)
+                                    <div class="custom-control custom-switch custom-control-lg">
+                                        <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="1"
+                                            {{ (isset($data) && $data->is_active) || old('is_active') ? 'checked' : '' }}>
+                                        <label class="custom-control-label font-weight-bold" for="is_active">
+                                            Publish Status
                                         </label>
+                                        <p class="small text-muted">Toggle to make this About visible on the website front-end.</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,11 +225,19 @@
                         <!-- Form Actions -->
                         <div class="row mt-4">
                             <div class="col-12">
-                                <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> {{ isset($data) ? 'Update' : 'Create' }}
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-save"></i>
+                                        </span>
+                                        <span class="text">{{ isset($data) ? 'Update About' : 'Save About' }}</span>
                                     </button>
-                                    
+                                    <a href="{{ route('about.index') }}" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        <span class="text">Cancel</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

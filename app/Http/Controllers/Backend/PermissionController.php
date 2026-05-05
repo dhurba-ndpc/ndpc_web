@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-
+    // this controller is not in use for now  
     public function store(Request $request)
     {
 

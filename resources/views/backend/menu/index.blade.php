@@ -3,25 +3,27 @@
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="h3 mb-1 text-gray-800">Banner Management</h1>
+            <h1 class="h3 mb-1 text-gray-800">Menu Management</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Banners</li>
+                    <li class="breadcrumb-item active" aria-current="page">Menus</li>
                 </ol>
             </nav>
         </div>
-        <a href="{{ route('banner.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+        <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
             <span class="icon text-white-50">
                 <i class="fas fa-plus fa-sm"></i>
             </span>
-            <span class="text">Create New Banner</span>
+            <span class="text">Create New Menu</span>
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-images mr-2"></i>Banner List</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-bars mr-2"></i>Menu List
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -29,21 +31,41 @@
                     <thead class="bg-light">
                         <tr class="text-dark">
                             <th width="5%">S.No</th>
-                            <th>Name</th>
-                            <th width="15%">Image</th>
-                            <th width="10%">Status</th>
+                            <th>Menu</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th width="10%">Position</th>
+                            <th width="12%">Status</th>
                             <th width="12%" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($lists as $list)
+                        @forelse ($lists ?? [] as $list)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle font-weight-bold text-dark">{{ $list->name }}</td>
-                                <td class="align-middle text-center">
-                                    <img src="{{ asset('storage/' . $list->image) }}" class="img-thumbnail shadow-sm"
-                                        style="width: 80px; height: 50px; object-fit: cover;" alt="{{ $list->name }}">
+                                <td class="align-middle">
+                                    <div class="font-weight-bold text-dark">{{ $list->menu_name }}</div>
+                                    @if ($list->slug)
+                                        <div class="small text-muted">{{ $list->slug }}</div>
+                                    @endif
+                                    @if ($list->parent_id)
+                                        <span class="badge badge-primary mt-1">
+                                            <i class="fas fa-level-up-alt mr-1"></i>
+                                            Child of #{{ $list->parent_id }}
+                                        </span>
+                                    @endif
                                 </td>
+                                <td class="align-middle">
+                                    @if ($list->is_main_child === 'child_menu')
+                                        <span class="badge badge-secondary">Child Menu</span>
+                                    @else
+                                        <span class="badge badge-primary">Parent Menu</span>
+                                    @endif
+                                </td>
+                                <td class="align-middle text-capitalize">
+                                    {{ str_replace('_', ' & ', $list->menu_location) }}
+                                </td>
+                                <td class="align-middle">{{ $list->position }}</td>
                                 <td class="align-middle text-center">
                                     @if ($list->is_active)
                                         <span class="badge badge-pill badge-success shadow-sm px-3">
@@ -57,7 +79,7 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('banner.edit', $list->id) }}"
+                                        <a href="{{ route('menu.edit', $list->id) }}"
                                             class="btn btn-info btn-sm shadow-sm" title="Edit">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
@@ -81,14 +103,14 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-left p-4">
-                                                    Are you sure you want to delete the banner
-                                                    <strong>"{{ $list->name }}"</strong>?
+                                                    Are you sure you want to delete the menu
+                                                    <strong>"{{ $list->menu_name }}"</strong>?
                                                     <p class="text-muted small mt-2">This action cannot be undone.</p>
                                                 </div>
                                                 <div class="modal-footer bg-light">
                                                     <button type="button" class="btn btn-secondary btn-sm"
                                                         data-dismiss="modal">Cancel</button>
-                                                    <form method="POST" action="{{ route('banner.destroy', $list->id) }}">
+                                                    <form method="POST" action="{{ route('menu.destroy', $list->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -101,7 +123,13 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center py-5 text-gray-500">
+                                    No menus found.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

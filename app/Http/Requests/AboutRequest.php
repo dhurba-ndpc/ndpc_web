@@ -28,9 +28,9 @@ class AboutRequest extends FormRequest
             'title_en'       => ['required', 'string', 'max:255'],
             'description_en' => ['required', 'string'],
 
-            'badge_text_ne'  => ['required', 'string', 'max:255'],
-            'title_ne'       => ['required', 'string', 'max:255'],
-            'description_ne' => ['required', 'string'],
+            'badge_text_ne'  => ['nullable', 'string', 'max:255'],
+            'title_ne'       => ['nullable', 'string', 'max:255'],
+            'description_ne' => ['nullable', 'string'],
 
             'glass_text'     => ['required', 'string', 'max:255'],
             'image' => [$isUpdate ? 'nullable' : 'required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
