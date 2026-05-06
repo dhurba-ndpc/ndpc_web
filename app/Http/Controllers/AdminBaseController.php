@@ -40,6 +40,7 @@ abstract class AdminBaseController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request = app($this->requestClass);
         $uploadedFiles = [];
 
@@ -97,8 +98,8 @@ abstract class AdminBaseController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-
     {
+        // dd($request->all());
         $request = app($this->requestClass);
 
         $uploadedFiles = [];

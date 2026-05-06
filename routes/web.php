@@ -32,6 +32,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // |------------------------------|
     // |-------------Menu-------------|
     // |------------------------------|
+    Route::post('updateMenu', [MenuController::class, 'updateMenuOrder'])->name('updateMenuOrder');
     Route::resource('menu', MenuController::class)->names('menu');
 
 
