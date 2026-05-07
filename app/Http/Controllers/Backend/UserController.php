@@ -145,10 +145,6 @@ class UserController extends Controller
             return redirect()
                 ->route('users.show', auth()->id())
                 ->with('success', 'Profile updated successfully.');
-
-
-            return redirect()->route('users.index')
-                ->with('success', 'User updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
@@ -197,6 +193,8 @@ class UserController extends Controller
 
     public function viewProfile()
     {
-        return view('backend.user.form');
+        $user = Auth::user();
+        $isEdit = Auth::user() || "Sory contact customer service";
+        return view('backend.user.form', compact('user', 'isEdit'));
     }
 }
