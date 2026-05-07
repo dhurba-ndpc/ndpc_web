@@ -44,14 +44,12 @@ class UserController extends Controller
         $roles = Role::query()->whereNull('deleted_at')->get();
         $userRoles = $user->roles->pluck('id')->toArray();
 
-        return view('backend.user.form', compact('user', 'roles', 'userRoles'));
+        return view('backend.roles.userForm', compact('user', 'roles', 'userRoles'));
     }
 
 
     public function store(UsersRequest $request)
     {
-
-
         DB::beginTransaction();
 
         try {
