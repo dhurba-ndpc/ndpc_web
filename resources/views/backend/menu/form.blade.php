@@ -164,7 +164,7 @@
                                                 @foreach ($parentMenus as $parentMenu)
                                                     <option value="{{ $parentMenu->id }}"
                                                         {{ (string) old('parent_id', $data->parent_id ?? '') === (string) $parentMenu->id ? 'selected' : '' }}>
-                                                        {{ $parentMenu->menu_name }}
+                                                        {{ $parentMenu->menu_name . '(' . $parentMenu->menu_location . ')' }}
                                                     </option>
 
                                                     @foreach ($parentMenu->children as $childMenu)

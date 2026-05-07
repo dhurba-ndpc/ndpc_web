@@ -149,6 +149,18 @@ abstract class AdminBaseController extends Controller
         try {
             $item = $this->model->findOrFail($id);
 
+
+            // Only for Menu model
+            if ($this->model instanceof \App\Models\Menu) {
+                $children = $this->model->where('parent_id', $item->id);
+
+                if ($children->exists()) {
+                    $children->update([
+                        'parent_id' => null,
+                        'is_main_child' => 'parent_menu',
+                    ]);
+                }
+            }
             $itemData = $item->toArray();
 
             $item->delete();
@@ -156,7 +168,7 @@ abstract class AdminBaseController extends Controller
             $this->deleteFiles($this->uploadFields, $itemData);
 
             return redirect()
-                ->route('banner.index')
+                ->route($this->routePrefix)
                 ->with('success', class_basename($this->model) . ' deleted successfully');
         } catch (\Exception $e) {
             return back()->with(

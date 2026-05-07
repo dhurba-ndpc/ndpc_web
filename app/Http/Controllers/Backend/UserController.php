@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UsersRequest;
+use App\Mail\UserWelcomeMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password as PasswordBroker;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
@@ -40,112 +44,88 @@ class UserController extends Controller
         $roles = Role::query()->whereNull('deleted_at')->get();
         $userRoles = $user->roles->pluck('id')->toArray();
 
-        return view('backend.roles.userForm', compact('user', 'roles', 'userRoles'));
+        return view('backend.user.form', compact('user', 'roles', 'userRoles'));
     }
 
-    public function store(Request $request)
+
+    public function store(UsersRequest $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => [
-                    'required',
-                    'string',
-                    'min:5',
-                    'max:255',
-                    'regex:/^[A-Za-z\s]+$/'
-                ],
 
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:255',
-                    'unique:users,email'
-                ],
 
-                'password' => [
-                    'required',
-                    'string',
-                    'min:5',
-                    'max:15',
-                    'confirmed',
-                    Password::min(5)
-                        ->mixedCase()
-                        ->symbols()     
-                ],
+        DB::beginTransaction();
 
-                'role' => ['required']
-            ],
-            [
-                'name.regex' => 'Name must contain only letters and spaces.',
-                'password.mixed' => 'Password must include at least one uppercase letter.',
-                'password.symbols' => 'Password must include at least one special character.',
-            ]
-        );
+        try {
 
-        if ($validator->fails()) {
+            $validatedData = $request->validated();
+
+            $imagePath = $request->hasFile('image')
+                ? $request->file('image')->store('users', 'public')
+                : null;
+
+            // Create User
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'image' => $imagePath,
+                'phone' => $validatedData['phone'] ?? null,
+                'address' => $validatedData['address'] ?? null,
+                'password' => Hash::make($validatedData['password']),
+            ]);
+            // Assign Role
+            $user->assignRole($request->role);
+
+            // Generate Reset Password Link
+            $token = PasswordBroker::createToken($user);
+
+            $resetLink = url(route('password.reset', [
+                'token' => $token,
+                'email' => $user->email,
+            ], false));
+
+            // Send Email
+            Mail::to($user->email)->send(
+                new UserWelcomeMail($user, $validatedData, $resetLink)
+            );
+
+            DB::commit();
+
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'User created successfully.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            if (!empty($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+
             return redirect()
                 ->back()
-                ->withErrors($validator)
-                ->withInput();
+                ->withInput()
+                ->with('error', 'Something went wrong: ' . $e->getMessage());
         }
-
-        $validatedData = $validator->validated();
-
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
-        $user->assignRole($request->role);
-        return redirect()->route('users.index')->with('success', 'User created and role assigned successfully.');
     }
 
-    public function update(Request $request, string $id)
+    public function update(UsersRequest $request, string $id)
     {
         $user = User::findOrFail($id);
+        $validatedData = $request->validated();
 
-        $validatedData = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'min:5',
-                'max:255',
-                'regex:/^[A-Za-z\s]+$/',
-            ],
-
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($user->id),
-            ],
-
-            'password' => [
-                'nullable',
-                'string',
-                'confirmed',
-                'max:15',
-                Password::min(5)
-                    ->mixedCase()
-                    ->symbols(),
-            ],
-
-            'role' => [
-                'required',
-                'exists:roles,name',
-            ],
-        ], [
-            'name.regex' => 'Name must contain only letters and spaces.',
-            'password.mixed' => 'Password must include at least one uppercase letter.',
-            'password.symbols' => 'Password must include at least one special character.',
-        ]);
         $data = [
             'name'  => $validatedData['name'],
             'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'] ?? null,
+            'address' => $validatedData['address'] ?? null,
         ];
+
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
+
+            $data['image'] = $request->file('image')->store('users', 'public');
+        }
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -154,10 +134,18 @@ class UserController extends Controller
             DB::transaction(function () use ($user, $data, $request) {
 
                 $user->update($data);
-
-
                 $user->syncRoles($request->role);
             });
+            if (auth()->user()->hasRole('super admin')) {
+                return redirect()
+                    ->route('users.index')
+                    ->with('success', 'User updated successfully.');
+            }
+
+            return redirect()
+                ->route('users.show', auth()->id())
+                ->with('success', 'Profile updated successfully.');
+
 
             return redirect()->route('users.index')
                 ->with('success', 'User updated successfully.');
@@ -204,5 +192,11 @@ class UserController extends Controller
         });
 
         return redirect()->back()->with('success', 'User permanently deleted.');
+    }
+
+
+    public function viewProfile()
+    {
+        return view('backend.user.form');
     }
 }

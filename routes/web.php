@@ -4,7 +4,6 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuController;
-use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +24,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // |------------------------------|
     // |-------------users------------|
     // |------------------------------|
+    Route::get('view-profile', [UserController::class, 'viewProfile'])->name('viewProfile');
     Route::get('users/trash', [UserController::class, 'trash'])->name('users.trash');
     Route::post('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
     Route::delete('users/{id}/force-delete', [UserController::class, 'forceDelete'])->name('users.forceDelete');

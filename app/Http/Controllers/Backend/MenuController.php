@@ -47,37 +47,39 @@ class MenuController extends AdminBaseController
 
     public function updateMenuOrder(Request $request)
     {
-         dd($request->all());
-        $order = 1;
 
-        // Decode JSON string to array if necessary
-        $menuItems = is_array($request->sort) ? $request->sort : json_decode($request->sort, true);
+        $menuItems = json_decode($request->sort, true);
 
-        if (isset($menuItems)) {
-            $this->updateMenuItems($menuItems, null, $order);
+        if (!$menuItems) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No menu data found'
+            ], 422);
         }
 
-        return response()->json(['success' => true]);
+
+
+        $this->updateMenuItems($menuItems, null);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Menu order updated successfully'
+        ]);
     }
 
+
     // above update button code function
-    private function updateMenuItems(array $items, $parentId = null, &$order)
+    private function updateMenuItems($items, $parentId = null)
     {
-        foreach ($items as $item) {
-            $this
-                ->model
-                ->where('id', $item['id'])
-                ->update([
-                    'position' => $order,
-                    'parent_id' => $parentId,
-                    'is_main_child' => $parentId ? 1 : 0,
-                ]);
+        foreach ($items as $index => $item) {
+            Menu::where('id', $item['id'])->update([
+                'parent_id' => $parentId,
+                'position' => $index + 1,
+                'is_main_child' => $parentId == null ? 'parent_menu' : 'child_menu',
+            ]);
 
-            $order++;
-
-            // If the item has children, recursively update them
-            if (isset($item['children']) && is_array($item['children'])) {
-                $this->updateMenuItems($item['children'], $item['id'], $order);
+            if (!empty($item['children'])) {
+                $this->updateMenuItems($item['children'], $item['id']);
             }
         }
     }
