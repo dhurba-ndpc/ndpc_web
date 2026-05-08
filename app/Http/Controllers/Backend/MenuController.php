@@ -57,8 +57,6 @@ class MenuController extends AdminBaseController
             ], 422);
         }
 
-
-
         $this->updateMenuItems($menuItems, null);
 
         return response()->json([

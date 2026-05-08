@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Override;
 
 class LoginRequest extends FormRequest
 {
@@ -30,6 +31,15 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+        ];
+    }
+    #[Override]
+    public function messages()
+    {
+        return [
+            'email.required' => 'Please enter email.',
+            'email.email' => 'Please enter a valid email address.',
+            'password.required' => 'Please enter a valid email address.'
         ];
     }
 
@@ -81,6 +91,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }

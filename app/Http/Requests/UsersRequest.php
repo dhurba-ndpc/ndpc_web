@@ -24,7 +24,10 @@ class UsersRequest extends FormRequest
      */
     public function rules(): array
     {
+       
         return [
+
+
 
             'name' => [
                 'required',
@@ -53,7 +56,9 @@ class UsersRequest extends FormRequest
                     ->symbols()
             ],
 
-            'role' => ['required'],
+            'role' => [
+                $this->routeIs('users.store') ? 'required' : 'nullable'
+            ],
 
             'image' => [
                 'nullable',

@@ -12,10 +12,11 @@
                 </ol>
             </nav>
         </div>
-
-        <a href="#" class="btn btn-sm btn-outline-primary shadow-sm">
-            <i class="fas fa-list fa-sm mr-1"></i> Edit Details
-        </a>
+        @if (!$isEdit)
+            <a href="{{ route('viewProfile', ['edit' => true]) }}" class="btn btn-sm btn-outline-primary shadow-sm">
+                <i class="fas fa-list fa-sm mr-1"></i> Edit Details
+            </a>
+        @endif
     </div>
 
 
@@ -28,7 +29,9 @@
                 <span class="badge badge-pill badge-primary">Static Form</span>
             </div>
 
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xl-4 mb-4 mb-xl-0">
@@ -37,10 +40,12 @@
                                     <label class="small font-weight-bold text-dark d-block mb-3">Profile Image</label>
 
                                     <div class="user-avatar-preview mx-auto mb-3">
-                                        <img id="profileImagePreview" src="" alt="Selected profile image"
-                                            class="d-none">
+
                                         <div class="user-avatar-placeholder" id="profileImagePlaceholder">
-                                            <span>JD</span>
+                                            <img id="profileImagePreview"
+                                                src="{{ $user->image ? asset('storage/' . $user->image) : asset('backend/img/default.png') }}"
+                                                data-default-src="{{ $user->image ? asset('storage/' . $user->image) : asset('backend/img/default.png') }}"
+                                                alt="Selected profile image">
                                         </div>
                                     </div>
 
@@ -62,7 +67,8 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <span>Role</span>
-                                        <span class="font-weight-bold text-primary">Administrator</span>
+                                        <span
+                                            class="font-weight-bold text-primary">{{ $user->getRoleNames()->first() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -81,9 +87,12 @@
                                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                         </div>
                                         <input type="text" id="name" name="name" class="form-control"
-                                            value="John Doe">
+                                            value="{{ old('name', $user->name) }}">
                                     </div>
                                 </div>
+                                @error('name')
+                                    <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                @enderror
 
                                 <div class="form-group col-md-6">
                                     <label for="email" class="small font-weight-bold text-dark">Email Address</label>
@@ -92,9 +101,12 @@
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
                                         <input type="email" id="email" name="email" class="form-control"
-                                            value="john.doe@example.com">
+                                            value="{{ old('email', $user->email) }}">
                                     </div>
                                 </div>
+                                @error('email')
+                                    <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
 
                             <div class="form-row">
@@ -105,18 +117,23 @@
                                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
                                         </div>
                                         <input type="text" id="phone" name="phone" class="form-control"
-                                            value="+977 9800000000">
+                                            value="{{ old('phone', $user->phone) }}">
                                     </div>
                                 </div>
+                                @error('phone')
+                                    <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                @enderror
 
 
                             </div>
 
                             <div class="form-group">
                                 <label for="address" class="small font-weight-bold text-dark">Address</label>
-                                <textarea id="address" name="address" rows="3" class="form-control">Kathmandu, Nepal</textarea>
+                                <textarea id="address" name="address" rows="3" class="form-control">{{ old('address', $user->address) }}</textarea>
                             </div>
-
+                            @error('address')
+                                <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                            @enderror
                             <div class="form-section-title mt-4">
                                 <h6 class="m-0 font-weight-bold text-primary">Security</h6>
                             </div>
@@ -132,7 +149,9 @@
                                             placeholder="Leave blank to keep current">
                                     </div>
                                 </div>
-
+                                @error('password')
+                                    <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                @enderror
                                 <div class="form-group col-md-6">
                                     <label for="password_confirmation" class="small font-weight-bold text-dark">Confirm
                                         Password</label>
@@ -144,17 +163,26 @@
                                             class="form-control" placeholder="Leave blank to keep current">
                                     </div>
                                 </div>
+                                @error('password_confirmation')
+                                    <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </div>
 
                             <div class="form-actions border-top pt-4 mt-4">
-                                <button type="button" class="btn btn-primary btn-icon-split shadow-sm">
+                                <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
                                     <span class="icon text-white-50"><i class="fas fa-save"></i></span>
                                     <span class="text">Update Profile</span>
                                 </button>
-                                <a href="#" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
+                                <a href="{{ route('viewProfile') }}"
+                                    class="btn btn-secondary btn-icon-split shadow-sm ml-2">
                                     <span class="icon text-white-50"><i class="fas fa-times"></i></span>
                                     <span class="text">Cancel</span>
                                 </a>
+                                <script>
+                                    document.querySelector('form').addEventListener('submit', function() {
+                                        alert('Form triggered');
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -168,7 +196,8 @@
                     <div class="d-lg-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center mb-4 mb-lg-0">
                             <div class="profile-overview-avatar mr-4">
-                                <span>JD</span>
+                                <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('backend/img/default.png') }}"
+                                    alt="Profile image">
                             </div>
                             <div>
                                 <div class="small font-weight-bold text-primary text-uppercase mb-2">Profile Overview</div>
@@ -244,88 +273,21 @@
 @endsection
 
 @push('script')
-    <style>
-        .profile-overview-banner {
-            background:
-                linear-gradient(135deg, rgba(26, 57, 128, 0.08), rgba(255, 255, 255, 0.95)),
-                #f8faff;
-            border-bottom: 1px solid #dbe1ec;
-        }
-
-        .profile-overview-avatar {
-            align-items: center;
-            background: #1a3980;
-            border: 6px solid #fff;
-            border-radius: 1rem;
-            box-shadow: 0 0.75rem 1.75rem rgba(26, 57, 128, 0.18);
-            color: #fff;
-            display: flex;
-            flex: 0 0 auto;
-            font-size: 2.1rem;
-            font-weight: 800;
-            height: 104px;
-            justify-content: center;
-            width: 104px;
-        }
-
-        .profile-overview-dates {
-            min-width: 220px;
-        }
-
-        .profile-date-card,
-        .profile-contact-tile {
-            background: #fff;
-            border: 1px solid #dbe1ec;
-            border-radius: 0.5rem;
-            box-shadow: 0 0.35rem 1rem rgba(26, 57, 128, 0.06);
-        }
-
-        .profile-date-card {
-            padding: 0.85rem 1rem;
-        }
-
-        .profile-contact-tile {
-            height: 100%;
-            padding: 1rem;
-        }
-
-        .profile-contact-icon {
-            align-items: center;
-            background: #edf3ff;
-            border-radius: 0.45rem;
-            color: #1a3980;
-            display: flex;
-            height: 40px;
-            justify-content: center;
-            margin-bottom: 0.85rem;
-            width: 40px;
-        }
-
-        @media (max-width: 575.98px) {
-            .profile-overview-avatar {
-                height: 82px;
-                width: 82px;
-                font-size: 1.6rem;
-            }
-        }
-    </style>
-
     <script>
         const profileImageInput = document.getElementById('image');
         const profileImagePreview = document.getElementById('profileImagePreview');
-        const profileImagePlaceholder = document.getElementById('profileImagePlaceholder');
 
-        if (profileImageInput && profileImagePreview && profileImagePlaceholder) {
+        if (profileImageInput && profileImagePreview) {
             profileImageInput.addEventListener('change', function() {
                 const file = profileImageInput.files[0];
                 const fileLabel = profileImageInput.nextElementSibling;
 
-                fileLabel.textContent = file ? file.name : 'Choose profile image...';
+                if (fileLabel) {
+                    fileLabel.textContent = file ? file.name : 'Choose profile image...';
+                }
 
                 if (!file) {
-                    profileImagePreview.classList.add('d-none');
-                    profileImagePreview.removeAttribute('src');
-                    profileImagePlaceholder.classList.remove('d-none');
+                    profileImagePreview.src = profileImagePreview.dataset.defaultSrc;
                     return;
                 }
 
@@ -333,8 +295,6 @@
 
                 reader.onload = function(event) {
                     profileImagePreview.src = event.target.result;
-                    profileImagePreview.classList.remove('d-none');
-                    profileImagePlaceholder.classList.add('d-none');
                 };
 
                 reader.readAsDataURL(file);

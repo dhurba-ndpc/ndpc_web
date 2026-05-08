@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password as PasswordBroker;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
 
@@ -107,14 +106,20 @@ class UserController extends Controller
 
     public function update(UsersRequest $request, string $id)
     {
+
         $user = User::findOrFail($id);
         $validatedData = $request->validated();
 
         $data = [
             'name'  => $validatedData['name'],
             'email' => $validatedData['email'],
-            'phone' => $validatedData['phone'] ?? null,
-            'address' => $validatedData['address'] ?? null,
+            'phone' => array_key_exists('phone', $validatedData)
+                ? $validatedData['phone']
+                : $user->phone,
+
+            'address' => array_key_exists('address', $validatedData)
+                ? $validatedData['address']
+                : $user->address,
         ];
 
         if ($request->hasFile('image')) {
@@ -132,18 +137,21 @@ class UserController extends Controller
             DB::transaction(function () use ($user, $data, $request) {
 
                 $user->update($data);
-                $user->syncRoles($request->role);
+                if ($request->has('role')) {
+                    $user->syncRoles($request->role);
+                }
             });
-            if (auth()->user()->hasRole('super admin')) {
+            if (Auth::user()->hasRole('super admin')) {
                 return redirect()
                     ->route('users.index')
                     ->with('success', 'User updated successfully.');
             }
 
             return redirect()
-                ->route('users.show', auth()->id())
+                ->route('viewProfile', Auth::user()->id)
                 ->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
+
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Update failed: ' . $e->getMessage());
@@ -189,10 +197,11 @@ class UserController extends Controller
     }
 
 
-    public function viewProfile()
+    public function viewProfile(Request $request)
     {
         $user = Auth::user();
-        $isEdit = Auth::user() || "Sory contact customer service";
+
+        $isEdit = $request->has('edit');
         return view('backend.user.form', compact('user', 'isEdit'));
     }
 }
