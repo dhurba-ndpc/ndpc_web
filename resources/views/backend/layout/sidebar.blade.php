@@ -37,6 +37,21 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>About Us</span></a>
      </li>
+     <li class="nav-item {{ Route::is('mvg.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('mvg.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>M V G</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('darkbanner.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('darkbanner.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Dark Banner</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('blog.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('blog.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Blogs</span></a>
+     </li>
 
      <li class="nav-item {{ Route::is('roles.*') || Route::is('users.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles"

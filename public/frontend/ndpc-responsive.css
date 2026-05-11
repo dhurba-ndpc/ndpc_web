@@ -24,6 +24,11 @@
 }
 
 @media (min-width:991px) and (max-width:1200px) {
+      #navMain ul li:not(:last-child){
+       margin-right: unset;
+       
+    }
+
     #navbar_overlay .container {
         flex-direction: column;
     }
@@ -31,8 +36,6 @@
     .banner-section {
         background-position: -312px !important;
     }
-
-
 
     .tc-stack {
         justify-content: center;
@@ -42,6 +45,10 @@
 
 
 @media (max-width:991px) {
+    #navMain ul li:not(:last-child){
+        margin-bottom: 8px;
+       
+    }
     .inner_contact_background_wrapper::before {
         width: 100%;
     }

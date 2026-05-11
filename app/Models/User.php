@@ -53,4 +53,9 @@ class User extends Authenticatable implements CanResetPassword
             'password' => 'hashed',
         ];
     }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }

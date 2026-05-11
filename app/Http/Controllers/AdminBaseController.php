@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Traits\HandlesUploads;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 abstract class AdminBaseController extends Controller
@@ -52,6 +53,11 @@ abstract class AdminBaseController extends Controller
                 $this->uploadFields,
                 $this->uploadPath
             );
+            //optional check for now use for blog field user_id
+            if (Schema::hasColumn($this->model->getTable(), 'user_id')) {
+                $data['user_id'] = auth()->id();
+            }
+
             $data['is_active'] = $request->has('is_active');
             foreach ($this->uploadFields as $field) {
                 if (!empty($data[$field])) {

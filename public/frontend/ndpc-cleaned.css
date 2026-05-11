@@ -158,6 +158,10 @@ p {
 }
 
 /* ===== NAVBAR ===== */
+#navMain ul li:not(:last-child) {
+    margin-right: 8px !important;
+}
+
 .dropdown-item.active {
     background-color: var(--blue) !important;
 }
@@ -1841,6 +1845,7 @@ footer {
 }
 
 @media (max-width: 991px) {
+
     .contact_detial_wrapper,
     .contact_form_wrapper {
         padding: 28px;

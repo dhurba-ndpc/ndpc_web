@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\BlogCategoryController;
+use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\DarkBannerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\MvgController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +18,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('dashboard', DashboardController::class)->names('dashboard');
     Route::resource('banner', BannerController::class)->names('banner');
     Route::resource('about', AboutController::class)->names('about')->only(['store', 'update', 'index']);
+    Route::resource('mvg', MvgController::class)->names('mvg');
+    Route::resource('darkbanner', DarkBannerController::class)->names('darkbanner')->only(['store', 'update', 'index']);
+    Route::resource('blog', BlogController::class)->names('blog');
+    Route::resource('blogCategory', BlogCategoryController::class)->names('blogCategory');
     // |------------------------------|
     // |-------------roles------------|
     // |------------------------------|

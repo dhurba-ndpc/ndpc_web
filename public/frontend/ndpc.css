@@ -1031,7 +1031,7 @@
      opacity: 1;
  }
 
- 
+
 
  .brand-section .app-link {
      display: inline-block;
@@ -1348,6 +1348,10 @@
 
  .scrolled .navbar-nav li .active .pill-stroke {
      stroke: #ffffff;
+ }
+
+ #navMain ul li:not(:last-child) {
+     margin-right: 8px !important;
  }
 
  .pill-stroke {
@@ -3103,7 +3107,7 @@
  }
 
  /* ── Vacancy Modal Styles ────────────────────────────── */
- 
+
  .vacancy-modal-content {
      border: none;
      border-radius: 16px;
