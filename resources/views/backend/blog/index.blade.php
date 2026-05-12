@@ -72,8 +72,8 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark">{{ $list->title_en }}</div>
-                                    @if(!empty($list->title_np))
-                                        <div class="small text-muted">{{ $list->title_np }}</div>
+                                    @if(!empty($list->title_ne))
+                                        <div class="small text-muted">{{ $list->title_ne }}</div>
                                     @endif
                                     <div class="small text-info mt-1">
                                         <i class="fas fa-link mr-1"></i>{{ $list->slug }}

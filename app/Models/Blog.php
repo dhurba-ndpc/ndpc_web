@@ -14,11 +14,11 @@ class Blog extends Model
         'user_id',
 
         'title_en',
-        'title_np',
+        'title_ne',
         'slug',
         'image',
         'description_en',
-        'description_np',
+        'description_ne',
         'is_active',
     ];
 
@@ -38,6 +38,7 @@ class Blog extends Model
     protected static function booted()
     {
         static::saving(function ($blog) {
+            
 
             if (!empty($blog->title_en)) {
 

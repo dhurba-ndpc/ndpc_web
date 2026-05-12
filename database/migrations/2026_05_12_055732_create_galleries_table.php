@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mvgs', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('album_id')
+                ->constrained('albums')
+                ->cascadeOnDelete();
+
             $table->string('title_en')->nullable();
             $table->string('title_ne')->nullable();
-            $table->string('subtitle_en')->nullable();
-            $table->string('subtitle_ne')->nullable();
-            $table->longText('description_en')->nullable();
-            $table->longText('description_ne')->nullable();
-            $table->string('image')->nullable();
+
+            $table->text('description_en')->nullable();
+            $table->text('description_ne')->nullable();
+
+            $table->string('image');
+
             $table->boolean('is_active')->default(true);
-            // Sorting
-            $table->integer('position')->default(0);
-             $table->softDeletes();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mvgs');
+        Schema::dropIfExists('galleries');
     }
 };

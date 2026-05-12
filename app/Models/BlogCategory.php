@@ -11,7 +11,7 @@ class BlogCategory extends Model
     use SoftDeletes;
     protected $fillable = [
         'title_en',
-        'title_np',
+        'title_ne',
         'slug',
         'is_active',
     ];

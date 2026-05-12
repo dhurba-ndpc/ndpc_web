@@ -4,20 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
-class Mvg extends Model
+class Gallery extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
+        'album_id',
         'title_en',
         'title_ne',
-        'subtitle_en',
-        'subtitle_ne',
         'description_en',
         'description_ne',
         'image',
-        'position',
         'is_active',
     ];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
+
+     
+
 }

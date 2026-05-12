@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogCategoryController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('darkbanner', DarkBannerController::class)->names('darkbanner')->only(['store', 'update', 'index']);
     Route::resource('blog', BlogController::class)->names('blog');
     Route::resource('blogCategory', BlogCategoryController::class)->names('blogCategory');
+    Route::resource('albums', AlbumController::class)->names('albums');
+    Route::resource('galleries', GalleryController::class)->names('galleries');
     // |------------------------------|
     // |-------------roles------------|
     // |------------------------------|

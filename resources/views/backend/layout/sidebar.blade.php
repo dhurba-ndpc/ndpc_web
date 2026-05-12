@@ -53,6 +53,20 @@
              <span>Blogs</span></a>
      </li>
 
+     <li class="nav-item {{ Route::is('galleries.*') || Route::is('albums.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAG"
+             aria-expanded="true" aria-controls="collapseAG">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Gallery</span></a>
+         </a>
+         <div id="collapseAG" class="collapse" aria-labelledby="headingAG" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+
+                 <a class="collapse-item" href="{{ route('albums.index') }}">Album</a>
+                 <a class="collapse-item" href="{{ route('galleries.index') }}">Gallery</a>
+             </div>
+         </div>
+     </li>
      <li class="nav-item {{ Route::is('roles.*') || Route::is('users.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles"
              aria-expanded="true" aria-controls="collapseRoles">

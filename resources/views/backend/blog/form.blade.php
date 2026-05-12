@@ -34,8 +34,6 @@
                             @method('PUT')
                         @endif
 
-
-
                         <div class="row">
                             <div class="col-lg-4 mb-4">
                                 <div class="card border-left-primary shadow mb-4">
@@ -81,17 +79,18 @@
                                         @error('blog_category_id')
                                             <div class="alert alert-danger py-2 small">{{ $message }}</div>
                                         @enderror
-
-                                        <div class="border rounded p-3 bg-light"
-                                            style="max-height: 280px; overflow-y: auto;">
-                                            <div class="custom-control custom-checkbox mb-2">
-                                                <input type="checkbox" class="custom-control-input" id="category_1"
-                                                    name="blog_category_id[]" value="">
-                                                <label class="custom-control-label" for="category_1">
-                                                    <span class="font-weight-bold text-dark">cat title</span>
-                                                </label>
+                                        @foreach ($categories as $category)
+                                            <div class="border rounded p-3 bg-light"
+                                                style="max-height: 280px; overflow-y: auto;">
+                                                <div class="custom-control custom-checkbox mb-2">
+                                                    <input type="checkbox" class="custom-control-input" id="category_{{$category->id}}"
+                                                        name="blog_category_id[]" {{ isset($data) && $data->categories->contains($category->id) ? 'checked' : ''}} value="{{$category->id}}">
+                                                    <label class="custom-control-label" for="category_{{ $category->id }}">
+                                                        <span class="font-weight-bold text-dark">{{$category->title_en}}</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                         <small class="text-muted mt-2 d-block">Select one or more categories for this
                                             blog.</small>
                                     </div>
@@ -103,10 +102,10 @@
                                     <label for="slug" class="form-label">
                                         <i class="fas fa-link text-info"></i> Slug
                                     </label>
-                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                    <input readonly type="text" class="form-control @error('slug') is-invalid @enderror"
                                         id="slug" name="slug"
                                         value="{{ isset($data) ? $data->slug : old('slug') }}"
-                                        placeholder="Enter blog slug">
+                                        placeholder="Auto generated field blog slug">
                                     @error('slug')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -123,7 +122,7 @@
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button
-                                            class="nav-link {{ $errors->has('title_np') || $errors->has('description_np') ? 'text-danger font-weight-bold' : '' }}"
+                                            class="nav-link {{ $errors->has('title_ne') || $errors->has('description_ne') ? 'text-danger font-weight-bold' : '' }}"
                                             id="nepali-tab" data-bs-toggle="tab" data-bs-target="#nepali" type="button"
                                             role="tab" aria-controls="nepali" aria-selected="false">
                                             <i class="fas fa-language"></i> Nepali
@@ -169,15 +168,15 @@
                                         <div class="card border-left-warning">
                                             <div class="card-body">
                                                 <div class="form-group mb-3">
-                                                    <label for="title_np" class="form-label">
+                                                    <label for="title_ne" class="form-label">
                                                         <i class="fas fa-heading text-warning"></i> Title
                                                     </label>
                                                     <input type="text"
-                                                        class="form-control @error('title_np') is-invalid @enderror"
-                                                        id="title_np" name="title_np"
-                                                        value="{{ isset($data) ? $data->title_np : old('title_np') }}"
+                                                        class="form-control @error('title_ne') is-invalid @enderror"
+                                                        id="title_ne" name="title_ne"
+                                                        value="{{ isset($data) ? $data->title_ne : old('title_ne') }}"
                                                         placeholder="Enter Nepali title">
-                                                    @error('title_np')
+                                                    @error('title_ne')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -186,9 +185,9 @@
                                                     <label for="description_ne" class="form-label">
                                                         <i class="fas fa-align-left text-warning"></i> Description
                                                     </label>
-                                                    <textarea class="form-control @error('description_np') is-invalid @enderror" id="description_ne"
-                                                        name="description_np" rows="8" placeholder="Enter Nepali description">{{ isset($data) ? $data->description_np : old('description_np') }}</textarea>
-                                                    @error('description_np')
+                                                    <textarea class="form-control @error('description_ne') is-invalid @enderror" id="description_ne"
+                                                        name="description_ne" rows="8" placeholder="Enter Nepali description">{{ isset($data) ? $data->description_ne : old('description_ne') }}</textarea>
+                                                    @error('description_ne')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>

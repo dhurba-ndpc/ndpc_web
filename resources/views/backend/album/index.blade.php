@@ -3,35 +3,26 @@
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="h3 mb-1 text-gray-800">Blog Category Management</h1>
+            <h1 class="h3 mb-1 text-gray-800">Album Management</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('blog.index') }}">Blogs</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Blog Categories</li>
+                    <li class="breadcrumb-item active" aria-current="page">Albums</li>
                 </ol>
             </nav>
         </div>
-        <div>
-            <a href="{{ route('blogCategory.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus fa-sm"></i>
-                </span>
-                <span class="text">Create Category</span>
-            </a>
-            <a href="{{ route('blog.index') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus fa-sm"></i>
-                </span>
-                <span class="text">Back to Blog List</span>
-            </a>
-        </div>
+        <a href="{{ route('albums.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus fa-sm"></i>
+            </span>
+            <span class="text">Create Album</span>
+        </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-folder-open mr-2"></i>Blog Category List
+                <i class="fas fa-images mr-2"></i>Album List
             </h6>
         </div>
         <div class="card-body">
@@ -40,8 +31,9 @@
                     <thead class="bg-light">
                         <tr class="text-dark">
                             <th width="5%">S.No</th>
-                            <th>Category Information</th>
-                            <th>Slug</th>
+                            <th width="12%">Image</th>
+                            <th>Album Information</th>
+                            <th>Description</th>
                             <th width="12%">Status</th>
                             <th width="12%" class="text-center">Action</th>
                         </tr>
@@ -50,16 +42,38 @@
                         @foreach ($lists as $list)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
+                                <td class="align-middle text-center">
+                                    @if ($list->image)
+                                        <img src="{{ asset('storage/' . $list->image) }}"
+                                            class="img-thumbnail shadow-sm"
+                                            style="width: 90px; height: 60px; object-fit: cover;"
+                                            alt="{{ $list->title_en }}">
+                                    @else
+                                        <div class="bg-light border rounded d-flex align-items-center justify-content-center mx-auto text-muted"
+                                            style="width: 90px; height: 60px;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                    @endif
+                                </td>
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark">{{ $list->title_en }}</div>
                                     @if (!empty($list->title_en))
                                         <div class="small text-muted">{{ $list->title_en }}</div>
                                     @endif
+                                    <div class="small text-info mt-1">
+                                        <i class="fas fa-link mr-1"></i>{{ $list->slug }}
+                                    </div>
                                 </td>
                                 <td class="align-middle">
-                                    <span class="small text-info">
-                                        <i class="fas fa-link mr-1"></i>{{ $list->slug }}
-                                    </span>
+                                    @if (!empty($list->description_en))
+                                        <div class="small text-dark">{!! \Illuminate\Support\Str::limit($list->description_en, 80) !!}</div>
+                                    @endif
+                                    @if (!empty($list->description_ne))
+                                        <div class="small text-muted mt-1">{!! \Illuminate\Support\Str::limit($list->description_ne, 80) !!}</div>
+                                    @endif
+                                    @if (empty($list->description_en) && empty($list->description_ne))
+                                        <span class="text-muted small">No description</span>
+                                    @endif
                                 </td>
                                 <td class="align-middle text-center">
                                     @if ($list->is_active)
@@ -74,7 +88,7 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('blogCategory.edit', $list->id) }}"
+                                        <a href="{{ route('albums.edit', $list->id) }}"
                                             class="btn btn-info btn-sm shadow-sm" title="Edit">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
@@ -98,15 +112,14 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-left p-4">
-                                                    Are you sure you want to delete the blog category
+                                                    Are you sure you want to delete the album
                                                     <strong>"{{ $list->title_en }}"</strong>?
                                                     <p class="text-muted small mt-2">This action cannot be undone.</p>
                                                 </div>
                                                 <div class="modal-footer bg-light">
                                                     <button type="button" class="btn btn-secondary btn-sm"
                                                         data-dismiss="modal">Cancel</button>
-                                                    <form method="POST"
-                                                        action="{{ route('blogCategory.destroy', $list->id) }}">
+                                                    <form method="POST" action="{{ route('albums.destroy', $list->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"

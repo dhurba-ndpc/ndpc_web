@@ -9,11 +9,11 @@ class DarkBanner extends Model
 
     protected $fillable = [
         'title_en',
-        'title_np',
+        'title_ne',
         'subtitle_en',
-        'subtitle_np',
+        'subtitle_ne',
         'description_en',
-        'description_np',
+        'description_ne',
         'image',
         'is_active',
     ];

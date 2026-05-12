@@ -85,7 +85,7 @@
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link {{ $errors->has('title_np') || $errors->has('subtitle_np') || $errors->has('description_np') ? 'text-danger font-weight-bold' : '' }}"
+                                        <button class="nav-link {{ $errors->has('title_np') || $errors->has('subtitle_np') || $errors->has('description_ne') ? 'text-danger font-weight-bold' : '' }}"
                                                 id="nepali-tab"
                                                 data-bs-toggle="tab"
                                                 data-bs-target="#nepali"
@@ -186,12 +186,12 @@
                                                     <label for="description_ne" class="form-label">
                                                         <i class="fas fa-align-left text-warning"></i> Description
                                                     </label>
-                                                    <textarea class="form-control @error('description_np') is-invalid @enderror"
+                                                    <textarea class="form-control @error('description_ne') is-invalid @enderror"
                                                               id="description_ne"
-                                                              name="description_np"
+                                                              name="description_ne"
                                                               rows="6"
-                                                              placeholder="Enter Nepali description">{{ isset($data) ? $data->description_np : old('description_np') }}</textarea>
-                                                    @error('description_np')
+                                                              placeholder="Enter Nepali description">{{ isset($data) ? $data->description_ne : old('description_ne') }}</textarea>
+                                                    @error('description_ne')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>

@@ -24,13 +24,13 @@ class MvgRequest extends FormRequest
     {
         return [
             'title_en' => 'required|string|max:255',
-            'title_np' => 'nullable|string|max:255',
+            'title_ne' => 'nullable|string|max:255',
 
             'subtitle_en' => 'required|string|max:255',
-            'subtitle_np' => 'nullable|string|max:255',
+            'subtitle_ne' => 'nullable|string|max:255',
 
             'description_en' => 'required|string',
-            'description_np' => 'nullable|string',
+            'description_ne' => 'nullable|string',
 
             'image' => $this->isMethod('post')
                 ? 'required|image|mimes:jpeg,png,jpg,webp|max:2048'

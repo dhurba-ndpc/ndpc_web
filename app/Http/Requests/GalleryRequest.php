@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Validation\Rule;
+
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BlogRequest extends FormRequest
+class GalleryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,25 +22,21 @@ class BlogRequest extends FormRequest
      */
     public function rules(): array
     {
-        $blogId = $this->route('blog');
-        return [
+       return [
 
-            'title_en' => 'required|string|max:255',
+            'album_id' => 'required|exists:albums,id',
+
+            'title_en' => 'nullable|string|max:255',
+
             'title_ne' => 'nullable|string|max:255',
-            'slug' => [
-                'nullable',
-                'string',
-                'max:255',
-                Rule::unique('blog_categories', 'slug')
-                    ->ignore($blogId),
-            ],
+
+            'description_en' => 'nullable|string',
+
+            'description_ne' => 'nullable|string',
 
             'image' => $this->isMethod('post')
                 ? 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
                 : 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-
-            'description_en' => 'nullable|string',
-            'description_ne' => 'nullable|string',
 
             'is_active' => 'nullable|boolean',
         ];

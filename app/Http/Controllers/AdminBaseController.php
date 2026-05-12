@@ -41,6 +41,7 @@ abstract class AdminBaseController extends Controller
      */
     public function store(Request $request)
     {
+       
         // dd($request->all());
         $request = app($this->requestClass);
         $uploadedFiles = [];
@@ -53,30 +54,40 @@ abstract class AdminBaseController extends Controller
                 $this->uploadFields,
                 $this->uploadPath
             );
+            
             //optional check for now use for blog field user_id
             if (Schema::hasColumn($this->model->getTable(), 'user_id')) {
                 $data['user_id'] = auth()->id();
             }
 
             $data['is_active'] = $request->has('is_active');
+           
             foreach ($this->uploadFields as $field) {
                 if (!empty($data[$field])) {
                     $uploadedFiles[] = $data[$field];
                 }
             }
+           
+            $item = $this->model->create($data);
 
-            $this->model->create($data);
+            // saving blog and category in pivot table
+            if (method_exists($item, 'categories') && $request->filled('blog_category_id')) {
+                $item->categories()->sync($request->blog_category_id);
+            }
+            //
             DB::commit();
             return redirect()->route($this->routePrefix)
                 ->with('success', class_basename($this->model) . ' Created successfully');
         } catch (\Exception $e) {
+
             DB::rollBack();
+
             foreach ($uploadedFiles as $filePath) {
                 if (Storage::disk('public')->exists($filePath)) {
                     Storage::disk('public')->delete($filePath);
                 }
             }
-
+            dd($e->getMessage());
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Failed to create ' . class_basename($this->model) . ': ' . $e->getMessage());
@@ -120,8 +131,12 @@ abstract class AdminBaseController extends Controller
                 $this->uploadPath,
                 $item->toArray()
             );
-
+            //optional check for now use for blog field user_id
+            if (Schema::hasColumn($this->model->getTable(), 'user_id')) {
+                $data['user_id'] = auth()->id();
+            }
             $data['is_active'] = $request->has('is_active');
+          
 
             foreach ($this->uploadFields as $field) {
                 if (!empty($data[$field]) && $data[$field] !== $item->$field) {
@@ -130,10 +145,17 @@ abstract class AdminBaseController extends Controller
             }
 
             $item->update($data);
+            // saving blog and category in pivot table
+            if (method_exists($item, 'categories')) {
+                $item->categories()->sync(
+                    $request->input('blog_category_id', [])
+                );
+            }
+            //
 
             return redirect()->route($this->routePrefix)->with('success', class_basename($this->model) . ' updated successfully');
         } catch (\Exception $e) {
-
+            $e->getMessage();
             foreach ($uploadedFiles as $filePath) {
                 if (Storage::disk('public')->exists($filePath)) {
                     Storage::disk('public')->delete($filePath);
@@ -155,6 +177,11 @@ abstract class AdminBaseController extends Controller
         try {
             $item = $this->model->findOrFail($id);
 
+
+            // Remove Pivot Relations of blog 
+            if (method_exists($item, 'categories')) {
+                $item->categories()->detach();
+            }
 
             // Only for Menu model
             if ($this->model instanceof \App\Models\Menu) {

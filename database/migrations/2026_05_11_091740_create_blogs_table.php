@@ -22,14 +22,14 @@ return new class extends Migration
            
 
             $table->string('title_en');
-            $table->string('title_np')->nullable();
+            $table->string('title_ne')->nullable();
 
             $table->string('slug')->unique();
 
             $table->string('image')->nullable();
 
             $table->longText('description_en')->nullable();
-            $table->longText('description_np')->nullable();
+            $table->longText('description_ne')->nullable();
 
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
