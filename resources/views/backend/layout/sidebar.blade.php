@@ -52,6 +52,26 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Blogs</span></a>
      </li>
+     <li class="nav-item {{ Route::is('company_goals.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('company_goals.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Company Goals</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('testimonials.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('testimonials.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Testimonials</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('employee-quarters.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('employee-quarters.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Employee Quarters</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('ourProduct.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('ourProduct.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Our Product</span></a>
+     </li>
 
      <li class="nav-item {{ Route::is('galleries.*') || Route::is('albums.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAG"
@@ -64,6 +84,20 @@
 
                  <a class="collapse-item" href="{{ route('albums.index') }}">Album</a>
                  <a class="collapse-item" href="{{ route('galleries.index') }}">Gallery</a>
+             </div>
+         </div>
+     </li>
+     <li class="nav-item {{ Route::is('boardOfDirectors.*') || Route::is('leadingTeams.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeam"
+             aria-expanded="true" aria-controls="collapseTeam">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Team Member</span></a>
+         </a>
+         <div id="collapseTeam" class="collapse" aria-labelledby="headingTeam" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+
+                 <a class="collapse-item" href="{{ route('leadingTeams.index') }}">Leading Team</a>
+                 <a class="collapse-item" href="{{ route('boardOfDirectors.index') }}">Board of Director</a>
              </div>
          </div>
      </li>

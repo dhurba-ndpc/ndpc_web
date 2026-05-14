@@ -567,6 +567,9 @@ select.form-control {
 .nav-tabs .nav-link.text-danger.active {
 	color: var(--ndpc-secondary) !important;
 }
+#ourProductLanguageTabs li,
+#testimonialLanguageTabs li,
+#companyGoalLanguageTabs li,
 #blogLanguageTabs li,
 #darkBannerLanguageTabs li,
 #mvgLanguageTabs li,

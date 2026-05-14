@@ -85,7 +85,7 @@
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link {{ $errors->has('title_np') || $errors->has('subtitle_np') || $errors->has('description_ne') ? 'text-danger font-weight-bold' : '' }}"
+                                        <button class="nav-link {{ $errors->has('title_ne') || $errors->has('subtitle_ne') || $errors->has('description_ne') ? 'text-danger font-weight-bold' : '' }}"
                                                 id="nepali-tab"
                                                 data-bs-toggle="tab"
                                                 data-bs-target="#nepali"
@@ -153,31 +153,31 @@
                                         <div class="card border-left-warning">
                                             <div class="card-body">
                                                 <div class="form-group mb-3">
-                                                    <label for="title_np" class="form-label">
+                                                    <label for="title_ne" class="form-label">
                                                         <i class="fas fa-heading text-warning"></i> Title
                                                     </label>
                                                     <input type="text"
-                                                           class="form-control @error('title_np') is-invalid @enderror"
-                                                           id="title_np"
-                                                           name="title_np"
-                                                           value="{{ isset($data) ? $data->title_np : old('title_np') }}"
+                                                           class="form-control @error('title_ne') is-invalid @enderror"
+                                                           id="title_ne"
+                                                           name="title_ne"
+                                                           value="{{ isset($data) ? $data->title_ne : old('title_ne') }}"
                                                            placeholder="Enter Nepali title">
-                                                    @error('title_np')
+                                                    @error('title_ne')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
                                                 <div class="form-group mb-3">
-                                                    <label for="subtitle_np" class="form-label">
+                                                    <label for="subtitle_ne" class="form-label">
                                                         <i class="fas fa-quote-left text-warning"></i> Subtitle
                                                     </label>
                                                     <input type="text"
-                                                           class="form-control @error('subtitle_np') is-invalid @enderror"
-                                                           id="subtitle_np"
-                                                           name="subtitle_np"
-                                                           value="{{ isset($data) ? $data->subtitle_np : old('subtitle_np') }}"
+                                                           class="form-control @error('subtitle_ne') is-invalid @enderror"
+                                                           id="subtitle_ne"
+                                                           name="subtitle_ne"
+                                                           value="{{ isset($data) ? $data->subtitle_ne : old('subtitle_ne') }}"
                                                            placeholder="Enter Nepali subtitle">
-                                                    @error('subtitle_np')
+                                                    @error('subtitle_ne')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>

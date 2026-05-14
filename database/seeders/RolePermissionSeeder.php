@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Permission;
  
 
@@ -38,9 +39,10 @@ class RolePermissionSeeder extends Seeder
     public function getModels()
     {
         $models = [];
+        array_push($models, 'Leading-Team', 'Board-Of-Directors');
         $path = app_path('Models');
 
-        foreach (scandir($path) as $file) {
+        foreach (scandir($path) as $file) { 
             if ($file !== '.' && $file !== '..') {
                 $models[] = str_replace('.php', '', $file);
             }

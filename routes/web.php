@@ -5,14 +5,20 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\BoardDirectorController;
 use App\Http\Controllers\Backend\DarkBannerController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\LeadingTeamController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\CompanyGoalController;
+use App\Http\Controllers\EmployeeQuarterController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\OurProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,6 +32,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('blogCategory', BlogCategoryController::class)->names('blogCategory');
     Route::resource('albums', AlbumController::class)->names('albums');
     Route::resource('galleries', GalleryController::class)->names('galleries');
+    Route::resource('boardOfDirectors', BoardDirectorController::class)->names('boardOfDirectors');
+    Route::resource('leadingTeams', LeadingTeamController::class)->names('leadingTeams');
+    Route::resource('company_goals', CompanyGoalController::class)->names('company_goals')->only(['store', 'update', 'index']);
+    Route::resource('testimonials', TestimonialController::class)->names('testimonials');
+    Route::resource('employee-quarters', EmployeeQuarterController::class)->names('employee-quarters');
+    Route::resource('ourProduct', OurProductController::class)->names('ourProduct')->only(['store', 'update', 'index']);
     // |------------------------------|
     // |-------------roles------------|
     // |------------------------------|

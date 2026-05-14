@@ -80,12 +80,12 @@
                                             <div class="alert alert-danger py-2 small">{{ $message }}</div>
                                         @enderror
                                         @foreach ($categories as $category)
-                                            <div class="border rounded p-3 bg-light"
+                                            <div class="border rounded p-2 bg-light mb-2"
                                                 style="max-height: 280px; overflow-y: auto;">
-                                                <div class="custom-control custom-checkbox mb-2">
+                                                <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="category_{{$category->id}}"
                                                         name="blog_category_id[]" {{ isset($data) && $data->categories->contains($category->id) ? 'checked' : ''}} value="{{$category->id}}">
-                                                    <label class="custom-control-label" for="category_{{ $category->id }}">
+                                                    <label class="custom-control-label m-0" for="category_{{ $category->id }}">
                                                         <span class="font-weight-bold text-dark">{{$category->title_en}}</span>
                                                     </label>
                                                 </div>

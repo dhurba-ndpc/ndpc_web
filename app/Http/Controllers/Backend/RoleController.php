@@ -150,6 +150,7 @@ class RoleController extends Controller
     public function getModels()
     {
         $models = [];
+        array_push($models, 'Leading Team', 'Board Of Directors');
         $path = app_path('Models');
 
         foreach (scandir($path) as $file) {

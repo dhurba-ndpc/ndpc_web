@@ -9,6 +9,7 @@ use App\Policies\PermissionPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,61 +36,60 @@ class AppServiceProvider extends ServiceProvider
         foreach ($models as $model) {
             Gate::policy($model, PermissionPolicy::class);
         }
+        if (Schema::hasTable('menus')) {
+            // Menu passing data globally start
 
-        // Menu passing data globally start
-       
-        $menus = Menu::query()
-            ->whereNull('parent_id')  
-            ->whereNotIn('menu_location', ['footer', 'useful_links'])   
-            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
-            ->with([
-                'children' => function ($query) {
-                    $query
-                        ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
-                        ->whereNotIn('menu_location', ['footer', 'useful_links'])  
-                        ->orderBy('position', 'ASC');
-                }
-            ])
-            ->orderBy('position', 'ASC')
-            ->get();
+            $menus = Menu::query()
+                ->whereNull('parent_id')
+                ->whereNotIn('menu_location', ['footer', 'useful_links'])
+                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->with([
+                    'children' => function ($query) {
+                        $query
+                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
+                            ->whereNotIn('menu_location', ['footer', 'useful_links'])
+                            ->orderBy('position', 'ASC');
+                    }
+                ])
+                ->orderBy('position', 'ASC')
+                ->get();
 
-        View::share('menus', $menus);
+            View::share('menus', $menus);
 
-        $footerMenus = Menu::query()
-            ->whereNull('parent_id')  
-            ->whereNotIn('menu_location', ['header', 'useful_links'])   
-            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
-            ->with([
-                'children' => function ($query) {
-                    $query
-                        ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
-                        ->whereNotIn('menu_location', ['header', 'useful_links'])  
-                        ->orderBy('position', 'ASC');
-                }
-            ])
-            ->orderBy('position', 'ASC')
-            ->get();
+            $footerMenus = Menu::query()
+                ->whereNull('parent_id')
+                ->whereNotIn('menu_location', ['header', 'useful_links'])
+                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->with([
+                    'children' => function ($query) {
+                        $query
+                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
+                            ->whereNotIn('menu_location', ['header', 'useful_links'])
+                            ->orderBy('position', 'ASC');
+                    }
+                ])
+                ->orderBy('position', 'ASC')
+                ->get();
 
-        View::share('footerMenus', $footerMenus);
+            View::share('footerMenus', $footerMenus);
 
 
-        $UsefulLinksMenu = Menu::query()
-            ->whereNull('parent_id')  
-            ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])   
-            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
-            ->with([
-                'children' => function ($query) {
-                    $query
-                        ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'slug', 'is_active', 'menu_location')
-                        ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])  
-                        ->orderBy('position', 'ASC');
-                }
-            ])
-            ->orderBy('position', 'ASC')
-            ->get();
+            $UsefulLinksMenu = Menu::query()
+                ->whereNull('parent_id')
+                ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
+                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->with([
+                    'children' => function ($query) {
+                        $query
+                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'slug', 'is_active', 'menu_location')
+                            ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
+                            ->orderBy('position', 'ASC');
+                    }
+                ])
+                ->orderBy('position', 'ASC')
+                ->get();
 
-        View::share('UsefulLinksMenu', $UsefulLinksMenu);
-
-         
+            View::share('UsefulLinksMenu', $UsefulLinksMenu);
+        }
     }
 }
