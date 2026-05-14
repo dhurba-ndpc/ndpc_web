@@ -72,6 +72,26 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Our Product</span></a>
      </li>
+     <li class="nav-item {{ Route::is('services.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('services.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Services</span></a>
+     </li>
+
+     <li class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTs"
+             aria-expanded="true" aria-controls="collapseTs">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Technology Solutions</span></a>
+         </a>
+         <div id="collapseTs" class="collapse" aria-labelledby="headingTs" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+
+                 <a class="collapse-item" href="{{ route('technology-solution-categories.index') }}">Category</a>
+                 <a class="collapse-item" href="{{ route('technology-solution-items.index') }}">Items</a>
+             </div>
+         </div>
+     </li>
 
      <li class="nav-item {{ Route::is('galleries.*') || Route::is('albums.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAG"
