@@ -22,73 +22,72 @@
      <hr class="sidebar-divider">
      <li class="nav-item {{ Route::is('menu.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('menu.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-bars"></i>
              <span>Menu</span></a>
      </li>
      @can('Banner-View')
          <li class="nav-item {{ Route::is('banner.*') ? 'active' : '' }}">
              <a class="nav-link" href="{{ route('banner.index') }}">
-                 <i class="fas fa-fw fa-chart-area"></i>
+                 <i class="fas fa-fw fa-image"></i>
                  <span>Banner</span></a>
          </li>
      @endcan
      <li class="nav-item {{ Route::is('about.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('about.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-info-circle"></i>
              <span>About Us</span></a>
      </li>
      <li class="nav-item {{ Route::is('mvg.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('mvg.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>M V G</span></a>
+             <i class="fas fa-fw fa-bullseye"></i>
+             <span>Mission vision</span></a>
      </li>
-     
+
      <li class="nav-item {{ Route::is('blog.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('blog.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-blog"></i>
              <span>Blogs</span></a>
-     </li>
-     <li class="nav-item {{ Route::is('company_goals.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('company_goals.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Company Goals</span></a>
      </li>
      <li class="nav-item {{ Route::is('testimonials.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('testimonials.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-comment-dots"></i>
              <span>Testimonials</span></a>
      </li>
      <li class="nav-item {{ Route::is('employee-quarters.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('employee-quarters.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-newspaper"></i>
              <span>Employee Quarters</span></a>
      </li>
      <li class="nav-item {{ Route::is('ourProduct.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('ourProduct.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-box-open"></i>
              <span>Our Product</span></a>
      </li>
-     <li class="nav-item {{ Route::is('services.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('services.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Services offer</span></a>
-     </li>
+
      <li class="nav-item {{ Route::is('siteSetting.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('siteSetting.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
+             <i class="fas fa-fw fa-sliders-h"></i>
              <span>Setting</span></a>
      </li>
-     <li class="nav-item {{ Route::is('features.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('features.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Features offer</span></a>
-     </li>
- 
+     
 
+     <li class="nav-item {{ Route::is('services.*') || Route::is('features.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOffer"
+             aria-expanded="true" aria-controls="collapseOffer">
+             <i class="fas fa-fw fa-gift"></i>
+             <span>Offer</span></a>
+         </a>
+         <div id="collapseOffer" class="collapse" aria-labelledby="headingOffer" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ route('services.index') }}">Services offer</a>
+                 <a class="collapse-item" href="{{ route('features.index') }}">Features offer</a>
+             </div>
+         </div>
+     </li>
      <li class="nav-item {{ Route::is('recruitment-results.*') || Route::is('vacancy.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVacancy"
              aria-expanded="true" aria-controls="collapseVacancy">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-briefcase"></i>
              <span>Vacancy & Recruitment</span></a>
          </a>
          <div id="collapseVacancy" class="collapse" aria-labelledby="headingVacancy" data-parent="#accordionSidebar">
@@ -98,11 +97,11 @@
              </div>
          </div>
      </li>
-     
+
      <li class="nav-item {{ Route::is('notices.*') || Route::is('report.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice"
              aria-expanded="true" aria-controls="collapseNotice">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-bullhorn"></i>
              <span>Notices</span></a>
          </a>
          <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
@@ -116,7 +115,7 @@
          class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTs"
              aria-expanded="true" aria-controls="collapseTs">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-microchip"></i>
              <span>Technology Solutions</span></a>
          </a>
          <div id="collapseTs" class="collapse" aria-labelledby="headingTs" data-parent="#accordionSidebar">
@@ -131,7 +130,7 @@
      <li class="nav-item {{ Route::is('galleries.*') || Route::is('albums.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAG"
              aria-expanded="true" aria-controls="collapseAG">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-images"></i>
              <span>Gallery</span></a>
          </a>
          <div id="collapseAG" class="collapse" aria-labelledby="headingAG" data-parent="#accordionSidebar">
@@ -145,7 +144,7 @@
      <li class="nav-item {{ Route::is('boardOfDirectors.*') || Route::is('leadingTeams.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeam"
              aria-expanded="true" aria-controls="collapseTeam">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-users"></i>
              <span>Team Member</span></a>
          </a>
          <div id="collapseTeam" class="collapse" aria-labelledby="headingTeam" data-parent="#accordionSidebar">
@@ -159,7 +158,7 @@
      <li class="nav-item {{ Route::is('roles.*') || Route::is('users.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles"
              aria-expanded="true" aria-controls="collapseRoles">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-fw fa-user-shield"></i>
              <span>User Management</span></a>
          </a>
          <div id="collapseRoles" class="collapse" aria-labelledby="headingRoles" data-parent="#accordionSidebar">

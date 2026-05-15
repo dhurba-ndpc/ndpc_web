@@ -9,11 +9,11 @@ use App\Models\CompanyGoal;
 class CompanyGoalController extends AdminBaseController
 {
     protected $model;
-    protected $viewPath = 'backend.companyGoals.';
+    protected $viewPath = 'backend.sitesetting.';
     protected $requestClass = CompanyGoalRequest::class;
     protected $uploadFields = ['image'];
     protected $uploadPath = 'companyGoals';
-    protected $routePrefix = 'company_goals.index';
+    protected $routePrefix = 'siteSetting.index';
 
 
     public function __construct(CompanyGoal $model)
@@ -21,10 +21,6 @@ class CompanyGoalController extends AdminBaseController
         $this->model = $model;
     }
 
-    public function index()
-    {
-        $data = $this->model->first();
-        return view($this->viewPath . 'form', compact('data'));
-    }
+    
 
 }

@@ -4,7 +4,7 @@
     @php
         $hasSetting = isset($data) && $data;
     @endphp
-aaaaa
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
             <h1 class="h3 mb-1 text-gray-800">Site Settings</h1>
@@ -33,18 +33,28 @@ aaaaa
                                 aria-orientation="vertical">
                                 <a class="nav-link active" id="page-one-tab" data-toggle="pill" href="#page-one-panel"
                                     role="tab" aria-controls="page-one-panel" aria-selected="true">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Page 1</span>
-                                    <span class="site-tab-subtitle">Site Settings</span>
+                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Site Settings</span>
+                                    <span class="site-tab-subtitle">Update general detail</span>
                                 </a>
                                 <a class="nav-link" id="page-two-tab" data-toggle="pill" href="#page-two-panel"
                                     role="tab" aria-controls="page-two-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Page 2</span>
-                                    <span class="site-tab-subtitle">Control Page</span>
+                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Dark Banner</span>
+                                    <span class="site-tab-subtitle">update banner detail</span>
                                 </a>
                                 <a class="nav-link" id="page-three-tab" data-toggle="pill" href="#page-three-panel"
                                     role="tab" aria-controls="page-three-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Page 3</span>
-                                    <span class="site-tab-subtitle">Control Page</span>
+                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Namaste Pay App</span>
+                                    <span class="site-tab-subtitle">Update Namaste Pay App link detail</span>
+                                </a>
+                                <a class="nav-link" id="page-four-tab" data-toggle="pill" href="#page-four-panel"
+                                    role="tab" aria-controls="page-four-panel" aria-selected="false">
+                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Digital Wallet</span>
+                                    <span class="site-tab-subtitle">Digital Wallet Redefined</span>
+                                </a>
+                                <a class="nav-link" id="company-goal-tab" data-toggle="pill" href="#company-goal-panel"
+                                    role="tab" aria-controls="company-goal-panel" aria-selected="false">
+                                    <span class="site-tab-title"><i class="fas fa-bullseye mr-2"></i>Company Goal</span>
+                                    <span class="site-tab-subtitle">Goal Section</span>
                                 </a>
                             </div>
                         </div>
@@ -776,13 +786,605 @@ aaaaa
                                 </div>
 
                                 <div class="tab-pane fade" id="page-three-panel" role="tabpanel" aria-labelledby="page-three-tab">
-                                    <div class="card border-left-primary">
-                                        <div class="card-body text-center py-5">
-                                            <i class="fas fa-layer-group fa-2x text-primary mb-3"></i>
-                                            <h6 class="font-weight-bold text-dark mb-2">Page 3 Configuration</h6>
-                                            <p class="text-muted mb-0">Add this page's related fields here using the same nested tab design.</p>
+                                    @php
+                                        $hasAppLinkPromotion = isset($appLinkPromotion) && $appLinkPromotion;
+                                    @endphp
+
+                                    <form action="{{ $hasAppLinkPromotion ? route('promotion_message.update', $appLinkPromotion->id) : route('promotion_message.store') }}"
+                                        method="POST">
+                                        @csrf
+                                        @if ($hasAppLinkPromotion)
+                                            @method('PUT')
+                                        @endif
+
+                                        <input type="hidden" name="type" value="app_link">
+
+                                        <div class="card border-left-primary">
+                                            <div class="card-header py-3 bg-white">
+                                                <h6 class="m-0 font-weight-bold text-primary">
+                                                    <i class="fas fa-mobile-alt mr-2"></i>Page 3 Configuration
+                                                </h6>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 mb-4 mb-lg-0">
+                                                        <div class="card border-left-info shadow-sm h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="m-0 font-weight-bold text-info">
+                                                                    <i class="fas fa-link mr-1"></i> App Download Links
+                                                                </h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="rounded bg-light border d-flex align-items-center justify-content-center mb-4"
+                                                                    style="min-height: 190px;">
+                                                                    <div class="text-center px-3">
+                                                                        <div class="bg-white border rounded-circle shadow-sm d-flex align-items-center justify-content-center text-primary mx-auto mb-3"
+                                                                            style="width: 96px; height: 96px;">
+                                                                            <i class="fas fa-mobile-alt fa-3x"></i>
+                                                                        </div>
+                                                                        <div class="font-weight-bold text-dark">Mobile App CTA</div>
+                                                                        <div class="small text-muted mt-1">
+                                                                            Configure the app link promotion block for Page 3.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+ 
+                                                                <div class="form-group">
+                                                                    <label for="google_play_store_link" class="font-weight-bold text-dark">
+                                                                        <i class="fab fa-google-play text-info mr-1"></i>Google Play Store Link
+                                                                    </label>
+                                                                    <input type="url"
+                                                                        class="form-control @error('google_play_store_link') is-invalid @enderror"
+                                                                        id="google_play_store_link"
+                                                                        name="google_play_store_link"
+                                                                        value="{{ old('google_play_store_link', $appLinkPromotion->google_play_store_link ?? '') }}"
+                                                                        placeholder="https://play.google.com/store/apps/details?id=...">
+                                                                    @error('google_play_store_link')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="app_store_link" class="font-weight-bold text-dark">
+                                                                        <i class="fab fa-apple text-info mr-1"></i>App Store Link
+                                                                    </label>
+                                                                    <input type="url"
+                                                                        class="form-control @error('app_store_link') is-invalid @enderror"
+                                                                        id="app_store_link"
+                                                                        name="app_store_link"
+                                                                        value="{{ old('app_store_link', $appLinkPromotion->app_store_link ?? '') }}"
+                                                                        placeholder="https://apps.apple.com/app/...">
+                                                                    @error('app_store_link')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+
+                                                                <div class="custom-control custom-switch custom-control-lg mt-4">
+                                                                    <input type="checkbox"
+                                                                        class="custom-control-input"
+                                                                        id="app_link_is_active"
+                                                                        name="is_active"
+                                                                        value="1"
+                                                                        {{ old('is_active', $hasAppLinkPromotion ? $appLinkPromotion->is_active : true) ? 'checked' : '' }}>
+                                                                    <label class="custom-control-label font-weight-bold" for="app_link_is_active">
+                                                                        Publish Status
+                                                                    </label>
+                                                                    <p class="small text-muted mb-0">
+                                                                        Toggle to show this app link promotion on the website.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-8">
+                                                        <ul class="nav nav-tabs nav-fill mb-4 site-setting-sub-tabs"
+                                                            id="appLinkLanguageTabs" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active {{ $errors->has('badge_title_en') || $errors->has('title_en') || $errors->has('short_description_en') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="app-link-english-tab" data-toggle="tab"
+                                                                    href="#app-link-english" role="tab"
+                                                                    aria-controls="app-link-english" aria-selected="true">
+                                                                    <i class="fas fa-language mr-1"></i> English
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link {{ $errors->has('badge_title_ne') || $errors->has('title_ne') || $errors->has('short_description_ne') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="app-link-nepali-tab" data-toggle="tab"
+                                                                    href="#app-link-nepali" role="tab"
+                                                                    aria-controls="app-link-nepali" aria-selected="false">
+                                                                    <i class="fas fa-language mr-1"></i> Nepali
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <div class="tab-content" id="appLinkLanguageTabsContent">
+                                                            <div class="tab-pane fade show active" id="app-link-english"
+                                                                role="tabpanel" aria-labelledby="app-link-english-tab">
+                                                                <div class="card border-left-success">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="app_link_badge_title_en" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-tag text-success mr-1"></i>Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_en') is-invalid @enderror"
+                                                                                id="app_link_badge_title_en"
+                                                                                name="badge_title_en"
+                                                                                value="{{ old('badge_title_en', $appLinkPromotion->badge_title_en ?? '') }}"
+                                                                                placeholder="e.g., Download our mobile app">
+                                                                            @error('badge_title_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="app_link_title_en" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-heading text-success mr-1"></i>Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('title_en') is-invalid @enderror"
+                                                                                id="app_link_title_en"
+                                                                                name="title_en"
+                                                                                value="{{ old('title_en', $appLinkPromotion->title_en ?? '') }}"
+                                                                                placeholder="e.g., Get NDPC services on your phone">
+                                                                            @error('title_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="app_link_short_description_en" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-align-left text-success mr-1"></i>Short Description
+                                                                            </label>
+                                                                            <textarea class="form-control @error('short_description_en') is-invalid @enderror"
+                                                                                id="app_link_short_description_en"
+                                                                                name="short_description_en"
+                                                                                rows="5"
+                                                                                placeholder="e.g., Download the official mobile app for quick access to digital payment services.">{{ old('short_description_en', $appLinkPromotion->short_description_en ?? '') }}</textarea>
+                                                                            @error('short_description_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="app-link-nepali"
+                                                                role="tabpanel" aria-labelledby="app-link-nepali-tab">
+                                                                <div class="card border-left-warning">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="app_link_badge_title_ne" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-tag text-warning mr-1"></i>Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_ne') is-invalid @enderror"
+                                                                                id="app_link_badge_title_ne"
+                                                                                name="badge_title_ne"
+                                                                                value="{{ old('badge_title_ne', $appLinkPromotion->badge_title_ne ?? '') }}"
+                                                                                placeholder="मोबाइल एप डाउनलोड गर्नुहोस्">
+                                                                            @error('badge_title_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="app_link_title_ne" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-heading text-warning mr-1"></i>Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('title_ne') is-invalid @enderror"
+                                                                                id="app_link_title_ne"
+                                                                                name="title_ne"
+                                                                                value="{{ old('title_ne', $appLinkPromotion->title_ne ?? '') }}"
+                                                                                placeholder="NDPC सेवा आफ्नो फोनमा पाउनुहोस्">
+                                                                            @error('title_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="app_link_short_description_ne" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-align-left text-warning mr-1"></i>Short Description
+                                                                            </label>
+                                                                            <textarea class="form-control @error('short_description_ne') is-invalid @enderror"
+                                                                                id="app_link_short_description_ne"
+                                                                                name="short_description_ne"
+                                                                                rows="5"
+                                                                                placeholder="आधिकारिक मोबाइल एप डाउनलोड गरी डिजिटल भुक्तानी सेवामा छिटो पहुँच पाउनुहोस्।">{{ old('short_description_ne', $appLinkPromotion->short_description_ne ?? '') }}</textarea>
+                                                                            @error('short_description_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-save"></i>
+                                                                </span>
+                                                                <span class="text">
+                                                                    {{ $hasAppLinkPromotion ? 'Update App Link' : 'Save App Link' }}
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane fade" id="page-four-panel" role="tabpanel" aria-labelledby="page-four-tab">
+                                    @php
+                                        $hasPromotionText = isset($promotionText) && $promotionText;
+                                    @endphp
+
+                                    <form action="{{ $hasPromotionText ? route('promotion_message.update', $promotionText->id) : route('promotion_message.store') }}"
+                                        method="POST">
+                                        @csrf
+                                        @if ($hasPromotionText)
+                                            @method('PUT')
+                                        @endif
+
+                                        <input type="hidden" name="type" value="promotion_text">
+
+                                        <div class="card border-left-primary">
+                                            <div class="card-header py-3 bg-white">
+                                                <h6 class="m-0 font-weight-bold text-primary">
+                                                    <i class="fas fa-bullhorn mr-2"></i>Page 4 Configuration
+                                                </h6>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 mb-4 mb-lg-0">
+                                                        <div class="card border-left-info shadow-sm h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="m-0 font-weight-bold text-info">
+                                                                    <i class="fas fa-quote-right mr-1"></i> Promotion Text
+                                                                </h6>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="rounded bg-light border d-flex align-items-center justify-content-center mb-4"
+                                                                    style="min-height: 210px;">
+                                                                    <div class="text-center px-3">
+                                                                        <div class="bg-white border rounded-circle shadow-sm d-flex align-items-center justify-content-center text-primary mx-auto mb-3"
+                                                                            style="width: 96px; height: 96px;">
+                                                                            <i class="fas fa-bullhorn fa-3x"></i>
+                                                                        </div>
+                                                                        <div class="font-weight-bold text-dark">Page 4 CTA Message</div>
+                                                                        <div class="small text-muted mt-1">
+                                                                            Configure the short promotional headline shown on Page 4.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="custom-control custom-switch custom-control-lg">
+                                                                    <input type="checkbox"
+                                                                        class="custom-control-input"
+                                                                        id="promotion_text_is_active"
+                                                                        name="is_active"
+                                                                        value="1"
+                                                                        {{ old('is_active', $hasPromotionText ? $promotionText->is_active : true) ? 'checked' : '' }}>
+                                                                    <label class="custom-control-label font-weight-bold" for="promotion_text_is_active">
+                                                                        Publish Status
+                                                                    </label>
+                                                                    <p class="small text-muted mb-0">
+                                                                        Toggle to show this promotion text on the website.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-8">
+                                                        <ul class="nav nav-tabs nav-fill mb-4 site-setting-sub-tabs"
+                                                            id="promotionTextLanguageTabs" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active {{ $errors->has('badge_title_en') || $errors->has('title_en') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="promotion-text-english-tab" data-toggle="tab"
+                                                                    href="#promotion-text-english" role="tab"
+                                                                    aria-controls="promotion-text-english" aria-selected="true">
+                                                                    <i class="fas fa-language mr-1"></i> English
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link {{ $errors->has('badge_title_ne') || $errors->has('title_ne') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="promotion-text-nepali-tab" data-toggle="tab"
+                                                                    href="#promotion-text-nepali" role="tab"
+                                                                    aria-controls="promotion-text-nepali" aria-selected="false">
+                                                                    <i class="fas fa-language mr-1"></i> Nepali
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <div class="tab-content" id="promotionTextLanguageTabsContent">
+                                                            <div class="tab-pane fade show active" id="promotion-text-english"
+                                                                role="tabpanel" aria-labelledby="promotion-text-english-tab">
+                                                                <div class="card border-left-success">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="promotion_text_badge_title_en" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-tag text-success mr-1"></i>Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_en') is-invalid @enderror"
+                                                                                id="promotion_text_badge_title_en"
+                                                                                name="badge_title_en"
+                                                                                value="{{ old('badge_title_en', $promotionText->badge_title_en ?? '') }}"
+                                                                                placeholder="e.g., Important Update">
+                                                                            @error('badge_title_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="promotion_text_title_en" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-heading text-success mr-1"></i>Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('title_en') is-invalid @enderror"
+                                                                                id="promotion_text_title_en"
+                                                                                name="title_en"
+                                                                                value="{{ old('title_en', $promotionText->title_en ?? '') }}"
+                                                                                placeholder="e.g., Fast, secure, and reliable digital services">
+                                                                            @error('title_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="promotion-text-nepali"
+                                                                role="tabpanel" aria-labelledby="promotion-text-nepali-tab">
+                                                                <div class="card border-left-warning">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="promotion_text_badge_title_ne" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-tag text-warning mr-1"></i>Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_ne') is-invalid @enderror"
+                                                                                id="promotion_text_badge_title_ne"
+                                                                                name="badge_title_ne"
+                                                                                value="{{ old('badge_title_ne', $promotionText->badge_title_ne ?? '') }}"
+                                                                                placeholder="महत्त्वपूर्ण अपडेट">
+                                                                            @error('badge_title_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="promotion_text_title_ne" class="font-weight-bold text-dark">
+                                                                                <i class="fas fa-heading text-warning mr-1"></i>Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('title_ne') is-invalid @enderror"
+                                                                                id="promotion_text_title_ne"
+                                                                                name="title_ne"
+                                                                                value="{{ old('title_ne', $promotionText->title_ne ?? '') }}"
+                                                                                placeholder="छिटो, सुरक्षित र भरपर्दो डिजिटल सेवा">
+                                                                            @error('title_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-save"></i>
+                                                                </span>
+                                                                <span class="text">
+                                                                    {{ $hasPromotionText ? 'Update Promotion Text' : 'Save Promotion Text' }}
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane fade" id="company-goal-panel" role="tabpanel" aria-labelledby="company-goal-tab">
+                                    @php
+                                        $companyGoal = $companyGoal ?? null;
+                                        $hasCompanyGoal = isset($companyGoal) && $companyGoal;
+                                        $hasCompanyGoalImage = $hasCompanyGoal && $companyGoal->image;
+                                    @endphp
+
+                                    <form action="{{ $hasCompanyGoal ? route('company_goals.update', $companyGoal->id) : route('company_goals.store') }}"
+                                        method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @if ($hasCompanyGoal)
+                                            @method('PUT')
+                                        @endif
+
+                                        <div class="card border-left-primary">
+                                            <div class="card-header py-3 bg-white">
+                                                <h6 class="m-0 font-weight-bold text-primary">
+                                                    <i class="fas fa-bullseye mr-2"></i>Company Goal Configuration
+                                                </h6>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 mb-4 mb-lg-0">
+                                                        <div class="card border-left-primary shadow-sm h-100">
+                                                            <div class="card-header bg-light">
+                                                                <h6 class="m-0 font-weight-bold text-primary">
+                                                                    <i class="fas fa-image mr-1"></i> Image Preview
+                                                                </h6>
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <div class="border rounded p-2 bg-light d-flex align-items-center justify-content-center mb-3"
+                                                                    style="min-height: 240px;">
+                                                                    <img id="companyGoalImagePreview"
+                                                                        src="{{ $hasCompanyGoalImage ? asset('storage/' . $companyGoal->image) : asset('backend/img/placeholder.jpg') }}"
+                                                                        alt="Company Goal Image Preview"
+                                                                        class="img-fluid rounded shadow-sm"
+                                                                        style="max-height: 220px; object-fit: cover; {{ $hasCompanyGoalImage ? '' : 'opacity: 0.5;' }}">
+                                                                </div>
+
+                                                                <div class="custom-file text-left">
+                                                                    <input type="file"
+                                                                        name="image"
+                                                                        class="custom-file-input @error('image') is-invalid @enderror"
+                                                                        id="company_goal_image"
+                                                                        accept="image/*"
+                                                                        onchange="previewCompanyGoalImage(event)">
+                                                                    <label class="custom-file-label" for="company_goal_image">Choose image...</label>
+                                                                    @error('image')
+                                                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                                                    @enderror
+                                                                </div>
+                                                                <small class="text-muted mt-2 d-block">Recommended image size: 800x600px</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-8">
+                                                        <ul class="nav nav-tabs nav-fill mb-4 site-setting-sub-tabs"
+                                                            id="companyGoalLanguageTabs" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active {{ $errors->has('badge_title_en') || $errors->has('description_en') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="company-goal-english-tab" data-toggle="tab"
+                                                                    href="#company-goal-english" role="tab"
+                                                                    aria-controls="company-goal-english" aria-selected="true">
+                                                                    <i class="fas fa-language mr-1"></i> English
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link {{ $errors->has('badge_title_ne') || $errors->has('description_ne') ? 'text-danger font-weight-bold' : '' }}"
+                                                                    id="company-goal-nepali-tab" data-toggle="tab"
+                                                                    href="#company-goal-nepali" role="tab"
+                                                                    aria-controls="company-goal-nepali" aria-selected="false">
+                                                                    <i class="fas fa-language mr-1"></i> Nepali
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <div class="tab-content" id="companyGoalLanguageTabsContent">
+                                                            <div class="tab-pane fade show active" id="company-goal-english"
+                                                                role="tabpanel" aria-labelledby="company-goal-english-tab">
+                                                                <div class="card border-left-success">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="company_goal_badge_title_en" class="form-label">
+                                                                                <i class="fas fa-tag text-success"></i> Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_en') is-invalid @enderror"
+                                                                                id="company_goal_badge_title_en"
+                                                                                name="badge_title_en"
+                                                                                value="{{ old('badge_title_en', $companyGoal->badge_title_en ?? '') }}"
+                                                                                placeholder="Enter English badge title">
+                                                                            @error('badge_title_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="company_goal_description_en" class="form-label">
+                                                                                <i class="fas fa-align-left text-success"></i> Description
+                                                                            </label>
+                                                                            <textarea class="form-control @error('description_en') is-invalid @enderror"
+                                                                                id="company_goal_description_en"
+                                                                                name="description_en"
+                                                                                rows="6"
+                                                                                placeholder="Enter English description">{{ old('description_en', $companyGoal->description_en ?? '') }}</textarea>
+                                                                            @error('description_en')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="company-goal-nepali"
+                                                                role="tabpanel" aria-labelledby="company-goal-nepali-tab">
+                                                                <div class="card border-left-warning">
+                                                                    <div class="card-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="company_goal_badge_title_ne" class="form-label">
+                                                                                <i class="fas fa-tag text-warning"></i> Badge Title
+                                                                            </label>
+                                                                            <input type="text"
+                                                                                class="form-control @error('badge_title_ne') is-invalid @enderror"
+                                                                                id="company_goal_badge_title_ne"
+                                                                                name="badge_title_ne"
+                                                                                value="{{ old('badge_title_ne', $companyGoal->badge_title_ne ?? '') }}"
+                                                                                placeholder="Enter Nepali badge title">
+                                                                            @error('badge_title_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        <div class="form-group mb-0">
+                                                                            <label for="company_goal_description_ne" class="form-label">
+                                                                                <i class="fas fa-align-left text-warning"></i> Description
+                                                                            </label>
+                                                                            <textarea class="form-control @error('description_ne') is-invalid @enderror"
+                                                                                id="company_goal_description_ne"
+                                                                                name="description_ne"
+                                                                                rows="6"
+                                                                                placeholder="Enter Nepali description">{{ old('description_ne', $companyGoal->description_ne ?? '') }}</textarea>
+                                                                            @error('description_ne')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="custom-control custom-switch custom-control-lg mt-4">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input"
+                                                                id="company_goal_is_active"
+                                                                name="is_active"
+                                                                value="1"
+                                                                {{ old('is_active', $hasCompanyGoal ? $companyGoal->is_active : true) ? 'checked' : '' }}>
+                                                            <label class="custom-control-label font-weight-bold" for="company_goal_is_active">
+                                                                Publish Status
+                                                            </label>
+                                                            <p class="small text-muted mb-0">
+                                                                Toggle to make this company goal visible on the website front-end.
+                                                            </p>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-save"></i>
+                                                                </span>
+                                                                <span class="text">
+                                                                    {{ $hasCompanyGoal ? 'Update Company Goal' : 'Save Company Goal' }}
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -815,6 +1417,23 @@ aaaaa
         function previewDarkBannerImage(event) {
             const file = event.target.files[0];
             const preview = document.getElementById('darkBannerImagePreview');
+            const label = event.target.nextElementSibling;
+
+            if (file) {
+                label.innerText = file.name;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.opacity = '1';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewCompanyGoalImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('companyGoalImagePreview');
             const label = event.target.nextElementSibling;
 
             if (file) {

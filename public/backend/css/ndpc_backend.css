@@ -141,7 +141,7 @@ h3 {
 .sidebar .nav-item .nav-link {
 	border-radius: 0.55rem;
 	margin: 0.15rem 0.85rem;
-	padding: 0.85rem 1rem;
+	padding: 0.35rem 1rem;
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\FeatureController;
 use App\Http\Controllers\Backend\LeadingTeamController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
+use App\Http\Controllers\Backend\PromotionMessageController;
 use App\Http\Controllers\Backend\RecruitmentResultController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoleController;
@@ -58,6 +59,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('report', ReportController::class)->names('report');
     Route::resource('recruitment-results', RecruitmentResultController::class)->names('recruitment-results');
     Route::resource('vacancy', VacancyController::class)->names('vacancy');
+    Route::resource('promotion_message', PromotionMessageController::class)->names('promotion_message');
 
 
 

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\SiteSettingRequest;
+use App\Models\CompanyGoal;
 use App\Models\FeatureAreas;
+use App\Models\PromotionMessage;
 use App\Models\SiteSetting;
 
- 
+
 class SiteSettingController extends AdminBaseController
 {
     protected $model;
@@ -22,12 +24,16 @@ class SiteSettingController extends AdminBaseController
         $this->model = $model;
     }
 
-    
+
     public function index()
     {
+
+        $promotionText = PromotionMessage::where('type', 'promotion_text')->first();
+        $appLinkPromotion = PromotionMessage::where('type', 'app_link')->first();
         $data = $this->model->first();
         $darkBanner = FeatureAreas::where('type', 'dark_banner')->first();
+        $companyGoal = CompanyGoal::first();
 
-        return view($this->viewPath . 'form', compact('data', 'darkBanner'));
+        return view($this->viewPath . 'form', compact('data', 'darkBanner', 'appLinkPromotion', 'promotionText', 'companyGoal'));
     }
 }
