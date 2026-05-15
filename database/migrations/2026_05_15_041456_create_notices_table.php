@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('notices', function (Blueprint $table) {
             $table->id();
-             $table->enum('type', ['features_offer', 'services_offer']);
-            $table->string('bootstrap_icon')->nullable();
-
             $table->string('title_en');
             $table->string('title_ne')->nullable();
 
-            $table->text('description_en')->nullable();
-            $table->text('description_ne')->nullable();
+            $table->string('badge_title_en')->nullable();
+            $table->string('badge_title_ne')->nullable();
 
-            $table->integer('position')->default(0);
+            $table->string('file')->nullable();
+
+            $table->enum('type', ['report', 'notices']);
+
             $table->boolean('is_active')->default(true);
 
             $table->softDeletes();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('notices');
     }
 };

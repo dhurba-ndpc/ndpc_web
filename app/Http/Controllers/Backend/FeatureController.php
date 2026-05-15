@@ -14,11 +14,21 @@ class FeatureController extends AdminBaseController
     protected $requestClass = ServiceRequest::class;
     protected $uploadFields = [];
     protected $uploadPath = [];
-    protected $routePrefix = 'services.index';
+    protected $routePrefix = 'features.index';
 
 
     public function __construct(Service $model)
     {
         $this->model = $model;
+    }
+
+    public function index()
+    {
+        $lists = $this->model
+            ->where('type', 'features_offer')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view($this->viewPath . 'index', compact('lists'));
     }
 }

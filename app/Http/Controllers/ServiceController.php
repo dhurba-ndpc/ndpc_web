@@ -22,4 +22,14 @@ class ServiceController extends AdminBaseController
     {
         $this->model = $model;
     }
+
+    public function index()
+    {
+        $lists = $this->model
+            ->where('type', 'services_offer')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view($this->viewPath . 'index', compact('lists'));
+    }
 }
