@@ -75,10 +75,44 @@
      <li class="nav-item {{ Route::is('services.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('services.index') }}">
              <i class="fas fa-fw fa-chart-area"></i>
-             <span>Services</span></a>
+             <span>Services offer</span></a>
      </li>
+     <li class="nav-item {{ Route::is('features.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('features.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Features offer</span></a>
+     </li>
+ 
 
-     <li class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">
+     <li class="nav-item {{ Route::is('recruitment-results.*') || Route::is('vacancy.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVacancy"
+             aria-expanded="true" aria-controls="collapseVacancy">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Vacancy & Recruitment</span></a>
+         </a>
+         <div id="collapseVacancy" class="collapse" aria-labelledby="headingVacancy" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ route('recruitment-results.index') }}">Recruitment Results</a>
+                 <a class="collapse-item" href="{{ route('vacancy.index') }}">Vacancy</a>
+             </div>
+         </div>
+     </li>
+     
+     <li class="nav-item {{ Route::is('notices.*') || Route::is('report.*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice"
+             aria-expanded="true" aria-controls="collapseNotice">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Notices</span></a>
+         </a>
+         <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ route('notices.index') }}">Our Notices</a>
+                 <a class="collapse-item" href="{{ route('report.index') }}">Reports Download</a>
+             </div>
+         </div>
+     </li>
+     <li
+         class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTs"
              aria-expanded="true" aria-controls="collapseTs">
              <i class="fas fa-fw fa-cog"></i>

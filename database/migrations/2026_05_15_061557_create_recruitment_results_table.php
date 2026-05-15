@@ -11,20 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('recruitment_results', function (Blueprint $table) {
             $table->id();
-             $table->enum('type', ['features_offer', 'services_offer']);
-            $table->string('bootstrap_icon')->nullable();
-
             $table->string('title_en');
             $table->string('title_ne')->nullable();
 
-            $table->text('description_en')->nullable();
-            $table->text('description_ne')->nullable();
+            $table->json('selected_candidates')->nullable();
+            $table->json('waiting_candidates')->nullable();
 
-            $table->integer('position')->default(0);
             $table->boolean('is_active')->default(true);
-
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('recruitment_results');
     }
 };

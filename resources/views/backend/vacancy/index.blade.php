@@ -3,26 +3,25 @@
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
-            <h1 class="h3 mb-1 text-gray-800">Features</h1>
+            <h1 class="h3 mb-1 text-gray-800">Vacancies</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Features</li>
+                    <li class="breadcrumb-item active" aria-current="page">Vacancies</li>
                 </ol>
             </nav>
         </div>
-        <a href="{{ route('features.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus fa-sm"></i>
-            </span>
-            <span class="text">Create Feature</span>
+
+        <a href="{{ route('vacancy.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+            <span class="icon text-white-50"><i class="fas fa-plus fa-sm"></i></span>
+            <span class="text">Create Vacancy</span>
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-star mr-2"></i>Feature List
+                <i class="fas fa-briefcase mr-2"></i>Vacancy List
             </h6>
         </div>
         <div class="card-body">
@@ -31,10 +30,10 @@
                     <thead class="bg-light">
                         <tr class="text-dark">
                             <th width="5%">S.No</th>
-                            <th width="10%">Icon</th>
-                            <th>English Content</th>
-                            <th>Nepali Content</th>
-                            <th width="10%">Position</th>
+                            <th>Vacancy Information</th>
+                            <th width="16%">Job Details</th>
+                            <th width="18%">Deadline</th>
+                            <th width="12%">Applicants</th>
                             <th width="12%">Status</th>
                             <th width="12%" class="text-center">Action</th>
                         </tr>
@@ -43,28 +42,49 @@
                         @forelse ($lists as $list)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle text-center">
-                                    <div class="bg-light border rounded d-flex align-items-center justify-content-center mx-auto text-primary"
-                                        style="width: 80px; height: 80px;">
-                                        <i class="{{ $list->bootstrap_icon ?: 'bi bi-stars' }}" style="font-size: 32px;"></i>
-                                    </div>
-                                    <div class="small text-muted mt-1">{{ $list->bootstrap_icon ?? '-' }}</div>
-                                </td>
                                 <td class="align-middle">
                                     <div class="font-weight-bold text-dark">{{ $list->title_en ?? '-' }}</div>
+                                    @if (!empty($list->title_ne))
+                                        <div class="small text-muted">{{ $list->title_ne }}</div>
+                                    @endif
+                                    <div class="small text-info mt-1">
+                                        <i class="fas fa-link mr-1"></i>{{ $list->slug ?? '-' }}
+                                    </div>
+                                    @if (!empty($list->short_description_en))
+                                        <div class="small text-muted mt-1">
+                                            {{ \Illuminate\Support\Str::limit(strip_tags($list->short_description_en), 90) }}
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <span class="badge badge-pill badge-info shadow-sm px-3 mb-2">
+                                        {{ ucwords(str_replace('_', ' ', $list->employment_type ?? 'full_time')) }}
+                                    </span>
+                                    <div class="small text-dark">
+                                        <i class="fas fa-map-marker-alt text-muted mr-1"></i>{{ $list->location ?? 'N/A' }}
+                                    </div>
                                     <div class="small text-muted">
-                                        {{ \Illuminate\Support\Str::limit(strip_tags($list->description_en), 90) }}
+                                        <i class="fas fa-layer-group mr-1"></i>{{ $list->experience_level ?? 'N/A' }}
+                                    </div>
+                                    <div class="small text-muted">
+                                        <i class="fas fa-money-bill-wave mr-1"></i>{{ $list->salary ?? 'N/A' }}
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <div class="font-weight-bold text-dark">{{ $list->title_ne ?? '-' }}</div>
-                                    <div class="small text-muted">
-                                        {{ \Illuminate\Support\Str::limit(strip_tags($list->description_ne), 90) }}
-                                    </div>
+                                    @if ($list->deadline)
+                                        <div class="font-weight-bold text-dark">
+                                            {{ $list->deadline->format('M d, Y') }}
+                                        </div>
+                                        <div class="small text-muted">
+                                            {{ $list->deadline->diffForHumans() }}
+                                        </div>
+                                    @else
+                                        <span class="text-muted small">No deadline</span>
+                                    @endif
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="badge badge-pill badge-info shadow-sm px-3">
-                                        {{ $list->position ?? 0 }}
+                                    <span class="badge badge-pill badge-primary shadow-sm px-3">
+                                        {{ $list->total_applicants ?? 0 }}
                                     </span>
                                 </td>
                                 <td class="align-middle text-center">
@@ -80,15 +100,12 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('features.edit', $list->id) }}"
-                                            class="btn btn-info btn-sm shadow-sm"
+                                        <a href="{{ route('vacancy.edit', $list->id) }}" class="btn btn-info btn-sm shadow-sm"
                                             title="Edit">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1"
-                                            data-toggle="modal"
-                                            data-target="#deleteModal_{{ $list->id }}"
-                                            title="Delete">
+                                        <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
+                                            data-target="#deleteModal_{{ $list->id }}" title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
@@ -107,14 +124,14 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-left p-4">
-                                                    Are you sure you want to delete feature
+                                                    Are you sure you want to delete vacancy
                                                     <strong>"{{ $list->title_en ?? $list->title_ne ?? 'this item' }}"</strong>?
                                                     <p class="text-muted small mt-2">This action cannot be undone.</p>
                                                 </div>
                                                 <div class="modal-footer bg-light">
                                                     <button type="button" class="btn btn-secondary btn-sm"
                                                         data-dismiss="modal">Cancel</button>
-                                                    <form method="POST" action="{{ route('features.destroy', $list->id) }}">
+                                                    <form method="POST" action="{{ route('vacancy.destroy', $list->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm shadow-sm px-4">
@@ -130,8 +147,8 @@
                         @empty
                             <tr>
                                 <td colspan="7" class="text-center text-muted py-4">
-                                    <i class="fas fa-star fa-2x mb-2 d-block"></i>
-                                    No features found.
+                                    <i class="fas fa-briefcase fa-2x mb-2 d-block"></i>
+                                    No vacancies found.
                                 </td>
                             </tr>
                         @endforelse
@@ -141,4 +158,3 @@
         </div>
     </div>
 @endsection
-

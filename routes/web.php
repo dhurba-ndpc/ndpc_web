@@ -12,11 +12,14 @@ use App\Http\Controllers\Backend\FeatureController;
 use App\Http\Controllers\Backend\LeadingTeamController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
+use App\Http\Controllers\Backend\RecruitmentResultController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CompanyGoalController;
 use App\Http\Controllers\EmployeeQuarterController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\OurProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
@@ -24,6 +27,7 @@ use App\Http\Controllers\TechnologySolutionCategoryController;
 use App\Http\Controllers\TechnologySolutionItemController;
 use App\Http\Controllers\TechnologySolutionSectionController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,9 +52,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('technology-solution-items', TechnologySolutionItemController::class)->names('technology-solution-items');
     Route::resource('services', ServiceController::class)->names('services');
     Route::resource('features', FeatureController::class)->names('features');
+    Route::resource('notices', NoticeController::class)->names('notices');
+    Route::resource('report', ReportController::class)->names('report');
+    Route::resource('recruitment-results', RecruitmentResultController::class)->names('recruitment-results');
+    Route::resource('vacancy', VacancyController::class)->names('vacancy');
 
 
-    
+
     // |------------------------------|
     // |-------------roles------------|
     // |------------------------------|
