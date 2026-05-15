@@ -42,11 +42,7 @@
              <i class="fas fa-fw fa-chart-area"></i>
              <span>M V G</span></a>
      </li>
-     <li class="nav-item {{ Route::is('darkbanner.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('darkbanner.index') }}">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Dark Banner</span></a>
-     </li>
+     
      <li class="nav-item {{ Route::is('blog.*') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('blog.index') }}">
              <i class="fas fa-fw fa-chart-area"></i>
@@ -76,6 +72,11 @@
          <a class="nav-link" href="{{ route('services.index') }}">
              <i class="fas fa-fw fa-chart-area"></i>
              <span>Services</span></a>
+     </li>
+     <li class="nav-item {{ Route::is('siteSetting.*') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('siteSetting.index') }}">
+             <i class="fas fa-fw fa-chart-area"></i>
+             <span>Setting</span></a>
      </li>
 
      <li class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">

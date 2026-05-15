@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\LeadingTeamController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CompanyGoalController;
 use App\Http\Controllers\EmployeeQuarterController;
@@ -48,6 +49,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('technology-solution-items', TechnologySolutionItemController::class)->names('technology-solution-items');
     Route::resource('services', ServiceController::class)->names('services');
     Route::resource('features', FeatureController::class)->names('features');
+    Route::resource('siteSetting', SiteSettingController::class)->names('siteSetting');
 
 
     
@@ -82,9 +84,7 @@ require __DIR__ . '/auth.php';
 
 
 
-// Route::get('test', function(){
-//     return view('backend.dashboard');
-// });
+ 
 
 Route::get('/', function () {
     return view('frontend/index');

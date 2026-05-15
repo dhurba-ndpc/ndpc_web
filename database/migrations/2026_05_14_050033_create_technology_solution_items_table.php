@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,14 @@ return new class extends Migration
     {
         Schema::create('technology_solution_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('technology_solution_category_id')
-                ->constrained('technology_solution_categories')
+            $table->unsignedBigInteger('technology_solution_category_id');
+            $table
+                ->foreign(
+                    'technology_solution_category_id',
+                    'tech_solution_cat_fk'
+                )
+                ->references('id')
+                ->on('technology_solution_categories')
                 ->cascadeOnDelete();
 
             $table->string('title_en');
@@ -49,7 +54,6 @@ return new class extends Migration
 
             $table->string('glass_text_en')->nullable();
             $table->string('glass_text_ne')->nullable();
-
 
             $table->boolean('is_active')->default(true);
 

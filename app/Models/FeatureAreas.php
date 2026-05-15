@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Mvg extends Model
+class FeatureAreas extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
+        'type',
         'title_en',
         'title_ne',
         'subtitle_en',
@@ -19,5 +17,9 @@ class Mvg extends Model
         'image',
         'position',
         'is_active',
+        
     ];
+
 }
+
+ 
