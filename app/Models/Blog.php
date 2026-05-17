@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
+ 
 
 class Blog extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, GeneratesSlug;
 
     protected $fillable = [
         'user_id',
@@ -21,6 +22,9 @@ class Blog extends Model
         'description_ne',
         'is_active',
     ];
+    protected $casts = [
+    'is_active' => 'boolean',
+];
 
     public function categories()
     {
@@ -35,28 +39,20 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected static function booted()
+    protected static function booted(): void
     {
         static::saving(function ($blog) {
-            
 
-            if (!empty($blog->title_en)) {
+            if (
+                empty($blog->slug) ||
+                $blog->isDirty('title_en')
+            ) {
 
-                $slug = Str::slug($blog->title_en);
-
-                $originalSlug = $slug;
-
-                $count = 1;
-
-                while (
-                    static::where('slug', $slug)
-                    ->where('id', '!=', $blog->id)
-                    ->exists()
-                ) {
-                    $slug = $originalSlug . '-' . $count++;
-                }
-
-                $blog->slug = $slug;
+                $blog->slug = $blog->generateUniqueSlug(
+                    self::class,
+                    $blog->title_en,
+                    $blog->id
+                );
             }
         });
     }

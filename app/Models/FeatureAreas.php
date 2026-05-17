@@ -17,9 +17,9 @@ class FeatureAreas extends Model
         'image',
         'position',
         'is_active',
-        
     ];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }
-
- 

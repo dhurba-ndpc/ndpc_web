@@ -32,4 +32,8 @@ class SiteSetting extends Model
         'logo_2',
         'is_active',
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

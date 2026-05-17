@@ -23,7 +23,6 @@ class PromotionMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-
             'badge_title_en' => ['required', 'string', 'max:255'],
             'badge_title_ne' => ['nullable', 'string', 'max:255'],
 
@@ -36,6 +35,7 @@ class PromotionMessageRequest extends FormRequest
             'google_play_store_link' => ['nullable', 'url', 'max:255'],
             'app_store_link' => ['nullable', 'url', 'max:255'],
 
+            'type' => ['required', 'in:app_link,promotion_text'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

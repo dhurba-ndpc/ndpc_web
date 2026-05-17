@@ -71,8 +71,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-   
-
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/js/nested-menu.js') }}"></script>
@@ -92,40 +90,29 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-      
     @stack('script')
     <script>
-        // toster ja
-        @if (Session::has('success'))
+        @if (Session::has('success') || Session::has('error') || Session::has('info') || Session::has('warning'))
             toastr.options = {
                 "closeButton": true,
                 "progressBar": true
-            }
-            toastr.success("{{ session('success') }}");
+            };
+        @endif
+
+        @if (Session::has('success'))
+            toastr.success(@json(session('success')));
         @endif
 
         @if (Session::has('error'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.error("{{ session('error') }}");
+            toastr.error(@json(session('error')));
         @endif
 
         @if (Session::has('info'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.info("{{ session('info') }}");
+            toastr.info(@json(session('info')));
         @endif
 
         @if (Session::has('warning'))
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.warning("{{ session('warning') }}");
+            toastr.warning(@json(session('warning')));
         @endif
     </script>
     <script type="importmap">

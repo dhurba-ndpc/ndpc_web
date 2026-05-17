@@ -11,12 +11,14 @@
                 </ol>
             </nav>
         </div>
-        <a href="{{ route('banner.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus fa-sm"></i>
-            </span>
-            <span class="text">Create New Banner</span>
-        </a>
+        @can('Banner-Create')
+            <a href="{{ route('banner.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus fa-sm"></i>
+                </span>
+                <span class="text">Create New Banner</span>
+            </a>
+        @endcan
     </div>
 
     <div class="card shadow mb-4">
@@ -57,48 +59,54 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('banner.edit', $list->id) }}"
-                                            class="btn btn-info btn-sm shadow-sm" title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
-                                            data-target="#deleteModal_{{ $list->id }}" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @can('Banner-Edit')
+                                            <a href="{{ route('banner.edit', $list->id) }}"
+                                                class="btn btn-info btn-sm shadow-sm" title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        @can('Banner-Delete')
+                                            <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
+                                                data-target="#deleteModal_{{ $list->id }}" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endcan
                                     </div>
 
-                                    <div class="modal fade" id="deleteModal_{{ $list->id }}" tabindex="-1"
-                                        role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content border-0 shadow-lg">
-                                                <div class="modal-header bg-danger text-white">
-                                                    <h5 class="modal-title font-weight-bold">
-                                                        <i class="fas fa-exclamation-triangle mr-2"></i>Confirm Delete
-                                                    </h5>
-                                                    <button type="button" class="close text-white" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body text-left p-4">
-                                                    Are you sure you want to delete the banner
-                                                    <strong>"{{ $list->name }}"</strong>?
-                                                    <p class="text-muted small mt-2">This action cannot be undone.</p>
-                                                </div>
-                                                <div class="modal-footer bg-light">
-                                                    <button type="button" class="btn btn-secondary btn-sm"
-                                                        data-dismiss="modal">Cancel</button>
-                                                    <form method="POST" action="{{ route('banner.destroy', $list->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-danger btn-sm shadow-sm px-4">Yes,
-                                                            Delete</button>
-                                                    </form>
+                                    @can('Banner-Delete')
+                                        <div class="modal fade" id="deleteModal_{{ $list->id }}" tabindex="-1"
+                                            role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content border-0 shadow-lg">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title font-weight-bold">
+                                                            <i class="fas fa-exclamation-triangle mr-2"></i>Confirm Delete
+                                                        </h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-left p-4">
+                                                        Are you sure you want to delete the banner
+                                                        <strong>"{{ $list->name }}"</strong>?
+                                                        <p class="text-muted small mt-2">This action cannot be undone.</p>
+                                                    </div>
+                                                    <div class="modal-footer bg-light">
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <form method="POST" action="{{ route('banner.destroy', $list->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm shadow-sm px-4">Yes,
+                                                                Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

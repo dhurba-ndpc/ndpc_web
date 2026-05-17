@@ -23,7 +23,7 @@ class BannerRequest extends FormRequest
     {
         $isUpdate = request()->isMethod('put') || request()->isMethod('patch');
         return [
-            'title' => 'nullable',
+            'name' => 'required|string|max:255',
             'image' => [$isUpdate ? 'nullable' : 'required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }

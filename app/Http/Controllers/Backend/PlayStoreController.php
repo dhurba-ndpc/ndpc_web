@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\PromotionMessageRequest;
 use App\Models\PromotionMessage;
-
- 
+use Illuminate\Contracts\View\View;
 
 class PlayStoreController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.sitesetting.';
-    protected $requestClass = PromotionMessageRequest::class;
-    protected $uploadFields = [];
-    protected $uploadPath = [];
-    protected $routePrefix = 'siteSetting.index';
+    protected string $viewPath = 'backend.sitesetting.';
+    protected string $requestClass = PromotionMessageRequest::class;
+    protected array $uploadFields = [];
+    protected string $uploadPath = '';
+    protected string $routePrefix = 'siteSetting.index';
 
     public function __construct(PromotionMessage $model)
     {
         $this->model = $model;
+    }
+
+    public function index(): View
+    {
+        $data = $this->model->where('type', 'app_link')->first();
+        return view($this->viewPath . 'form', compact('data'));
     }
 }

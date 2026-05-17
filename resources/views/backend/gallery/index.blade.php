@@ -17,13 +17,15 @@
             </nav>
         </div>
 
-        <a href="{{ route('galleries.create') }}"
-            class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus fa-sm"></i>
-            </span>
-            <span class="text">Create Gallery</span>
-        </a>
+        @can('Gallery-Create')
+            <a href="{{ route('galleries.create') }}"
+                class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus fa-sm"></i>
+                </span>
+                <span class="text">Create Gallery</span>
+            </a>
+        @endcan
     </div>
 
     <div class="card shadow mb-4">
@@ -149,28 +151,33 @@
 
                                     <div class="btn-group" role="group">
 
-                                        {{-- Edit --}}
-                                        <a href="{{ route('galleries.edit', $list->id) }}"
-                                            class="btn btn-info btn-sm shadow-sm"
-                                            title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
+                                        @can('Gallery-Edit')
+                                            {{-- Edit --}}
+                                            <a href="{{ route('galleries.edit', $list->id) }}"
+                                                class="btn btn-info btn-sm shadow-sm"
+                                                title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
 
-                                        {{-- Delete --}}
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1"
-                                            data-toggle="modal"
-                                            data-target="#deleteModal_{{ $list->id }}"
-                                            title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @can('Gallery-Delete')
+                                            {{-- Delete --}}
+                                            <button class="btn btn-danger btn-sm shadow-sm ml-1"
+                                                data-toggle="modal"
+                                                data-target="#deleteModal_{{ $list->id }}"
+                                                title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endcan
                                     </div>
 
-                                    {{-- Delete Modal --}}
-                                    <div class="modal fade"
-                                        id="deleteModal_{{ $list->id }}"
-                                        tabindex="-1"
-                                        role="dialog"
-                                        aria-hidden="true">
+                                    @can('Gallery-Delete')
+                                        {{-- Delete Modal --}}
+                                        <div class="modal fade"
+                                            id="deleteModal_{{ $list->id }}"
+                                            tabindex="-1"
+                                            role="dialog"
+                                            aria-hidden="true">
 
                                         <div class="modal-dialog modal-dialog-centered"
                                             role="document">
@@ -230,7 +237,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        </div>
+                                    @endcan
 
                                 </td>
 

@@ -2,34 +2,33 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 
 class MenuController extends AdminBaseController
 {
 
-    protected $model;
-    protected $viewPath = 'backend.menu.';
-    protected $requestClass = MenuRequest::class;
-    protected $uploadFields = ['image', 'og_image'];
-    protected $uploadPath = 'menu';
-    protected $routePrefix = 'menu.index';
+    protected string $viewPath = 'backend.menu.';
+    protected string $requestClass = MenuRequest::class;
+    protected array $uploadFields = ['image', 'og_image'];
+    protected string $uploadPath = 'menu';
+    protected string $routePrefix = 'menu.index';
 
     public function __construct(Menu $model)
     {
         $this->model = $model;
     }
 
-    public function create()
+    public function create(): View
     {
         $parentMenus = $this->model->where('parent_id', null)->get();
         return view($this->viewPath . 'form', compact('parentMenus'));
     }
 
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $data = $this->model->findOrFail($id);
         $parentMenus = $this->model

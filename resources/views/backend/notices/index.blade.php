@@ -12,10 +12,12 @@
             </nav>
         </div>
 
-        <a href="{{ route('notices.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50"><i class="fas fa-plus fa-sm"></i></span>
-            <span class="text">Create Notice</span>
-        </a>
+        @can('Notice-Create')
+            <a href="{{ route('notices.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                <span class="icon text-white-50"><i class="fas fa-plus fa-sm"></i></span>
+                <span class="text">Create Notice</span>
+            </a>
+        @endcan
     </div>
 
     <div class="card shadow mb-4">
@@ -78,16 +80,21 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('notices.edit', $list->id) }}" class="btn btn-info btn-sm shadow-sm"
-                                            title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
-                                            data-target="#deleteModal_{{ $list->id }}" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @can('Notice-Edit')
+                                            <a href="{{ route('notices.edit', $list->id) }}" class="btn btn-info btn-sm shadow-sm"
+                                                title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        @can('Notice-Delete')
+                                            <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
+                                                data-target="#deleteModal_{{ $list->id }}" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endcan
                                     </div>
 
+                                    @can('Notice-Delete')
                                     <div class="modal fade" id="deleteModal_{{ $list->id }}" tabindex="-1" role="dialog"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,6 +127,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

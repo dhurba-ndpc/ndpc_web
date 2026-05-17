@@ -1,28 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Traits\HandlesUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 abstract class AdminBaseController extends Controller
 {
     use HandlesUploads;
 
-    protected $model;
-    protected $viewPath;
-    protected $requestClass;
-    protected $uploadFields;
-    protected $uploadPath;
-    protected $routePrefix;
+    protected Model $model;
+    protected string $viewPath;
+    protected string $requestClass;
+    protected array $uploadFields = [];
+    protected string $uploadPath = '';
+    protected string $routePrefix;
+    protected bool $assignAuthenticatedUser = false;
+    protected array $syncRelations = [];
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $lists = $this->model->orderBy('id', 'desc')->get();
         return view($this->viewPath . 'index', compact('lists'));
@@ -31,7 +36,7 @@ abstract class AdminBaseController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view($this->viewPath . 'form');
     }
@@ -39,11 +44,12 @@ abstract class AdminBaseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-       
-        // dd($request->all());
+        
+        
         $request = app($this->requestClass);
+       
         $uploadedFiles = [];
 
         try {
@@ -54,32 +60,38 @@ abstract class AdminBaseController extends Controller
                 $this->uploadFields,
                 $this->uploadPath
             );
-            
-            //optional check for now use for blog field user_id
-            if (Schema::hasColumn($this->model->getTable(), 'user_id')) {
+
+            // optional check for now use for blog field user_id
+            if ($this->assignAuthenticatedUser) {
                 $data['user_id'] = auth()->id();
             }
 
-            $data['is_active'] = $request->has('is_active');
-           
+            $data['is_active'] = $request->boolean('is_active');
+
             foreach ($this->uploadFields as $field) {
                 if (!empty($data[$field])) {
                     $uploadedFiles[] = $data[$field];
                 }
             }
-           
+
             $item = $this->model->create($data);
 
             // saving blog and category in pivot table
-            if (method_exists($item, 'categories') && $request->filled('blog_category_id')) {
-                $item->categories()->sync($request->blog_category_id);
+            foreach ($this->syncRelations as $relation => $field) {
+                if (method_exists($item, $relation)) {
+                    $item->{$relation}()->sync(
+                        $request->input($field, [])
+                    );
+                }
             }
             //
             DB::commit();
-            return redirect()->route($this->routePrefix)
+            return redirect()
+                ->route($this->routePrefix)
                 ->with('success', class_basename($this->model) . ' Created successfully');
         } catch (\Exception $e) {
 
+        dd($e->getMessage());
             DB::rollBack();
 
             foreach ($uploadedFiles as $filePath) {
@@ -87,8 +99,9 @@ abstract class AdminBaseController extends Controller
                     Storage::disk('public')->delete($filePath);
                 }
             }
-            dd($e->getMessage());
-            return redirect()->back()
+
+            return redirect()
+                ->back()
                 ->withInput()
                 ->with('error', 'Failed to create ' . class_basename($this->model) . ': ' . $e->getMessage());
         }
@@ -105,7 +118,7 @@ abstract class AdminBaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $data = $this->model->findOrFail($id);
         return view($this->viewPath . 'form', compact('data'));
@@ -114,9 +127,8 @@ abstract class AdminBaseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        // dd($request->all());
         $request = app($this->requestClass);
 
         $uploadedFiles = [];
@@ -124,19 +136,17 @@ abstract class AdminBaseController extends Controller
         try {
             $item = $this->model->findOrFail($id);
 
-
             $data = $this->uploadFiles(
                 $request,
                 $this->uploadFields,
                 $this->uploadPath,
                 $item->toArray()
             );
-            //optional check for now use for blog field user_id
-            if (Schema::hasColumn($this->model->getTable(), 'user_id')) {
+            // optional check for now use for blog field user_id
+            if ($this->assignAuthenticatedUser) {
                 $data['user_id'] = auth()->id();
             }
-            $data['is_active'] = $request->has('is_active');
-          
+            $data['is_active'] = $request->boolean('is_active');
 
             foreach ($this->uploadFields as $field) {
                 if (!empty($data[$field]) && $data[$field] !== $item->$field) {
@@ -146,12 +156,13 @@ abstract class AdminBaseController extends Controller
 
             $item->update($data);
             // saving blog and category in pivot table
-            if (method_exists($item, 'categories')) {
-                $item->categories()->sync(
-                    $request->input('blog_category_id', [])
-                );
+            foreach ($this->syncRelations as $relation => $field) {
+                if (method_exists($item, $relation)) {
+                    $item->{$relation}()->sync(
+                        $request->input($field, [])
+                    );
+                }
             }
-            //
 
             return redirect()->route($this->routePrefix)->with('success', class_basename($this->model) . ' updated successfully');
         } catch (\Exception $e) {
@@ -161,24 +172,21 @@ abstract class AdminBaseController extends Controller
                     Storage::disk('public')->delete($filePath);
                 }
             }
-
             return back()
                 ->withInput()
                 ->with('error', 'Failed to update ' . class_basename($this->model) . ': ' . $e->getMessage());
         }
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         try {
             $item = $this->model->findOrFail($id);
 
-
-            // Remove Pivot Relations of blog 
+            // Remove Pivot Relations of blog
             if (method_exists($item, 'categories')) {
                 $item->categories()->detach();
             }

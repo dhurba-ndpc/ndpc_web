@@ -8,18 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class About extends Model
 {
     use SoftDeletes;
-    protected $fillable = [
 
+    protected $fillable = [
         'badge_text_en',
         'title_en',
         'description_en',
-
         'badge_text_ne',
         'title_ne',
         'description_ne',
-        
         'glass_text',
         'image',
         'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 }

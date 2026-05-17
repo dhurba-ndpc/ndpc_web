@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\FeatureAreas;
+use App\Models\Notice;
+use App\Models\PromotionMessage;
+use App\Models\Service;
+use App\Models\TeamMember;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Permission;
@@ -36,18 +41,46 @@ class RolePermissionSeeder extends Seeder
 
         $this->command->info('Permissions seeded successfully.');
     }
-    public function getModels()
+     public function getModels()
     {
-        $models = [];
-        array_push($models, 'Leading-Team', 'Board-Of-Directors');
-        $path = app_path('Models');
+        $customModels = [
+            'LeadingTeam' => TeamMember::class,
+            'BoardOfDirectors' => TeamMember::class,
+            'Notice' => Notice::class,
+            'Report' => Notice::class,
+            'DarkBanner' => FeatureAreas::class,
+            'MissionVision' => FeatureAreas::class,
+            'Service' => Service::class,
+            'Feature' => Service::class,
+            'PromotionMessage' => PromotionMessage::class,
+            'PlayStore' => PromotionMessage::class,
+             
+        ];
 
-        foreach (scandir($path) as $file) { 
-            if ($file !== '.' && $file !== '..') {
-                $models[] = str_replace('.php', '', $file);
+        $hiddenRealModels = [
+            'TeamMember',
+            'Notice',
+            'FeatureAreas',
+            'Service',
+            'PromotionMessage',
+        ];
+
+        $models = array_keys($customModels);
+
+        foreach (scandir(app_path('Models')) as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
             }
+
+            $modelName = str_replace('.php', '', $file);
+
+            if (in_array($modelName, $hiddenRealModels)) {
+                continue;
+            }
+
+            $models[] = $modelName;
         }
 
-        return $models;
+        return array_values(array_unique($models));
     }
 }

@@ -1,30 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\TechnologySolutionSectionRequest;
 use App\Models\TechnologySolutionSection;
 use Illuminate\Http\Request;
-
- 
+use Illuminate\Http\RedirectResponse;
 
 class TechnologySolutionSectionController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.technologySolutions.solutionItems.';
-    protected $requestClass = TechnologySolutionSectionRequest::class;
-    protected $uploadFields = [];
-    protected $uploadPath = '';
-    protected $routePrefix = 'technology-solution-items.index';
-     
+    protected string $viewPath = 'backend.technologySolutions.solutionItems.';
+    protected string $requestClass = TechnologySolutionSectionRequest::class;
+    protected array $uploadFields = [];
+    protected string $uploadPath = '';
+    protected string $routePrefix = 'technology-solution-items.index';
 
     public function __construct(TechnologySolutionSection $model)
     {
         $this->model = $model;
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request = app(TechnologySolutionSectionRequest::class);
         $data = $request->validated();

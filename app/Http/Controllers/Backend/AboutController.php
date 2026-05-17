@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\AboutRequest;
 use App\Models\About;
+use Illuminate\Contracts\View\View;
 
 class AboutController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.about.';
-    protected $requestClass = AboutRequest::class;
-    protected $uploadFields = ['image'];
-    protected $uploadPath = 'abouts';
-    protected $routePrefix = 'about.index';
+    protected string $viewPath = 'backend.about.';
+    protected string $requestClass = AboutRequest::class;
+    protected array $uploadFields = ['image'];
+    protected string $uploadPath = 'abouts';
+    protected string $routePrefix = 'about.index';
 
     public function __construct(About $model)
     {
         $this->model = $model;
     }
 
-    
-    public function index()
+    public function index(): View
     {
-        $data = About::first();
+        $data = $this->model->first();
+
         return view($this->viewPath . 'form', compact('data'));
     }
 }

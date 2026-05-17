@@ -20,12 +20,14 @@
             </nav>
         </div>
 
-        <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus fa-sm"></i>
-            </span>
-            <span class="text">Create New Menu</span>
-        </a>
+        @can('Menu-Create')
+            <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus fa-sm"></i>
+                </span>
+                <span class="text">Create New Menu</span>
+            </a>
+        @endcan
     </div>
 
     <div class="card shadow mb-4 border-left-primary menu-manager-card">
@@ -56,7 +58,7 @@
                         <ol class="dd-list menu-list">
                             @foreach ($menuItems as $menu)
                                 <li id="menuItem_{{ $menu->id }}" class="dd-item menu-dd-item"
-                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name }}"
+                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name_en }}"
                                     data-slug="{{ $menu->slug }}" data-new="0" data-deleted="0">
                                     <div class="menu-dd-row">
                                         <div class="dd-handle menu-drag-handle" title="Drag menu">
@@ -64,7 +66,10 @@
                                         </div>
 
                                         <div class="menu-dd-content">
-                                            <div class="menu-dd-title">{{ $menu->menu_name }}</div>
+                                            <div class="menu-dd-title">{{ $menu->menu_name_en }}</div>
+                                            @if ($menu->menu_name_ne)
+                                                <div class="small text-muted">{{ $menu->menu_name_ne }}</div>
+                                            @endif
                                             <div class="menu-dd-meta">
                                                 <span><i
                                                         class="fas fa-map-marker-alt mr-1"></i>{{ str_replace('_', ' & ', $menu->menu_location ?? 'header') }}</span>
@@ -83,16 +88,20 @@
                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                             @endif
 
-                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                href="{{ route('menu.edit', $menu->id) }}" title="Edit">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
+                                            @can('Menu-Edit')
+                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                    href="{{ route('menu.edit', $menu->id) }}" title="Edit">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                            @endcan
 
-                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
-                                                title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            @can('Menu-Delete')
+                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                    data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
+                                                    title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -100,7 +109,7 @@
                                         <ol class="dd-list">
                                             @foreach ($menu->children as $submenu)
                                                 <li id="menuItem_{{ $submenu->id }}" class="dd-item menu-dd-item"
-                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name }}"
+                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name_en }}"
                                                     data-slug="{{ $submenu->slug }}" data-new="0" data-deleted="0">
                                                     <div class="menu-dd-row is-child">
                                                         <div class="dd-handle menu-drag-handle" title="Drag child menu">
@@ -108,7 +117,10 @@
                                                         </div>
 
                                                         <div class="menu-dd-content">
-                                                            <div class="menu-dd-title">{{ $submenu->menu_name }}</div>
+                                                            <div class="menu-dd-title">{{ $submenu->menu_name_en }}</div>
+                                                            @if ($submenu->menu_name_ne)
+                                                                <div class="small text-muted">{{ $submenu->menu_name_ne }}</div>
+                                                            @endif
                                                             <div class="menu-dd-meta">
                                                                 <span><i class="fas fa-level-up-alt mr-1"></i>Child
                                                                     Menu</span>
@@ -119,7 +131,7 @@
                                                                 <span><i class="fas fa-sort-numeric-down mr-1"></i>Position
                                                                     {{ $submenu->position ?? 0 }}</span>
                                                                 <span><i class="fas fa-sort-numeric-down mr-1"></i>Parent:
-                                                                    {{ $submenu->parent?->menu_name ?? 'Undefined' }}</span>
+                                                                    {{ $submenu->parent?->menu_name_en ?? 'Undefined' }}</span>
                                                             </div>
                                                         </div>
 
@@ -131,18 +143,22 @@
                                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                                             @endif
 
-                                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                                href="{{ route('menu.edit', $submenu->id) }}"
-                                                                title="Edit">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
+                                                            @can('Menu-Edit')
+                                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                                    href="{{ route('menu.edit', $submenu->id) }}"
+                                                                    title="Edit">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </a>
+                                                            @endcan
 
-                                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteMenuModal{{ $submenu->id }}"
-                                                                title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
+                                                            @can('Menu-Delete')
+                                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteMenuModal{{ $submenu->id }}"
+                                                                    title="Delete">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            @endcan
                                                         </div>
                                                     </div>
 
@@ -161,9 +177,11 @@
                             </div>
                             <h6>No menus found</h6>
                             <p>Create your first menu item to start building the navigation.</p>
-                            <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus mr-1"></i>Create Menu
-                            </a>
+                            @can('Menu-Create')
+                                <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus mr-1"></i>Create Menu
+                                </a>
+                            @endcan
                         </div>
                     @endif
                 </div>
@@ -204,7 +222,7 @@
                         <ol class="dd-list menu-list">
                             @foreach ($footerMenuItems as $menu)
                                 <li id="menuItem_{{ $menu->id }}" class="dd-item menu-dd-item"
-                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name }}"
+                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name_en }}"
                                     data-slug="{{ $menu->slug }}" data-new="0" data-deleted="0">
                                     <div class="menu-dd-row">
                                         <div class="dd-handle menu-drag-handle" title="Drag menu">
@@ -212,7 +230,10 @@
                                         </div>
 
                                         <div class="menu-dd-content">
-                                            <div class="menu-dd-title">{{ $menu->menu_name }}</div>
+                                            <div class="menu-dd-title">{{ $menu->menu_name_en }}</div>
+                                            @if ($menu->menu_name_ne)
+                                                <div class="small text-muted">{{ $menu->menu_name_ne }}</div>
+                                            @endif
                                             <div class="menu-dd-meta">
                                                 <span><i
                                                         class="fas fa-map-marker-alt mr-1"></i>{{ str_replace('_', ' & ', $menu->menu_location ?? 'header') }}</span>
@@ -231,16 +252,20 @@
                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                             @endif
 
-                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                href="{{ route('menu.edit', $menu->id) }}" title="Edit">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
+                                            @can('Menu-Edit')
+                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                    href="{{ route('menu.edit', $menu->id) }}" title="Edit">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                            @endcan
 
-                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
-                                                title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            @can('Menu-Delete')
+                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                    data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
+                                                    title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -248,7 +273,7 @@
                                         <ol class="dd-list">
                                             @foreach ($menu->children as $submenu)
                                                 <li id="menuItem_{{ $submenu->id }}" class="dd-item menu-dd-item"
-                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name }}"
+                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name_en }}"
                                                     data-slug="{{ $submenu->slug }}" data-new="0" data-deleted="0">
                                                     <div class="menu-dd-row is-child">
                                                         <div class="dd-handle menu-drag-handle" title="Drag child menu">
@@ -256,7 +281,10 @@
                                                         </div>
 
                                                         <div class="menu-dd-content">
-                                                            <div class="menu-dd-title">{{ $submenu->menu_name }}</div>
+                                                            <div class="menu-dd-title">{{ $submenu->menu_name_en }}</div>
+                                                            @if ($submenu->menu_name_ne)
+                                                                <div class="small text-muted">{{ $submenu->menu_name_ne }}</div>
+                                                            @endif
                                                             <div class="menu-dd-meta">
                                                                 <span><i class="fas fa-level-up-alt mr-1"></i>Child
                                                                     Menu</span>
@@ -267,7 +295,7 @@
                                                                 <span><i class="fas fa-sort-numeric-down mr-1"></i>Position
                                                                     {{ $submenu->position ?? 0 }}</span>
                                                                 <span><i class="fas fa-sort-numeric-down mr-1"></i>Parent:
-                                                                    {{ $submenu->parent?->menu_name ?? 'Undefined' }}</span>
+                                                                    {{ $submenu->parent?->menu_name_en ?? 'Undefined' }}</span>
                                                             </div>
                                                         </div>
 
@@ -279,18 +307,22 @@
                                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                                             @endif
 
-                                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                                href="{{ route('menu.edit', $submenu->id) }}"
-                                                                title="Edit">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
+                                                            @can('Menu-Edit')
+                                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                                    href="{{ route('menu.edit', $submenu->id) }}"
+                                                                    title="Edit">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </a>
+                                                            @endcan
 
-                                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteMenuModal{{ $submenu->id }}"
-                                                                title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
+                                                            @can('Menu-Delete')
+                                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteMenuModal{{ $submenu->id }}"
+                                                                    title="Delete">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            @endcan
                                                         </div>
                                                     </div>
 
@@ -309,9 +341,11 @@
                             </div>
                             <h6>No menus found</h6>
                             <p>Create your first menu item to start building the navigation.</p>
-                            <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus mr-1"></i>Create Menu
-                            </a>
+                            @can('Menu-Create')
+                                <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus mr-1"></i>Create Menu
+                                </a>
+                            @endcan
                         </div>
                     @endif
                 </div>
@@ -348,11 +382,12 @@
                 </div>
 
                 <div class="dd nestable menu-nestable" id="nestable2">
+                  
                     @if ($UsefulLinksMenuItems->count() > 0)
                         <ol class="dd-list menu-list">
                             @foreach ($UsefulLinksMenuItems as $menu)
                                 <li id="menuItem_{{ $menu->id }}" class="dd-item menu-dd-item"
-                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name }}"
+                                    data-id="{{ $menu->id }}" data-name="{{ $menu->menu_name_en }}"
                                     data-slug="{{ $menu->slug }}" data-new="0" data-deleted="0">
                                     <div class="menu-dd-row">
                                         <div class="dd-handle menu-drag-handle" title="Drag menu">
@@ -360,7 +395,10 @@
                                         </div>
 
                                         <div class="menu-dd-content">
-                                            <div class="menu-dd-title">{{ $menu->menu_name }}</div>
+                                            <div class="menu-dd-title">{{ $menu->menu_name_en }}</div>
+                                            @if ($menu->menu_name_ne)
+                                                <div class="small text-muted">{{ $menu->menu_name_ne }}</div>
+                                            @endif
                                             <div class="menu-dd-meta">
                                                 <span><i
                                                         class="fas fa-map-marker-alt mr-1"></i>{{ str_replace('_', ' & ', $menu->menu_location ?? 'header') }}</span>
@@ -379,16 +417,20 @@
                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                             @endif
 
-                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                href="{{ route('menu.edit', $menu->id) }}" title="Edit">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
+                                            @can('Menu-Edit')
+                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                    href="{{ route('menu.edit', $menu->id) }}" title="Edit">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                            @endcan
 
-                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
-                                                title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            @can('Menu-Delete')
+                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                    data-toggle="modal" data-target="#deleteMenuModal{{ $menu->id }}"
+                                                    title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -396,7 +438,7 @@
                                         <ol class="dd-list">
                                             @foreach ($menu->children as $submenu)
                                                 <li id="menuItem_{{ $submenu->id }}" class="dd-item menu-dd-item"
-                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name }}"
+                                                    data-id="{{ $submenu->id }}" data-name="{{ $submenu->menu_name_en }}"
                                                     data-slug="{{ $submenu->slug }}" data-new="0" data-deleted="0">
                                                     <div class="menu-dd-row is-child">
                                                         <div class="dd-handle menu-drag-handle" title="Drag child menu">
@@ -404,7 +446,10 @@
                                                         </div>
 
                                                         <div class="menu-dd-content">
-                                                            <div class="menu-dd-title">{{ $submenu->menu_name }}</div>
+                                                            <div class="menu-dd-title">{{ $submenu->menu_name_en }}</div>
+                                                            @if ($submenu->menu_name_ne)
+                                                                <div class="small text-muted">{{ $submenu->menu_name_ne }}</div>
+                                                            @endif
                                                             <div class="menu-dd-meta">
                                                                 <span><i class="fas fa-level-up-alt mr-1"></i>Child
                                                                     Menu</span>
@@ -416,7 +461,7 @@
                                                                     {{ $submenu->position ?? 0 }}</span>
 
                                                                 <span><i class="fas fa-sort-numeric-down mr-1"></i>Parent:
-                                                                    {{ $submenu->parent?->menu_name ?? 'Undefined' }}</span>
+                                                                    {{ $submenu->parent?->menu_name_en ?? 'Undefined' }}</span>
                                                             </div>
                                                         </div>
 
@@ -428,18 +473,22 @@
                                                                 <span class="badge badge-pill badge-secondary">Draft</span>
                                                             @endif
 
-                                                            <a class="btn btn-info btn-sm shadow-sm"
-                                                                href="{{ route('menu.edit', $submenu->id) }}"
-                                                                title="Edit">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
+                                                            @can('Menu-Edit')
+                                                                <a class="btn btn-info btn-sm shadow-sm"
+                                                                    href="{{ route('menu.edit', $submenu->id) }}"
+                                                                    title="Edit">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </a>
+                                                            @endcan
 
-                                                            <button type="button" class="btn btn-danger btn-sm shadow-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteMenuModal{{ $submenu->id }}"
-                                                                title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
+                                                            @can('Menu-Delete')
+                                                                <button type="button" class="btn btn-danger btn-sm shadow-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteMenuModal{{ $submenu->id }}"
+                                                                    title="Delete">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            @endcan
                                                         </div>
                                                     </div>
 
@@ -458,9 +507,11 @@
                             </div>
                             <h6>No menus found</h6>
                             <p>Create your first menu item to start building the navigation.</p>
-                            <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus mr-1"></i>Create Menu
-                            </a>
+                            @can('Menu-Create')
+                                <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus mr-1"></i>Create Menu
+                                </a>
+                            @endcan
                         </div>
                     @endif
                 </div>
@@ -472,27 +523,29 @@
         </div>
     </div>
 
-    @foreach ($menuItems as $menu)
-        @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
+    @can('Menu-Delete')
+        @foreach ($menuItems as $menu)
+            @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
 
-        @foreach ($menu->children as $submenu)
-            @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @foreach ($menu->children as $submenu)
+                @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @endforeach
         @endforeach
-    @endforeach
-    @foreach ($footerMenuItems as $menu)
-        @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
+        @foreach ($footerMenuItems as $menu)
+            @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
 
-        @foreach ($menu->children as $submenu)
-            @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @foreach ($menu->children as $submenu)
+                @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @endforeach
         @endforeach
-    @endforeach
-    @foreach ($UsefulLinksMenuItems as $menu)
-        @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
+        @foreach ($UsefulLinksMenuItems as $menu)
+            @include('backend.menu.partials.delete-modal', ['menuItem' => $menu])
 
-        @foreach ($menu->children as $submenu)
-            @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @foreach ($menu->children as $submenu)
+                @include('backend.menu.partials.delete-modal', ['menuItem' => $submenu])
+            @endforeach
         @endforeach
-    @endforeach
+    @endcan
 @endsection
 
 @push('script')

@@ -2,49 +2,57 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Menu extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, GeneratesSlug;
 
     protected $fillable = [
-        'menu_name',
+        'menu_name_en',
+        'menu_name_ne',
         'page_template',
         'position',
         'is_main_child',
         'parent_id',
         'menu_location',
         'image',
-        'page_title',
+        'page_title_en',
+        'page_title_ne',
         'slug',
-        'content',
-        'description',
+        'content_en',
+        'content_ne',
+        'description_en',
+        'description_ne',
         'external_link',
-        'meta_title',
-        'meta_keywords',
-        'meta_description',
+        'meta_title_en',
+        'meta_keywords_en',
+        'meta_description_en',
         'canonical_url',
-        'og_title',
-        'og_description',
+        'og_title_en',
+        'og_description_en',
         'og_image',
         'is_active',
-
     ];
 
-    protected static function booted()
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    protected static function booted(): void
     {
         static::saving(function ($menu) {
-            if (!$menu->slug) {
-                $base = Str::slug($menu->menu_name);
-                $menu->slug = $base . '-' . rand(1000, 9999);
-
-                $i = 1;
-                while (self::where('slug', $menu->slug)->exists()) {
-                    $menu->slug = $base . '-' . $i++;
-                }
+            if (
+                empty($menu->slug) ||
+                $menu->isDirty('menu_name_en')
+            ) {
+                $menu->slug = $menu->generateUniqueSlug(
+                    self::class,
+                    $menu->menu_name_en,
+                    $menu->id
+                );
             }
         });
     }
@@ -53,6 +61,7 @@ class Menu extends Model
     {
         return $this->hasMany(Menu::class, 'parent_id')->orderBy('position', 'asc');
     }
+
     public function parent()
     {
         return $this->belongsTo(Menu::class, 'parent_id');

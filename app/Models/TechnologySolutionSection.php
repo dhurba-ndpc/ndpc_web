@@ -11,4 +11,8 @@ class TechnologySolutionSection extends Model
         'title_ne',
         'is_active',
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

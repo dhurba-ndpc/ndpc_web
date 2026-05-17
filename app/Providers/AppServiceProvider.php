@@ -27,12 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // it is Maping multiple models to one policy spatie package
-        $models = [
-            Banner::class,
-            About::class,
-
-        ];
-
+        $models = getModels();
+        
         foreach ($models as $model) {
             Gate::policy($model, PermissionPolicy::class);
         }
@@ -42,11 +38,11 @@ class AppServiceProvider extends ServiceProvider
             $menus = Menu::query()
                 ->whereNull('parent_id')
                 ->whereNotIn('menu_location', ['footer', 'useful_links'])
-                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->select('id', 'menu_name_en', 'menu_name_ne', 'page_title_en', 'page_title_ne', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
                 ->with([
                     'children' => function ($query) {
                         $query
-                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
+                            ->select('id', 'menu_name_en', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
                             ->whereNotIn('menu_location', ['footer', 'useful_links'])
                             ->orderBy('position', 'ASC');
                     }
@@ -59,11 +55,11 @@ class AppServiceProvider extends ServiceProvider
             $footerMenus = Menu::query()
                 ->whereNull('parent_id')
                 ->whereNotIn('menu_location', ['header', 'useful_links'])
-                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->select('id', 'menu_name_en', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
                 ->with([
                     'children' => function ($query) {
                         $query
-                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
+                            ->select('id', 'menu_name_en', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
                             ->whereNotIn('menu_location', ['header', 'useful_links'])
                             ->orderBy('position', 'ASC');
                     }
@@ -77,11 +73,11 @@ class AppServiceProvider extends ServiceProvider
             $UsefulLinksMenu = Menu::query()
                 ->whereNull('parent_id')
                 ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
-                ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
+                ->select('id', 'menu_name_en', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
                 ->with([
                     'children' => function ($query) {
                         $query
-                            ->select('id', 'menu_name', 'parent_id', 'external_link', 'page_template', 'position', 'slug', 'is_active', 'menu_location')
+                            ->select('id', 'menu_name_en', 'parent_id', 'external_link', 'page_template', 'position', 'slug', 'is_active', 'menu_location')
                             ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
                             ->orderBy('position', 'ASC');
                     }
@@ -90,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             View::share('UsefulLinksMenu', $UsefulLinksMenu);
+          
         }
     }
 }

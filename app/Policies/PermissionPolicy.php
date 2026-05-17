@@ -4,33 +4,34 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class PermissionPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user, $model): bool
+    public function viewAny(User $user, Model $model): bool
     {
         return $user->can($this->getModelName($model) . '-View');
     }
 
-    public function view(User $user, $model): bool
+    public function view(User $user, Model $model): bool
     {
         return $user->can($this->getModelName($model) . '-View');
     }
 
-    public function create(User $user, $model): bool
+    public function create(User $user, Model $model): bool
     {
         return $user->can($this->getModelName($model) . '-Create');
     }
 
-    public function update(User $user, $model): bool
+    public function update(User $user, Model $model): bool
     {
         return $user->can($this->getModelName($model) . '-Edit');
     }
 
-    public function delete(User $user, $model): bool
+    public function delete(User $user, Model $model): bool
     {
         return $user->can($this->getModelName($model) . '-Delete');
     }
@@ -38,7 +39,7 @@ class PermissionPolicy
     /**
      * Converts "App\Models\Banner" to "Banner"
      */
-    protected function getModelName($model): string
+    protected function getModelName(Model $model): string
     {
         $class = is_string($model) ? $model : get_class($model);
         // class_basename returns "Banner", "About", etc.

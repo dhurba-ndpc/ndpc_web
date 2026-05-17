@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
+ 
 
 class Album extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, GeneratesSlug;
 
     protected $fillable = [
         'title_en',
@@ -19,23 +20,31 @@ class Album extends Model
         'image',
         'is_active',
     ];
+    protected $casts = [
+    'is_active' => 'boolean',
+];
 
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
     }
 
-    protected static function booted()
+    
+    protected static function booted(): void
     {
-        static::creating(function ($album) {
-            $baseSlug = Str::slug($album->title_en);
-            $slug = $baseSlug;
-            $count = 1;
-            while (self::withTrashed()->where('slug', $slug)->exists()) {
-                $slug = $baseSlug . '-' . $count;
-                $count++;
+        static::saving(function ($album) {
+
+            if (
+                empty($album->slug) ||
+                $album->isDirty('title_en')
+            ) {
+
+                $album->slug = $album->generateUniqueSlug(
+                    self::class,
+                    $album->title_en,
+                    $album->id
+                );
             }
-            $album->slug = $slug;
         });
     }
 }

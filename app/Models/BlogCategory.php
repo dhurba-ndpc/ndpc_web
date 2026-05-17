@@ -2,18 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
+ 
 
 class BlogCategory extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, GeneratesSlug;
+
     protected $fillable = [
         'title_en',
         'title_ne',
         'slug',
         'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public function blogs()
@@ -24,30 +30,21 @@ class BlogCategory extends Model
         );
     }
 
-    protected static function booted()
-{
-    static::saving(function ($category) {
+     protected static function booted(): void
+    {
+        static::saving(function ($category) {
 
-        if (!empty($category->title_en)) {
-
-            $slug = Str::slug($category->title_en);
-
-            $originalSlug = $slug;
-
-            $count = 1;
-
-            while (
-                static::where('slug', $slug)
-                    ->where('id', '!=', $category->id)
-                    ->exists()
+            if (
+                empty($category->slug) ||
+                $category->isDirty('title_en')
             ) {
-                $slug = $originalSlug . '-' . $count++;
+
+                $category->slug = $category->generateUniqueSlug(
+                    self::class,
+                    $category->title_en,
+                    $category->id
+                );
             }
-
-            $category->slug = $slug;
-        }
-    });
-}
-
-
+        });
+    }
 }

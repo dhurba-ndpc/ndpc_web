@@ -3,6 +3,11 @@
 @section('content')
     @php
         $selectedType = old('is_main_child', $data->is_main_child ?? 'parent_menu');
+        $hasNepaliError =
+            $errors->has('menu_name_ne') ||
+            $errors->has('page_title_ne') ||
+            $errors->has('description_ne') ||
+            $errors->has('content_ne');
 
         $templateOptions = [
             '' => 'Default Template',
@@ -70,24 +75,7 @@
                                 </div>
 
                                 <div class="form-row mt-3">
-                                    <div class="form-group col-md-6">
-                                        <label for="menu_name" class="small font-weight-bold text-dark">Menu Name <span
-                                                class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-heading"></i></span>
-                                            </div>
-                                            <input type="text" id="menu_name" name="menu_name"
-                                                class="form-control @error('menu_name') is-invalid @enderror"
-                                                value="{{ old('menu_name', $data->menu_name ?? '') }}"
-                                                placeholder="Enter menu name">
-                                        </div>
-                                        @error('menu_name')
-                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="position" class="small font-weight-bold text-dark">Position</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -103,7 +91,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-4">
                                         <label for="menu_location" class="small font-weight-bold text-dark">Menu
                                             Location</label>
                                         <div class="input-group">
@@ -119,15 +107,40 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <input type="hidden" id="locked_menu_location" name="menu_location"
+                                                value="{{ old('menu_location', $data->menu_location ?? 'header') }}"
+                                                disabled>
                                         </div>
                                         @error('menu_location')
+                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="page_template" class="small font-weight-bold text-dark">Page
+                                            Template</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
+                                            </div>
+                                            <select id="page_template" name="page_template"
+                                                class="form-control @error('page_template') is-invalid @enderror">
+                                                @foreach ($templateOptions as $value => $label)
+                                                    <option value="{{ $value }}"
+                                                        {{ old('page_template', $data->page_template ?? '') == $value ? 'selected' : '' }}>
+                                                        {{ $label }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('page_template')
                                             <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                         @enderror
                                     </div>
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="is_main_child" class="small font-weight-bold text-dark">Menu
                                             Type</label>
                                         <div class="input-group">
@@ -149,7 +162,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-4 {{ $selectedType == 'child_menu' ? '' : 'd-none' }}"
+                                    <div class="form-group col-md-6 {{ $selectedType == 'child_menu' ? '' : 'd-none' }}"
                                         id="parentMenuWrapper">
                                         <label for="parent_id" class="small font-weight-bold text-dark">Parent Menu</label>
                                         <div class="input-group">
@@ -163,14 +176,16 @@
 
                                                 @foreach ($parentMenus as $parentMenu)
                                                     <option value="{{ $parentMenu->id }}"
+                                                        data-menu-location="{{ $parentMenu->menu_location }}"
                                                         {{ (string) old('parent_id', $data->parent_id ?? '') === (string) $parentMenu->id ? 'selected' : '' }}>
-                                                        {{ $parentMenu->menu_name . '(' . $parentMenu->menu_location . ')' }}
+                                                        {{ $parentMenu->menu_name_en . ' (' . $parentMenu->menu_location . ')' }}
                                                     </option>
 
                                                     @foreach ($parentMenu->children as $childMenu)
                                                         <option value="{{ $childMenu->id }}"
+                                                            data-menu-location="{{ $childMenu->menu_location }}"
                                                             {{ (string) old('parent_id', $data->parent_id ?? '') === (string) $childMenu->id ? 'selected' : '' }}>
-                                                            -- {{ $childMenu->menu_name }}
+                                                            -- {{ $childMenu->menu_name_en }}
                                                         </option>
                                                     @endforeach
                                                 @endforeach
@@ -180,28 +195,6 @@
                                         <small class="text-muted">Available only for child menu items.</small>
                                         @error('parent_id')
                                             <span class="text-danger small d-block"><strong>{{ $message }}</strong></span>
-                                        @enderror
-                                    </div>
-                                  
-                                    <div class="form-group col-md-4">
-                                        <label for="page_template" class="small font-weight-bold text-dark">Page
-                                            Template</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
-                                            </div>
-                                            <select id="page_template" name="page_template"
-                                                class="form-control @error('page_template') is-invalid @enderror">
-                                                @foreach ($templateOptions as $value => $label)
-                                                    <option value="{{ $value }}"
-                                                        {{ old('page_template', $data->page_template ?? '') == $value ? 'selected' : '' }}>
-                                                        {{ $label }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('page_template')
-                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                         @enderror
                                     </div>
                                 </div>
@@ -245,38 +238,151 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Page Content</h6>
                                 </div>
 
-                                <div class="form-row mt-3">
-                                    <div class="form-group col-md-12">
-                                        <label for="page_title" class="small font-weight-bold text-dark">Page
-                                            Title</label>
-                                        <input type="text" id="page_title" name="page_title"
-                                            class="form-control @error('page_title') is-invalid @enderror"
-                                            value="{{ old('page_title', $data->page_title ?? '') }}"
-                                            placeholder="Enter page title">
-                                        @error('page_title')
-                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                <ul class="nav nav-tabs nav-fill mt-3 mb-4 menu-language-tabs" id="menuLanguageTabs"
+                                    role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link {{ $hasNepaliError ? '' : 'active' }} {{ $errors->has('menu_name_en') || $errors->has('page_title_en') || $errors->has('description_en') || $errors->has('content_en') ? 'text-danger font-weight-bold' : '' }}"
+                                            id="menu-english-tab" data-bs-toggle="tab" data-bs-target="#menuEnglish"
+                                            type="button" role="tab" aria-controls="menuEnglish"
+                                            aria-selected="{{ $hasNepaliError ? 'false' : 'true' }}">
+                                            <i class="fas fa-language mr-1"></i> English
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link {{ $hasNepaliError ? 'active' : '' }} {{ $hasNepaliError ? 'text-danger font-weight-bold' : '' }}"
+                                            id="menu-nepali-tab" data-bs-toggle="tab" data-bs-target="#menuNepali"
+                                            type="button" role="tab" aria-controls="menuNepali"
+                                            aria-selected="{{ $hasNepaliError ? 'true' : 'false' }}">
+                                            <i class="fas fa-language mr-1"></i> नेपाली
+                                        </button>
+                                    </li>
+                                </ul>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="description" class="small font-weight-bold text-dark">Page Banner
-                                            Short Description</label>
-                                        <textarea id="description" name="description" rows="5"
-                                            class="form-control @error('description') is-invalid @enderror" placeholder="Write short description">{{ old('description', $data->description ?? '') }}</textarea>
-                                        @error('description')
-                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
-                                        @enderror
+                                <div class="tab-content" id="menuLanguageTabsContent">
+                                    <div class="tab-pane fade {{ $hasNepaliError ? '' : 'show active' }}" id="menuEnglish"
+                                        role="tabpanel" aria-labelledby="menu-english-tab">
+                                        <div class="card border-left-success">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="menu_name_en" class="small font-weight-bold text-dark">Menu
+                                                        Name <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="fas fa-heading"></i></span>
+                                                        </div>
+                                                        <input type="text" id="menu_name_en" name="menu_name_en"
+                                                            class="form-control @error('menu_name_en') is-invalid @enderror"
+                                                            value="{{ old('menu_name_en', $data->menu_name_en ?? '') }}"
+                                                            placeholder="Enter menu name">
+                                                    </div>
+                                                    @error('menu_name_en')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="page_title_en" class="small font-weight-bold text-dark">Page
+                                                        Title</label>
+                                                    <input type="text" id="page_title_en" name="page_title_en"
+                                                        class="form-control @error('page_title_en') is-invalid @enderror"
+                                                        value="{{ old('page_title_en', $data->page_title_en ?? '') }}"
+                                                        placeholder="Enter page title">
+                                                    @error('page_title_en')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description_en"
+                                                        class="small font-weight-bold text-dark">Page Banner Short
+                                                        Description</label>
+                                                    <textarea id="description_en" name="description_en" rows="4"
+                                                        class="form-control @error('description_en') is-invalid @enderror" placeholder="Write short description">{{ old('description_en', $data->description_en ?? '') }}</textarea>
+                                                    @error('description_en')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group mb-0">
+                                                    <label for="content_en"
+                                                        class="small font-weight-bold text-dark">Content</label>
+                                                    <textarea id="content_en" name="content_en" rows="5"
+                                                        class="form-control @error('content_en') is-invalid @enderror" placeholder="Write page content">{{ old('content_en', $data->content_en ?? '') }}</textarea>
+                                                    @error('content_en')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="content" class="small font-weight-bold text-dark">Content</label>
-                                        <textarea id="content" name="content" rows="5" class="form-control @error('content') is-invalid @enderror"
-                                            placeholder="Write page content">{{ old('content', $data->content ?? '') }}</textarea>
-                                        @error('content')
-                                            <span class="text-danger small"><strong>{{ $message }}</strong></span>
-                                        @enderror
+                                    <div class="tab-pane fade {{ $hasNepaliError ? 'show active' : '' }}" id="menuNepali"
+                                        role="tabpanel" aria-labelledby="menu-nepali-tab">
+                                        <div class="card border-left-warning">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="menu_name_ne" class="small font-weight-bold text-dark">Menu
+                                                        Name</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i
+                                                                    class="fas fa-heading"></i></span>
+                                                        </div>
+                                                        <input type="text" id="menu_name_ne" name="menu_name_ne"
+                                                            class="form-control @error('menu_name_ne') is-invalid @enderror"
+                                                            value="{{ old('menu_name_ne', $data->menu_name_ne ?? '') }}"
+                                                            placeholder="मेनुको नाम प्रविष्ट गर्नुहोस्">
+                                                    </div>
+                                                    @error('menu_name_ne')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="page_title_ne" class="small font-weight-bold text-dark">Page
+                                                        Title</label>
+                                                    <input type="text" id="page_title_ne" name="page_title_ne"
+                                                        class="form-control @error('page_title_ne') is-invalid @enderror"
+                                                        value="{{ old('page_title_ne', $data->page_title_ne ?? '') }}"
+                                                        placeholder="पृष्ठ शीर्षक प्रविष्ट गर्नुहोस्">
+                                                    @error('page_title_ne')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description_ne"
+                                                        class="small font-weight-bold text-dark">Page Banner Short
+                                                        Description</label>
+                                                    <textarea id="description_ne" name="description_ne" rows="4"
+                                                        class="form-control @error('description_ne') is-invalid @enderror" placeholder="छोटो विवरण लेख्नुहोस्">{{ old('description_ne', $data->description_ne ?? '') }}</textarea>
+                                                    @error('description_ne')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group mb-0">
+                                                    <label for="content_ne"
+                                                        class="small font-weight-bold text-dark">Content</label>
+                                                    <textarea id="content_ne" name="content_ne" rows="5"
+                                                        class="form-control @error('content_ne') is-invalid @enderror" placeholder="पृष्ठ सामग्री लेख्नुहोस्">{{ old('content_ne', $data->content_ne ?? '') }}</textarea>
+                                                    @error('content_ne')
+                                                        <span
+                                                            class="text-danger small"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -361,23 +467,23 @@
 
                         <div class="form-row mt-3">
                             <div class="form-group col-md-6">
-                                <label for="meta_title" class="small font-weight-bold text-dark">Meta Title</label>
-                                <input type="text" id="meta_title" name="meta_title"
-                                    class="form-control @error('meta_title') is-invalid @enderror"
-                                    value="{{ old('meta_title', $data->meta_title ?? '') }}"
+                                <label for="meta_title_en" class="small font-weight-bold text-dark">Meta Title</label>
+                                <input type="text" id="meta_title_en" name="meta_title_en"
+                                    class="form-control @error('meta_title_en') is-invalid @enderror"
+                                    value="{{ old('meta_title_en', $data->meta_title_en ?? '') }}"
                                     placeholder="Search result title">
-                                @error('meta_title')
+                                @error('meta_title_en')
                                     <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="meta_keywords" class="small font-weight-bold text-dark">Meta Keywords</label>
-                                <input type="text" id="meta_keywords" name="meta_keywords"
-                                    class="form-control @error('meta_keywords') is-invalid @enderror"
-                                    value="{{ old('meta_keywords', $data->meta_keywords ?? '') }}"
+                                <label for="meta_keywords_en" class="small font-weight-bold text-dark">Meta Keywords</label>
+                                <input type="text" id="meta_keywords_en" name="meta_keywords_en"
+                                    class="form-control @error('meta_keywords_en') is-invalid @enderror"
+                                    value="{{ old('meta_keywords_en', $data->meta_keywords_en ?? '') }}"
                                     placeholder="keyword one, keyword two">
-                                @error('meta_keywords')
+                                @error('meta_keywords_en')
                                     <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
@@ -385,12 +491,12 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="meta_description" class="small font-weight-bold text-dark">Meta
+                                <label for="meta_description_en" class="small font-weight-bold text-dark">Meta
                                     Description</label>
-                                <textarea id="meta_description" name="meta_description" rows="3"
-                                    class="form-control @error('meta_description') is-invalid @enderror"
-                                    placeholder="Short search engine description">{{ old('meta_description', $data->meta_description ?? '') }}</textarea>
-                                @error('meta_description')
+                                <textarea id="meta_description_en" name="meta_description_en" rows="3"
+                                    class="form-control @error('meta_description_en') is-invalid @enderror"
+                                    placeholder="Short search engine description">{{ old('meta_description_en', $data->meta_description_en ?? '') }}</textarea>
+                                @error('meta_description_en')
                                     <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
@@ -409,22 +515,22 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="og_title" class="small font-weight-bold text-dark">OG Title</label>
-                                <input type="text" id="og_title" name="og_title"
-                                    class="form-control @error('og_title') is-invalid @enderror"
-                                    value="{{ old('og_title', $data->og_title ?? '') }}"
+                                <label for="og_title_en" class="small font-weight-bold text-dark">OG Title</label>
+                                <input type="text" id="og_title_en" name="og_title_en"
+                                    class="form-control @error('og_title_en') is-invalid @enderror"
+                                    value="{{ old('og_title_en', $data->og_title_en ?? '') }}"
                                     placeholder="Social share title">
-                                @error('og_title')
+                                @error('og_title_en')
                                     <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="og_description" class="small font-weight-bold text-dark">OG
+                                <label for="og_description_en" class="small font-weight-bold text-dark">OG
                                     Description</label>
-                                <textarea id="og_description" name="og_description" rows="3"
-                                    class="form-control @error('og_description') is-invalid @enderror" placeholder="Social share description">{{ old('og_description', $data->og_description ?? '') }}</textarea>
-                                @error('og_description')
+                                <textarea id="og_description_en" name="og_description_en" rows="3"
+                                    class="form-control @error('og_description_en') is-invalid @enderror" placeholder="Social share description">{{ old('og_description_en', $data->og_description_en ?? '') }}</textarea>
+                                @error('og_description_en')
                                     <span class="text-danger small"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
@@ -450,17 +556,30 @@
 @push('script')
     <script>
         function toggleParentMenuField() {
-            const typeSelect = document.getElementById('is_main_child');
-            const parentWrapper = document.getElementById('parentMenuWrapper');
-            const parentSelect = document.getElementById('parent_id');
-            const isChild = typeSelect.value === 'child_menu';
+            const $typeSelect = $('#is_main_child');
+            const $parentWrapper = $('#parentMenuWrapper');
+            const $parentSelect = $('#parent_id');
+            const $menuLocation = $('#menu_location');
+            const $lockedMenuLocation = $('#locked_menu_location');
+            const isChild = $typeSelect.val() === 'child_menu';
+            const parentLocation = $parentSelect.find(':selected').data('menu-location');
 
-            parentWrapper.classList.toggle('d-none', !isChild);
-            parentWrapper.classList.toggle('menu-field-disabled', !isChild);
+            $parentWrapper.toggleClass('d-none', !isChild);
+            $parentWrapper.toggleClass('menu-field-disabled', !isChild);
 
             if (!isChild) {
-                parentSelect.value = '';
+                $parentSelect.val('');
+                $menuLocation.prop('disabled', false);
+                $lockedMenuLocation.prop('disabled', true);
+                return;
             }
+
+            if (parentLocation) {
+                $menuLocation.val(parentLocation);
+            }
+
+            $lockedMenuLocation.val($menuLocation.val()).prop('disabled', false);
+            $menuLocation.prop('disabled', true);
         }
 
         function updateFilePreview(input) {
@@ -490,12 +609,37 @@
             reader.readAsDataURL(file);
         }
 
-        document.getElementById('is_main_child').addEventListener('change', toggleParentMenuField);
+        $('#is_main_child, #parent_id').on('change', toggleParentMenuField);
         toggleParentMenuField();
 
         document.querySelectorAll('.custom-file-input').forEach(function(input) {
             input.addEventListener('change', function() {
                 updateFilePreview(input);
+            });
+        });
+
+        document.querySelectorAll('#menuLanguageTabs [data-bs-toggle="tab"]').forEach(function(tab) {
+            tab.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const target = document.querySelector(this.dataset.bsTarget);
+
+                if (!target) {
+                    return;
+                }
+
+                document.querySelectorAll('#menuLanguageTabs .nav-link').forEach(function(languageTab) {
+                    languageTab.classList.remove('active');
+                    languageTab.setAttribute('aria-selected', 'false');
+                });
+
+                document.querySelectorAll('#menuLanguageTabsContent .tab-pane').forEach(function(pane) {
+                    pane.classList.remove('show', 'active');
+                });
+
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                target.classList.add('show', 'active');
             });
         });
     </script>

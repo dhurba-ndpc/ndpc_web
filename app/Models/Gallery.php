@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Gallery extends Model
 {
@@ -25,6 +24,7 @@ class Gallery extends Model
         return $this->belongsTo(Album::class);
     }
 
-     
-
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

@@ -1,146 +1,177 @@
 <?php
 
-use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\AlbumController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BoardDirectorController;
+use App\Http\Controllers\Backend\CompanyGoalController;
 use App\Http\Controllers\Backend\DarkBannerController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\EmployeeQuarterController;
 use App\Http\Controllers\Backend\FeatureController;
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\LeadingTeamController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
+use App\Http\Controllers\Backend\NoticeController;
+use App\Http\Controllers\Backend\OurProductController;
 use App\Http\Controllers\Backend\PromotionMessageController;
 use App\Http\Controllers\Backend\RecruitmentResultController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SiteSettingController;
+use App\Http\Controllers\Backend\TechnologySolutionCategoryController;
+use App\Http\Controllers\Backend\TechnologySolutionItemController;
+use App\Http\Controllers\Backend\TechnologySolutionSectionController;
+use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\CompanyGoalController;
-use App\Http\Controllers\EmployeeQuarterController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\NoticeController;
-use App\Http\Controllers\OurProductController;
+use App\Http\Controllers\Backend\VacancyController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\TechnologySolutionCategoryController;
-use App\Http\Controllers\TechnologySolutionItemController;
-use App\Http\Controllers\TechnologySolutionSectionController;
-use App\Http\Controllers\TestimonialController;
-use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\PlayStoreController;
 
-
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    /*
+     * |--------------------------------------------------------------------------
+     * | Dashboard
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('dashboard', DashboardController::class)->names('dashboard');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Website Content Management
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('banner', BannerController::class)->names('banner');
-    Route::resource('about', AboutController::class)->names('about')->only(['store', 'update', 'index']);
+    Route::resource('about', AboutController::class)->only(['index', 'store', 'update'])->names('about');
     Route::resource('mvg', MvgController::class)->names('mvg');
-    Route::resource('darkbanner', DarkBannerController::class)->names('darkbanner')->only(['store', 'update', 'index']);
+    Route::resource('darkbanner', DarkBannerController::class)->only(['index', 'store', 'update'])->names('darkbanner');
+    Route::resource('company_goals', CompanyGoalController::class)->only(['index', 'store', 'update'])->names('company_goals');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Blog Management
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('blog', BlogController::class)->names('blog');
     Route::resource('blogCategory', BlogCategoryController::class)->names('blogCategory');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Gallery Management
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('albums', AlbumController::class)->names('albums');
     Route::resource('galleries', GalleryController::class)->names('galleries');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Team Management
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('boardOfDirectors', BoardDirectorController::class)->names('boardOfDirectors');
     Route::resource('leadingTeams', LeadingTeamController::class)->names('leadingTeams');
-    Route::resource('company_goals', CompanyGoalController::class)->names('company_goals')->only(['store', 'update', 'index']);
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Company / Product Sections
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('testimonials', TestimonialController::class)->names('testimonials');
     Route::resource('employee-quarters', EmployeeQuarterController::class)->names('employee-quarters');
-    Route::resource('ourProduct', OurProductController::class)->names('ourProduct')->only(['store', 'update', 'index']);
+    Route::resource('ourProduct', OurProductController::class)->only(['index', 'store', 'update'])->names('ourProduct');
+    Route::resource('promotion_message', PromotionMessageController::class)->names('promotion_message');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Technology Solutions
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('technology-solution-sections', TechnologySolutionSectionController::class)->names('technology-solution-sections');
     Route::resource('technology-solution-categories', TechnologySolutionCategoryController::class)->names('technology-solution-categories');
     Route::resource('technology-solution-items', TechnologySolutionItemController::class)->names('technology-solution-items');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Services / Features
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('services', ServiceController::class)->names('services');
     Route::resource('features', FeatureController::class)->names('features');
-    Route::resource('siteSetting', SiteSettingController::class)->names('siteSetting');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Notices / Reports / Vacancy
+     * |--------------------------------------------------------------------------
+     */
     Route::resource('notices', NoticeController::class)->names('notices');
     Route::resource('report', ReportController::class)->names('report');
     Route::resource('recruitment-results', RecruitmentResultController::class)->names('recruitment-results');
     Route::resource('vacancy', VacancyController::class)->names('vacancy');
-    Route::resource('promotion_message', PromotionMessageController::class)->names('promotion_message');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Site Setting
+     * |--------------------------------------------------------------------------
+     */
+    Route::resource('siteSetting', SiteSettingController::class)->names('siteSetting');
+    Route::resource('playStore', PlayStoreController::class)->names('playStore');
 
 
 
-    // |------------------------------|
-    // |-------------roles------------|
-    // |------------------------------|
-    Route::get('roles/trash', [RoleController::class, 'trash'])->name('roles.trash');
-    Route::post('roles/{id}/restore', [RoleController::class, 'restore'])->name('roles.restore');
-    Route::delete('roles/{id}/force-delete', [RoleController::class, 'forceDelete'])->name('roles.forceDelete');
+    /*
+     * |--------------------------------------------------------------------------
+     * | Role Management
+     * |--------------------------------------------------------------------------
+     */
+    Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
+        Route::get('trash', 'trash')->name('trash');
+        Route::post('{id}/restore', 'restore')->name('restore');
+        Route::delete('{id}/force-delete', 'forceDelete')->name('forceDelete');
+    });
+
     Route::resource('roles', RoleController::class)->names('roles');
-    // |------------------------------|
-    // |-------------users------------|
-    // |------------------------------|
-    Route::get('view-profile', [UserController::class, 'viewProfile'])->name('viewProfile');
-    Route::get('users/trash', [UserController::class, 'trash'])->name('users.trash');
-    Route::post('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
-    Route::delete('users/{id}/force-delete', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | User Management
+     * |--------------------------------------------------------------------------
+     */
+    Route::controller(UserController::class)->group(function () {
+        Route::get('view-profile', 'viewProfile')->name('viewProfile');
+
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('trash', 'trash')->name('trash');
+            Route::post('{id}/restore', 'restore')->name('restore');
+            Route::delete('{id}/force-delete', 'forceDelete')->name('forceDelete');
+        });
+    });
+
     Route::resource('users', UserController::class)->names('users');
-    // |------------------------------|
-    // |-------------Menu-------------|
-    // |------------------------------|
+
+    /*
+     * |--------------------------------------------------------------------------
+     * | Menu Management
+     * |--------------------------------------------------------------------------
+     */
     Route::post('updateMenu', [MenuController::class, 'updateMenuOrder'])->name('updateMenuOrder');
     Route::resource('menu', MenuController::class)->names('menu');
 
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    /*
+     * |--------------------------------------------------------------------------
+     * | Profile
+     * |--------------------------------------------------------------------------
+     */
+    Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', 'edit')->name('edit');
+        Route::patch('/', 'update')->name('update');
+        Route::delete('/', 'destroy')->name('destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
-
-
-
- 
-
-Route::get('/', function () {
-    return view('frontend/index');
-});
-Route::get('/about', function () {
-    return view('frontend/about');
-});
-Route::get('/contact', function () {
-    return view('frontend/contact');
-});
-Route::get('/blogs', function () {
-    return view('frontend/blogs');
-});
-Route::get('/notice', function () {
-    return view('frontend/notice');
-});
-Route::get('/report', function () {
-    return view('frontend/report');
-});
-Route::get('/blog-single', function () {
-    return view('frontend/blogsingle');
-});
-Route::get('/product', function () {
-    return view('frontend/product');
-});
-Route::get('/vacancy', function () {
-    return view('frontend/vacancy');
-});
-Route::get('/vacancy-result', function () {
-    return view('frontend/vacancy_result');
-});
-Route::get('/member', function () {
-    return view('frontend/member');
-});
-Route::get('/employee-quaterly', function () {
-    return view('frontend/employee_quaterly');
-});
-Route::get('/job-detail', function () {
-    return view('frontend/job_detail');
-});
-Route::get('/album', function () {
-    return view('frontend.album');
-});
-Route::get('/gallery', function () {
-    return view('frontend.gallery');
-});
-Route::get('/page', function () {
-    return view('frontend.default_page');
-});
+require __DIR__.'/frontend.php';

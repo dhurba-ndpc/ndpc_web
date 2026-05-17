@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\MvgRequest;
 use App\Models\FeatureAreas;
  
@@ -10,12 +9,11 @@ use App\Models\FeatureAreas;
 
 class MvgController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.mvg.';
-    protected $requestClass = MvgRequest::class;
-    protected $uploadFields = ['image'];
-    protected $uploadPath = 'mvg';
-    protected $routePrefix = 'mvg.index';
+    protected string $viewPath = 'backend.mvg.';
+    protected string $requestClass = MvgRequest::class;
+    protected array $uploadFields = ['image'];
+    protected string $uploadPath = 'mvg';
+    protected string $routePrefix = 'mvg.index';
 
     public function __construct(FeatureAreas $model)
     {

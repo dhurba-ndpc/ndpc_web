@@ -33,6 +33,7 @@ class ServiceRequest extends FormRequest
 
             'position' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
+            'type' => 'required|in:services_offer,features_offer',
         ];
     }
 }

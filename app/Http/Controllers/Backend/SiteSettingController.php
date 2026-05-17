@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\SiteSettingRequest;
 use App\Models\CompanyGoal;
 use App\Models\FeatureAreas;
 use App\Models\PromotionMessage;
 use App\Models\SiteSetting;
-
+use Illuminate\Contracts\View\View;
 
 class SiteSettingController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.sitesetting.';
-    protected $requestClass = SiteSettingRequest::class;
-    protected $uploadFields = ['logo_1', 'logo_2'];
-    protected $uploadPath = 'siteSetting';
-    protected $routePrefix = 'siteSetting.index';
+    protected string $viewPath = 'backend.sitesetting.';
+    protected string $requestClass = SiteSettingRequest::class;
+    protected array $uploadFields = ['logo_1', 'logo_2'];
+    protected string $uploadPath = 'siteSetting';
+    protected string $routePrefix = 'siteSetting.index';
 
     public function __construct(SiteSetting $model)
     {
@@ -25,7 +23,7 @@ class SiteSettingController extends AdminBaseController
     }
 
 
-    public function index()
+    public function index(): View
     {
 
         $promotionText = PromotionMessage::where('type', 'promotion_text')->first();
@@ -33,6 +31,8 @@ class SiteSettingController extends AdminBaseController
         $data = $this->model->first();
         $darkBanner = FeatureAreas::where('type', 'dark_banner')->first();
         $companyGoal = CompanyGoal::first();
+
+ 
 
         return view($this->viewPath . 'form', compact('data', 'darkBanner', 'appLinkPromotion', 'promotionText', 'companyGoal'));
     }

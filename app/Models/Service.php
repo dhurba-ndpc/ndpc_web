@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-    use SoftDeletes; 
+    use SoftDeletes;
 
     protected $fillable = [
         'bootstrap_icon',
@@ -18,5 +18,9 @@ class Service extends Model
         'position',
         'type',
         'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 }

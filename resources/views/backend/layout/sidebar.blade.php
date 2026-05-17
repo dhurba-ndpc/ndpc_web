@@ -1,183 +1,279 @@
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+@php
+    $user = auth()->user();
 
-     <!-- Sidebar - Brand -->
-     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
-         <div class="sidebar-brand-icon">
-             <i class="fas fa-shield-alt"></i>
-         </div>
-         <div class="sidebar-brand-text mx-3">NDPC Admin</div>
-     </a>
+    $canAccess = function ($permissions) use ($user) {
+        if ($user->hasRole('Super Admin')) {
+            $allowedForSuperAdmin = [
+                'User-View',
+                'User-Create',
+                'User-Edit',
+                'User-Delete',
+                'Role-View',
+                'Role-Create',
+                'Role-Edit',
+                'Role-Delete',
+                'Permission-View',
+                'Permission-Create',
+                'Permission-Edit',
+                'Permission-Delete',
+            ];
 
-     <!-- Divider -->
-     <hr class="sidebar-divider my-0">
+            $permissions = is_array($permissions) ? $permissions : [$permissions];
 
-     <!-- Nav Item - Dashboard -->
-     <li class="nav-item  {{ Route::is('dashboard.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('dashboard.index') }}">
-             <i class="fas fa-fw fa-tachometer-alt"></i>
-             <span>Dashboard</span></a>
-     </li>
+            return collect($permissions)->contains(fn($permission) => in_array($permission, $allowedForSuperAdmin));
+        }
 
-     <!-- Divider -->
-     <hr class="sidebar-divider">
-     <li class="nav-item {{ Route::is('menu.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('menu.index') }}">
-             <i class="fas fa-fw fa-bars"></i>
-             <span>Menu</span></a>
-     </li>
-     @can('Banner-View')
-         <li class="nav-item {{ Route::is('banner.*') ? 'active' : '' }}">
-             <a class="nav-link" href="{{ route('banner.index') }}">
-                 <i class="fas fa-fw fa-image"></i>
-                 <span>Banner</span></a>
-         </li>
-     @endcan
-     <li class="nav-item {{ Route::is('about.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('about.index') }}">
-             <i class="fas fa-fw fa-info-circle"></i>
-             <span>About Us</span></a>
-     </li>
-     <li class="nav-item {{ Route::is('mvg.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('mvg.index') }}">
-             <i class="fas fa-fw fa-bullseye"></i>
-             <span>Mission vision</span></a>
-     </li>
+        $permissions = is_array($permissions) ? $permissions : [$permissions];
 
-     <li class="nav-item {{ Route::is('blog.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('blog.index') }}">
-             <i class="fas fa-fw fa-blog"></i>
-             <span>Blogs</span></a>
-     </li>
-     <li class="nav-item {{ Route::is('testimonials.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('testimonials.index') }}">
-             <i class="fas fa-fw fa-comment-dots"></i>
-             <span>Testimonials</span></a>
-     </li>
-     <li class="nav-item {{ Route::is('employee-quarters.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('employee-quarters.index') }}">
-             <i class="fas fa-fw fa-newspaper"></i>
-             <span>Employee Quarters</span></a>
-     </li>
-     <li class="nav-item {{ Route::is('ourProduct.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('ourProduct.index') }}">
-             <i class="fas fa-fw fa-box-open"></i>
-             <span>Our Product</span></a>
-     </li>
+        return collect($permissions)->contains(fn($permission) => $user->can($permission));
+    };
 
-     <li class="nav-item {{ Route::is('siteSetting.*') ? 'active' : '' }}">
-         <a class="nav-link" href="{{ route('siteSetting.index') }}">
-             <i class="fas fa-fw fa-sliders-h"></i>
-             <span>Setting</span></a>
-     </li>
-     
+    $isActive = function ($patterns) {
+        $patterns = is_array($patterns) ? $patterns : [$patterns];
 
-     <li class="nav-item {{ Route::is('services.*') || Route::is('features.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOffer"
-             aria-expanded="true" aria-controls="collapseOffer">
-             <i class="fas fa-fw fa-gift"></i>
-             <span>Offer</span></a>
-         </a>
-         <div id="collapseOffer" class="collapse" aria-labelledby="headingOffer" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('services.index') }}">Services offer</a>
-                 <a class="collapse-item" href="{{ route('features.index') }}">Features offer</a>
-             </div>
-         </div>
-     </li>
-     <li class="nav-item {{ Route::is('recruitment-results.*') || Route::is('vacancy.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVacancy"
-             aria-expanded="true" aria-controls="collapseVacancy">
-             <i class="fas fa-fw fa-briefcase"></i>
-             <span>Vacancy & Recruitment</span></a>
-         </a>
-         <div id="collapseVacancy" class="collapse" aria-labelledby="headingVacancy" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('recruitment-results.index') }}">Recruitment Results</a>
-                 <a class="collapse-item" href="{{ route('vacancy.index') }}">Vacancy</a>
-             </div>
-         </div>
-     </li>
+        return collect($patterns)->contains(fn($pattern) => Route::is($pattern));
+    };
 
-     <li class="nav-item {{ Route::is('notices.*') || Route::is('report.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice"
-             aria-expanded="true" aria-controls="collapseNotice">
-             <i class="fas fa-fw fa-bullhorn"></i>
-             <span>Notices</span></a>
-         </a>
-         <div id="collapseNotice" class="collapse" aria-labelledby="headingNotice" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="{{ route('notices.index') }}">Our Notices</a>
-                 <a class="collapse-item" href="{{ route('report.index') }}">Reports Download</a>
-             </div>
-         </div>
-     </li>
-     <li
-         class="nav-item {{ Route::is('technology-solution-categories.*') || Route::is('technology-solution-items.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTs"
-             aria-expanded="true" aria-controls="collapseTs">
-             <i class="fas fa-fw fa-microchip"></i>
-             <span>Technology Solutions</span></a>
-         </a>
-         <div id="collapseTs" class="collapse" aria-labelledby="headingTs" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
+    $singleMenus = [
+        [
+            'title' => 'Dashboard',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'route' => 'dashboard.index',
+            'active' => 'dashboard.*',
+            'permissions' => [],
+        ],
+        [
+            'title' => 'Menu',
+            'icon' => 'fas fa-fw fa-bars',
+            'route' => 'menu.index',
+            'active' => 'menu.*',
+            'permissions' => ['Menu-View'],
+        ],
+        [
+            'title' => 'Banner',
+            'icon' => 'fas fa-fw fa-image',
+            'route' => 'banner.index',
+            'active' => 'banner.*',
+            'permissions' => ['Banner-View'],
+        ],
+        [
+            'title' => 'About Us',
+            'icon' => 'fas fa-fw fa-info-circle',
+            'route' => 'about.index',
+            'active' => 'about.*',
+            'permissions' => ['About-View'],
+        ],
+        [
+            'title' => 'Mission Vision',
+            'icon' => 'fas fa-fw fa-bullseye',
+            'route' => 'mvg.index',
+            'active' => 'mvg.*',
+            'permissions' => ['MissionVision-View'],
+        ],
 
-                 <a class="collapse-item" href="{{ route('technology-solution-categories.index') }}">Category</a>
-                 <a class="collapse-item" href="{{ route('technology-solution-items.index') }}">Items</a>
-             </div>
-         </div>
-     </li>
+        [
+            'title' => 'Testimonials',
+            'icon' => 'fas fa-fw fa-comment-dots',
+            'route' => 'testimonials.index',
+            'active' => 'testimonials.*',
+            'permissions' => ['Testimonial-View'],
+        ],
+        [
+            'title' => 'Employee Quarters',
+            'icon' => 'fas fa-fw fa-newspaper',
+            'route' => 'employee-quarters.index',
+            'active' => 'employee-quarters.*',
+            'permissions' => ['EmployeeQuarter-View'],
+        ],
+        [
+            'title' => 'Our Product',
+            'icon' => 'fas fa-fw fa-box-open',
+            'route' => 'ourProduct.index',
+            'active' => 'ourProduct.*',
+            'permissions' => ['OurProduct-View'],
+        ],
+        [
+            'title' => 'Setting',
+            'icon' => 'fas fa-fw fa-sliders-h',
+            'route' => 'siteSetting.index',
+            'active' => ['siteSetting.*', 'darkbanner.*', 'playStore.*', 'promotion_message.*', 'company_goals.*'],
+            'permissions' => [
+                'SiteSetting-View',
+                'DarkBanner-View',
+                'PlayStore-View',
+                'PromotionMessage-View',
+                'CompanyGoal-View',
+            ],
+        ],
+    ];
 
-     <li class="nav-item {{ Route::is('galleries.*') || Route::is('albums.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAG"
-             aria-expanded="true" aria-controls="collapseAG">
-             <i class="fas fa-fw fa-images"></i>
-             <span>Gallery</span></a>
-         </a>
-         <div id="collapseAG" class="collapse" aria-labelledby="headingAG" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
+    $dropdownMenus = [
+        [
+            'title' => 'User Management',
+            'icon' => 'fas fa-fw fa-user-shield',
+            'id' => 'collapseUserManagement',
+            'active' => ['roles.*', 'users.*'],
+            'permissions' => ['Role-View', 'User-View'],
+            'items' => [
+                ['title' => 'Roles', 'route' => 'roles.index', 'permissions' => ['Role-View']],
+                ['title' => 'User', 'route' => 'users.index', 'permissions' => ['User-View']],
+            ],
+        ],
+        [
+            'title' => 'Blogs',
+            'icon' => 'fas fa-fw fa-blog',
+            'id' => 'collapseUserBlogs',
+            'active' => ['blog.*', 'blogCategory.*'],
+            'permissions' => ['Blog-View', 'BlogCategory-View'],
+            'items' => [
+                ['title' => 'Blogs', 'route' => 'blog.index', 'permissions' => ['Blog-View']],
+                ['title' => 'Category', 'route' => 'blogCategory.index', 'permissions' => ['BlogCategory-View']],
+            ],
+        ],
+        [
+            'title' => 'Offer',
+            'icon' => 'fas fa-fw fa-gift',
+            'id' => 'collapseOffer',
+            'active' => ['services.*', 'features.*'],
+            'permissions' => ['Service-View', 'Feature-View'],
+            'items' => [
+                ['title' => 'Services Offer', 'route' => 'services.index', 'permissions' => ['Service-View']],
+                ['title' => 'Features Offer', 'route' => 'features.index', 'permissions' => ['Feature-View']],
+            ],
+        ],
+        [
+            'title' => 'Vacancy & Recruitment',
+            'icon' => 'fas fa-fw fa-briefcase',
+            'id' => 'collapseVacancy',
+            'active' => ['recruitment-results.*', 'vacancy.*'],
+            'permissions' => ['RecruitmentResult-View', 'Vacancy-View'],
+            'items' => [
+                [
+                    'title' => 'Recruitment Results',
+                    'route' => 'recruitment-results.index',
+                    'permissions' => ['RecruitmentResult-View'],
+                ],
+                ['title' => 'Vacancy', 'route' => 'vacancy.index', 'permissions' => ['Vacancy-View']],
+            ],
+        ],
+        [
+            'title' => 'Notices',
+            'icon' => 'fas fa-fw fa-bullhorn',
+            'id' => 'collapseNotice',
+            'active' => ['notices.*', 'report.*'],
+            'permissions' => ['Notice-View', 'Report-View'],
+            'items' => [
+                ['title' => 'Our Notices', 'route' => 'notices.index', 'permissions' => ['Notice-View']],
+                ['title' => 'Reports Download', 'route' => 'report.index', 'permissions' => ['Report-View']],
+            ],
+        ],
+        [
+            'title' => 'Technology Solutions',
+            'icon' => 'fas fa-fw fa-microchip',
+            'id' => 'collapseTechnologySolutions',
+            'active' => ['technology-solution-categories.*', 'technology-solution-items.*'],
+            'permissions' => ['TechnologySolutionCategory-View', 'TechnologySolutionItem-View'],
+            'items' => [
+                [
+                    'title' => 'Category',
+                    'route' => 'technology-solution-categories.index',
+                    'permissions' => ['TechnologySolutionCategory-View'],
+                ],
+                [
+                    'title' => 'Items',
+                    'route' => 'technology-solution-items.index',
+                    'permissions' => ['TechnologySolutionItem-View'],
+                ],
+            ],
+        ],
+        [
+            'title' => 'Gallery',
+            'icon' => 'fas fa-fw fa-images',
+            'id' => 'collapseGallery',
+            'active' => ['albums.*', 'galleries.*'],
+            'permissions' => ['Album-View', 'Gallery-View'],
+            'items' => [
+                ['title' => 'Album', 'route' => 'albums.index', 'permissions' => ['Album-View']],
+                ['title' => 'Gallery', 'route' => 'galleries.index', 'permissions' => ['Gallery-View']],
+            ],
+        ],
+        [
+            'title' => 'Team Member',
+            'icon' => 'fas fa-fw fa-users',
+            'id' => 'collapseTeamMember',
+            'active' => ['leadingTeams.*', 'boardOfDirectors.*'],
+            'permissions' => ['LeadingTeam-View', 'BoardOfDirectors-View'],
+            'items' => [
+                ['title' => 'Leading Team', 'route' => 'leadingTeams.index', 'permissions' => ['LeadingTeam-View']],
+                [
+                    'title' => 'Board of Director',
+                    'route' => 'boardOfDirectors.index',
+                    'permissions' => ['BoardOfDirectors-View'],
+                ],
+            ],
+        ],
+    ];
+@endphp
 
-                 <a class="collapse-item" href="{{ route('albums.index') }}">Album</a>
-                 <a class="collapse-item" href="{{ route('galleries.index') }}">Gallery</a>
-             </div>
-         </div>
-     </li>
-     <li class="nav-item {{ Route::is('boardOfDirectors.*') || Route::is('leadingTeams.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeam"
-             aria-expanded="true" aria-controls="collapseTeam">
-             <i class="fas fa-fw fa-users"></i>
-             <span>Team Member</span></a>
-         </a>
-         <div id="collapseTeam" class="collapse" aria-labelledby="headingTeam" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                 <a class="collapse-item" href="{{ route('leadingTeams.index') }}">Leading Team</a>
-                 <a class="collapse-item" href="{{ route('boardOfDirectors.index') }}">Board of Director</a>
-             </div>
-         </div>
-     </li>
-     <li class="nav-item {{ Route::is('roles.*') || Route::is('users.*') ? 'active' : '' }}">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles"
-             aria-expanded="true" aria-controls="collapseRoles">
-             <i class="fas fa-fw fa-user-shield"></i>
-             <span>User Management</span></a>
-         </a>
-         <div id="collapseRoles" class="collapse" aria-labelledby="headingRoles" data-parent="#accordionSidebar">
-             <div class="bg-white py-2 collapse-inner rounded">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">NDPC Admin</div>
+    </a>
 
-                 <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
-                 <a class="collapse-item" href="{{ route('users.index') }}">User</a>
-             </div>
-         </div>
-     </li>
+    <hr class="sidebar-divider my-0">
 
-     <!-- Divider -->
-     <hr class="sidebar-divider d-none d-md-block">
+    @foreach ($singleMenus as $menu)
+        @continue(!$canAccess($menu['permissions']))
 
-     <!-- Sidebar Toggler (Sidebar) -->
-     <div class="text-center d-none d-md-inline">
-         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-     </div>
+        <li class="nav-item {{ $isActive($menu['active']) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route($menu['route']) }}">
+                <i class="{{ $menu['icon'] }}"></i>
+                <span>{{ $menu['title'] }}</span>
+            </a>
+        </li>
+    @endforeach
 
+    <hr class="sidebar-divider">
 
+    @foreach ($dropdownMenus as $menu)
+        @continue(!$canAccess($menu['permissions']))
 
- </ul>
+        @php
+            $active = $isActive($menu['active']);
+        @endphp
+
+        <li class="nav-item {{ $active ? 'active' : '' }}">
+            <a class="nav-link {{ $active ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+                data-target="#{{ $menu['id'] }}" aria-expanded="{{ $active ? 'true' : 'false' }}"
+                aria-controls="{{ $menu['id'] }}">
+                <i class="{{ $menu['icon'] }}"></i>
+                <span>{{ $menu['title'] }}</span>
+            </a>
+
+            <div id="{{ $menu['id'] }}" class="collapse {{ $active ? 'show' : '' }}"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    @foreach ($menu['items'] as $item)
+                        @continue(!$canAccess($item['permissions'] ?? []))
+
+                        <a class="collapse-item {{ Route::is(str_replace('.index', '.*', $item['route'])) ? 'active' : '' }}"
+                            href="{{ route($item['route']) }}">
+                            {{ $item['title'] }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </li>
+    @endforeach
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\PromotionMessageRequest;
 use App\Models\PromotionMessage;
 
@@ -10,12 +9,11 @@ use App\Models\PromotionMessage;
 
 class PromotionMessageController extends AdminBaseController
 {
-    protected $model;
-    protected $viewPath = 'backend.sitesetting.';
-    protected $requestClass = PromotionMessageRequest::class;
-    protected $uploadFields = [];
-    protected $uploadPath = [];
-    protected $routePrefix = 'siteSetting.index';
+    protected string $viewPath = 'backend.sitesetting.';
+    protected string $requestClass = PromotionMessageRequest::class;
+    protected array $uploadFields = [];
+    protected string $uploadPath = '';
+    protected string $routePrefix = 'siteSetting.index';
 
     public function __construct(PromotionMessage $model)
     {

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Vacancy extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, GeneratesSlug;
+
     protected $fillable = [
         'title_en',
         'title_ne',
@@ -26,24 +27,24 @@ class Vacancy extends Model
         'is_active',
     ];
 
-
     protected $casts = [
         'deadline' => 'date',
         'is_active' => 'boolean',
     ];
 
-
-    protected static function booted()
+    protected static function booted(): void
     {
-        static::creating(function ($vacancy) {
-            $baseSlug = Str::slug($vacancy->title_en);
-            $slug = $baseSlug;
-            $count = 1;
-            while (self::withTrashed()->where('slug', $slug)->exists()) {
-                $slug = $baseSlug . '-' . $count;
-                $count++;
+        static::saving(function ($vacancy) {
+            if (
+                empty($vacancy->slug) ||
+                $vacancy->isDirty('title_en')
+            ) {
+                $vacancy->slug = $vacancy->generateUniqueSlug(
+                    self::class,
+                    $vacancy->title_en,
+                    $vacancy->id
+                );
             }
-            $vacancy->slug = $slug;
         });
     }
 }

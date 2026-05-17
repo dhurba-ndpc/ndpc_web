@@ -11,12 +11,14 @@
                 </ol>
             </nav>
         </div>
-        <a href="{{ route('features.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus fa-sm"></i>
-            </span>
-            <span class="text">Create Feature</span>
-        </a>
+        @can('Feature-Create')
+            <a href="{{ route('features.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus fa-sm"></i>
+                </span>
+                <span class="text">Create Feature</span>
+            </a>
+        @endcan
     </div>
 
     <div class="card shadow mb-4">
@@ -80,19 +82,24 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('features.edit', $list->id) }}"
-                                            class="btn btn-info btn-sm shadow-sm"
-                                            title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1"
-                                            data-toggle="modal"
-                                            data-target="#deleteModal_{{ $list->id }}"
-                                            title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @can('Feature-Edit')
+                                            <a href="{{ route('features.edit', $list->id) }}"
+                                                class="btn btn-info btn-sm shadow-sm"
+                                                title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        @can('Feature-Delete')
+                                            <button class="btn btn-danger btn-sm shadow-sm ml-1"
+                                                data-toggle="modal"
+                                                data-target="#deleteModal_{{ $list->id }}"
+                                                title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endcan
                                     </div>
 
+                                    @can('Feature-Delete')
                                     <div class="modal fade" id="deleteModal_{{ $list->id }}" tabindex="-1" role="dialog"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -125,6 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty
@@ -141,4 +149,3 @@
         </div>
     </div>
 @endsection
-

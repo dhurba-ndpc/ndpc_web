@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Http\RedirectResponse;
 
 class PermissionController extends Controller
 {
     // this controller is not in use for now  
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $selected = $request->input('matrix', []);

@@ -12,24 +12,28 @@
             </nav>
         </div>
         <div class="d-flex flex-wrap">
-            <a href="{{ route('blogCategory.create') }}" class="btn btn-success btn-sm btn-icon-split shadow-sm mr-2 mb-2 mb-sm-0">
-                <span class="icon text-white-50">
-                    <i class="fas fa-folder-plus fa-sm"></i>
-                </span>
-                <span class="text">Create Category</span>
-            </a>
+            @can('BlogCategory-Create')
+                <a href="{{ route('blogCategory.create') }}" class="btn btn-success btn-sm btn-icon-split shadow-sm mr-2 mb-2 mb-sm-0">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-folder-plus fa-sm"></i>
+                    </span>
+                    <span class="text">Create Category</span>
+                </a>
+            @endcan
             <a href="{{ route('blogCategory.index') }}" class="btn btn-info btn-sm btn-icon-split shadow-sm mr-2 mb-2 mb-sm-0">
                 <span class="icon text-white-50">
                     <i class="fas fa-folder-open fa-sm"></i>
                 </span>
                 <span class="text">View Categories</span>
             </a>
-            <a href="{{ route('blog.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus fa-sm"></i>
-                </span>
-                <span class="text">Create Blog</span>
-            </a>
+            @can('Blog-Create')
+                <a href="{{ route('blog.create') }}" class="btn btn-primary btn-sm btn-icon-split shadow-sm">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus fa-sm"></i>
+                    </span>
+                    <span class="text">Create Blog</span>
+                </a>
+            @endcan
         </div>
     </div>
 
@@ -108,19 +112,24 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('blog.edit', $list->id) }}"
-                                           class="btn btn-info btn-sm shadow-sm"
-                                           title="Edit">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button class="btn btn-danger btn-sm shadow-sm ml-1"
-                                                data-toggle="modal"
-                                                data-target="#deleteModal_{{ $list->id }}"
-                                                title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @can('Blog-Edit')
+                                            <a href="{{ route('blog.edit', $list->id) }}"
+                                               class="btn btn-info btn-sm shadow-sm"
+                                               title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        @can('Blog-Delete')
+                                            <button class="btn btn-danger btn-sm shadow-sm ml-1"
+                                                    data-toggle="modal"
+                                                    data-target="#deleteModal_{{ $list->id }}"
+                                                    title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endcan
                                     </div>
 
+                                    @can('Blog-Delete')
                                     <div class="modal fade" id="deleteModal_{{ $list->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content border-0 shadow-lg">
@@ -148,6 +157,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

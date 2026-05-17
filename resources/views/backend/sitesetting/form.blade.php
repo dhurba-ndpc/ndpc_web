@@ -2,7 +2,57 @@
 
 @section('content')
     @php
+        $user = auth()->user();
         $hasSetting = isset($data) && $data;
+        $siteSettingTabs = [
+            [
+                'key' => 'site-settings',
+                'permission' => 'SiteSetting-View',
+                'tabId' => 'page-one-tab',
+                'panelId' => 'page-one-panel',
+                'icon' => 'fas fa-file-alt',
+                'title' => 'Site Settings',
+                'subtitle' => 'Update general detail',
+            ],
+            [
+                'key' => 'dark-banner',
+                'permission' => 'DarkBanner-View',
+                'tabId' => 'page-two-tab',
+                'panelId' => 'page-two-panel',
+                'icon' => 'fas fa-file-alt',
+                'title' => 'Dark Banner',
+                'subtitle' => 'update banner detail',
+            ],
+            [
+                'key' => 'namaste-pay-app',
+                'permission' => 'PlayStore-View',
+                'tabId' => 'page-three-tab',
+                'panelId' => 'page-three-panel',
+                'icon' => 'fas fa-file-alt',
+                'title' => 'Namaste Pay App',
+                'subtitle' => 'Update Namaste Pay App link detail',
+            ],
+            [
+                'key' => 'digital-wallet',
+                'permission' => 'PromotionMessage-View',
+                'tabId' => 'page-four-tab',
+                'panelId' => 'page-four-panel',
+                'icon' => 'fas fa-file-alt',
+                'title' => 'Digital Wallet',
+                'subtitle' => 'Digital Wallet Redefined',
+            ],
+            [
+                'key' => 'company-goal',
+                'permission' => 'CompanyGoal-View',
+                'tabId' => 'company-goal-tab',
+                'panelId' => 'company-goal-panel',
+                'icon' => 'fas fa-bullseye',
+                'title' => 'Company Goal',
+                'subtitle' => 'Goal Section',
+            ],
+        ];
+        $visibleSiteSettingTabs = collect($siteSettingTabs)->filter(fn($tab) => $user && $user->can($tab['permission']))->values();
+        $firstVisibleSiteSettingTab = $visibleSiteSettingTabs->first();
     @endphp
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -26,42 +76,29 @@
                     </h6>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body site-setting-tab-shell" style="visibility: hidden;">
                     <div class="row">
                         <div class="col-lg-3 mb-4 mb-lg-0">
                             <div class="nav flex-column nav-pills site-setting-tabs" id="siteSettingMainTabs" role="tablist"
                                 aria-orientation="vertical">
-                                <a class="nav-link active" id="page-one-tab" data-toggle="pill" href="#page-one-panel"
-                                    role="tab" aria-controls="page-one-panel" aria-selected="true">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Site Settings</span>
-                                    <span class="site-tab-subtitle">Update general detail</span>
-                                </a>
-                                <a class="nav-link" id="page-two-tab" data-toggle="pill" href="#page-two-panel"
-                                    role="tab" aria-controls="page-two-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Dark Banner</span>
-                                    <span class="site-tab-subtitle">update banner detail</span>
-                                </a>
-                                <a class="nav-link" id="page-three-tab" data-toggle="pill" href="#page-three-panel"
-                                    role="tab" aria-controls="page-three-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Namaste Pay App</span>
-                                    <span class="site-tab-subtitle">Update Namaste Pay App link detail</span>
-                                </a>
-                                <a class="nav-link" id="page-four-tab" data-toggle="pill" href="#page-four-panel"
-                                    role="tab" aria-controls="page-four-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-file-alt mr-2"></i>Digital Wallet</span>
-                                    <span class="site-tab-subtitle">Digital Wallet Redefined</span>
-                                </a>
-                                <a class="nav-link" id="company-goal-tab" data-toggle="pill" href="#company-goal-panel"
-                                    role="tab" aria-controls="company-goal-panel" aria-selected="false">
-                                    <span class="site-tab-title"><i class="fas fa-bullseye mr-2"></i>Company Goal</span>
-                                    <span class="site-tab-subtitle">Goal Section</span>
-                                </a>
+                                @foreach ($siteSettingTabs as $tab)
+                                    @can($tab['permission'])
+                                        <a class="nav-link {{ $firstVisibleSiteSettingTab['key'] === $tab['key'] ? 'active' : '' }}"
+                                            id="{{ $tab['tabId'] }}" data-toggle="pill" href="#{{ $tab['panelId'] }}"
+                                            role="tab" aria-controls="{{ $tab['panelId'] }}"
+                                            aria-selected="{{ $firstVisibleSiteSettingTab['key'] === $tab['key'] ? 'true' : 'false' }}">
+                                            <span class="site-tab-title"><i class="{{ $tab['icon'] }} mr-2"></i>{{ $tab['title'] }}</span>
+                                            <span class="site-tab-subtitle">{{ $tab['subtitle'] }}</span>
+                                        </a>
+                                    @endcan
+                                @endforeach
                             </div>
                         </div>
 
                         <div class="col-lg-9">
                             <div class="tab-content" id="siteSettingMainTabsContent">
-                                <div class="tab-pane fade show active" id="page-one-panel" role="tabpanel"
+                                @can('SiteSetting-View')
+                                <div class="tab-pane fade {{ $firstVisibleSiteSettingTab['key'] === 'site-settings' ? 'show active' : '' }}" id="page-one-panel" role="tabpanel"
                                     aria-labelledby="page-one-tab">
                                     <form action="{{ $hasSetting ? route('siteSetting.update', $data->id) : route('siteSetting.store') }}"
                                         method="POST" enctype="multipart/form-data">
@@ -69,6 +106,10 @@
                                         @if ($hasSetting)
                                             @method('PUT')
                                         @endif
+                                        @php
+                                            $siteSettingPublishPermission = isset($data) ? 'SiteSetting-Edit' : 'SiteSetting-Create';
+                                            $canModifySiteSettingPublish = $user && $user->can($siteSettingPublishPermission);
+                                        @endphp
 
                                         <ul class="nav nav-tabs nav-fill mb-4 site-setting-sub-tabs" id="pageOneSettingTabs"
                                             role="tablist">
@@ -164,11 +205,15 @@
                                                         <div class="custom-control custom-switch custom-control-lg">
                                                             <input type="checkbox" class="custom-control-input" id="is_active"
                                                                 name="is_active" value="1"
+                                                                {{ $canModifySiteSettingPublish ? '' : 'disabled' }}
                                                                 {{ old('is_active', $hasSetting ? $data->is_active : true) ? 'checked' : '' }}>
                                                             <label class="custom-control-label font-weight-bold" for="is_active">
                                                                 Publish Site Settings
                                                             </label>
                                                             <p class="small text-muted mb-0">Turn on to use these settings across the front-end website.</p>
+                                                            @unless ($canModifySiteSettingPublish)
+                                                                <small class="text-danger d-block mt-2">You do not have permission to modify this field.</small>
+                                                            @endunless
                                                         </div>
                                                     </div>
                                                 </div>
@@ -534,12 +579,39 @@
                                         <hr>
 
                                         <div class="form-actions">
-                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-save"></i>
-                                                </span>
-                                                <span class="text">{{ $hasSetting ? 'Update Site Settings' : 'Save Site Settings' }}</span>
-                                            </button>
+                                            @if ($hasSetting)
+                                                @can('SiteSetting-Edit')
+                                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-save"></i>
+                                                        </span>
+                                                        <span class="text">Update Site Settings</span>
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-ban"></i>
+                                                        </span>
+                                                        <span class="text">No Update Permission</span>
+                                                    </button>
+                                                @endcan
+                                            @else
+                                                @can('SiteSetting-Create')
+                                                    <button type="submit" class="btn btn-success btn-icon-split shadow-sm">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-save"></i>
+                                                        </span>
+                                                        <span class="text">Save Site Settings</span>
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-ban"></i>
+                                                        </span>
+                                                        <span class="text">No Create Permission</span>
+                                                    </button>
+                                                @endcan
+                                            @endif
                                             <a href="{{ route('dashboard.index') }}" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-times"></i>
@@ -549,11 +621,15 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endcan
 
-                                <div class="tab-pane fade" id="page-two-panel" role="tabpanel" aria-labelledby="page-two-tab">
+                                @can('DarkBanner-View')
+                                <div class="tab-pane fade {{ $firstVisibleSiteSettingTab['key'] === 'dark-banner' ? 'show active' : '' }}" id="page-two-panel" role="tabpanel" aria-labelledby="page-two-tab">
                                     @php
                                         $hasDarkBanner = isset($darkBanner) && $darkBanner;
                                         $hasDarkBannerImage = $hasDarkBanner && $darkBanner->image;
+                                        $darkBannerPublishPermission = $hasDarkBanner ? 'DarkBanner-Edit' : 'DarkBanner-Create';
+                                        $canModifyDarkBannerPublish = $user && $user->can($darkBannerPublishPermission);
                                     @endphp
 
                                     <form action="{{ $hasDarkBanner ? route('darkbanner.update', $darkBanner->id) : route('darkbanner.store') }}"
@@ -759,11 +835,15 @@
                                                                         id="dark_banner_is_active"
                                                                         name="is_active"
                                                                         value="1"
+                                                                        {{ $canModifyDarkBannerPublish ? '' : 'disabled' }}
                                                                         {{ old('is_active', $hasDarkBanner ? $darkBanner->is_active : true) ? 'checked' : '' }}>
                                                                     <label class="custom-control-label font-weight-bold" for="dark_banner_is_active">
                                                                         Publish Status
                                                                     </label>
                                                                     <p class="small text-muted mb-0">Toggle to make this dark banner visible on the website.</p>
+                                                                    @unless ($canModifyDarkBannerPublish)
+                                                                        <small class="text-danger d-block mt-2">You do not have permission to modify this field.</small>
+                                                                    @endunless
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -773,21 +853,52 @@
                                                 <hr>
 
                                                 <div class="form-actions">
-                                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-save"></i>
-                                                        </span>
-                                                        <span class="text">{{ $hasDarkBanner ? 'Update Dark Banner' : 'Save Dark Banner' }}</span>
-                                                    </button>
+                                                    @if ($hasDarkBanner)
+                                                        @can('DarkBanner-Edit')
+                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-save"></i>
+                                                                </span>
+                                                                <span class="text">Update Dark Banner</span>
+                                                            </button>
+                                                        @else
+                                                            <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-ban"></i>
+                                                                </span>
+                                                                <span class="text">No Update Permission</span>
+                                                            </button>
+                                                        @endcan
+                                                    @else
+                                                        @can('DarkBanner-Create')
+                                                            <button type="submit" class="btn btn-success btn-icon-split shadow-sm">
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-save"></i>
+                                                                </span>
+                                                                <span class="text">Save Dark Banner</span>
+                                                            </button>
+                                                        @else
+                                                            <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                <span class="icon text-white-50">
+                                                                    <i class="fas fa-ban"></i>
+                                                                </span>
+                                                                <span class="text">No Create Permission</span>
+                                                            </button>
+                                                        @endcan
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+                                @endcan
 
-                                <div class="tab-pane fade" id="page-three-panel" role="tabpanel" aria-labelledby="page-three-tab">
+                                @can('PlayStore-View')
+                                <div class="tab-pane fade {{ $firstVisibleSiteSettingTab['key'] === 'namaste-pay-app' ? 'show active' : '' }}" id="page-three-panel" role="tabpanel" aria-labelledby="page-three-tab">
                                     @php
                                         $hasAppLinkPromotion = isset($appLinkPromotion) && $appLinkPromotion;
+                                        $appLinkPublishPermission = $hasAppLinkPromotion ? 'PlayStore-Edit' : 'PlayStore-Create';
+                                        $canModifyAppLinkPublish = $user && $user->can($appLinkPublishPermission);
                                     @endphp
 
                                     <form action="{{ $hasAppLinkPromotion ? route('promotion_message.update', $appLinkPromotion->id) : route('promotion_message.store') }}"
@@ -866,6 +977,7 @@
                                                                         id="app_link_is_active"
                                                                         name="is_active"
                                                                         value="1"
+                                                                        {{ $canModifyAppLinkPublish ? '' : 'disabled' }}
                                                                         {{ old('is_active', $hasAppLinkPromotion ? $appLinkPromotion->is_active : true) ? 'checked' : '' }}>
                                                                     <label class="custom-control-label font-weight-bold" for="app_link_is_active">
                                                                         Publish Status
@@ -873,6 +985,9 @@
                                                                     <p class="small text-muted mb-0">
                                                                         Toggle to show this app link promotion on the website.
                                                                     </p>
+                                                                    @unless ($canModifyAppLinkPublish)
+                                                                        <small class="text-danger d-block mt-2">You do not have permission to modify this field.</small>
+                                                                    @endunless
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1006,14 +1121,39 @@
                                                         <hr>
 
                                                         <div class="form-actions">
-                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                                                <span class="icon text-white-50">
-                                                                    <i class="fas fa-save"></i>
-                                                                </span>
-                                                                <span class="text">
-                                                                    {{ $hasAppLinkPromotion ? 'Update App Link' : 'Save App Link' }}
-                                                                </span>
-                                                            </button>
+                                                            @if ($hasAppLinkPromotion)
+                                                                @can('PlayStore-Edit')
+                                                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Update App Link</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Update Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @else
+                                                                @can('PlayStore-Create')
+                                                                    <button type="submit" class="btn btn-success btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Save App Link</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Create Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1021,10 +1161,14 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endcan
 
-                                <div class="tab-pane fade" id="page-four-panel" role="tabpanel" aria-labelledby="page-four-tab">
+                                @can('PromotionMessage-View')
+                                <div class="tab-pane fade {{ $firstVisibleSiteSettingTab['key'] === 'digital-wallet' ? 'show active' : '' }}" id="page-four-panel" role="tabpanel" aria-labelledby="page-four-tab">
                                     @php
                                         $hasPromotionText = isset($promotionText) && $promotionText;
+                                        $promotionTextPublishPermission = $hasPromotionText ? 'PromotionMessage-Edit' : 'PromotionMessage-Create';
+                                        $canModifyPromotionTextPublish = $user && $user->can($promotionTextPublishPermission);
                                     @endphp
 
                                     <form action="{{ $hasPromotionText ? route('promotion_message.update', $promotionText->id) : route('promotion_message.store') }}"
@@ -1073,6 +1217,7 @@
                                                                         id="promotion_text_is_active"
                                                                         name="is_active"
                                                                         value="1"
+                                                                        {{ $canModifyPromotionTextPublish ? '' : 'disabled' }}
                                                                         {{ old('is_active', $hasPromotionText ? $promotionText->is_active : true) ? 'checked' : '' }}>
                                                                     <label class="custom-control-label font-weight-bold" for="promotion_text_is_active">
                                                                         Publish Status
@@ -1080,6 +1225,9 @@
                                                                     <p class="small text-muted mb-0">
                                                                         Toggle to show this promotion text on the website.
                                                                     </p>
+                                                                    @unless ($canModifyPromotionTextPublish)
+                                                                        <small class="text-danger d-block mt-2">You do not have permission to modify this field.</small>
+                                                                    @endunless
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1185,14 +1333,39 @@
                                                         <hr>
 
                                                         <div class="form-actions">
-                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                                                <span class="icon text-white-50">
-                                                                    <i class="fas fa-save"></i>
-                                                                </span>
-                                                                <span class="text">
-                                                                    {{ $hasPromotionText ? 'Update Promotion Text' : 'Save Promotion Text' }}
-                                                                </span>
-                                                            </button>
+                                                            @if ($hasPromotionText)
+                                                                @can('PromotionMessage-Edit')
+                                                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Update Promotion Text</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Update Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @else
+                                                                @can('PromotionMessage-Create')
+                                                                    <button type="submit" class="btn btn-success btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Save Promotion Text</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Create Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1200,12 +1373,16 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endcan
 
-                                <div class="tab-pane fade" id="company-goal-panel" role="tabpanel" aria-labelledby="company-goal-tab">
+                                @can('CompanyGoal-View')
+                                <div class="tab-pane fade {{ $firstVisibleSiteSettingTab['key'] === 'company-goal' ? 'show active' : '' }}" id="company-goal-panel" role="tabpanel" aria-labelledby="company-goal-tab">
                                     @php
                                         $companyGoal = $companyGoal ?? null;
                                         $hasCompanyGoal = isset($companyGoal) && $companyGoal;
                                         $hasCompanyGoalImage = $hasCompanyGoal && $companyGoal->image;
+                                        $companyGoalPublishPermission = $hasCompanyGoal ? 'CompanyGoal-Edit' : 'CompanyGoal-Create';
+                                        $canModifyCompanyGoalPublish = $user && $user->can($companyGoalPublishPermission);
                                     @endphp
 
                                     <form action="{{ $hasCompanyGoal ? route('company_goals.update', $companyGoal->id) : route('company_goals.store') }}"
@@ -1359,6 +1536,7 @@
                                                                 id="company_goal_is_active"
                                                                 name="is_active"
                                                                 value="1"
+                                                                {{ $canModifyCompanyGoalPublish ? '' : 'disabled' }}
                                                                 {{ old('is_active', $hasCompanyGoal ? $companyGoal->is_active : true) ? 'checked' : '' }}>
                                                             <label class="custom-control-label font-weight-bold" for="company_goal_is_active">
                                                                 Publish Status
@@ -1366,19 +1544,47 @@
                                                             <p class="small text-muted mb-0">
                                                                 Toggle to make this company goal visible on the website front-end.
                                                             </p>
+                                                            @unless ($canModifyCompanyGoalPublish)
+                                                                <small class="text-danger d-block mt-2">You do not have permission to modify this field.</small>
+                                                            @endunless
                                                         </div>
 
                                                         <hr>
 
                                                         <div class="form-actions">
-                                                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                                                <span class="icon text-white-50">
-                                                                    <i class="fas fa-save"></i>
-                                                                </span>
-                                                                <span class="text">
-                                                                    {{ $hasCompanyGoal ? 'Update Company Goal' : 'Save Company Goal' }}
-                                                                </span>
-                                                            </button>
+                                                            @if ($hasCompanyGoal)
+                                                                @can('CompanyGoal-Edit')
+                                                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Update Company Goal</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Update Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @else
+                                                                @can('CompanyGoal-Create')
+                                                                    <button type="submit" class="btn btn-success btn-icon-split shadow-sm">
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-save"></i>
+                                                                        </span>
+                                                                        <span class="text">Save Company Goal</span>
+                                                                    </button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger btn-icon-split shadow-sm" disabled>
+                                                                        <span class="icon text-white-50">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                        <span class="text">No Create Permission</span>
+                                                                    </button>
+                                                                @endcan
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1386,6 +1592,13 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endcan
+
+                                @if ($visibleSiteSettingTabs->isEmpty())
+                                    <div class="alert alert-warning mb-0">
+                                        You do not have permission to view any site setting tabs.
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -1396,6 +1609,58 @@
 @endsection
 
 @push('script')
+    <script>
+        $(function() {
+            const activeTabStoragePrefix = 'siteSettingActiveTab:';
+            const tabGroups = [
+                '#siteSettingMainTabs',
+                '#pageOneSettingTabs',
+                '#contactLanguageTabs',
+                '#officerLanguageTabs',
+                '#footerLanguageTabs',
+                '#darkBannerLanguageTabs',
+                '#appLinkLanguageTabs',
+                '#promotionTextLanguageTabs',
+                '#companyGoalLanguageTabs'
+            ];
+
+            function saveActiveTab($tabLink) {
+                const $tabGroup = $tabLink.closest('[role="tablist"]');
+                const tabGroupId = $tabGroup.attr('id');
+                const tabTarget = $tabLink.attr('href');
+
+                if (tabGroupId && tabTarget) {
+                    localStorage.setItem(activeTabStoragePrefix + tabGroupId, tabTarget);
+                }
+            }
+
+            tabGroups.forEach(function(tabGroupSelector) {
+                const $tabGroup = $(tabGroupSelector);
+                const tabGroupId = $tabGroup.attr('id');
+                const activeTabTarget = localStorage.getItem(activeTabStoragePrefix + tabGroupId);
+
+                if (activeTabTarget) {
+                    $tabGroup.find('[data-toggle="tab"][href="' + activeTabTarget + '"], [data-toggle="pill"][href="' + activeTabTarget + '"]').tab('show');
+                }
+            });
+
+            $('.site-setting-tab-shell').css('visibility', 'visible');
+
+            $('[data-toggle="tab"], [data-toggle="pill"]').on('shown.bs.tab', function() {
+                saveActiveTab($(this));
+            });
+
+            $('form').on('submit', function() {
+                $('[role="tablist"]').each(function() {
+                    const $activeTab = $(this).find('[data-toggle="tab"].active, [data-toggle="pill"].active').first();
+
+                    if ($activeTab.length) {
+                        saveActiveTab($activeTab);
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         function previewSiteLogo(event, previewId) {
             const file = event.target.files[0];
@@ -1533,4 +1798,5 @@
             }
         }
     </style>
+
 @endpush

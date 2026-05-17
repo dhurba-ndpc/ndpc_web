@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
- 
+use Illuminate\Contracts\View\View;
 
 class ServiceController extends AdminBaseController
 {
 
-    protected $model;
-    protected $viewPath = 'backend.services.';
-    protected $requestClass = ServiceRequest::class;
-    protected $uploadFields = [];
-    protected $uploadPath = [];
-    protected $routePrefix = 'services.index';
+    protected string $viewPath = 'backend.services.';
+    protected string $requestClass = ServiceRequest::class;
+    protected array $uploadFields = [];
+    protected string $uploadPath = '';
+    protected string $routePrefix = 'services.index';
 
 
     public function __construct(Service $model)
@@ -23,7 +21,7 @@ class ServiceController extends AdminBaseController
         $this->model = $model;
     }
 
-    public function index()
+    public function index(): View
     {
         $lists = $this->model
             ->where('type', 'services_offer')

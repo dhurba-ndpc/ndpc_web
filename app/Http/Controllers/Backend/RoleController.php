@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\FeatureAreas;
+use App\Models\Notice;
+use App\Models\PromotionMessage;
+use App\Models\Role;
+use App\Models\Service;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
-use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
-use App\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleController extends Controller
 {
@@ -21,10 +26,8 @@ class RoleController extends Controller
         return view('backend.roles.roleForm', compact('roles'));
     }
 
-
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => [
                 'required',
@@ -36,9 +39,9 @@ class RoleController extends Controller
             'name.regex' => 'Name must contain only letters and spaces (no numbers or special characters).'
         ]);
 
-
         if ($validator->fails()) {
-            return redirect()->back()
+            return redirect()
+                ->back()
                 ->withErrors($validator, 'roleBag')
                 ->withInput()
                 ->with('active_tab', 'role-tab');
@@ -51,9 +54,9 @@ class RoleController extends Controller
 
         while (
             Role::withTrashed()
-            ->where('name', $name)
-            ->where('guard_name', $guardName)
-            ->exists()
+                ->where('name', $name)
+                ->where('guard_name', $guardName)
+                ->exists()
         ) {
             $name = $originalName . '-' . $count;
             $count++;
@@ -72,18 +75,16 @@ class RoleController extends Controller
 
     public function edit(string $id)
     {
-
         $getRoleId = Role::findOrFail($id);
 
-        $entities = $this->getModels();
+        $entities = getModels();
         $actions = ['View', 'Create', 'Edit', 'Delete'];
 
         $existingPermissions = Permission::pluck('name')->toArray();
         $rolePermissions = $getRoleId->permissions->pluck('name')->toArray();
 
-        return view('backend.roles.permissionForm', compact('getRoleId', 'entities',  'actions', 'existingPermissions', 'rolePermissions'));
+        return view('backend.roles.permissionForm', compact('getRoleId', 'entities', 'actions', 'existingPermissions', 'rolePermissions'));
     }
-
 
     public function update(Request $request, string $id)
     {
@@ -107,7 +108,6 @@ class RoleController extends Controller
 
     public function trash()
     {
-
         $trashedRoles = Role::onlyTrashed()->get();
         return view('backend.roles.roleTrash', compact('trashedRoles'));
     }
@@ -115,12 +115,38 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         try {
-            $role->delete();
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
+            // Prevent deleting protected system roles
+            if (in_array($role->name, ['Super Admin', 'Admin'])) {
+                return redirect()->back()->with(
+                    'warning',
+                    'This is a protected system role and cannot be deleted.'
+                );
+            }
 
-            return redirect()->back()->with('success', 'Role moved to trash successfully.');
+            // Prevent deleting role if assigned to users
+            if ($role->users()->exists()) {
+                return redirect()->back()->with(
+                    'warning',
+                    'This role is currently assigned to one or more users. Please remove all users from this role before deleting it.'
+                );
+            }
+
+            // Delete role
+            $role->delete();
+
+            // Clear permission cache
+            app(\Spatie\Permission\PermissionRegistrar::class)
+                ->forgetCachedPermissions();
+
+            return redirect()->back()->with(
+                'success',
+                'Role moved to trash successfully.'
+            );
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to delete role: ' . $e->getMessage());
+            return redirect()->back()->with(
+                'error',
+                'Something went wrong while deleting the role. Please try again.'
+            );
         }
     }
 
@@ -145,20 +171,5 @@ class RoleController extends Controller
         $role->forceDelete();
 
         return redirect()->back()->with('success', 'Role permanently purged from database.');
-    }
-
-    public function getModels()
-    {
-        $models = [];
-        array_push($models, 'Leading Team', 'Board Of Directors');
-        $path = app_path('Models');
-
-        foreach (scandir($path) as $file) {
-            if ($file !== '.' && $file !== '..') {
-                $models[] = str_replace('.php', '', $file);
-            }
-        }
-
-        return $models;
     }
 }

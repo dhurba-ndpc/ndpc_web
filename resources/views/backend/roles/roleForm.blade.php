@@ -19,29 +19,33 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4 border-bottom-primary">
+                @can('Role-Create')
                 <div class="card-header py-3 bg-white border-bottom-primary">
                     <h6 class="m-0 font-weight-bold text-primary">
                         <i class="fas fa-shield-alt fa-fw mr-2"></i>Role Architecture & Management
                     </h6>
                 </div>
+                @endcan
                 <div class="card-body">
-                    <form method="POST" action="{{ route('roles.store') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label class="small font-weight-bold text-dark">Role Name</label>
-                            <input type="text" class="form-control" placeholder="e.g. Senior Auditor" name="name">
-                            @error('name', 'roleBag')
-                                <span class="text-danger"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                <span class="icon text-white-50"><i class="fas fa-save"></i></span>
-                                <span class="text">Save New Role</span>
-                            </button>
-                        </div>
-                    </form>
-                    <br>
+                    @can('Role-Create')
+                        <form method="POST" action="{{ route('roles.store') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label class="small font-weight-bold text-dark">Role Name</label>
+                                <input type="text" class="form-control" placeholder="e.g. Senior Auditor" name="name">
+                                @error('name', 'roleBag')
+                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                    <span class="icon text-white-50"><i class="fas fa-save"></i></span>
+                                    <span class="text">Save New Role</span>
+                                </button>
+                            </div>
+                        </form>
+                        <br>
+                    @endcan
                     <div class="form-section-title">
                         <h6 class="m-0 font-weight-bold text-primary">Existing Roles Architecture</h6>
 
@@ -64,14 +68,13 @@
                                         <td class="font-weight-bold">{{ $role->name }}</td>
                                         <td>
                                             @foreach ($role->permissions as $permission)
-                                            
                                                 @php
                                                     $parts = explode('-', $permission->name);
-                                                      
+
                                                     $action = isset($parts[1])
                                                         ? strtolower(trim($parts[1]))
                                                         : 'default';
-                                                       
+
                                                     $badgeClass = match ($action) {
                                                         'view' => 'badge-primary',
                                                         'create' => 'badge-success',
@@ -80,7 +83,7 @@
                                                         default => 'badge-secondary',
                                                     };
                                                 @endphp
-                                               
+
 
                                                 <span class="badge {{ $badgeClass }}"
                                                     style="font-size: 0.75rem; margin: 2px; padding: 5px 10px; text-transform: capitalize;">
@@ -91,50 +94,56 @@
                                         <td>{{ $role->users_count }}</td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
+                                                {{-- @can('Role-Edit') --}}
                                                 <a href="{{ route('roles.edit', $role->id) }}"
                                                     class="btn btn-info btn-sm shadow-sm" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
-                                                <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
-                                                    data-target="#deleteModal_{{ $role->id }}" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                                {{-- @endcan --}}
+                                                @can('Role-Delete')
+                                                    <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
+                                                        data-target="#deleteModal_{{ $role->id }}" title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @endcan
                                             </div>
-                                            <div class="modal fade" id="deleteModal_{{ $role->id }}" tabindex="-1"
-                                                role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content border-0 shadow-lg">
-                                                        <div class="modal-header bg-danger text-white">
-                                                            <h5 class="modal-title font-weight-bold">
-                                                                <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
-                                                                Delete
-                                                            </h5>
-                                                            <button type="button" class="close text-white"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body text-left p-4">
-                                                            Are you sure you want to delete the Role
-                                                            <strong>"{{ $role->name }}"</strong>?
-                                                            <p class="text-muted small mt-2">It Will move to trash
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer bg-light">
-                                                            <button type="button" class="btn btn-secondary btn-sm"
-                                                                data-dismiss="modal">Cancel</button>
-                                                            <form method="POST"
-                                                                action="{{ route('roles.destroy', $role->id) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm shadow-sm px-4">Yes,
-                                                                    Delete</button>
-                                                            </form>
+                                            @can('Role-Delete')
+                                                <div class="modal fade" id="deleteModal_{{ $role->id }}" tabindex="-1"
+                                                    role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content border-0 shadow-lg">
+                                                            <div class="modal-header bg-danger text-white">
+                                                                <h5 class="modal-title font-weight-bold">
+                                                                    <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
+                                                                    Delete
+                                                                </h5>
+                                                                <button type="button" class="close text-white"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-left p-4">
+                                                                Are you sure you want to delete the Role
+                                                                <strong>"{{ $role->name }}"</strong>?
+                                                                <p class="text-muted small mt-2">It Will move to trash
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer bg-light">
+                                                                <button type="button" class="btn btn-secondary btn-sm"
+                                                                    data-dismiss="modal">Cancel</button>
+                                                                <form method="POST"
+                                                                    action="{{ route('roles.destroy', $role->id) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm shadow-sm px-4">Yes,
+                                                                        Delete</button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

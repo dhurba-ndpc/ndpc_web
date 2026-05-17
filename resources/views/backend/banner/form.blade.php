@@ -8,7 +8,8 @@
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('banner.index') }}">Banners</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ isset($data) ? 'Edit Banner' : 'Create Banner' }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ isset($data) ? 'Edit Banner' : 'Create Banner' }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,87 +26,93 @@
                         {{ isset($data) ? 'Edit Banner: ' . $data->name : 'Create New Banner' }}
                     </h6>
                 </div>
-                
+
                 @if (isset($data))
                     <form action="{{ route('banner.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
-                @else
-                    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                    @else
+                        <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
                 @endif
-                    @csrf
-                    
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-4 text-center border-right">
-                                <label class="font-weight-bold text-dark d-block mb-3">Banner Image</label>
-                                
-                                <div class="mb-3">
-                                    <div id="imagePreviewContainer" class="border rounded p-2 bg-light d-flex align-items-center justify-content-center" style="min-height: 200px; position: relative;">
-                                        @php 
-                                            $hasImage = isset($data) && $data->image;
-                                        @endphp
-                                        <img id="previewImg" 
-                                             src="{{ $hasImage ? asset('storage/' . $data->image) : asset('backend/img/placeholder.jpg') }}" 
-                                             alt="Preview" 
-                                             class="img-fluid rounded shadow-sm" 
-                                             style="max-height: 180px; {{ $hasImage ? '' : 'opacity: 0.5;' }}">
-                                        
-                                        
-                                    </div>
-                                </div>
+                @csrf
 
-                                <div class="custom-file text-left">
-                                    <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" id="image" accept="image/*" onchange="previewImage(event)">
-                                    <label class="custom-file-label" for="image">Choose file...</label>
-                                    @error('image')
-                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                    @enderror
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 text-center border-right">
+                            <label class="font-weight-bold text-dark d-block mb-3">Banner Image</label>
+
+                            <div class="mb-3">
+                                <div id="imagePreviewContainer"
+                                    class="border rounded p-2 bg-light d-flex align-items-center justify-content-center"
+                                    style="min-height: 200px; position: relative;">
+                                    @php
+                                        $hasImage = isset($data) && $data->image;
+                                    @endphp
+                                    <img id="previewImg"
+                                        src="{{ $hasImage ? asset('storage/' . $data->image) : asset('backend/img/placeholder.jpg') }}"
+                                        alt="Preview" class="img-fluid rounded shadow-sm"
+                                        style="max-height: 180px; {{ $hasImage ? '' : 'opacity: 0.5;' }}">
+
+
                                 </div>
-                                <small class="text-muted mt-2 d-block">Recommended size: 1920x1080px</small>
                             </div>
 
-                            <div class="col-lg-8">
-                                <div class="form-group mb-4">
-                                    <label for="name" class="font-weight-bold text-dark">Banner Title / Name</label>
-                                    <input type="text" id="name" name="name"
-                                        class="form-control form-control-user @error('name') is-invalid @enderror"
-                                        placeholder="Enter descriptive banner name..." 
-                                        value="{{ isset($data) ? $data->name : old('name') }}">
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                    @enderror
-                                </div>
+                            <div class="custom-file text-left">
+                                <input type="file" name="image"
+                                    class="custom-file-input @error('image') is-invalid @enderror" id="image"
+                                    accept="image/*" onchange="previewImage(event)">
+                                <label class="custom-file-label" for="image">Choose file...</label>
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                            <small class="text-muted mt-2 d-block">Recommended size: 1920x1080px</small>
+                        </div>
 
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch custom-control-lg">
-                                        <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="1"
-                                            {{ (isset($data) && $data->is_active) || old('is_active') ? 'checked' : '' }}>
-                                        <label class="custom-control-label font-weight-bold" for="is_active">
-                                            Publish Status
-                                        </label>
-                                        <p class="small text-muted">Toggle to make this banner visible on the website front-end.</p>
-                                    </div>
-                                </div>
+                        <div class="col-lg-8">
+                            <div class="form-group mb-4">
+                                <label for="name" class="font-weight-bold text-dark">Banner Title / Name</label>
+                                <input type="text" id="name" name="name"
+                                    class="form-control form-control-user @error('name') is-invalid @enderror"
+                                    placeholder="Enter descriptive banner name..."
+                                    value="{{ old('name', $data->name ?? '') }}">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
 
-                                <hr>
-
-                                <div class="form-actions mt-4">
-                                    <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-save"></i>
-                                        </span>
-                                        <span class="text">{{ isset($data) ? 'Update Changes' : 'Save Banner' }}</span>
-                                    </button>
-                                    <a href="{{ route('banner.index') }}" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                        <span class="text">Cancel</span>
-                                    </a>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch custom-control-lg">
+                                    <input type="checkbox" class="custom-control-input" id="is_active" name="is_active"
+                                        value="1"
+                                        {{ (isset($data) && $data->is_active) || old('is_active') ? 'checked' : '' }}>
+                                    <label class="custom-control-label font-weight-bold" for="is_active">
+                                        Publish Status
+                                    </label>
+                                    <p class="small text-muted">Toggle to make this banner visible on the website front-end.
+                                    </p>
                                 </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-actions mt-4">
+                                <button type="submit" class="btn btn-primary btn-icon-split shadow-sm">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-save"></i>
+                                    </span>
+                                    <span class="text">{{ isset($data) ? 'Update Changes' : 'Save Banner' }}</span>
+                                </button>
+                                <a href="{{ route('banner.index') }}"
+                                    class="btn btn-secondary btn-icon-split shadow-sm ml-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                    <span class="text">Cancel</span>
+                                </a>
                             </div>
                         </div>
                     </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -113,30 +120,34 @@
 @endsection
 
 @push('script')
-<script>
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const previewImg = document.getElementById('previewImg');
-        const placeholder = document.getElementById('placeholderText');
-        const fileName = event.target.value.split('\\').pop();
-        
-       
-        event.target.nextElementSibling.innerText = fileName;
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('previewImg');
+            const placeholder = document.getElementById('placeholderText');
+            const fileName = event.target.value.split('\\').pop();
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                previewImg.style.opacity = "1";
-                placeholder.classList.add('d-none');
-            };
-            reader.readAsDataURL(file);
+
+            event.target.nextElementSibling.innerText = fileName;
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.opacity = "1";
+                    placeholder.classList.add('d-none');
+                };
+                reader.readAsDataURL(file);
+            }
         }
-    }
-</script>
-<style>
- 
-    .custom-control-label { cursor: pointer; }
-    .btn-icon-split .text { padding: 0.375rem 0.75rem; }
-</style>
+    </script>
+    <style>
+        .custom-control-label {
+            cursor: pointer;
+        }
+
+        .btn-icon-split .text {
+            padding: 0.375rem 0.75rem;
+        }
+    </style>
 @endpush

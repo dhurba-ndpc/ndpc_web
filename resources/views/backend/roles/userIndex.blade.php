@@ -13,12 +13,11 @@
             </nav>
         </div>
         <div>
-            <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus fa-sm text-white-50"></i> Create New User
-            </a>
-            <a class="btn btn-sm btn-outline-danger shadow-sm" href="{{ route('users.trash') }}">
-                <i class="fas fa-trash-alt fa-sm mr-1"></i> View Trash Bin
-            </a>
+            @can('User-Create')
+                <a href="{{ route('users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Create New User
+                </a>
+            @endcan
         </div>
     </div>
 
@@ -79,49 +78,52 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('users.edit', $user->id) }}"
-                                                    class="btn btn-info btn-sm shadow-sm" title="Edit">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
-                                                    data-target="#deleteModal_{{ $user->id }}" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <div class="modal fade" id="deleteModal_{{ $user->id }}" tabindex="-1"
-                                                    role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content border-0 shadow-lg">
-                                                            <div class="modal-header bg-danger text-white">
-                                                                <h5 class="modal-title font-weight-bold">
-                                                                    <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
-                                                                    Delete
-                                                                </h5>
-                                                                <button type="button" class="close text-white"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body text-left p-4">
-                                                                Are you sure you want to delete the User
-                                                                <strong>"{{ $user->name }}"</strong>?
-                                                                <p class="text-muted small mt-2">It will move to trash</p>
-                                                            </div>
-                                                            <div class="modal-footer bg-light">
-                                                                <button type="button" class="btn btn-secondary btn-sm"
-                                                                    data-dismiss="modal">Cancel</button>
-                                                                <form method="POST"
-                                                                    action="{{ route('users.destroy', $user->id) }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm shadow-sm px-4">Yes,
-                                                                        Delete</button>
-                                                                </form>
+                                                @can('User-Edit')
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="btn btn-info btn-sm shadow-sm" title="Edit">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('User-Delete')
+                                                    <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
+                                                        data-target="#deleteModal_{{ $user->id }}" title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    <div class="modal fade" id="deleteModal_{{ $user->id }}" tabindex="-1"
+                                                        role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content border-0 shadow-lg">
+                                                                <div class="modal-header bg-danger text-white">
+                                                                    <h5 class="modal-title font-weight-bold">
+                                                                        <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
+                                                                        Delete
+                                                                    </h5>
+                                                                    <button type="button" class="close text-white"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-left p-4">
+                                                                    Are you sure you want to delete the User
+                                                                    <strong>"{{ $user->name }}"</strong>?
+                                                                    <p class="text-muted small mt-2">It will move to trash</p>
+                                                                </div>
+                                                                <div class="modal-footer bg-light">
+                                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                                        data-dismiss="modal">Cancel</button>
+                                                                    <form method="POST"
+                                                                        action="{{ route('users.destroy', $user->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm shadow-sm px-4">Yes,
+                                                                            Delete</button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
