@@ -1,39 +1,42 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
+    <form method="POST" action="{{ route('password.store') }}" class="auth-form">
         @csrf
 
-        <!-- Password Reset Token -->
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="auth-field">
+            <i class="fas fa-envelope auth-field-icon"></i>
+            <label class="auth-label" for="email">{{ __('Email address') }}</label>
+            <input id="email" class="auth-input" type="email" name="email"
+                value="{{ old('email', $request->email) }}" required autofocus autocomplete="username">
+            @error('email')
+                <span class="auth-error">{{ $message }}</span>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="auth-field">
+            <i class="fas fa-lock auth-field-icon"></i>
+            <label class="auth-label" for="password">{{ __('New password') }}</label>
+            <input id="password" class="auth-input" type="password" name="password"
+                required autocomplete="new-password">
+            @error('password')
+                <span class="auth-error">{{ $message }}</span>
+            @enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="auth-field">
+            <i class="fas fa-shield-alt auth-field-icon"></i>
+            <label class="auth-label" for="password_confirmation">{{ __('Confirm password') }}</label>
+            <input id="password_confirmation" class="auth-input" type="password" name="password_confirmation"
+                required autocomplete="new-password">
+            @error('password_confirmation')
+                <span class="auth-error">{{ $message }}</span>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="auth-button">
+            <span>{{ __('Reset password') }}</span>
+            <i class="fas fa-check"></i>
+        </button>
     </form>
 </x-guest-layout>
