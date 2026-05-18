@@ -20,11 +20,11 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4 border-bottom-primary">
                 @can('Role-Create')
-                <div class="card-header py-3 bg-white border-bottom-primary">
-                    <h6 class="m-0 font-weight-bold text-primary">
-                        <i class="fas fa-shield-alt fa-fw mr-2"></i>Role Architecture & Management
-                    </h6>
-                </div>
+                    <div class="card-header py-3 bg-white border-bottom-primary">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="fas fa-shield-alt fa-fw mr-2"></i>Role Architecture & Management
+                        </h6>
+                    </div>
                 @endcan
                 <div class="card-body">
                     @can('Role-Create')
@@ -94,55 +94,70 @@
                                         <td>{{ $role->users_count }}</td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
-                                                {{-- @can('Role-Edit') --}}
-                                                <a href="{{ route('roles.edit', $role->id) }}"
-                                                    class="btn btn-info btn-sm shadow-sm" title="Edit">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-                                                {{-- @endcan --}}
+                                                @php
+                                                    $isSuperAdmin = $role->name === 'Super Admin';
+                                                @endphp
+
+                                                @can('Role-Edit')
+                                                    @if (!$isSuperAdmin)
+                                                        <a href="{{ $isSuperAdmin ? '#' : route('roles.edit', $role->id) }}"
+                                                            class="btn btn-sm shadow-sm {{ $isSuperAdmin ? 'btn-secondary disabled' : 'btn-info' }}"
+                                                            title="{{ $isSuperAdmin ? 'Protected Role' : 'Edit' }}">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </a>
+                                                    @endif
+                                                @endcan
+
                                                 @can('Role-Delete')
-                                                    <button class="btn btn-danger btn-sm shadow-sm ml-1" data-toggle="modal"
-                                                        data-target="#deleteModal_{{ $role->id }}" title="Delete">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    @if (!$isSuperAdmin)
+                                                        <button
+                                                            class="btn btn-sm shadow-sm ml-1 {{ $isSuperAdmin ? 'btn-secondary' : 'btn-danger' }}"
+                                                            {{ $isSuperAdmin ? 'disabled' : '' }} data-toggle="modal"
+                                                            data-target="{{ $isSuperAdmin ? '' : '#deleteModal_' . $role->id }}"
+                                                            title="{{ $isSuperAdmin ? 'Protected Role' : 'Delete' }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    @endif
                                                 @endcan
                                             </div>
                                             @can('Role-Delete')
-                                                <div class="modal fade" id="deleteModal_{{ $role->id }}" tabindex="-1"
-                                                    role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content border-0 shadow-lg">
-                                                            <div class="modal-header bg-danger text-white">
-                                                                <h5 class="modal-title font-weight-bold">
-                                                                    <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
-                                                                    Delete
-                                                                </h5>
-                                                                <button type="button" class="close text-white"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body text-left p-4">
-                                                                Are you sure you want to delete the Role
-                                                                <strong>"{{ $role->name }}"</strong>?
-                                                                <p class="text-muted small mt-2">It Will move to trash
-                                                                </p>
-                                                            </div>
-                                                            <div class="modal-footer bg-light">
-                                                                <button type="button" class="btn btn-secondary btn-sm"
-                                                                    data-dismiss="modal">Cancel</button>
-                                                                <form method="POST"
-                                                                    action="{{ route('roles.destroy', $role->id) }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm shadow-sm px-4">Yes,
-                                                                        Delete</button>
-                                                                </form>
+                                                @if (!$isSuperAdmin)
+                                                    <div class="modal fade" id="deleteModal_{{ $role->id }}" tabindex="-1"
+                                                        role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content border-0 shadow-lg">
+                                                                <div class="modal-header bg-danger text-white">
+                                                                    <h5 class="modal-title font-weight-bold">
+                                                                        <i class="fas fa-exclamation-triangle mr-2"></i>Confirm
+                                                                        Delete
+                                                                    </h5>
+                                                                    <button type="button" class="close text-white"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-left p-4">
+                                                                    Are you sure you want to delete the Role
+                                                                    <strong>"{{ $role->name }}"</strong>?
+                                                                    <p class="text-muted small mt-2">It Will move to trash
+                                                                    </p>
+                                                                </div>
+                                                                <div class="modal-footer bg-light">
+                                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                                        data-dismiss="modal">Cancel</button>
+                                                                    <form method="POST"
+                                                                        action="{{ route('roles.destroy', $role->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm shadow-sm px-4">Yes,
+                                                                            Delete</button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             @endcan
                                         </td>
                                     </tr>

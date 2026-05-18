@@ -3,12 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\FeatureAreas;
-use App\Models\Notice;
-use App\Models\PromotionMessage;
 use App\Models\Role;
-use App\Models\Service;
-use App\Models\TeamMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -54,9 +49,9 @@ class RoleController extends Controller
 
         while (
             Role::withTrashed()
-                ->where('name', $name)
-                ->where('guard_name', $guardName)
-                ->exists()
+            ->where('name', $name)
+            ->where('guard_name', $guardName)
+            ->exists()
         ) {
             $name = $originalName . '-' . $count;
             $count++;
@@ -90,19 +85,37 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id,
-            'permissions' => 'array'
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,name',
         ]);
 
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->save();
+        // if ($request->has('permissions')) {
+        //     $role->syncPermissions($request->input('permissions'));
+        // } else {
+        //     $role->syncPermissions([]);
+        // }
+        $permissions = $request->input('permissions', []);
 
-        if ($request->has('permissions')) {
-            $role->syncPermissions($request->input('permissions'));
-        } else {
-            $role->syncPermissions([]);
+        if ($role->name === 'Super Admin') {
+            $defaultPermissions = [
+                'Role-View',
+                'Role-Create',
+                'Role-Edit',
+                'Role-Delete',
+
+                'User-View',
+                'User-Create',
+                'User-Edit',
+                'User-Delete',
+            ];
+
+            $permissions = array_unique(array_merge($permissions, $defaultPermissions));
         }
 
+        $role->syncPermissions($permissions);
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 

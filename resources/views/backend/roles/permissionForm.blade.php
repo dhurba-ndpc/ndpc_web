@@ -33,7 +33,8 @@
                             <h6 class="m-0 font-weight-bold text-primary">
                                 <i class="fas fa-user-shield fa-fw mr-2"></i>Permission Matrix
                             </h6>
-                            <div class="small text-muted mt-1">Manage all module permissions for this role in one view.</div>
+                            <div class="small text-muted mt-1">Manage all module permissions for this role in one view.
+                            </div>
                         </div>
                         <span class="badge badge-primary px-3 py-2 mt-3 mt-md-0">
                             {{ $getRoleId->name }}
@@ -71,7 +72,8 @@
                                             <span id="visibleModelCount">{{ count($entities) }}</span>
                                             models shown
                                         </span>
-                                        <div class="custom-control custom-switch permission-switch permission-switch-master">
+                                        <div
+                                            class="custom-control custom-switch permission-switch permission-switch-master">
                                             <input type="checkbox" class="custom-control-input" id="selectAllPermissions">
                                             <label class="custom-control-label font-weight-bold text-dark"
                                                 for="selectAllPermissions">
@@ -90,7 +92,10 @@
                                         <th class="permission-model-col">Model</th>
                                         @foreach ($actions as $action)
                                             @php
-                                                $style = $actionStyles[$action] ?? ['class' => 'secondary', 'icon' => 'fas fa-check'];
+                                                $style = $actionStyles[$action] ?? [
+                                                    'class' => 'secondary',
+                                                    'icon' => 'fas fa-check',
+                                                ];
                                             @endphp
                                             <th class="text-center permission-action-col">
                                                 <span class="badge badge-{{ $style['class'] }} px-2 py-1">
@@ -124,19 +129,36 @@
                                             </td>
                                             @foreach ($actions as $action)
                                                 @php
+                                                    $protectedPermissions = [
+                                                        'Role-View',
+                                                        'Role-Create',
+                                                        'Role-Edit',
+                                                        'Role-Delete',
+                                                        'User-View',
+                                                        'User-Create',
+                                                        'User-Edit',
+                                                        'User-Delete',
+                                                    ];
                                                     $permName = $entity . '-' . $action;
+                                                    $isProtected =
+                                                        $getRoleId->name === 'Super Admin' &&
+                                                        in_array($permName, $protectedPermissions);
                                                 @endphp
                                                 <td class="text-center align-middle permission-action-cell">
                                                     <div class="custom-control custom-checkbox permission-checkbox">
-                                                        <input type="checkbox" name="permissions[]" value="{{ $permName }}"
+
+                                                        <input type="checkbox" name="permissions[]"
+                                                            value="{{ $permName }}"
                                                             class="custom-control-input permission-toggle"
                                                             data-module="{{ $entity }}"
                                                             id="permission-{{ Str::slug($permName) }}"
-                                                            {{ in_array($permName, $rolePermissions) ? 'checked' : '' }}>
+                                                            {{ in_array($permName, $rolePermissions) ? 'checked' : '' }}
+                                                            {{ $isProtected ? 'disabled' : '' }}>
                                                         <label class="custom-control-label"
                                                             for="permission-{{ Str::slug($permName) }}">
                                                             <span class="sr-only">{{ $permName }}</span>
                                                         </label>
+
                                                     </div>
                                                 </td>
                                             @endforeach
@@ -147,9 +169,30 @@
                                                 </span>
                                             </td>
                                             <td class="text-center align-middle">
+                                                @php
+                                                    $protectedPermissions = [
+                                                        'Role-View',
+                                                        'Role-Create',
+                                                        'Role-Edit',
+                                                        'Role-Delete',
+
+                                                        'User-View',
+                                                        'User-Create',
+                                                        'User-Edit',
+                                                        'User-Delete',
+                                                    ];
+
+                                                    $isProtectedModule = collect($protectedPermissions)->contains(
+                                                        fn($permission) => str_starts_with($permission, $entity . '-'),
+                                                    );
+
+                                                    $isSuperAdmin = $getRoleId->name === 'Super Admin';
+                                                @endphp
+
                                                 <button type="button"
-                                                    class="btn btn-sm btn-outline-primary permission-row-toggle"
-                                                    data-module="{{ $entity }}">
+                                                    class="btn btn-sm {{ $isProtectedModule && $isSuperAdmin ? 'btn-outline-secondary' : 'btn-outline-primary' }} permission-row-toggle"
+                                                    data-module="{{ $entity }}"
+                                                    {{ $isProtectedModule && $isSuperAdmin ? 'disabled' : '' }}>
                                                     All
                                                 </button>
                                             </td>
@@ -195,7 +238,8 @@
             function updatePermissionSummary() {
                 const selectedCount = $permissionToggles.filter(':checked').length;
                 $selectedCount.text(selectedCount);
-                $selectAll.prop('checked', selectedCount === $permissionToggles.length && $permissionToggles.length > 0);
+                $selectAll.prop('checked', selectedCount === $permissionToggles.length && $permissionToggles
+                    .length > 0);
 
                 $('.permission-module-progress').each(function() {
                     const module = $(this).data('module');
@@ -208,7 +252,8 @@
                 $('.permission-row-toggle').each(function() {
                     const module = $(this).data('module');
                     const $moduleToggles = $permissionToggles.filter('[data-module="' + module + '"]');
-                    const allSelected = $moduleToggles.length > 0 && $moduleToggles.filter(':checked').length === $moduleToggles.length;
+                    const allSelected = $moduleToggles.length > 0 && $moduleToggles.filter(':checked')
+                        .length === $moduleToggles.length;
 
                     $(this)
                         .toggleClass('btn-primary', allSelected)
@@ -245,7 +290,8 @@
             $('.permission-row-toggle').on('click', function() {
                 const module = $(this).data('module');
                 const $moduleToggles = $permissionToggles.filter('[data-module="' + module + '"]');
-                const allSelected = $moduleToggles.length > 0 && $moduleToggles.filter(':checked').length === $moduleToggles.length;
+                const allSelected = $moduleToggles.length > 0 && $moduleToggles.filter(':checked')
+                    .length === $moduleToggles.length;
 
                 $moduleToggles.prop('checked', !allSelected);
                 updatePermissionSummary();
@@ -360,7 +406,7 @@
             border-radius: 1rem;
         }
 
-        .permission-switch .custom-control-input:checked ~ .custom-control-label::after {
+        .permission-switch .custom-control-input:checked~.custom-control-label::after {
             transform: translateX(1.15rem);
         }
 

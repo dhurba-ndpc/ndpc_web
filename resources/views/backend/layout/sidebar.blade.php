@@ -12,10 +12,6 @@
                 'Role-Create',
                 'Role-Edit',
                 'Role-Delete',
-                'Permission-View',
-                'Permission-Create',
-                'Permission-Edit',
-                'Permission-Delete',
             ];
 
             $permissions = is_array($permissions) ? $permissions : [$permissions];

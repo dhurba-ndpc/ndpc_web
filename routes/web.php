@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MvgController;
 use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\OurProductController;
+use App\Http\Controllers\Backend\PlayStoreController;
 use App\Http\Controllers\Backend\PromotionMessageController;
 use App\Http\Controllers\Backend\RecruitmentResultController;
 use App\Http\Controllers\Backend\ReportController;
@@ -31,147 +32,177 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\VacancyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\PlayStoreController;
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    /*
-     * |--------------------------------------------------------------------------
-     * | Dashboard
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('dashboard', DashboardController::class)->names('dashboard');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Website Content Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('banner', BannerController::class)->names('banner');
-    Route::resource('about', AboutController::class)->only(['index', 'store', 'update'])->names('about');
-    Route::resource('mvg', MvgController::class)->names('mvg');
-    Route::resource('darkbanner', DarkBannerController::class)->only(['index', 'store', 'update'])->names('darkbanner');
-    Route::resource('company_goals', CompanyGoalController::class)->only(['index', 'store', 'update'])->names('company_goals');
+    Route::resource('dashboard', DashboardController::class)
+        ->names('dashboard');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Blog Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('blog', BlogController::class)->names('blog');
-    Route::resource('blogCategory', BlogCategoryController::class)->names('blogCategory');
+    Route::resource('banner', BannerController::class)
+        ->middleware('permission:Banner-View')
+        ->names('banner');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Gallery Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('albums', AlbumController::class)->names('albums');
-    Route::resource('galleries', GalleryController::class)->names('galleries');
+    Route::resource('about', AboutController::class)
+        ->only(['index', 'store', 'update'])
+        ->middleware('permission:About-View')
+        ->names('about');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Team Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('boardOfDirectors', BoardDirectorController::class)->names('boardOfDirectors');
-    Route::resource('leadingTeams', LeadingTeamController::class)->names('leadingTeams');
+    Route::resource('mvg', MvgController::class)
+        ->middleware('permission:Mvg-View')
+        ->names('mvg');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Company / Product Sections
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('testimonials', TestimonialController::class)->names('testimonials');
-    Route::resource('employee-quarters', EmployeeQuarterController::class)->names('employee-quarters');
-    Route::resource('ourProduct', OurProductController::class)->only(['index', 'store', 'update'])->names('ourProduct');
-    Route::resource('promotion_message', PromotionMessageController::class)->names('promotion_message');
+    Route::resource('darkbanner', DarkBannerController::class)
+        ->only(['index', 'store', 'update'])
+        ->middleware('permission:DarkBanner-View')
+        ->names('darkbanner');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Technology Solutions
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('technology-solution-sections', TechnologySolutionSectionController::class)->names('technology-solution-sections');
-    Route::resource('technology-solution-categories', TechnologySolutionCategoryController::class)->names('technology-solution-categories');
-    Route::resource('technology-solution-items', TechnologySolutionItemController::class)->names('technology-solution-items');
+    Route::resource('company_goals', CompanyGoalController::class)
+        ->only(['index', 'store', 'update'])
+        ->middleware('permission:CompanyGoal-View')
+        ->names('company_goals');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Services / Features
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('services', ServiceController::class)->names('services');
-    Route::resource('features', FeatureController::class)->names('features');
+    Route::resource('blog', BlogController::class)
+        ->middleware('permission:Blog-View')
+        ->names('blog');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Notices / Reports / Vacancy
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('notices', NoticeController::class)->names('notices');
-    Route::resource('report', ReportController::class)->names('report');
-    Route::resource('recruitment-results', RecruitmentResultController::class)->names('recruitment-results');
-    Route::resource('vacancy', VacancyController::class)->names('vacancy');
+    Route::resource('blogCategory', BlogCategoryController::class)
+        ->middleware('permission:BlogCategory-View')
+        ->names('blogCategory');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Site Setting
-     * |--------------------------------------------------------------------------
-     */
-    Route::resource('siteSetting', SiteSettingController::class)->names('siteSetting');
-    Route::resource('playStore', PlayStoreController::class)->names('playStore');
+    Route::resource('albums', AlbumController::class)
+        ->middleware('permission:Album-View')
+        ->names('albums');
 
+    Route::resource('galleries', GalleryController::class)
+        ->middleware('permission:Gallery-View')
+        ->names('galleries');
 
+    Route::resource('boardOfDirectors', BoardDirectorController::class)
+        ->middleware('permission:BoardOfDirectors-View')
+        ->names('boardOfDirectors');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Role Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
-        Route::get('trash', 'trash')->name('trash');
-        Route::post('{id}/restore', 'restore')->name('restore');
-        Route::delete('{id}/force-delete', 'forceDelete')->name('forceDelete');
-    });
+    Route::resource('leadingTeams', LeadingTeamController::class)
+        ->middleware('permission:LeadingTeam-View')
+        ->names('leadingTeams');
 
-    Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('testimonials', TestimonialController::class)
+        ->middleware('permission:Testimonial-View')
+        ->names('testimonials');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | User Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::controller(UserController::class)->group(function () {
-        Route::get('view-profile', 'viewProfile')->name('viewProfile');
+    Route::resource('employee-quarters', EmployeeQuarterController::class)
+        ->middleware('permission:EmployeeQuarter-View')
+        ->names('employee-quarters');
 
-        Route::prefix('users')->name('users.')->group(function () {
+    Route::resource('ourProduct', OurProductController::class)
+        ->only(['index', 'store', 'update'])
+        ->middleware('permission:OurProduct-View')
+        ->names('ourProduct');
+
+    Route::resource('promotion_message', PromotionMessageController::class)
+        ->middleware('permission:PromotionMessage-View')
+        ->names('promotion_message');
+
+    Route::resource('technology-solution-sections', TechnologySolutionSectionController::class)
+        ->middleware('permission:TechnologySolutionSection-View')
+        ->names('technology-solution-sections');
+
+    Route::resource('technology-solution-categories', TechnologySolutionCategoryController::class)
+        ->middleware('permission:TechnologySolutionCategory-View')
+        ->names('technology-solution-categories');
+
+    Route::resource('technology-solution-items', TechnologySolutionItemController::class)
+        ->middleware('permission:TechnologySolutionItem-View')
+        ->names('technology-solution-items');
+
+    Route::resource('services', ServiceController::class)
+        ->middleware('permission:Service-View')
+        ->names('services');
+
+    Route::resource('features', FeatureController::class)
+        ->middleware('permission:Feature-View')
+        ->names('features');
+
+    Route::resource('notices', NoticeController::class)
+        ->middleware('permission:Notice-View')
+        ->names('notices');
+
+    Route::resource('report', ReportController::class)
+        ->middleware('permission:Report-View')
+        ->names('report');
+
+    Route::resource('recruitment-results', RecruitmentResultController::class)
+        ->middleware('permission:RecruitmentResult-View')
+        ->names('recruitment-results');
+
+    Route::resource('vacancy', VacancyController::class)
+        ->middleware('permission:Vacancy-View')
+        ->names('vacancy');
+
+    Route::resource('siteSetting', SiteSettingController::class)
+        ->middleware('permission:SiteSetting-View')
+        ->names('siteSetting');
+
+    Route::resource('playStore', PlayStoreController::class)
+        ->middleware('permission:PlayStore-View')
+        ->names('playStore');
+
+    Route::controller(RoleController::class)
+        ->prefix('roles')
+        ->name('roles.')
+        ->middleware('permission:Role-View')
+        ->group(function () {
             Route::get('trash', 'trash')->name('trash');
             Route::post('{id}/restore', 'restore')->name('restore');
             Route::delete('{id}/force-delete', 'forceDelete')->name('forceDelete');
         });
+
+    Route::resource('roles', RoleController::class)
+        ->middleware('permission:Role-View')
+        ->names('roles');
+
+    Route::controller(UserController::class)->group(function () {
+
+        Route::get('view-profile', 'viewProfile')
+            ->name('viewProfile');
+
+        Route::patch('view-profile/update', 'updateProfile')
+            ->name('updateProfile');
+
+        Route::prefix('users')
+            ->name('users.')
+            ->middleware('permission:User-View')
+            ->group(function () {
+                Route::get('trash', 'trash')->name('trash');
+                Route::post('{id}/restore', 'restore')->name('restore');
+                Route::delete('{id}/force-delete', 'forceDelete')->name('forceDelete');
+            });
     });
 
-    Route::resource('users', UserController::class)->names('users');
+    Route::resource('users', UserController::class)
+        ->middleware('permission:User-View')
+        ->names('users');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Menu Management
-     * |--------------------------------------------------------------------------
-     */
-    Route::post('updateMenu', [MenuController::class, 'updateMenuOrder'])->name('updateMenuOrder');
-    Route::resource('menu', MenuController::class)->names('menu');
+    Route::resource('users', UserController::class)
+        ->middleware('permission:User-View')
+        ->names('users');
 
-    /*
-     * |--------------------------------------------------------------------------
-     * | Profile
-     * |--------------------------------------------------------------------------
-     */
-    Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
-        Route::get('/', 'edit')->name('edit');
-        Route::patch('/', 'update')->name('update');
-        Route::delete('/', 'destroy')->name('destroy');
-    });
+    Route::post('updateMenu', [MenuController::class, 'updateMenuOrder'])
+        ->middleware('permission:Menu-Edit')
+        ->name('updateMenuOrder');
+
+    Route::resource('menu', MenuController::class)
+        ->middleware('permission:Menu-View')
+        ->names('menu');
+
+    Route::controller(ProfileController::class)
+        ->prefix('profile')
+        ->name('profile.')
+        ->group(function () {
+            Route::get('/', 'edit')->name('edit');
+            Route::patch('/', 'update')->name('update');
+            Route::delete('/', 'destroy')->name('destroy');
+        });
 });
 
 require __DIR__ . '/auth.php';
-require __DIR__.'/frontend.php';
+require __DIR__ . '/frontend.php';

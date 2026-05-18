@@ -141,14 +141,15 @@ class UserController extends Controller
                     $user->syncRoles($request->role);
                 }
             });
-            if (Auth::user()->hasRole('super admin')) {
+            if (Auth::user()->hasRole(['Super Admin', 'Admin'])) {
+
                 return redirect()
                     ->route('users.index')
                     ->with('success', 'User updated successfully.');
             }
 
             return redirect()
-                ->route('viewProfile', Auth::user()->id)
+                ->route('viewProfile')
                 ->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
 

@@ -10,7 +10,8 @@ use App\Models\TeamMember;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Permission;
- 
+use Spatie\Permission\Models\Role;
+
 
 class RolePermissionSeeder extends Seeder
 {
@@ -19,6 +20,32 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $permissions = [
+            'Role-View',
+            'Role-Create',
+            'Role-Edit',
+            'Role-Delete',
+
+            'User-View',
+            'User-Create',
+            'User-Edit',
+            'User-Delete',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
+        }
+
+        $role = Role::firstOrCreate([
+            'name' => 'Super Admin',
+            'guard_name' => 'web',
+        ]);
+        $role->syncPermissions($permissions);
+
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -41,7 +68,7 @@ class RolePermissionSeeder extends Seeder
 
         $this->command->info('Permissions seeded successfully.');
     }
-     public function getModels()
+    public function getModels()
     {
         $customModels = [
             'LeadingTeam' => TeamMember::class,
@@ -54,7 +81,7 @@ class RolePermissionSeeder extends Seeder
             'Feature' => Service::class,
             'PromotionMessage' => PromotionMessage::class,
             'PlayStore' => PromotionMessage::class,
-             
+
         ];
 
         $hiddenRealModels = [

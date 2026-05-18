@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
+    
     /**
      * Register any application services.
      */
@@ -27,11 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // it is Maping multiple models to one policy spatie package
-        $models = getModels();
-        
-        foreach ($models as $model) {
+        foreach (getModels() as $model) {
             Gate::policy($model, PermissionPolicy::class);
         }
+
+        // global share menu's
         if (Schema::hasTable('menus')) {
             // Menu passing data globally start
 

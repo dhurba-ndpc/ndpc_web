@@ -8,7 +8,7 @@ use App\Models\TeamMember;
 
 if (!function_exists('getModels')) {
 
-    function getModels()
+    function getModels(): array
     {
         $customModels = [
             'LeadingTeam' => TeamMember::class,
