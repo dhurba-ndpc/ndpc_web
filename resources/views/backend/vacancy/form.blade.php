@@ -23,7 +23,8 @@
     <div class="card shadow mb-4 border-left-primary">
         <div class="card-header py-3 bg-white">
             <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-briefcase mr-2"></i>{{ isset($data) ? 'Update Vacancy Information' : 'Vacancy Information' }}
+                <i
+                    class="fas fa-briefcase mr-2"></i>{{ isset($data) ? 'Update Vacancy Information' : 'Vacancy Information' }}
             </h6>
         </div>
 
@@ -74,13 +75,13 @@
                                     <select class="form-control @error('employment_type') is-invalid @enderror"
                                         id="employment_type" name="employment_type">
                                         @foreach ([
-                                            'full_time' => 'Full Time',
-                                            'part_time' => 'Part Time',
-                                            'remote' => 'Remote',
-                                            'hybrid' => 'Hybrid',
-                                            'contract' => 'Contract',
-                                            'internship' => 'Internship',
-                                        ] as $value => $label)
+            'full_time' => 'Full Time',
+            'part_time' => 'Part Time',
+            'remote' => 'Remote',
+            'hybrid' => 'Hybrid',
+            'contract' => 'Contract',
+            'internship' => 'Internship',
+        ] as $value => $label)
                                             <option value="{{ $value }}"
                                                 {{ old('employment_type', $data->employment_type ?? 'full_time') === $value ? 'selected' : '' }}>
                                                 {{ $label }}
@@ -182,7 +183,8 @@
                                             <label for="title_en" class="form-label">
                                                 <i class="fas fa-heading text-success"></i> Vacancy Title
                                             </label>
-                                            <input type="text" class="form-control @error('title_en') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('title_en') is-invalid @enderror"
                                                 id="title_en" name="title_en"
                                                 value="{{ old('title_en', $data->title_en ?? '') }}"
                                                 placeholder="Enter English vacancy title">
@@ -223,7 +225,8 @@
                                             <label for="title_ne" class="form-label">
                                                 <i class="fas fa-heading text-warning"></i> Vacancy Title
                                             </label>
-                                            <input type="text" class="form-control @error('title_ne') is-invalid @enderror"
+                                            <input type="text"
+                                                class="form-control @error('title_ne') is-invalid @enderror"
                                                 id="title_ne" name="title_ne"
                                                 value="{{ old('title_ne', $data->title_ne ?? '') }}"
                                                 placeholder="Enter Nepali vacancy title">
@@ -263,7 +266,8 @@
                                 <span class="icon text-white-50"><i class="fas fa-save"></i></span>
                                 <span class="text">{{ isset($data) ? 'Update Vacancy' : 'Save Vacancy' }}</span>
                             </button>
-                            <a href="{{ route('vacancy.index') }}" class="btn btn-secondary btn-icon-split shadow-sm ml-2">
+                            <a href="{{ route('vacancy.index') }}"
+                                class="btn btn-secondary btn-icon-split shadow-sm ml-2">
                                 <span class="icon text-white-50"><i class="fas fa-times"></i></span>
                                 <span class="text">Cancel</span>
                             </a>
@@ -274,3 +278,14 @@
         </form>
     </div>
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+
+            let today = new Date().toISOString().split('T')[0];
+
+            $('#deadline').attr('min', today);
+
+        });
+    </script>
+@endpush

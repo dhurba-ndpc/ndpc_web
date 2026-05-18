@@ -30,7 +30,7 @@ use App\Http\Controllers\Backend\TechnologySolutionSectionController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\VacancyController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
@@ -139,7 +139,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         ->names('vacancy');
 
     Route::resource('siteSetting', SiteSettingController::class)
-        ->middleware('permission:SiteSetting-View')
+        ->middleware('permission:SiteSetting-View|DarkBanner-View|PlayStore-View|PromotionMessage-View|CompanyGoal-View')
         ->names('siteSetting');
 
     Route::resource('playStore', PlayStoreController::class)

@@ -32,8 +32,6 @@ class SiteSettingController extends AdminBaseController
         $darkBanner = FeatureAreas::where('type', 'dark_banner')->first();
         $companyGoal = CompanyGoal::first();
 
- 
-
         return view($this->viewPath . 'form', compact('data', 'darkBanner', 'appLinkPromotion', 'promotionText', 'companyGoal'));
     }
 }

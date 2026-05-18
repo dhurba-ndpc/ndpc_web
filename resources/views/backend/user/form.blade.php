@@ -29,9 +29,9 @@
                 <span class="badge badge-pill badge-primary">Static Form</span>
             </div>
 
-            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('updateProfile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xl-4 mb-4 mb-xl-0">
@@ -178,11 +178,6 @@
                                     <span class="icon text-white-50"><i class="fas fa-times"></i></span>
                                     <span class="text">Cancel</span>
                                 </a>
-                                <script>
-                                    document.querySelector('form').addEventListener('submit', function() {
-                                        alert('Form triggered');
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -201,7 +196,7 @@
                             </div>
                             <div>
                                 <div class="small font-weight-bold text-primary text-uppercase mb-2">Profile Overview</div>
-                                <h2 class="h3 font-weight-bold text-dark mb-1">{{ $user->name }}</h2>
+                                <h2 class="h3 font-weight-bold text-dark mb-1">{{ Str::ucfirst($user->name) }}</h2>
                                 <div class="text-muted mb-3">{{ $user->email }}</div>
                                 <div class="d-flex flex-wrap">
                                     <span class="badge badge-primary badge-pill px-3 py-2 mr-2 mb-2">
@@ -235,7 +230,7 @@
                                     <i class="fas fa-user"></i>
                                 </div>
                                 <div class="small text-muted">Full Name</div>
-                                <div class="font-weight-bold text-dark">{{ $user->name }}</div>
+                                <div class="font-weight-bold text-dark">{{ Str::ucfirst($user->name) }}</div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">

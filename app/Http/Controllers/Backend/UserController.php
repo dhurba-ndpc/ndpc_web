@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password as PasswordBroker;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 
@@ -204,5 +205,77 @@ class UserController extends Controller
 
         $isEdit = $request->has('edit');
         return view('backend.user.form', compact('user', 'isEdit'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validatedData = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'min:5',
+                'max:255',
+                'regex:/^[A-Za-z\s]+$/',
+            ],
+            'email' => [
+                'nullable',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'password' => [
+                'nullable',
+                'string',
+                'max:15',
+                'confirmed',
+                Password::min(5)
+                    ->mixedCase()
+                    ->symbols(),
+            ],
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png',
+                'max:2048',
+            ],
+            'phone' => [
+                'nullable',
+                'regex:/^[0-9+\-\s]+$/',
+                'max:20',
+            ],
+            'address' => [
+                'nullable',
+                'string',
+                'max:500',
+            ],
+        ]);
+
+        $data = [
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'] ?? $user->email,
+            'phone' => $validatedData['phone'] ?? null,
+            'address' => $validatedData['address'] ?? null,
+        ];
+
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                Storage::disk('public')->delete($user->image);
+            }
+
+            $data['image'] = $request->file('image')->store('users', 'public');
+        }
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()
+            ->route('viewProfile')
+            ->with('success', 'Profile updated successfully.');
     }
 }

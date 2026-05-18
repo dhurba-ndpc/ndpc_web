@@ -220,11 +220,11 @@
         <div class="sidebar-brand-text mx-3">NDPC Admin</div>
     </a>
 
-    <hr class="sidebar-divider my-0">
+
 
     @foreach ($singleMenus as $menu)
         @continue(!$canAccess($menu['permissions']))
-
+        <hr class="sidebar-divider my-0">
         <li class="nav-item {{ $isActive($menu['active']) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route($menu['route']) }}">
                 <i class="{{ $menu['icon'] }}"></i>
@@ -266,7 +266,7 @@
         </li>
     @endforeach
 
-    <hr class="sidebar-divider d-none d-md-block">
+ 
 
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
