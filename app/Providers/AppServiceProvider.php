@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\About;
-use App\Models\Banner;
 use App\Models\Menu;
 use App\Policies\PermissionPolicy;
 use Illuminate\Support\Facades\Gate;
