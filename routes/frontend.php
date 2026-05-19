@@ -1,11 +1,41 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Route;
+
+
+
+
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (!in_array($locale, ['en', 'ne'])) {
+        abort(400);
+    }
+    session(['locale' => $locale]);
+    return back();
+})->name('lang.switch');
+
+
 
 
 Route::get('/', function () {
     return view('frontend/index');
 });
+
+
+
+Route::get('{pageTemplate}', [FrontendController::class, 'pageTemplate'])->name('pageTemplate');
+Route::get('{defaultPage}', [FrontendController::class, 'defaultPage'])->name('defaultPage');
+
+
+
+
+
+
+
+
+
+
 Route::get('/about', function () {
     return view('frontend/about');
 });

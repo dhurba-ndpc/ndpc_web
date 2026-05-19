@@ -11,12 +11,14 @@
 
         $templateOptions = [
             '' => 'Default Template',
+            'header' => 'Title for Menu',
             'home' => 'Home',
             'about' => 'About',
             'contact' => 'Contact',
             'gallery' => 'Gallery',
             'news' => 'News',
-            'custom' => 'Custom Page',
+            'members' => 'Members',
+            'defaultPage' => 'Custom Page',
         ];
 
         $menuLocations = [
@@ -194,7 +196,8 @@
                                         </div>
                                         <small class="text-muted">Available only for child menu items.</small>
                                         @error('parent_id')
-                                            <span class="text-danger small d-block"><strong>{{ $message }}</strong></span>
+                                            <span
+                                                class="text-danger small d-block"><strong>{{ $message }}</strong></span>
                                         @enderror
                                     </div>
                                 </div>
@@ -261,12 +264,13 @@
                                 </ul>
 
                                 <div class="tab-content" id="menuLanguageTabsContent">
-                                    <div class="tab-pane fade {{ $hasNepaliError ? '' : 'show active' }}" id="menuEnglish"
-                                        role="tabpanel" aria-labelledby="menu-english-tab">
+                                    <div class="tab-pane fade {{ $hasNepaliError ? '' : 'show active' }}"
+                                        id="menuEnglish" role="tabpanel" aria-labelledby="menu-english-tab">
                                         <div class="card border-left-success">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="menu_name_en" class="small font-weight-bold text-dark">Menu
+                                                    <label for="menu_name_en"
+                                                        class="small font-weight-bold text-dark">Menu
                                                         Name <span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -285,7 +289,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="page_title_en" class="small font-weight-bold text-dark">Page
+                                                    <label for="page_title_en"
+                                                        class="small font-weight-bold text-dark">Page
                                                         Title</label>
                                                     <input type="text" id="page_title_en" name="page_title_en"
                                                         class="form-control @error('page_title_en') is-invalid @enderror"
@@ -328,7 +333,8 @@
                                         <div class="card border-left-warning">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="menu_name_ne" class="small font-weight-bold text-dark">Menu
+                                                    <label for="menu_name_ne"
+                                                        class="small font-weight-bold text-dark">Menu
                                                         Name</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -347,7 +353,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="page_title_ne" class="small font-weight-bold text-dark">Page
+                                                    <label for="page_title_ne"
+                                                        class="small font-weight-bold text-dark">Page
                                                         Title</label>
                                                     <input type="text" id="page_title_ne" name="page_title_ne"
                                                         class="form-control @error('page_title_ne') is-invalid @enderror"
@@ -478,7 +485,8 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="meta_keywords_en" class="small font-weight-bold text-dark">Meta Keywords</label>
+                                <label for="meta_keywords_en" class="small font-weight-bold text-dark">Meta
+                                    Keywords</label>
                                 <input type="text" id="meta_keywords_en" name="meta_keywords_en"
                                     class="form-control @error('meta_keywords_en') is-invalid @enderror"
                                     value="{{ old('meta_keywords_en', $data->meta_keywords_en ?? '') }}"
