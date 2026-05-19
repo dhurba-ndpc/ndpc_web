@@ -901,7 +901,7 @@
                                         $canModifyAppLinkPublish = $user && $user->can($appLinkPublishPermission);
                                     @endphp
 
-                                    <form action="{{ $hasAppLinkPromotion ? route('promotion_message.update', $appLinkPromotion->id) : route('promotion_message.store') }}"
+                                    <form action="{{ $hasAppLinkPromotion ? route('playStore.update', $appLinkPromotion->id) : route('playStore.store') }}"
                                         method="POST">
                                         @csrf
                                         @if ($hasAppLinkPromotion)
