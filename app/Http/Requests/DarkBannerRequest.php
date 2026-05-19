@@ -3,7 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class DarkBannerRequest extends FormRequest
 {
@@ -23,7 +26,10 @@ class DarkBannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'nullable|in:dark_banner',
+            'type' => ['required', Rule::in([
+                'dark_banner',
+                'mvg',
+            ])],
             'title_en' => 'required|string|max:255',
             'title_ne' => 'nullable|string|max:255',
 
@@ -41,5 +47,14 @@ class DarkBannerRequest extends FormRequest
 
             'is_active' => 'nullable|boolean',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $exception = new ValidationException($validator);
+
+        $exception->errorBag = 'darkBanner';
+
+        throw $exception;
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FeatureAreas extends Model
 {
     protected $fillable = [
-        'type',
+
         'title_en',
         'title_ne',
         'subtitle_en',
@@ -17,6 +17,7 @@ class FeatureAreas extends Model
         'image',
         'position',
         'is_active',
+        'type',
     ];
 
     protected $casts = [

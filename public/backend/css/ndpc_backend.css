@@ -1783,4 +1783,8 @@ select.form-control {
 #user_login_name {
 	font-size: 16px;
 }
- 
+
+.ck-blurred,
+.ck-focused {
+	height: 200px !important;
+}

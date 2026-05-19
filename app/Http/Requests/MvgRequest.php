@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MvgRequest extends FormRequest
 {
@@ -23,6 +24,10 @@ class MvgRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type' => ['required', Rule::in([
+                'dark_banner',
+                'mvg',
+            ])],
             'title_en' => 'required|string|max:255',
             'title_ne' => 'nullable|string|max:255',
 

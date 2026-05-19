@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class PromotionMessageRequest extends FormRequest
 {
@@ -39,4 +41,21 @@ class PromotionMessageRequest extends FormRequest
             'is_active' => ['nullable', 'boolean'],
         ];
     }
+
+  
+protected function failedValidation(Validator $validator)
+{
+    $bags = [
+        'playStore.store' => 'playStore',
+        'promotion_message.store' => 'promotion_message',
+    ];
+
+    $routeName = $this->route()->getName();
+
+    $exception = new ValidationException($validator);
+
+    $exception->errorBag = $bags[$routeName] ?? 'default';
+
+    throw $exception;
+}
 }

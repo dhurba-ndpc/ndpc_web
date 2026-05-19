@@ -177,7 +177,8 @@
             '#description_ne',
             '#description_en',
             '#editor',
-            '#editor1'
+            '#editor1',
+            '#content_en'
         ];
 
         const editorConfig = {

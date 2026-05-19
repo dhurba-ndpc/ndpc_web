@@ -48,7 +48,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         ->names('about');
 
     Route::resource('mvg', MvgController::class)
-        ->middleware('permission:Mvg-View')
+        ->middleware('permission:MissionVision-View')
         ->names('mvg');
 
     Route::resource('darkbanner', DarkBannerController::class)
