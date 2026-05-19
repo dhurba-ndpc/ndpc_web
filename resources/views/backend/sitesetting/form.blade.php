@@ -667,11 +667,11 @@
 
                                                                 <div class="custom-file text-left">
                                                                     <input type="file" name="image" id="dark_banner_image"
-                                                                        class="custom-file-input @error('image') is-invalid @enderror"
+                                                                        class="custom-file-input @error('image', 'darkBanner') is-invalid @enderror"
                                                                         accept="image/*"
                                                                         onchange="previewDarkBannerImage(event)">
                                                                     <label class="custom-file-label" for="dark_banner_image">Choose banner image...</label>
-                                                                    @error('image')
+                                                                    @error('image', 'darkBanner')
                                                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                                                     @enderror
                                                                 </div>
@@ -716,12 +716,12 @@
                                                                                 <i class="fas fa-heading text-success mr-1"></i>Banner Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_en') is-invalid @enderror"
+                                                                                class="form-control @error('title_en', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_title_en"
                                                                                 name="title_en"
                                                                                 value="{{ old('title_en', $darkBanner->title_en ?? '') }}"
                                                                                 placeholder="e.g., Building a smarter digital future">
-                                                                            @error('title_en')
+                                                                            @error('title_en', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -731,12 +731,12 @@
                                                                                 <i class="fas fa-quote-left text-success mr-1"></i>Banner Subtitle
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('subtitle_en') is-invalid @enderror"
+                                                                                class="form-control @error('subtitle_en', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_subtitle_en"
                                                                                 name="subtitle_en"
                                                                                 value="{{ old('subtitle_en', $darkBanner->subtitle_en ?? '') }}"
                                                                                 placeholder="e.g., Digital platforms for efficient public service">
-                                                                            @error('subtitle_en')
+                                                                            @error('subtitle_en', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -745,12 +745,12 @@
                                                                             <label for="dark_banner_description_en" class="font-weight-bold text-dark">
                                                                                 <i class="fas fa-align-left text-success mr-1"></i>Banner Description
                                                                             </label>
-                                                                            <textarea class="form-control @error('description_en') is-invalid @enderror"
+                                                                            <textarea class="form-control @error('description_en', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_description_en"
                                                                                 name="description_en"
                                                                                 rows="5"
                                                                                 placeholder="e.g., A short introduction that appears on the dark banner section.">{{ old('description_en', $darkBanner->description_en ?? '') }}</textarea>
-                                                                            @error('description_en')
+                                                                            @error('description_en', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -767,12 +767,12 @@
                                                                                 <i class="fas fa-heading text-warning mr-1"></i>Banner Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_ne') is-invalid @enderror"
+                                                                                class="form-control @error('title_ne', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_title_ne"
                                                                                 name="title_ne"
                                                                                 value="{{ old('title_ne', $darkBanner->title_ne ?? '') }}"
                                                                                 placeholder="जस्तै, स्मार्ट डिजिटल भविष्य निर्माण">
-                                                                            @error('title_ne')
+                                                                            @error('title_ne', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -782,12 +782,12 @@
                                                                                 <i class="fas fa-quote-left text-warning mr-1"></i>Banner Subtitle
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('subtitle_ne') is-invalid @enderror"
+                                                                                class="form-control @error('subtitle_ne', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_subtitle_ne"
                                                                                 name="subtitle_ne"
                                                                                 value="{{ old('subtitle_ne', $darkBanner->subtitle_ne ?? '') }}"
                                                                                 placeholder="जस्तै, प्रभावकारी सार्वजनिक सेवाका लागि डिजिटल प्लेटफर्म">
-                                                                            @error('subtitle_ne')
+                                                                            @error('subtitle_ne', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -796,12 +796,12 @@
                                                                             <label for="dark_banner_description_ne" class="font-weight-bold text-dark">
                                                                                 <i class="fas fa-align-left text-warning mr-1"></i>Banner Description
                                                                             </label>
-                                                                            <textarea class="form-control @error('description_ne') is-invalid @enderror"
+                                                                            <textarea class="form-control @error('description_ne', 'darkBanner') is-invalid @enderror"
                                                                                 id="dark_banner_description_ne"
                                                                                 name="description_ne"
                                                                                 rows="5"
                                                                                 placeholder="जस्तै, डार्क ब्यानर सेक्सनमा देखिने छोटो परिचय।">{{ old('description_ne', $darkBanner->description_ne ?? '') }}</textarea>
-                                                                            @error('description_ne')
+                                                                            @error('description_ne', 'darkBanner')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -817,13 +817,13 @@
                                                                         <i class="fas fa-sort-numeric-down text-info mr-1"></i>Display Position
                                                                     </label>
                                                                     <input type="number"
-                                                                        class="form-control @error('position') is-invalid @enderror"
+                                                                        class="form-control @error('position', 'darkBanner') is-invalid @enderror"
                                                                         id="dark_banner_position"
                                                                         name="position"
                                                                         min="0"
                                                                         value="{{ old('position', $darkBanner->position ?? 0) }}"
                                                                         placeholder="e.g., 1">
-                                                                    @error('position')
+                                                                    @error('position', 'darkBanner')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
@@ -946,12 +946,12 @@
                                                                         <i class="fab fa-google-play text-info mr-1"></i>Google Play Store Link
                                                                     </label>
                                                                     <input type="url"
-                                                                        class="form-control @error('google_play_store_link') is-invalid @enderror"
+                                                                        class="form-control @error('google_play_store_link', 'playStore') is-invalid @enderror"
                                                                         id="google_play_store_link"
                                                                         name="google_play_store_link"
                                                                         value="{{ old('google_play_store_link', $appLinkPromotion->google_play_store_link ?? '') }}"
                                                                         placeholder="https://play.google.com/store/apps/details?id=...">
-                                                                    @error('google_play_store_link')
+                                                                    @error('google_play_store_link', 'playStore')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
@@ -961,12 +961,12 @@
                                                                         <i class="fab fa-apple text-info mr-1"></i>App Store Link
                                                                     </label>
                                                                     <input type="url"
-                                                                        class="form-control @error('app_store_link') is-invalid @enderror"
+                                                                        class="form-control @error('app_store_link', 'playStore') is-invalid @enderror"
                                                                         id="app_store_link"
                                                                         name="app_store_link"
                                                                         value="{{ old('app_store_link', $appLinkPromotion->app_store_link ?? '') }}"
                                                                         placeholder="https://apps.apple.com/app/...">
-                                                                    @error('app_store_link')
+                                                                    @error('app_store_link', 'playStore')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
@@ -1024,12 +1024,12 @@
                                                                                 <i class="fas fa-tag text-success mr-1"></i>Badge Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('badge_title_en') is-invalid @enderror"
+                                                                                class="form-control @error('badge_title_en', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_badge_title_en"
                                                                                 name="badge_title_en"
                                                                                 value="{{ old('badge_title_en', $appLinkPromotion->badge_title_en ?? '') }}"
                                                                                 placeholder="e.g., Download our mobile app">
-                                                                            @error('badge_title_en')
+                                                                            @error('badge_title_en', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1039,12 +1039,12 @@
                                                                                 <i class="fas fa-heading text-success mr-1"></i>Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_en') is-invalid @enderror"
+                                                                                class="form-control @error('title_en', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_title_en"
                                                                                 name="title_en"
                                                                                 value="{{ old('title_en', $appLinkPromotion->title_en ?? '') }}"
                                                                                 placeholder="e.g., Get NDPC services on your phone">
-                                                                            @error('title_en')
+                                                                            @error('title_en', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1053,12 +1053,12 @@
                                                                             <label for="app_link_short_description_en" class="font-weight-bold text-dark">
                                                                                 <i class="fas fa-align-left text-success mr-1"></i>Short Description
                                                                             </label>
-                                                                            <textarea class="form-control @error('short_description_en') is-invalid @enderror"
+                                                                            <textarea class="form-control @error('short_description_en', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_short_description_en"
                                                                                 name="short_description_en"
                                                                                 rows="5"
                                                                                 placeholder="e.g., Download the official mobile app for quick access to digital payment services.">{{ old('short_description_en', $appLinkPromotion->short_description_en ?? '') }}</textarea>
-                                                                            @error('short_description_en')
+                                                                            @error('short_description_en', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1075,12 +1075,12 @@
                                                                                 <i class="fas fa-tag text-warning mr-1"></i>Badge Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('badge_title_ne') is-invalid @enderror"
+                                                                                class="form-control @error('badge_title_ne', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_badge_title_ne"
                                                                                 name="badge_title_ne"
                                                                                 value="{{ old('badge_title_ne', $appLinkPromotion->badge_title_ne ?? '') }}"
                                                                                 placeholder="मोबाइल एप डाउनलोड गर्नुहोस्">
-                                                                            @error('badge_title_ne')
+                                                                            @error('badge_title_ne', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1090,12 +1090,12 @@
                                                                                 <i class="fas fa-heading text-warning mr-1"></i>Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_ne') is-invalid @enderror"
+                                                                                class="form-control @error('title_ne', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_title_ne"
                                                                                 name="title_ne"
                                                                                 value="{{ old('title_ne', $appLinkPromotion->title_ne ?? '') }}"
                                                                                 placeholder="NDPC सेवा आफ्नो फोनमा पाउनुहोस्">
-                                                                            @error('title_ne')
+                                                                            @error('title_ne', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1104,12 +1104,12 @@
                                                                             <label for="app_link_short_description_ne" class="font-weight-bold text-dark">
                                                                                 <i class="fas fa-align-left text-warning mr-1"></i>Short Description
                                                                             </label>
-                                                                            <textarea class="form-control @error('short_description_ne') is-invalid @enderror"
+                                                                            <textarea class="form-control @error('short_description_ne', 'playStore') is-invalid @enderror"
                                                                                 id="app_link_short_description_ne"
                                                                                 name="short_description_ne"
                                                                                 rows="5"
                                                                                 placeholder="आधिकारिक मोबाइल एप डाउनलोड गरी डिजिटल भुक्तानी सेवामा छिटो पहुँच पाउनुहोस्।">{{ old('short_description_ne', $appLinkPromotion->short_description_ne ?? '') }}</textarea>
-                                                                            @error('short_description_ne')
+                                                                            @error('short_description_ne', 'playStore')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1264,12 +1264,12 @@
                                                                                 <i class="fas fa-tag text-success mr-1"></i>Badge Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('badge_title_en') is-invalid @enderror"
+                                                                                class="form-control @error('badge_title_en', 'promotion_message') is-invalid @enderror"
                                                                                 id="promotion_text_badge_title_en"
                                                                                 name="badge_title_en"
                                                                                 value="{{ old('badge_title_en', $promotionText->badge_title_en ?? '') }}"
                                                                                 placeholder="e.g., Important Update">
-                                                                            @error('badge_title_en')
+                                                                            @error('badge_title_en', 'promotion_message')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1279,12 +1279,12 @@
                                                                                 <i class="fas fa-heading text-success mr-1"></i>Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_en') is-invalid @enderror"
+                                                                                class="form-control @error('title_en', 'promotion_message') is-invalid @enderror"
                                                                                 id="promotion_text_title_en"
                                                                                 name="title_en"
                                                                                 value="{{ old('title_en', $promotionText->title_en ?? '') }}"
                                                                                 placeholder="e.g., Fast, secure, and reliable digital services">
-                                                                            @error('title_en')
+                                                                            @error('title_en', 'promotion_message')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1301,12 +1301,12 @@
                                                                                 <i class="fas fa-tag text-warning mr-1"></i>Badge Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('badge_title_ne') is-invalid @enderror"
+                                                                                class="form-control @error('badge_title_ne', 'promotion_message') is-invalid @enderror"
                                                                                 id="promotion_text_badge_title_ne"
                                                                                 name="badge_title_ne"
                                                                                 value="{{ old('badge_title_ne', $promotionText->badge_title_ne ?? '') }}"
                                                                                 placeholder="महत्त्वपूर्ण अपडेट">
-                                                                            @error('badge_title_ne')
+                                                                            @error('badge_title_ne', 'promotion_message')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
@@ -1316,12 +1316,12 @@
                                                                                 <i class="fas fa-heading text-warning mr-1"></i>Title
                                                                             </label>
                                                                             <input type="text"
-                                                                                class="form-control @error('title_ne') is-invalid @enderror"
+                                                                                class="form-control @error('title_ne', 'promotion_message') is-invalid @enderror"
                                                                                 id="promotion_text_title_ne"
                                                                                 name="title_ne"
                                                                                 value="{{ old('title_ne', $promotionText->title_ne ?? '') }}"
                                                                                 placeholder="छिटो, सुरक्षित र भरपर्दो डिजिटल सेवा">
-                                                                            @error('title_ne')
+                                                                            @error('title_ne', 'promotion_message')
                                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>

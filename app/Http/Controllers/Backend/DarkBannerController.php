@@ -13,7 +13,7 @@ class DarkBannerController extends AdminBaseController
     protected array $uploadFields = ['image'];
     protected string $uploadPath = 'darkbanner';
     protected string $routePrefix = 'siteSetting.index';
-    // $uploadPath = strtolower(class_basename($this->model)) . 's';
+ 
 
     public function __construct(FeatureAreas $model)
     {

@@ -46,6 +46,7 @@ abstract class AdminBaseController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+  
         
         
         $request = app($this->requestClass);

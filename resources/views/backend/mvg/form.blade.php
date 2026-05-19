@@ -31,6 +31,7 @@
                         @if(isset($data))
                             @method('PUT')
                         @endif
+                        <input type="hidden" name="type" value="mvg">
 
                         <div class="row">
                             <div class="col-lg-4 mb-4">

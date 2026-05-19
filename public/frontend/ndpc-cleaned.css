@@ -158,6 +158,10 @@ p {
 }
 
 /* ===== NAVBAR ===== */
+#navMain .dropdown-menu.show li {
+    margin: 0 !important;
+}
+
 #navMain ul li:not(:last-child) {
     margin-right: 8px !important;
 }

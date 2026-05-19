@@ -9,6 +9,66 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMain">
+            @if ($menus->count() > 0)
+                <ul class="navbar-nav mx-auto">
+                    @foreach ($menus as $menu)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link @if ($menu->children()->count() > 0) dropdown-toggle @endif {{ isActiveParentMenu($menu) }}"
+                                @if (!empty($menu->external_link)) href="{{ $menu->external_link }}"
+                                @elseif ($menu->page_template == 'default')
+                                    href="{{ route('defaultPage', $menu->slug) }}"
+                                @else
+                                    href="{{ route('pageTemplate', $menu->page_template) }}" @endif
+                                @if ($menu->children()->count() > 0) data-bs-toggle="dropdown" @endif>
+                                {{ $menu->{'menu_name_' . app()->getLocale()} ?: $menu->menu_name_en }}
+                            </a>
+                            @if ($menu->children()->count() > 0)
+                                <ul class="dropdown-menu">
+                                    @foreach ($menu->children as $subMenu)
+                                        <li>
+                                            <a class="dropdown-item {{ isActiveMenu($subMenu->page_template) }}"
+                                                @if (!empty($subMenu->external_link)) href="{{ $subMenu->external_link }}"
+                                            @elseif ($menu->page_template == 'default')
+                                                href="{{ route('defaultPage', $subMenu->slug) }}"
+                                            @else
+                                             href="{{ route('pageTemplate', $subMenu->page_template) }}"   
+                                            @endif>
+                                                {{ $subMenu->{'menu_name_' . app()->getLocale()} ?: $subMenu->menu_name_en }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+            <a href="{{ route('lang.switch', 'ne') }}"
+                class="nav-link btn-touch ms-2 {{ app()->getLocale() == 'en' ? 'd-block' : 'd-none' }}">
+                NE <i class="bi bi-translate"></i>
+            </a>
+
+            <a href="{{ route('lang.switch', 'en') }}"
+                class="nav-link btn-touch ms-2 {{ app()->getLocale() == 'ne' ? 'd-block' : 'd-none' }}">
+                EN <i class="bi bi-translate"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+{{-- <nav class="navbar navbar-expand-lg" id="navbar_overlay">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img class="white_logo" src="{{ asset('frontend/images/logo_white.png') }}" alt="">
+            <img class="dark_logo" src="{{ asset('frontend/images/logo_dark.png') }}" alt=""
+                style="display: none;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link {{ Request::is('/') ? 'active' : '' }}"
                         href="{{ url('/') }}">Home</a></li>
@@ -60,7 +120,7 @@
             <a href="#" class="nav-link btn-touch ms-2">NE <i class="bi bi-translate"></i></a>
         </div>
     </div>
-</nav>
+</nav> --}}
 
 @push('scripts')
     <script>
