@@ -11,11 +11,12 @@
         <div class="collapse navbar-collapse" id="navMain">
             @if ($menus->count() > 0)
                 <ul class="navbar-nav mx-auto">
-                    @foreach ($menus as $menu)
+                   @foreach ($menus->where('is_active', true) as $menu)
                         <li class="nav-item dropdown">
                             <a class="nav-link @if ($menu->children()->count() > 0) dropdown-toggle @endif {{ isActiveParentMenu($menu) }}"
                                 @if (!empty($menu->external_link)) href="{{ $menu->external_link }}"
-                                @elseif ($menu->page_template == 'default')
+                                @elseif ($menu->page_template == 'default-page')
+                                   
                                     href="{{ route('defaultPage', $menu->slug) }}"
                                 @else
                                     href="{{ route('pageTemplate', $menu->page_template) }}" @endif
@@ -24,11 +25,11 @@
                             </a>
                             @if ($menu->children()->count() > 0)
                                 <ul class="dropdown-menu">
-                                    @foreach ($menu->children as $subMenu)
+                                    @foreach ($menu->children->where('is_active', true) as $subMenu)
                                         <li>
                                             <a class="dropdown-item {{ isActiveMenu($subMenu->page_template) }}"
                                                 @if (!empty($subMenu->external_link)) href="{{ $subMenu->external_link }}"
-                                            @elseif ($menu->page_template == 'default')
+                                                @elseif ($subMenu->page_template == 'default-page')
                                                 href="{{ route('defaultPage', $subMenu->slug) }}"
                                             @else
                                              href="{{ route('pageTemplate', $subMenu->page_template) }}"   

@@ -17,15 +17,12 @@ Route::get('/lang/{locale}', function ($locale) {
 
 
 
-
-Route::get('/', function () {
-    return view('frontend/index');
-});
+Route::get('/', [FrontendController::class, 'index'])->name('index');
 
 
 
 Route::get('{pageTemplate}', [FrontendController::class, 'pageTemplate'])->name('pageTemplate');
-Route::get('{defaultPage}', [FrontendController::class, 'defaultPage'])->name('defaultPage');
+Route::get('default-page/{slug}', [FrontendController::class, 'defaultPage'])->name('defaultPage');
 
 
 
