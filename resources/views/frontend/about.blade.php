@@ -144,7 +144,7 @@
         </div>
     </section>
     <!-- ══════════════ MISSION / VISION / GOAL ══════════════ -->
-    <section class="mvg-section py-5">
+    <section class="mvg-section py-5" id="mission-vision-goal">
         <div class="prayer-flags"></div>
         <div class="container">
             <div class="row">

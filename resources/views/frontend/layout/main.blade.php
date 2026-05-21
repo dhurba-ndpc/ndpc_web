@@ -40,7 +40,16 @@
     <script src="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/lightbox2-2.12.0/dist/js/lightbox.min.js') }}"></script>
     @stack('scripts')
-   
+
+    <script>
+        function changeLanguage(lang) {
+            fetch(`/lang-switch/${lang}`)
+                .then(() => {
+                    location.reload();
+                });
+        }
+    </script>
+
 </body>
 
 </html>
