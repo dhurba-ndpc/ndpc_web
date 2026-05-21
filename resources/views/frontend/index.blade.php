@@ -226,7 +226,8 @@
         <section class="gallery-section" id="gallery">
             <div class="container">
                 <p class="gallery-label"> {{ app()->getLocale() == 'ne' ? 'हाम्रो ग्यालरी' : 'OUR GALLERY' }}</p>
-                <h2 class="gallery-title">{{ app()->getLocale() == 'ne' ? 'हाम्रा प्रमुख उपलब्धिहरू' : 'Our Milestones' }}</h2>
+                <h2 class="gallery-title">{{ app()->getLocale() == 'ne' ? 'हाम्रा प्रमुख उपलब्धिहरू' : 'Our Milestones' }}
+                </h2>
                 <div class="owl-carousel owl-theme" id="gallery_wrap">
                     @foreach ($mileStone as $gallery)
                         <div class="gallery-card">
@@ -240,7 +241,7 @@
             {{-- gallery-nav galleryNext galleryTrack --}}
         </section>
     @endif
-     @if ($app_link !== null)
+    @if ($app_link !== null)
         <section id="online_pay_logo_wrapper" class="brand-section py-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -266,7 +267,7 @@
             </div>
         </section>
     @endif
-     
+
 @endsection
 @push('scripts')
     <script>
