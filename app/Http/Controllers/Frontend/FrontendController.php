@@ -7,9 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Banner;
 use App\Models\Blog;
+use App\Models\CompanyGoal;
+use App\Models\EmployeeQuarter;
 use App\Models\FeatureAreas;
 use App\Models\Gallery;
+use App\Models\Menu;
 use App\Models\PromotionMessage;
+use App\Models\TeamMember;
+use App\Models\Testimonial;
 
 class FrontendController extends Controller
 {
@@ -46,18 +51,42 @@ class FrontendController extends Controller
 
     public function pageTemplate($slug)
     {
+        $menus = Menu::where('page_template', $slug)->first();
         switch ($slug) {
             case 'home':
                 return redirect()->route('index');
 
             case 'about':
-                return view('frontend.about');
+                $menu = $menus;
+                $about = About::where('is_active', true)->first();
+                $leadingTeam = TeamMember::where(['type' => 'leading_team', 'is_active' => true])->orderBy('sort_order', 'asc')->take(4)->get();
+                $missionVission = FeatureAreas::where(['type' => 'mvg', 'is_active' => '1'])->orderBy('position', 'asc')->take(3)->get();
+                $companyGoal = CompanyGoal::where(['is_active' => 1])->first();
+                $testimonials = Testimonial::where('is_active', true)->orderBy('id', 'desc')->get();
+                return view('frontend.about', compact(
+                    'about',
+                    'menu',
+                    'leadingTeam',
+                    'missionVission',
+                    'companyGoal',
+                    'testimonials'
+                ));
 
             case 'board-of-director':
-                return view('frontend.member');
+                $menu = $menus;
+                $board_director = TeamMember::where(['type' => 'board_of_directors', 'is_active' => true])->orderBy('sort_order', 'asc')->take(4)->get();
+                return view('frontend.member', compact(
+                    'menu',
+                    'board_director'
+                ));
 
             case 'employee-quarterly':
-                return view('frontend.employee_quaterly');
+                $menu = $menus;
+                $employee_quaters = EmployeeQuarter::where('is_active', true)->get();
+                return view('frontend.employee_quaterly', compact(
+                    'menu',
+                    'employee_quaters'
+                ));
 
             case 'our-product':
                 return view('frontend.product');

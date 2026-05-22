@@ -26,7 +26,7 @@
     @endif
 
     <!-- ══════════════ ABOUT ══════════════ -->
-    @if ($about !== null)
+    @if ($about !== null)   
         <section class="section-about" id="about">
             <div class="container">
                 <div class="row align-items-center">
@@ -108,9 +108,6 @@
             </div>
         </section>
     @endif
-
-
-
 
     <!-- ══════════════ DARK BANNER ══════════════ -->
     @if ($darkBanner !== null)
@@ -221,6 +218,7 @@
             </div>
         </section>
     @endif
+
     <!-- ══════════════ GALLERY / MILESTONES ══════════════ -->
     @if ($mileStone->count() > 0)
         <section class="gallery-section" id="gallery">
@@ -241,6 +239,7 @@
             {{-- gallery-nav galleryNext galleryTrack --}}
         </section>
     @endif
+
     @if ($app_link !== null)
         <section id="online_pay_logo_wrapper" class="brand-section py-5">
             <div class="container">

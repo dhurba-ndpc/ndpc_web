@@ -428,7 +428,7 @@ p {
     text-transform: uppercase;
 }
 
-.mvg-text {
+.mvg-text p {
     font-size: .88rem;
     color: #34435b;
     line-height: 1.8;
@@ -3925,7 +3925,7 @@ figure img {
     margin: 0 0 18px;
 }
 
-.eq-message {
+.eq-message p {
     font-size: 13px !important;
     font-weight: 400 !important;
     color: #c8deff !important;
