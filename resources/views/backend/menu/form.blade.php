@@ -10,15 +10,21 @@
             $errors->has('content_ne');
 
         $templateOptions = [
-            '' => 'Default Template',
+            '' => '--Default Template--',
             'header' => 'Title for Menu',
             'home' => 'Home',
             'about' => 'About',
+            'board-of-director' => 'Board of Director',
+            'employee-quarterly' => 'Employee Quarterly',
+            'our-product' => 'Our Product',
+            'press-release' => 'Press Release',
+            'reports' => 'Reports',
+            'blogs' => 'Blogs/News',
+            'open-vacancy-position' => 'Open Vacancy Position',
+            'vacancy-result' => 'Vacancy Result',
+            'album' => 'Album',
             'contact' => 'Contact',
-            'gallery' => 'Gallery',
-            'news' => 'News',
-            'members' => 'Members',
-            'defaultPage' => 'Custom Page',
+            'default-page' => 'General Template',
         ];
 
         $menuLocations = [

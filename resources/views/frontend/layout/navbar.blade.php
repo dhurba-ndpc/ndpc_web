@@ -11,11 +11,12 @@
         <div class="collapse navbar-collapse" id="navMain">
             @if ($menus->count() > 0)
                 <ul class="navbar-nav mx-auto">
-                    @foreach ($menus as $menu)
+                    @foreach ($menus->where('is_active', true) as $menu)
                         <li class="nav-item dropdown">
                             <a class="nav-link @if ($menu->children()->count() > 0) dropdown-toggle @endif {{ isActiveParentMenu($menu) }}"
                                 @if (!empty($menu->external_link)) href="{{ $menu->external_link }}"
-                                @elseif ($menu->page_template == 'default')
+                                @elseif ($menu->page_template == 'default-page')
+                                   
                                     href="{{ route('defaultPage', $menu->slug) }}"
                                 @else
                                     href="{{ route('pageTemplate', $menu->page_template) }}" @endif
@@ -24,15 +25,14 @@
                             </a>
                             @if ($menu->children()->count() > 0)
                                 <ul class="dropdown-menu">
-                                    @foreach ($menu->children as $subMenu)
+                                    @foreach ($menu->children->where('is_active', true) as $subMenu)
                                         <li>
                                             <a class="dropdown-item {{ isActiveMenu($subMenu->page_template) }}"
                                                 @if (!empty($subMenu->external_link)) href="{{ $subMenu->external_link }}"
-                                            @elseif ($menu->page_template == 'default')
+                                                @elseif ($subMenu->page_template == 'default-page')
                                                 href="{{ route('defaultPage', $subMenu->slug) }}"
                                             @else
-                                             href="{{ route('pageTemplate', $subMenu->page_template) }}"   
-                                            @endif>
+                                             href="{{ route('pageTemplate', $subMenu->page_template) }}" @endif>
                                                 {{ $subMenu->{'menu_name_' . app()->getLocale()} ?: $subMenu->menu_name_en }}
                                             </a>
                                         </li>
@@ -44,12 +44,12 @@
                     @endforeach
                 </ul>
             @endif
-            <a href="{{ route('lang.switch', 'ne') }}"
+            <a href="javascript:void(0);" onclick="changeLanguage('ne')"
                 class="nav-link btn-touch ms-2 {{ app()->getLocale() == 'en' ? 'd-block' : 'd-none' }}">
                 NE <i class="bi bi-translate"></i>
             </a>
 
-            <a href="{{ route('lang.switch', 'en') }}"
+            <a href="javascript:void(0);" onclick="changeLanguage('en')"
                 class="nav-link btn-touch ms-2 {{ app()->getLocale() == 'ne' ? 'd-block' : 'd-none' }}">
                 EN <i class="bi bi-translate"></i>
             </a>
