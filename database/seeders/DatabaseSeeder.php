@@ -2,38 +2,50 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Create Super Admin Role
-        $role = Role::firstOrCreate([
-            'name' => 'Super Admin'
+        // Create Roles
+        $superAdminRole = Role::firstOrCreate([
+            'name' => 'Super Admin',
+            'guard_name' => 'web',
         ]);
 
-        // Create User
-        $user = User::firstOrCreate(
+        $adminRole = Role::firstOrCreate([
+            'name' => 'Admin',
+            'guard_name' => 'web',
+        ]);
+
+        // Super Admin User
+        $superAdmin = User::firstOrCreate(
             [
                 'email' => 'dhurba179@gmail.com',
             ],
             [
-                'name' => 'Super Admin',
+                'name' => 'Dhurba Sharma',
                 'password' => Hash::make('123456789'),
             ]
         );
 
-        // Assign Role
-        $user->assignRole($role);
+        $superAdmin->assignRole($superAdminRole);
+
+        // Admin User
+        $admin = User::firstOrCreate(
+            [
+                'email' => 'admin@gmail.com',
+            ],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('123456789'),
+            ]
+        );
+
+        $admin->assignRole($adminRole);
     }
 }
