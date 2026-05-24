@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Banner;
@@ -15,14 +14,14 @@ use App\Models\Menu;
 use App\Models\PromotionMessage;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
-    //waiting for develop
+    // waiting for develop
 
     public function index()
     {
-
         $banners = Banner::orderby('id', 'desc')->where('is_active', true)->get();
         $about = About::where('is_active', true)->first();
         $missionVission = FeatureAreas::where(['type' => 'mvg', 'is_active' => '1'])->orderBy('position', 'asc')->take(3)->get();
@@ -41,13 +40,10 @@ class FrontendController extends Controller
         ));
     }
 
-
     public function defaultPage($slug)
     {
         return view('frontend.default_page');
     }
-
-
 
     public function pageTemplate($slug)
     {
@@ -82,7 +78,33 @@ class FrontendController extends Controller
 
             case 'employee-quarterly':
                 $menu = $menus;
-                $employee_quaters = EmployeeQuarter::where('is_active', true)->get();
+                $employee_quaters = EmployeeQuarter::where('is_active', true)
+                    ->orderBy('year', 'desc')
+                    ->orderBy('quarter', 'desc')
+                    ->get()
+                    ->values();
+
+                // Find current year + current quarter
+                $currentIndex = $employee_quaters->search(function ($item) {
+                    return (int) $item->year === (int) now()->year &&
+                        (int) $item->quarter === (int) now()->quarter;
+                });
+
+                // If found
+                if ($currentIndex !== false) {
+                    // Rotate collection
+                    $employee_quaters = $employee_quaters
+                        ->slice($currentIndex)
+                        ->concat($employee_quaters->slice(0, $currentIndex))
+                        ->values();
+
+                    // Put current quarter in center (index 2)
+                    $employee_quaters = $employee_quaters
+                        ->slice(-2)
+                        ->concat($employee_quaters->slice(0, -2))
+                        ->values();
+                }
+
                 return view('frontend.employee_quaterly', compact(
                     'menu',
                     'employee_quaters'
