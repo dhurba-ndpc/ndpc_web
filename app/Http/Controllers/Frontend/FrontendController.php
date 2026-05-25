@@ -11,10 +11,13 @@ use App\Models\EmployeeQuarter;
 use App\Models\FeatureAreas;
 use App\Models\Gallery;
 use App\Models\Menu;
+use App\Models\OurProduct;
 use App\Models\PromotionMessage;
 use App\Models\TeamMember;
+use App\Models\TechnologySolutionCategory;
+use App\Models\TechnologySolutionSection;
 use App\Models\Testimonial;
-use Carbon\Carbon;
+
 
 class FrontendController extends Controller
 {
@@ -84,24 +87,17 @@ class FrontendController extends Controller
                     ->get()
                     ->values();
 
-                // Find current year + current quarter
-                $currentIndex = $employee_quaters->search(function ($item) {
-                    return (int) $item->year === (int) now()->year &&
-                        (int) $item->quarter === (int) now()->quarter;
+                $currentData = $employee_quaters->first();
+
+                $currentIndex = $employee_quaters->search(function ($item) use ($currentData) {
+                    return (int) $item->year === (int) $currentData->year &&
+                        (int) $item->quarter === (int) $currentData->quarter;
                 });
 
-                // If found
                 if ($currentIndex !== false) {
-                    // Rotate collection
                     $employee_quaters = $employee_quaters
-                        ->slice($currentIndex)
-                        ->concat($employee_quaters->slice(0, $currentIndex))
-                        ->values();
-
-                    // Put current quarter in center (index 2)
-                    $employee_quaters = $employee_quaters
-                        ->slice(-2)
-                        ->concat($employee_quaters->slice(0, -2))
+                        ->slice($currentIndex - 1)
+                        ->concat($employee_quaters->slice(0, $currentIndex - 1))
                         ->values();
                 }
 
@@ -111,7 +107,27 @@ class FrontendController extends Controller
                 ));
 
             case 'our-product':
-                return view('frontend.product');
+                    $menu = $menus;
+                    $product = OurProduct::where('is_active', true)->first();
+                    $section_title = TechnologySolutionSection::where('is_active', true)->first();
+                    $tech_detail = TechnologySolutionCategory::with([
+                        'items' => function ($query) {
+                            $query->where('is_active', true);
+                        }
+                    ])
+                    ->where('is_active', true)
+                    ->whereHas('items', function ($query) {
+                        $query->where('is_active', true);
+                    })
+                    ->orderBy('position', 'desc')
+                    ->get();
+
+                return view('frontend.product', compact(
+                    'menu',
+                    'product',
+                    'section_title',
+                    'tech_detail'
+                ));
 
             case 'press-release':
                 return view('frontend.notice');

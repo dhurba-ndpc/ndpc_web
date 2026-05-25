@@ -45,33 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    @php
-                        $adYear = date('Y');
-                        $adMonth = date('n');
-
-                        // Approx BS year without package
-                        $currentBsYear = $adMonth >= 3 ? $adYear + 57 : $adYear + 56;
-
-                        // Approx BS month without package
-                        $bsMonthMap = [
-                            1 => 10,
-                            2 => 11,
-                            3 => 12,
-                            4 => 1,
-                            5 => 2,
-                            6 => 3,
-                            7 => 4,
-                            8 => 5,
-                            9 => 6,
-                            10 => 7,
-                            11 => 8,
-                            12 => 9,
-                        ];
-                        $currentBsMonth = $bsMonthMap[$adMonth];
-                        echo $currentBsMonth;
-                        // 1-3 = Q1, 4-6 = Q2, 7-9 = Q3, 10-12 = Q4
-                        $currentQuarter = ceil($currentBsMonth / 3);
-                    @endphp
+                     
                     <div id="tcSource" hidden="">
                         @foreach ($employee_quaters as $key => $list)
                             <div class="tc-item" data-index="{{ $key }}">

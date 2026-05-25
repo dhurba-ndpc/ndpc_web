@@ -35,7 +35,7 @@ if (!function_exists('getModels')) {
             'FeatureAreas',
             'Service',
             'PromotionMessage',
-            'TechnologySolutionSection'
+             
         ];
 
         $models = array_keys($customModels);

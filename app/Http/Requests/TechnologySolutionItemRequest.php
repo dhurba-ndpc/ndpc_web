@@ -38,19 +38,19 @@ class TechnologySolutionItemRequest extends FormRequest
             'use_case_description_en' => 'required|string',
             'use_case_description_ne' => 'nullable|string',
 
-            'stat_one_value' => 'required|integer|max:50',
+            'stat_one_value' => 'required|integer|max:1000',
             'stat_one_label_en' => 'required|string|max:100',
             'stat_one_label_ne' => 'nullable|string|max:100',
 
-            'stat_two_value' => 'required|integer|max:50',
+            'stat_two_value' => 'required|integer|max:1000',
             'stat_two_label_en' => 'required|string|max:100',
             'stat_two_label_ne' => 'nullable|string|max:100',
 
-            'stat_three_value' => 'required|integer|max:50',
+            'stat_three_value' => 'required|integer|max:1000',
             'stat_three_label_en' => 'required|string|max:100',
             'stat_three_label_ne' => 'nullable|string|max:100',
 
-            'stat_four_value' => 'required|integer|max:50',
+            'stat_four_value' => 'required|integer|max:1000',
             'stat_four_label_en' => 'required|string|max:100',
             'stat_four_label_ne' => 'nullable|string|max:100',
 
