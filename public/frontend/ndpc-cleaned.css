@@ -3120,7 +3120,7 @@ figure img {
     color: var(--blue);
 }
 
-.service-text {
+.service-text p{
     font-size: 15px;
     color: #6c757d;
     line-height: 1.7;
@@ -3215,7 +3215,7 @@ figure img {
     margin-bottom: 16px;
 }
 
-.feature-text {
+.feature-text p {
     font-size: 15px;
     line-height: 1.8;
     color: #4b5563;

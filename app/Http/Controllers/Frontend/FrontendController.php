@@ -13,6 +13,7 @@ use App\Models\Gallery;
 use App\Models\Menu;
 use App\Models\OurProduct;
 use App\Models\PromotionMessage;
+use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\TechnologySolutionCategory;
 use App\Models\TechnologySolutionSection;
@@ -107,26 +108,32 @@ class FrontendController extends Controller
                 ));
 
             case 'our-product':
-                    $menu = $menus;
-                    $product = OurProduct::where('is_active', true)->first();
-                    $section_title = TechnologySolutionSection::where('is_active', true)->first();
-                    $tech_detail = TechnologySolutionCategory::with([
-                        'items' => function ($query) {
-                            $query->where('is_active', true);
-                        }
-                    ])
+                $menu = $menus;
+                $product = OurProduct::where('is_active', true)->first();
+                $section_title = TechnologySolutionSection::where('is_active', true)->first();
+                $tech_detail = TechnologySolutionCategory::with([
+                    'items' => function ($query) {
+                        $query->where('is_active', true);
+                    }
+                ])
                     ->where('is_active', true)
                     ->whereHas('items', function ($query) {
                         $query->where('is_active', true);
                     })
                     ->orderBy('position', 'desc')
                     ->get();
+                $services = Service::where(['type' => 'services_offer', 'is_active' => true])->orderBy('position', 'asc')->take(6)->get();
+                $features = Service::where(['type' => 'features_offer', 'is_active' => true])->orderBy('position', 'asc')->take(4)->get();
+                $promotion_text = PromotionMessage::where(['type' => 'promotion_text', 'is_active' => true])->first();
 
                 return view('frontend.product', compact(
                     'menu',
                     'product',
                     'section_title',
-                    'tech_detail'
+                    'tech_detail',
+                    'services',
+                    'features',
+                    'promotion_text'
                 ));
 
             case 'press-release':
