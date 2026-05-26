@@ -14,8 +14,6 @@ class MenuRequest extends FormRequest
 
     public function rules(): array
     {
-        $menuId = $this->route('menu')?->id ?? $this->route('menu');
-
         return [
             'menu_name_en' => 'required|string|max:255',
             'menu_name_ne' => 'nullable|string|max:255',
@@ -46,12 +44,7 @@ class MenuRequest extends FormRequest
             ],
             'page_title_en' => 'required|string|max:255',
             'page_title_ne' => 'nullable|string|max:255',
-            'slug' => [
-                'nullable',
-                'string',
-                'max:255',
-                Rule::unique('menus', 'slug')->ignore($this->menu),
-            ],
+            'slug' => 'nullable|string|max:255',
             'content_en' => 'nullable|string',
             'content_ne' => 'nullable|string',
             'description_en' => 'nullable|string',

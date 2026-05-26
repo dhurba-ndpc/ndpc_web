@@ -216,7 +216,9 @@
             <div class="prayer-flags"></div>
             <div class="container">
                 <p class="news-label mb-0"> {{ app()->getLocale() == 'ne' ? 'सुविधाहरू' : 'Features' }}</p>
-                <h2 class="news-title mb-5"> {{ app()->getLocale() == 'ne' ? 'हामी तपाइँको लागि के प्रस्ताव गर्छौं' : 'What We Offer For You' }}</h2>
+                <h2 class="news-title mb-5">
+                    {{ app()->getLocale() == 'ne' ? 'हामी तपाइँको लागि के प्रस्ताव गर्छौं' : 'What We Offer For You' }}
+                </h2>
                 <div class="row g-4">
                     @foreach ($features as $feature)
                         <div class="col-lg-3 col-md-6">
@@ -227,7 +229,7 @@
                                 <h4 class="feature-title">
                                     {{ $feature->{'title_' . app()->getLocale()} ?: $feature->title_en }}</h4>
                                 <div class="feature-text">
-                                      {!! $feature->{'description_' . app()->getLocale()} ?: $feature->description_en !!}
+                                    {!! $feature->{'description_' . app()->getLocale()} ?: $feature->description_en !!}
                                 </div>
                             </div>
                         </div>
@@ -235,29 +237,34 @@
                 </div>
             </div>
     @endif
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="wallet-card text-center position-relative">
+    @if ($promotion_text !== null)
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="wallet-card text-center position-relative">
 
-                    <div class="icon-tab">
-                        <i class="bi bi-wallet2"></i>
+                        <div class="icon-tab">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+
+                        <div class="card-body p-5">
+                            <h6 class="text-blue fw-bold mb-2">
+                                {{ $promotion_text->{'badge_title_' . app()->getLocale()} ?: $promotion_text->badge_title_en }}
+                            </h6>
+                            <h1 class="main-title fw-bold">
+                                {{ $promotion_text->{'title_' . app()->getLocale()} ?: $promotion_text->title_en }}</h1>
+                        </div>
+
+                        <a href="{{ url('about') }}" class="btn btn-pill-cta ">
+                            {{ app()->getLocale() == 'ne' ? 'थप जान्न चाहनुहुन्छ?' : 'Want To Know More?' }}
+                        </a>
+
                     </div>
-
-                    <div class="card-body p-5">
-                        <h6 class="text-blue fw-bold mb-2">  {{ $promotion_text->{'badge_title_' . app()->getLocale()} ?: $promotion_text->badge_title_en }}</h6>
-                        <h1 class="main-title fw-bold">  {{ $promotion_text->{'title_' . app()->getLocale()} ?: $promotion_text->title_en }}</h1>
-                    </div>
-
-                    <a href="{{ url('about') }}" class="btn btn-pill-cta ">
-                         {{ app()->getLocale() == 'ne' ? 'थप जान्न चाहनुहुन्छ?' : 'Want To Know More?' }}
-                    </a>
-
                 </div>
             </div>
         </div>
-    </div>
-    </section>
+        </section>
+    @endif
 @endsection
 @push('scripts')
     <script>

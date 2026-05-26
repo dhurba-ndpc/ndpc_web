@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\Album;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\CompanyGoal;
@@ -11,13 +12,16 @@ use App\Models\EmployeeQuarter;
 use App\Models\FeatureAreas;
 use App\Models\Gallery;
 use App\Models\Menu;
+use App\Models\Notice;
 use App\Models\OurProduct;
 use App\Models\PromotionMessage;
+use App\Models\RecruitmentResult;
 use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\TechnologySolutionCategory;
 use App\Models\TechnologySolutionSection;
 use App\Models\Testimonial;
+use Illuminate\Http\Request;
 
 
 class FrontendController extends Controller
@@ -137,16 +141,45 @@ class FrontendController extends Controller
                 ));
 
             case 'press-release':
-                return view('frontend.notice');
+                $menu = $menus;
+                $notices = $this->getNoticeData(request('search'));
+                return view('frontend.notice', compact(
+                    'menu',
+                    'notices'
+                ));
 
             case 'reports':
-                return view('frontend.report');
+                $menu = $menus;
+                $reports = Notice::where(['type' => 'report', 'is_active' => true])->orderBy('id', 'desc')->paginate(4);
+                return view('frontend.report', compact(
+                    'menu',
+                    'reports'
+                ));
 
             case 'album':
-                return view('frontend.album');
+                $menu = $menus;
+                $album_detail = Album::with([
+                    'galleries' => function ($query) {
+                        $query->where('is_active', true);
+                    }
+                ])
+                    ->where('is_active', true)
+                    ->whereHas('galleries', function ($query) {
+                        $query->where('is_active', true);
+                    })
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                return view('frontend.album', compact(
+                    'album_detail',
+                    'menu'
+                ));
 
             case 'vacancy-result':
-                return view('frontend.vacancy_result');
+                $recruitmentResult = RecruitmentResult::where('is_active', true)->get();
+                return view('frontend.vacancy_result', compact(
+                    'recruitmentResult'
+                ));
 
             case 'open-vacancy-position':
                 return view('frontend.vacancy');
@@ -162,6 +195,38 @@ class FrontendController extends Controller
         }
     }
 
+
+
+    private function getNoticeData($search = null)
+    {
+        $search = trim((string) $search);
+
+        return Notice::where([
+            'type' => 'notices',
+            'is_active' => true
+        ])
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title_en', 'LIKE', "%{$search}%")
+                        ->orWhere('title_ne', 'LIKE', "%{$search}%")
+                        ->orWhere('badge_title_en', 'LIKE', "%{$search}%")
+                        ->orWhere('badge_title_ne', 'LIKE', "%{$search}%");
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $notices = $this->getNoticeData($search);
+
+        return view('frontend.partials.notice-list', compact('notices'))->render();
+    }
+
+
     public function singleBlog($slug)
     {
         $blog = Blog::with('categories', 'user')
@@ -172,6 +237,22 @@ class FrontendController extends Controller
         return view('frontend.blogsingle', compact(
             'blog',
             'recentBlog'
+        ));
+    }
+
+
+    public function gallery($slug)
+    {
+        $menu = Menu::where('page_template', 'album')->first();
+
+        $album_name = Album::where('slug', $slug)->first();
+        $get_album_gallery = Album::with(['galleries' => function ($q) {
+            $q->where('is_active', true);
+        }])->where(['slug' => $slug, 'is_active' => true])->firstOrFail();
+        return view('frontend.gallery', compact(
+            'album_name',
+            'get_album_gallery',
+            'menu'
         ));
     }
 }

@@ -867,13 +867,14 @@ p {
 .gallery-card-body {
     padding: 18px 18px 14px;
 }
-
+.gallery-card-title a,
 .gallery-card-title {
     font-size: 1.1rem;
     font-weight: 700;
     color: #193980;
     margin-bottom: 10px;
 }
+
 
 .gallery-card-text {
     color: #5b6c8f;
@@ -2030,9 +2031,19 @@ footer {
     border: none;
     color: #fff;
     padding: 0 18px;
+ }
+
+.search-box .search-clear-btn {
+    background: transparent;
+    color: #5b6c8f;
+    padding: 0 12px;
 }
 
-.notice-card {
+.search-box .search-clear-btn:hover {
+    color: #193980;
+}
+
+ .notice-card {
     border: 1px solid rgba(25, 57, 128, 0.14);
     border-radius: 22px;
     padding: 26px;

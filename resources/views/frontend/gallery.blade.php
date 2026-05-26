@@ -1,24 +1,17 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('frontend/images/page_top_banner.jpg') }}')">
+    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="top_banner_content">
                         <div class="row">
                             <div class="col-lg-12 justify-content-center d-flex">
-                                <h1>Gallery</h1>
+                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }} {{ app()->getLocale() == 'ne' ? '-ग्यालेरी' : '-Gallery' }}</h1>
                             </div>
                             <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <p>Welcome to our company! We are a team of dedicated professionals committed to providing
-                                    the best
-                                    services to our clients. Welcome to our company! We are a team of dedicated
-                                    professionals
-                                    committed to providing the best services to our clients.</p>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> Gallery</span>
+                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
                             </div>
                         </div>
                     </div>
@@ -28,87 +21,50 @@
 
     </section>
 
-
-    <section id="gallery_page_wrapper" class="py-5">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="gallery-card">
-                        <div class="gallery-card-body">
-                            <h4 class="gallery-card-title">Photo Gallery of Album "A"</h4>
-                            <p class="gallery-card-text">Click any thumbnail to open the images in a lightbox.</p>
+    @if ($get_album_gallery->count() > 0)
+        <section id="gallery_page_wrapper" class="py-5">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="gallery-card">
+                            <div class="gallery-card-body">
+                                <h4 class="gallery-card-title">
+                                    {{ app()->getLocale() == 'ne' ? 'एल्बमको फोटो ग्यालेरी' : 'Photo Gallery of Album' }} "
+                                    <a
+                                        href="{{ url('/album') }}">{{ $album_name->{'title_' . app()->getLocale()} ?: $album_name->title_en }}</a>
+                                    "
+                                </h4>
+                                <p class="gallery-card-text">
+                                    {{ app()->getLocale() == 'ne'
+                                        ? 'खोल्नको लागि कुनै पनि थम्बनेलमा क्लिक गर्नुहोस् लाइटबक्समा।'
+                                        : 'Click any thumbnail to open
+                                                                                                        the images in a lightbox.' }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/a2.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/a2.jpg') }}" alt="Gallery image 1">
-                        </a>
-                        <div class="gallery-thumb-title">Image #1</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/background1.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/background1.jpg') }}" alt="Gallery image 2">
-                        </a>
-                        <div class="gallery-thumb-title">Image #2</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/Goal.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/Goal.jpg') }}" alt="Gallery image 3">
-                        </a>
-                        <div class="gallery-thumb-title">Image #3</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
-                        </a>
-                        <div class="gallery-thumb-title">Image #4</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/z2.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/z2.jpg') }}" alt="Gallery image 4">
-                        </a>
-                        <div class="gallery-thumb-title">Image #5</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/z3.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/z3.jpg') }}" alt="Gallery image 4">
-                        </a>
-                        <div class="gallery-thumb-title">Image #6</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/z4.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/z4.jpg') }}" alt="Gallery image 4">
-                        </a>
-                        <div class="gallery-thumb-title">Image #7</div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="gallery-card">
-                        <a href="{{ asset('frontend/images/Mission.jpg') }}" data-lightbox="roadtrip" class="gallery-thumb-link">
-                            <img src="{{ asset('frontend/images/Mission.jpg') }}" alt="Gallery image 4">
-                        </a>
-                        <div class="gallery-thumb-title">Image #8</div>
-                    </div>
+                <div class="row g-4">
+                    @forelse ($get_album_gallery->galleries as $gallery)
+                        <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="gallery-card">
+                                <a href="{{ asset('storage/' . ($gallery->image ?? '')) }}" data-lightbox="roadtrip"
+                                    class="gallery-thumb-link">
+                                    <img src="{{ asset('storage/' . ($gallery->image ?? '')) }}" alt="Gallery image 1">
+                                </a>
+                                <div class="gallery-thumb-title">
+                                    {{ $gallery->{'title_' . app()->getLocale()} ?: $gallery->title_en }}</div>
+                            </div>
+                        </div>
+                    @empty
+                    <p>Gallery Item are not Publish</p>
+                    @endforelse
+
+
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection
 @push('scripts')
     <script>

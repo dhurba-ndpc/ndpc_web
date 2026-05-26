@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\GeneratesSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
- 
+
 
 class Album extends Model
 {
@@ -21,15 +21,15 @@ class Album extends Model
         'is_active',
     ];
     protected $casts = [
-    'is_active' => 'boolean',
-];
+        'is_active' => 'boolean',
+    ];
 
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
     }
 
-    
+
     protected static function booted(): void
     {
         static::saving(function ($album) {

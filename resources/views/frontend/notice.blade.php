@@ -1,137 +1,62 @@
 @extends('frontend.layout.main')
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('frontend/images/page_top_banner.jpg') }}')">
+    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="top_banner_content">
                         <div class="row">
                             <div class="col-lg-12 justify-content-center d-flex">
-                                <h1>Notices</h1>
+                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
                             </div>
                             <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <p>Welcome to our notices! Here you will find the latest news and updates from our team. We
-                                    are a team of dedicated professionals committed to providing
-                                    the best
-                                    services to our clients. Welcome to our company! We are a team of dedicated
-                                    professionals
-                                    committed to providing the best services to our clients.</p>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> Notices</span>
+                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="section-notice">
-        <div class="container">
 
-            <!-- Header -->
-            <div class="row align-items-center mb-4">
-                <div class="col-md-6 section-title">
-                    <h1 class="section-title mb-3 last_word_span_by_js">Our&nbsp;Notices </h1>
-                    <p>Latest news and announcements from NDPC</p>
+    </section>
+    @if ($notices->count() > 0)
+        <section class="section-notice">
+            <div class="container">
+
+                <!-- Header -->
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-6 section-title">
+                        <h1 class="section-title mb-3 last_word_span_by_js">
+                            {{ app()->getLocale() == 'ne' ? 'हाम्रा सूचनाहरू' : 'Our Notices ' }}
+                        </h1>
+                        <p> {{ app()->getLocale() == 'ne' ? 'NDPC बाट नवीनतम समाचार र घोषणाहरू' : 'Latest news and announcements from NDPC' }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <form id="noticeSearchForm" action="{{ route('notice.search') }}" method="GET">
+                            <div class="search-box">
+                                <input type="text" value="{{ request('search') }}" name="search" id="searchNotice"
+                                    placeholder="Search notices...">
+                                <button type="button" id="clearNoticeSearch" class="search-clear-btn"
+                                    aria-label="Clear search" style="{{ request('search') ? '' : 'display: none;' }}">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                                <button type="submit" aria-label="Search notices">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="search-box">
-                        <input type="text" placeholder="Search notices...">
-                        <button><i class="bi bi-search"></i></button>
-                    </div>
+                <!-- Notices Grid -->
+                <div class="row g-4" id="noticeResult">
+                    @include('frontend.partials.notice-list', ['notices' => $notices])
                 </div>
             </div>
-
-            <!-- Notices Grid -->
-            <div class="row g-4">
-
-                <!-- Card 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="notice-card">
-                        <div class="notice-card_title_wrap">
-                            <span class="tag">IS Audit</span>
-                            <h5>Right to Information (RTI)</h5>
-                        </div>
-                        <div class="notice-footer">
-                            <span><i class="bi bi-calendar-fill"></i>&nbsp;4 days ago</span>
-                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i
-                                    class="bi bi-eye-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="notice-card">
-                        <div class="notice-card_title_wrap">
-                            <span class="tag">Quotation</span>
-                            <h5>Extension of submission date for proposal on Information System (IS) Audit</h5>
-                        </div>
-
-                        <div class="notice-footer">
-                            <span><i class="bi bi-calendar-fill"></i>&nbsp;4 days ago</span>
-                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i
-                                    class="bi bi-eye-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="notice-card">
-                        <div class="notice-card_title_wrap">
-                            <span class="tag">IS Audit</span>
-                            <h5>Sealed Quotation Request notice- Outsource Employee</h5>
-                        </div>
-
-                        <div class="notice-footer">
-                            <span><i class="bi bi-calendar-fill"></i>&nbsp;1 week ago</span>
-                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i
-                                    class="bi bi-eye-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="notice-card">
-                        <div class="notice-card_title_wrap">
-                            <span class="tag">RTI</span>
-                            <h5>Invitation for proposal on Information System (IS) Audit</h5>
-                        </div>
-
-                        <div class="notice-footer">
-                            <span><i class="bi bi-calendar-fill"></i>&nbsp;1 week ago</span>
-                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i
-                                    class="bi bi-eye-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="notice-card">
-                        <div class="notice-card_title_wrap">
-                            <span class="tag">General Meeting</span>
-                            <h5>NDPC - RTI (01/07/2082 - 30/09/2082)</h5>
-                        </div>
-
-                        <div class="notice-footer">
-                            <span><i class="bi bi-calendar-fill"></i>&nbsp;April 15, 2024</span>
-                            <a href="#" class="btn btn-notice">View Notice&nbsp;&nbsp;<i
-                                    class="bi bi-eye-fill"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection
 @push('scripts')
     <script>
@@ -144,6 +69,47 @@
                 words.join(" ") + (words.length > 0 ? " " : "") + '<span class="last-word">' + lastWord +
                 '</span>'
             );
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            const $searchInput = $('#searchNotice');
+            const $clearButton = $('#clearNoticeSearch');
+            const $resultBox = $('#noticeResult');
+            let searchTimer = null;
+
+            function loadNotices() {
+                let search = $searchInput.val();
+                $clearButton.toggle(search.length > 0);
+
+                $.ajax({
+                    url: "{{ route('notice.search') }}",
+                    type: "GET",
+                    data: {
+                        search: search
+                    },
+                    success: function(data) {
+                        $resultBox.html(data);
+                    }
+                });
+            }
+
+            $('#noticeSearchForm').on('submit', function(event) {
+                event.preventDefault();
+                loadNotices();
+            });
+
+            $searchInput.on('keyup', function() {
+                clearTimeout(searchTimer);
+                searchTimer = setTimeout(loadNotices, 250);
+            });
+
+            $clearButton.on('click', function() {
+                $searchInput.val('');
+                loadNotices();
+                $searchInput.trigger('focus');
+            });
+
         });
     </script>
 @endpush

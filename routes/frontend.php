@@ -16,12 +16,12 @@ Route::get('/lang-switch/{lang}', function ($lang) {
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 
+Route::get('notice-search', [FrontendController::class, 'search'])->name('notice.search');
 Route::get('{pageTemplate}', [FrontendController::class, 'pageTemplate'])->name('pageTemplate');
 Route::get('default-page/{slug}', [FrontendController::class, 'defaultPage'])->name('defaultPage');
 
 Route::get('blog-single/{slug}', [FrontendController::class, 'singleBlog'])->name('blog-single');
-
-
+Route::get('gallery/{slug}', [FrontendController::class, 'gallery'])->name('gallery');
 
 
 

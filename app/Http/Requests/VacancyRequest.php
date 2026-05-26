@@ -27,7 +27,7 @@ class VacancyRequest extends FormRequest
             'title_en' => 'required|string|max:255',
             'title_ne' => 'nullable|string|max:255',
 
-            'slug' => 'nullable|string|max:255|unique:vacancies,slug,' . $this->route('vacancy'),
+            'slug' => 'nullable|string|max:255',
 
             'location' => 'required|string|max:255',
 
