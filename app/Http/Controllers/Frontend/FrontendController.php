@@ -23,7 +23,6 @@ use App\Models\TechnologySolutionSection;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
-
 class FrontendController extends Controller
 {
     // waiting for develop
@@ -139,7 +138,7 @@ class FrontendController extends Controller
                     'features',
                     'promotion_text'
                 ));
-
+            // for notice
             case 'press-release':
                 $menu = $menus;
                 $notices = $this->getNoticeData(request('search'));
@@ -176,9 +175,11 @@ class FrontendController extends Controller
                 ));
 
             case 'vacancy-result':
+                $menu = $menus;
                 $recruitmentResult = RecruitmentResult::where('is_active', true)->get();
                 return view('frontend.vacancy_result', compact(
-                    'recruitmentResult'
+                    'recruitmentResult',
+                    'menu'
                 ));
 
             case 'open-vacancy-position':
@@ -195,8 +196,6 @@ class FrontendController extends Controller
         }
     }
 
-
-
     private function getNoticeData($search = null)
     {
         $search = trim((string) $search);
@@ -207,7 +206,8 @@ class FrontendController extends Controller
         ])
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('title_en', 'LIKE', "%{$search}%")
+                    $q
+                        ->where('title_en', 'LIKE', "%{$search}%")
                         ->orWhere('title_ne', 'LIKE', "%{$search}%")
                         ->orWhere('badge_title_en', 'LIKE', "%{$search}%")
                         ->orWhere('badge_title_ne', 'LIKE', "%{$search}%");
@@ -226,7 +226,6 @@ class FrontendController extends Controller
         return view('frontend.partials.notice-list', compact('notices'))->render();
     }
 
-
     public function singleBlog($slug)
     {
         $blog = Blog::with('categories', 'user')
@@ -239,7 +238,6 @@ class FrontendController extends Controller
             'recentBlog'
         ));
     }
-
 
     public function gallery($slug)
     {

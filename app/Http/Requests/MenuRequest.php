@@ -17,7 +17,7 @@ class MenuRequest extends FormRequest
         return [
             'menu_name_en' => 'required|string|max:255',
             'menu_name_ne' => 'nullable|string|max:255',
-            'page_template' => 'nullable|string|max:255',
+            'page_template' => 'required|string|max:255',
             'position' => 'nullable|integer|min:0',
             'is_main_child' => [
                 'required',
