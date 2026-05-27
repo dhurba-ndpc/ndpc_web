@@ -43,6 +43,7 @@ return new class extends Migration
 
             $table->date('deadline')->nullable();
 
+            $table->string('external_link')->nullable();
             $table->boolean('is_active')->default(true);
 
             $table->softDeletes();
