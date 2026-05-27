@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    
     // waiting for develop
 
     public function index()
@@ -77,7 +78,7 @@ class FrontendController extends Controller
 
             case 'board-of-director':
                 $menu = $menus;
-                $board_director = TeamMember::where(['type' => 'board_of_directors', 'is_active' => true])->orderBy('sort_order', 'asc')->take(4)->get();
+                $board_director = TeamMember::where(['type' => 'board_of_directors', 'is_active' => true])->orderBy('sort_order', 'asc')->get();
                 return view('frontend.member', compact(
                     'menu',
                     'board_director'
@@ -186,7 +187,12 @@ class FrontendController extends Controller
                 return view('frontend.vacancy');
 
             case 'blogs':
-                return view('frontend.blogs');
+                $menu = $menus;
+                 $blogs = Blog::with('categories')->where('is_active', true)->orderBy('id', 'desc')->take(6)->paginate(8);
+                return view('frontend.blogs', compact(
+                    'blogs',
+                    'menu'
+                ));
 
             case 'contact':
                 return view('frontend.contact');

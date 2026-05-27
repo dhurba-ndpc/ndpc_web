@@ -56,7 +56,7 @@
                             </div>
                             <div class="trusted-badge glass-panel">
                                 <i class="bi bi-shield-fill-check"></i>
-                                <span>
+                                <span class="glass_badge_text">
                                     {!! $about->glass_text !!}
                                 </span>
                             </div>
@@ -304,6 +304,19 @@
                 words.join(" ") + (words.length > 0 ? " " : "") + '<span class="last-word">' + lastWord +
                 '</span>'
             );
+        });
+    </script>
+    <script>
+        $('.glass_badge_text').each(function() {
+
+            var text = $(this).text().trim();
+            var words = text.split(/\s+/);
+
+            if (words.length >= 2) {
+                words[1] = '<span class="case-word">' + words[1] + '</span>' + '<br />';
+            }
+
+            $(this).html(words.join(' '));
         });
     </script>
 @endpush

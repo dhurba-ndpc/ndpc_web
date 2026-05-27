@@ -46,6 +46,7 @@ class VacancyRequest extends FormRequest
             'total_applicants' => 'nullable|integer|min:0',
 
             'deadline' => 'required|date|after_or_equal:today',
+            'external_link' => 'nullable|url',
 
             'is_active' => 'nullable|boolean',
         ];

@@ -69,6 +69,19 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="external_link" class="form-label">
+                                        <i class="fas fa-external-link-alt text-info"></i> External Link
+                                    </label>
+                                    <input type="url" class="form-control @error('external_link') is-invalid @enderror"
+                                        id="external_link" name="external_link"
+                                        value="{{ old('external_link', $data->external_link ?? '') }}"
+                                        placeholder="Enter external application link">
+                                    @error('external_link')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="employment_type" class="form-label">
                                         <i class="fas fa-user-tie text-info"></i> Employment Type
                                     </label>

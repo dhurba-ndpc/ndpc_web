@@ -52,6 +52,14 @@
                                     <div class="small text-info mt-1">
                                         <i class="fas fa-link mr-1"></i>{{ $list->slug ?? '-' }}
                                     </div>
+                                    @if (!empty($list->external_link))
+                                        <div class="small text-info mt-1">
+                                            <i class="fas fa-external-link-alt mr-1"></i>
+                                            <a href="{{ $list->external_link }}" target="_blank">
+                                                {{ $list->external_link }}
+                                            </a>
+                                        </div>
+                                    @endif
                                     @if (!empty($list->short_description_en))
                                         <div class="small text-muted mt-1">
                                             {{ \Illuminate\Support\Str::limit(strip_tags($list->short_description_en), 90) }}
@@ -78,7 +86,7 @@
                                             {{ $list->deadline->format('M d, Y') }}
                                         </div>
                                         <div class="small text-muted">
-                                            {{ $list->deadline->diffForHumans() }}
+                                           {{ \Carbon\Carbon::parse($list->deadline)->locale('en')->diffForHumans() }}
                                         </div>
                                     @else
                                         <span class="text-muted small">No deadline</span>

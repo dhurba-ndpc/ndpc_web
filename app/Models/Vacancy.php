@@ -24,6 +24,7 @@ class Vacancy extends Model
         'experience_level',
         'total_applicants',
         'deadline',
+        'external_link',
         'is_active',
     ];
 
