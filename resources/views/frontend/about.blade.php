@@ -27,9 +27,25 @@
     @if ($about !== null)
         @php
             $description = $about->{'description_' . app()->getLocale()} ?: $about->description_en;
-            $words = explode(' ', $description);
-            $firstPart = implode(' ', array_slice($words, 0, 85));
-            $secondPart = implode(' ', array_slice($words, 85));
+            preg_match_all('/<p\b[^>]*>.*?<\/p>/is', $description, $paragraphs);
+            $paragraphs = $paragraphs[0] ?? [];
+            $firstParagraphs = [];
+            $secondParagraphs = [];
+            $wordCount = 0;
+
+            foreach ($paragraphs as $paragraph) {
+                $paragraphWordCount = str_word_count(strip_tags($paragraph));
+
+                if ($wordCount < 50) {
+                    $firstParagraphs[] = $paragraph;
+                    $wordCount += $paragraphWordCount;
+                } else {
+                    $secondParagraphs[] = $paragraph;
+                }
+            }
+
+            $firstPart = $paragraphs ? implode('', $firstParagraphs) : $description;
+            $secondPart = $paragraphs ? implode('', $secondParagraphs) : '';
         @endphp
 
         <section class="section-about" id="about">
@@ -65,7 +81,9 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        {!! $secondPart !!}
+                        <div class="about-text mt-4">
+                            {!! $secondPart !!}
+                        </div>
                     </div>
                 </div>
             </div>
