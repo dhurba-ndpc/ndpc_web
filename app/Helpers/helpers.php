@@ -2,6 +2,7 @@
 
 use App\Models\FeatureAreas;
 use App\Models\Notice;
+use App\Models\OutboundMessageLog;
 use App\Models\PromotionMessage;
 use App\Models\Service;
 use App\Models\TeamMember;
@@ -9,24 +10,20 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 if (!function_exists('getModels')) {
-
     function getModels(): array
     {
         $customModels = [
             'LeadingTeam' => TeamMember::class,
             'BoardOfDirectors' => TeamMember::class,
-
             'Notice' => Notice::class,
             'Report' => Notice::class,
-
             'DarkBanner' => FeatureAreas::class,
             'MissionVision' => FeatureAreas::class,
-
             'Service' => Service::class,
             'Feature' => Service::class,
-
             'PromotionMessage' => PromotionMessage::class,
             'PlayStore' => PromotionMessage::class,
+            'Dashboard' => OutboundMessageLog::class,
         ];
 
         $hiddenRealModels = [
@@ -35,13 +32,12 @@ if (!function_exists('getModels')) {
             'FeatureAreas',
             'Service',
             'PromotionMessage',
-             
+            'OutboundMessageLog',
         ];
 
         $models = array_keys($customModels);
 
         foreach (scandir(app_path('Models')) as $file) {
-
             if ($file === '.' || $file === '..') {
                 continue;
             }
@@ -59,8 +55,6 @@ if (!function_exists('getModels')) {
     }
 }
 
-
- 
 if (!function_exists('isActiveMenu')) {
     function isActiveMenu($slug, $activeClass = 'active')
     {

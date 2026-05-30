@@ -3,22 +3,22 @@
 
 <head>
     @php
-        $seoMenu = $menu_page ?? $menu ?? null;
+        $seoMenu = $menu_page ?? ($menu ?? null);
         $seoMetaTitle = $seoMenu?->meta_title_en;
         $seoMetaKeywords = $seoMenu?->meta_keywords_en;
         $seoMetaDescription = strip_tags($seoMenu?->meta_description_en ?? '');
-        $seoTitle = $seoMetaTitle
-            ?: $seoMenu?->{'page_title_' . app()->getLocale()}
-            ?: $seoMenu?->page_title_en
-            ?: trim($__env->yieldContent('title', 'Namaste Pay - Empowering a Digital Nepal'));
-        $seoDescription = $seoMetaDescription
-            ?: strip_tags($seoMenu?->{'description_' . app()->getLocale()} ?: $seoMenu?->description_en ?: '');
+        $seoTitle =
+            $seoMetaTitle ?:
+            $seoMenu?->{'page_title_' . app()->getLocale()} ?:
+            $seoMenu?->page_title_en ?:
+            trim($__env->yieldContent('title', 'Namaste Pay - Empowering a Digital Nepal'));
+        $seoDescription =
+            $seoMetaDescription ?:
+            strip_tags($seoMenu?->{'description_' . app()->getLocale()} ?: $seoMenu?->description_en ?: '');
         $seoCanonical = $seoMenu?->canonical_url ?: url()->current();
         $seoOgTitle = $seoMenu?->og_title_en ?: $seoTitle;
         $seoOgDescription = strip_tags($seoMenu?->og_description_en ?: $seoDescription);
-        $seoOgImage = $seoMenu?->og_image
-            ? asset('storage/' . $seoMenu->og_image)
-            : asset('frontend/images/logo.png');
+        $seoOgImage = $seoMenu?->og_image ? asset('storage/' . $seoMenu->og_image) : asset('frontend/images/logo.png');
     @endphp
 
     <meta charset="UTF-8">
@@ -50,8 +50,13 @@
     @endif
     <meta name="twitter:image" content="{{ $seoOgImage }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    {{-- inter fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    {{-- end --}}
     <link rel="stylesheet" href="{{ asset('frontend/ndpc-cleaned.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/ndpc-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/plugins/OwlCarousel2-2.3.4/owl.carousel.min.css') }}" />

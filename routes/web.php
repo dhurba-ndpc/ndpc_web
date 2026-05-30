@@ -35,8 +35,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
-    Route::resource('dashboard', DashboardController::class)
-        ->names('dashboard');
+    Route::middleware('permission:Dashboard-View')->group(function () {
+        Route::get('dashboard/contact-messages/{contactMessage}', [DashboardController::class, 'showContactMessage'])
+            ->name('dashboard.contact-messages.show');
+        Route::delete('dashboard/contact-messages/{contactMessage}', [DashboardController::class, 'destroyContactMessage'])
+            ->name('dashboard.contact-messages.destroy');
+        Route::get('dashboard/job-applications/{jobApplication}', [DashboardController::class, 'showJobApplication'])
+            ->name('dashboard.job-applications.show');
+        Route::delete('dashboard/job-applications/{jobApplication}', [DashboardController::class, 'destroyJobApplication'])
+            ->name('dashboard.job-applications.destroy');
+        Route::post('dashboard/send-email', [DashboardController::class, 'sendEmail'])
+            ->name('dashboard.send-email');
+
+        Route::resource('dashboard', DashboardController::class)
+            ->only(['index'])
+            ->names('dashboard');
+    });
 
     Route::resource('banner', BannerController::class)
         ->middleware('permission:Banner-View')

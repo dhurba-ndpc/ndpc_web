@@ -12,6 +12,7 @@
                 'Role-Create',
                 'Role-Edit',
                 'Role-Delete',
+                'Dashboard-View',
             ];
 
             $permissions = is_array($permissions) ? $permissions : [$permissions];
@@ -36,7 +37,7 @@
             'icon' => 'fas fa-fw fa-tachometer-alt',
             'route' => 'dashboard.index',
             'active' => 'dashboard.*',
-            'permissions' => [],
+            'permissions' => ['Dashboard-View'],
         ],
         [
             'title' => 'Menu',
