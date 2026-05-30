@@ -13,7 +13,7 @@ class SiteSettingController extends AdminBaseController
 {
     protected string $viewPath = 'backend.sitesetting.';
     protected string $requestClass = SiteSettingRequest::class;
-    protected array $uploadFields = ['logo_1', 'logo_2'];
+    protected array $uploadFields = ['logo_1', 'logo_2', 'image'];
     protected string $uploadPath = 'siteSetting';
     protected string $routePrefix = 'siteSetting.index';
 

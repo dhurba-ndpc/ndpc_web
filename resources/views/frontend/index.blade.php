@@ -26,7 +26,7 @@
     @endif
 
     <!-- ══════════════ ABOUT ══════════════ -->
-    @if ($about !== null)   
+    @if ($about !== null)
         <section class="section-about" id="about">
             <div class="container">
                 <div class="row align-items-center">
@@ -78,14 +78,26 @@
                             <div class="mvg-card">
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-3">
-                                        @if (Str::lower($mvg->title_en) == 'mission')
-                                            <div class="mvg-icon"><i class="bi bi-hand-thumbs-up-fill"></i></div>
-                                        @endif
-                                        @if (Str::lower($mvg->title_en) == 'vision')
-                                            <div class="mvg-icon"><i class="bi bi-eye-fill"></i></div>
-                                        @endif
-                                        @if (Str::lower($mvg->title_en) == 'goal')
-                                            <div class="mvg-icon"><i class="bi bi-bullseye"></i></div>
+                                        @php
+                                            $title = Str::lower($mvg->title_en);
+                                        @endphp
+
+                                        @if (Str::contains($title, 'mission'))
+                                            <div class="mvg-icon">
+                                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                            </div>
+                                        @elseif (Str::contains($title, 'vision'))
+                                            <div class="mvg-icon">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </div>
+                                        @elseif (Str::contains($title, 'goal'))
+                                            <div class="mvg-icon">
+                                                <i class="bi bi-bullseye"></i>
+                                            </div>
+                                        @else
+                                            <div class="mvg-icon">
+                                                <i class="bi bi-star-fill"></i>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="col-lg-9 col-sm-9">

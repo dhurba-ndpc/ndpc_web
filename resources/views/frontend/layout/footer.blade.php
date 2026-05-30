@@ -5,51 +5,82 @@
             <!-- Col 1 – Logo + Contact -->
             <div class="col-lg-3 col-md-6">
                 <div class="footer-logo mb-3">
-                    <img src="{{ asset('frontend/images/logo_white.png') }}" alt="">
+                    <img src="{{ asset('storage/' . ($site_setting_details->logo_2 ?? '')) }}" alt="">
                 </div>
                 <div class="footer_info">
-                    <p>At Nepal Digital Payments Company Limited (NDPC), our mission is to promote financial inclusion.
+                    <p>
+
+                        {{ $site_setting_details->{'footer_short_description_' . app()->getLocale()} ?: $site_setting_details->footer_short_description_en }}
                     </p>
                 </div>
                 <div class="footer-contact">
-                    <p><i class="bi bi-telephone-fill"></i> +977-1-4117100, +977-1-4117200</p>
-                    <p><i class="bi bi-geo-alt-fill"></i> Tripureshwor, Kathmandu, Nepal</p>
-                    <p><i class="bi bi-envelope-fill"></i> support@namastepay.com</p>
+                    <p><i class="bi bi-telephone-fill"></i>
+                        {{ $site_setting_details->phone_1 ?? '' }} &nbsp;
+                        {{ $site_setting_details->phone_2 ?? '' }}
+                    </p>
+                    <p><i class="bi bi-geo-alt-fill"></i> {!! $site_setting_details->{'address_' . app()->getLocale()} ?: $site_setting_details->address_en !!}</p>
+                    <p><i class="bi bi-envelope-fill"></i> {{ $site_setting_details->email ?? '' }}</p>
                 </div>
             </div>
 
             <!-- Col 2 – Company Links -->
-            <div class="col-lg-2 col-md-3 col-6 offset-lg-1">
-                <h6 class="footer-heading">Company</h6>
-                <ul class="footer-links">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{ url('/about') }}">About Us</a></li>
-                    <li><a href="{{ url('/notice') }}">Notices</a></li>
-                    <li><a href="{{ url('/contact') }}">Contact Us</a></li>
-                </ul>
-            </div>
+            @if ($footerMenus->count() > 0)
+                <div class="col-lg-2 col-md-3 col-6 offset-lg-1">
+                    <h6 class="footer-heading">{{ app()->getLocale() == 'ne' ? 'कम्पनी' : 'Company' }}</h6>
+                    <ul class="footer-links">
+                        @foreach ($footerMenus->where('is_active', true) as $menu)
+                            <li>
+                                <a class="{{ isActiveParentMenu($menu) }}"
+                                    @if (!empty($menu->external_link)) href="{{ $menu->external_link }}"
+                                @elseif ($menu->page_template == 'default-page')
+                                   
+                                    href="{{ route('defaultPage', $menu->slug) }}"
+                                @else
+                                    href="{{ route('pageTemplate', $menu->page_template) }}" @endif>
+                                    {{ $menu->{'menu_name_' . app()->getLocale()} ?: $menu->menu_name_en }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Col 3 – Useful Links -->
-            <div class="col-lg-2 col-md-3 col-6">
-                <h6 class="footer-heading">Useful Links</h6>
-                <ul class="footer-links">
-                    <li><a href="{{ url('/product') }}">Our Product</a></li>
-                    <li><a href="{{ url('/blogs') }}">Blogs</a></li>
-                    <li><a href="{{ url('/') }}">Privacy Policy</a></li>
-                    <li><a href="{{ url('/') }}">Terms &amp; Conditions</a></li>
-                </ul>
-            </div>
-
+            @if ($UsefulLinksMenu->count() > 0)
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="footer-heading">{{ app()->getLocale() == 'ne' ? 'उपयोगी लिङ्कहरू' : 'Useful Links' }}
+                    </h6>
+                    <ul class="footer-links">
+                        @foreach ($UsefulLinksMenu->where('is_active', true) as $menu)
+                            <li>
+                                <a class="{{ isActiveParentMenu($menu) }}"
+                                    @if (!empty($menu->external_link)) href="{{ $menu->external_link }}"
+                                @elseif ($menu->page_template == 'default-page')
+                                   
+                                    href="{{ route('defaultPage', $menu->slug) }}"
+                                @else
+                                    href="{{ route('pageTemplate', $menu->page_template) }}" @endif>
+                                    {{ $menu->{'menu_name_' . app()->getLocale()} ?: $menu->menu_name_en }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <!-- Col 4 – Information Officer -->
             <div class="col-lg-4 col-md-6">
-                <h6 class="footer-heading">Information Officer / Spokesperson</h6>
+                <h6 class="footer-heading">
+                    {{ app()->getLocale() == 'ne' ? 'सूचना अधिकारी / प्रवक्ता' : 'Information Officer / Spokesperson' }}
+                </h6>
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <img class="officer-img" src="{{ asset('frontend/images/ShwetaBagla.jpg') }}"
+                    <img class="officer-img" src="{{ asset('storage/' . ($site_setting_details->image ?? '')) }}"
                         alt="Information Officer">
                     <div class="footer-officer">
-                        <p style="color:#fff;font-weight:600;">Ms. Shweta Baija</p>
-                        <p>Contact no: +977-1-4117200 (ext:125)</p>
-                        <p>Email: press@ndpc.com.np</p>
+                        <p style="color:#fff;font-weight:600;">
+                            {{ $site_setting_details->{'information_officer_name_' . app()->getLocale()} ?: $site_setting_details->information_officer_name_en }}
+                        </p>
+                        <p>Contact no: {{ $site_setting_details->information_officer_contact_no ?? '' }}</p>
+                        <p>Email: {{ $site_setting_details->information_officer_email ?? '' }}</p>
                     </div>
                 </div>
             </div>
@@ -63,10 +94,10 @@
                 </script>&nbsp; &copy; All rights reserved. Nepal Digital Payment Company Ltd. (NDPC)
             </p>
             <div class="social-icons">
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-                <a href="#"><i class="bi bi-youtube"></i></a>
+                <a href="{{$site_setting_details->facebook_link ?? ''}}"><i class="bi bi-facebook"></i></a>
+                <a href="{{$site_setting_details->instagram_link ?? ''}}"><i class="bi bi-instagram"></i></a>
+                <a href="{{$site_setting_details->linkedin_link ?? ''}}"><i class="bi bi-linkedin"></i></a>
+                <a href="{{$site_setting_details->youtube_link ?? ''}}"><i class="bi bi-youtube"></i></a>
             </div>
         </div>
     </div>

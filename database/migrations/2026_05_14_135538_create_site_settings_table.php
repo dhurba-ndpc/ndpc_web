@@ -44,6 +44,7 @@ return new class extends Migration {
             $table->string('email')->nullable();
 
             // Information Officer
+            $table->string('image')->nullable();
             $table->string('information_officer_name_en')->nullable();
             $table->string('information_officer_name_ne')->nullable();
 

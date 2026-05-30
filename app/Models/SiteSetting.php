@@ -22,6 +22,7 @@ class SiteSetting extends Model
         'linkedin_link',
         'youtube_link',
         'email',
+        'image',
         'information_officer_name_en',
         'information_officer_name_ne',
         'information_officer_contact_no',

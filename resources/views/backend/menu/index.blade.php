@@ -3,8 +3,20 @@
 @section('content')
     @php
         $menuItems = collect($menus ?? []);
-        $footerMenuItems = collect($footerMenus ?? []);
-        $UsefulLinksMenuItems = collect($UsefulLinksMenu ?? []);
+        $footerMenuItems = collect($footerMenus ?? [])
+            ->flatMap(fn($menu) => collect([$menu])->concat($menu->children ?? collect()))
+            ->map(function ($menu) {
+                $menu->setRelation('children', collect());
+                return $menu;
+            })
+            ->values();
+        $UsefulLinksMenuItems = collect($UsefulLinksMenu ?? [])
+            ->flatMap(fn($menu) => collect([$menu])->concat($menu->children ?? collect()))
+            ->map(function ($menu) {
+                $menu->setRelation('children', collect());
+                return $menu;
+            })
+            ->values();
     @endphp
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -200,7 +212,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">
                     <i class="fas fa-sitemap mr-2"></i>Draggable Menu Builder For <strong>Footer Company</strong>
                 </h6>
-                <p class="small text-muted mb-0 mt-1">Drag menu rows to reorder or nest them under a parent menu.</p>
+                <p class="small text-muted mb-0 mt-1">Drag menu rows to reorder them. This list supports single-level menus only.</p>
             </div>
             <span class="badge badge-pill badge-primary">{{ $footerMenuItems->count() }} Menus</span>
         </div>
@@ -212,7 +224,7 @@
                         <span class="menu-builder-icon">
                             <i class="fas fa-arrows-alt"></i>
                         </span>
-                        <span>Use the handle to drag. Maximum depth is 2 levels.</span>
+                        <span>Use the handle to drag. Maximum depth is 1 level.</span>
                     </div>
                     <textarea id="json-output" class="d-none" aria-hidden="true"></textarea>
                 </div>
@@ -364,7 +376,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">
                     <i class="fas fa-sitemap mr-2"></i>Draggable Menu Builder For <strong>Useful Links</strong>
                 </h6>
-                <p class="small text-muted mb-0 mt-1">Drag menu rows to reorder or nest them under a parent menu.</p>
+                <p class="small text-muted mb-0 mt-1">Drag menu rows to reorder them. This list supports single-level menus only.</p>
             </div>
             <span class="badge badge-pill badge-primary">{{ $UsefulLinksMenuItems->count() }} Menus</span>
         </div>
@@ -376,7 +388,7 @@
                         <span class="menu-builder-icon">
                             <i class="fas fa-arrows-alt"></i>
                         </span>
-                        <span>Use the handle to drag. Maximum depth is 2 levels.</span>
+                        <span>Use the handle to drag. Maximum depth is 1 level.</span>
                     </div>
                     <textarea id="json-output" class="d-none" aria-hidden="true"></textarea>
                 </div>
@@ -560,8 +572,12 @@
                 return;
             }
 
-            nestable.nestable({
+            $('#nestable').nestable({
                 maxDepth: 2
+            });
+
+            $('#nestable1, #nestable2').nestable({
+                maxDepth: 1
             });
 
             $('#nestable, #nestable1, #nestable2').on('change', function() {

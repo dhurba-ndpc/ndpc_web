@@ -3,16 +3,16 @@
 namespace App\Providers;
 
 use App\Models\Menu;
+use App\Models\SiteSetting;
 use App\Policies\PermissionPolicy;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
-    
     /**
      * Register any application services.
      */
@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         Paginator::useBootstrap();
+        Paginator::useBootstrap();
 
         // it is Maping multiple models to one policy spatie package
         foreach (getModels() as $model) {
@@ -58,37 +58,25 @@ class AppServiceProvider extends ServiceProvider
                 ->whereNull('parent_id')
                 ->whereNotIn('menu_location', ['header', 'useful_links'])
                 ->select('id', 'menu_name_en', 'menu_name_ne', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
-                ->with([
-                    'children' => function ($query) {
-                        $query
-                            ->select('id', 'menu_name_en', 'menu_name_ne', 'parent_id', 'external_link', 'page_template', 'slug', 'is_active', 'menu_location')
-                            ->whereNotIn('menu_location', ['header', 'useful_links'])
-                            ->orderBy('position', 'ASC');
-                    }
-                ])
                 ->orderBy('position', 'ASC')
                 ->get();
 
             View::share('footerMenus', $footerMenus);
 
-
             $UsefulLinksMenu = Menu::query()
                 ->whereNull('parent_id')
                 ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
                 ->select('id', 'menu_name_en', 'menu_name_ne', 'parent_id', 'external_link', 'page_template', 'position', 'is_active', 'slug', 'menu_location')
-                ->with([
-                    'children' => function ($query) {
-                        $query
-                            ->select('id', 'menu_name_en', 'menu_name_ne', 'parent_id', 'external_link', 'page_template', 'position', 'slug', 'is_active', 'menu_location')
-                            ->whereNotIn('menu_location', ['header', 'footer', 'header_footer'])
-                            ->orderBy('position', 'ASC');
-                    }
-                ])
                 ->orderBy('position', 'ASC')
                 ->get();
 
             View::share('UsefulLinksMenu', $UsefulLinksMenu);
-          
+
+            $site_setting_details = SiteSetting::query()
+                ->where('is_active', true)
+                ->first();
+
+            View::share('site_setting_details', $site_setting_details);
         }
     }
 }

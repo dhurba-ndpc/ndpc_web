@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg" id="navbar_overlay">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img class="white_logo" src="{{ asset('frontend/images/logo_white.png') }}" alt="">
-            <img class="dark_logo" src="{{ asset('frontend/images/logo_dark.png') }}" alt=""
+            <img class="white_logo" src="{{ asset('storage/' . ($site_setting_details->logo_2 ?? '')) }}" alt="">
+            <img class="dark_logo" src="{{ asset('storage/' . ($site_setting_details->logo_1 ?? '')) }}" alt=""
                 style="display: none;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">

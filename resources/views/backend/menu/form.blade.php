@@ -3,6 +3,8 @@
 @section('content')
     @php
         $selectedType = old('is_main_child', $data->is_main_child ?? 'parent_menu');
+        $selectedLocation = old('menu_location', $data->menu_location ?? 'header');
+        $isFooterOnlyLocation = in_array($selectedLocation, ['footer', 'header_footer', 'useful_links'], true);
         $hasNepaliError =
             $errors->has('menu_name_ne') ||
             $errors->has('page_title_ne') ||
@@ -110,13 +112,13 @@
                                                 class="form-control @error('menu_location') is-invalid @enderror">
                                                 @foreach ($menuLocations as $value => $label)
                                                     <option value="{{ $value }}"
-                                                        {{ old('menu_location', $data->menu_location ?? 'header') == $value ? 'selected' : '' }}>
+                                                        {{ $selectedLocation == $value ? 'selected' : '' }}>
                                                         {{ $label }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                             <input type="hidden" id="locked_menu_location" name="menu_location"
-                                                value="{{ old('menu_location', $data->menu_location ?? 'header') }}"
+                                                value="{{ $selectedLocation }}"
                                                 disabled>
                                         </div>
                                         @error('menu_location')
@@ -148,7 +150,8 @@
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6 {{ $isFooterOnlyLocation ? 'd-none' : '' }}"
+                                        id="menuTypeWrapper">
                                         <label for="is_main_child" class="small font-weight-bold text-dark">Menu
                                             Type</label>
                                         <div class="input-group">
@@ -170,7 +173,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-6 {{ $selectedType == 'child_menu' ? '' : 'd-none' }}"
+                                    <div class="form-group col-md-6 {{ $selectedType == 'child_menu' && !$isFooterOnlyLocation ? '' : 'd-none' }}"
                                         id="parentMenuWrapper">
                                         <label for="parent_id" class="small font-weight-bold text-dark">Parent Menu</label>
                                         <div class="input-group">
@@ -571,10 +574,25 @@
     <script>
         function toggleParentMenuField() {
             const $typeSelect = $('#is_main_child');
+            const $typeWrapper = $('#menuTypeWrapper');
             const $parentWrapper = $('#parentMenuWrapper');
             const $parentSelect = $('#parent_id');
             const $menuLocation = $('#menu_location');
             const $lockedMenuLocation = $('#locked_menu_location');
+            const isFooterOnlyLocation = ['footer', 'header_footer', 'useful_links'].includes($menuLocation.val());
+
+            if (isFooterOnlyLocation) {
+                $typeSelect.val('parent_menu');
+                $typeWrapper.addClass('d-none');
+                $parentWrapper.addClass('d-none menu-field-disabled');
+                $parentSelect.val('');
+                $menuLocation.prop('disabled', false);
+                $lockedMenuLocation.prop('disabled', true);
+                return;
+            }
+
+            $typeWrapper.removeClass('d-none');
+
             const isChild = $typeSelect.val() === 'child_menu';
             const parentLocation = $parentSelect.find(':selected').data('menu-location');
 
@@ -623,7 +641,7 @@
             reader.readAsDataURL(file);
         }
 
-        $('#is_main_child, #parent_id').on('change', toggleParentMenuField);
+        $('#is_main_child, #parent_id, #menu_location').on('change', toggleParentMenuField);
         toggleParentMenuField();
 
         document.querySelectorAll('.custom-file-input').forEach(function(input) {

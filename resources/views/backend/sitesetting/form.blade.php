@@ -138,7 +138,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="officer-tab" data-toggle="tab" href="#officer-panel"
+                                                <a class="nav-link {{ $errors->has('image') ? 'text-danger font-weight-bold' : '' }}" id="officer-tab" data-toggle="tab" href="#officer-panel"
                                                     role="tab" aria-controls="officer-panel" aria-selected="false">
                                                     <i class="fas fa-user-tie mr-1"></i> Information Officer
                                                 </a>
@@ -469,6 +469,35 @@
                                                                     @error('information_officer_name_ne')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row align-items-center mb-4">
+                                                            <div class="col-md-4 mb-3 mb-md-0">
+                                                                <label class="font-weight-bold text-dark d-block">Officer Image</label>
+                                                                <div class="site-logo-preview border rounded bg-light d-flex align-items-center justify-content-center mb-3">
+                                                                    <img id="informationOfficerImagePreview"
+                                                                        src="{{ $hasSetting && !empty($data->image) ? asset('storage/' . $data->image) : asset('backend/img/placeholder.jpg') }}"
+                                                                        alt="Information officer image preview"
+                                                                        class="img-fluid rounded"
+                                                                        style="{{ $hasSetting && !empty($data->image) ? '' : 'opacity: .55;' }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="form-group mb-0">
+                                                                    <label for="image" class="font-weight-bold text-dark">Upload Officer Image</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file" name="image" id="image"
+                                                                            class="custom-file-input @error('image') is-invalid @enderror"
+                                                                            accept="image/*"
+                                                                            onchange="previewSiteLogo(event, 'informationOfficerImagePreview')">
+                                                                        <label class="custom-file-label" for="image">Choose officer image...</label>
+                                                                        @error('image')
+                                                                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <small class="text-muted d-block mt-2">Recommended: clear portrait image in JPG, PNG, or WebP format.</small>
                                                                 </div>
                                                             </div>
                                                         </div>

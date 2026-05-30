@@ -11,6 +11,7 @@ use App\Models\CompanyGoal;
 use App\Models\EmployeeQuarter;
 use App\Models\FeatureAreas;
 use App\Models\Gallery;
+use App\Models\JobApplication;
 use App\Models\Menu;
 use App\Models\Notice;
 use App\Models\OurProduct;
@@ -21,11 +22,11 @@ use App\Models\TeamMember;
 use App\Models\TechnologySolutionCategory;
 use App\Models\TechnologySolutionSection;
 use App\Models\Testimonial;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    
     // waiting for develop
 
     public function index()
@@ -50,7 +51,10 @@ class FrontendController extends Controller
 
     public function defaultPage($slug)
     {
-        return view('frontend.default_page');
+        $menu_page = Menu::where('slug', $slug)->first();
+        return view('frontend.default_page', compact(
+            'menu_page'
+        ));
     }
 
     public function pageTemplate($slug)
@@ -184,18 +188,26 @@ class FrontendController extends Controller
                 ));
 
             case 'open-vacancy-position':
-                return view('frontend.vacancy');
+                $vacancies = Vacancy::where('is_active', true)->orderBy('id', 'desc')->get();
+                $menu = $menus;
+                return view('frontend.vacancy', compact(
+                    'vacancies',
+                    'menu'
+                ));
 
             case 'blogs':
                 $menu = $menus;
-                 $blogs = Blog::with('categories')->where('is_active', true)->orderBy('id', 'desc')->take(6)->paginate(8);
+                $blogs = Blog::with('categories')->where('is_active', true)->orderBy('id', 'desc')->take(6)->paginate(8);
                 return view('frontend.blogs', compact(
                     'blogs',
                     'menu'
                 ));
 
             case 'contact':
-                return view('frontend.contact');
+                $menu = $menus;
+                return view('frontend.contact', compact(
+                    'menu'
+                ));
 
             default:
                 abort(404);
@@ -256,6 +268,16 @@ class FrontendController extends Controller
         return view('frontend.gallery', compact(
             'album_name',
             'get_album_gallery',
+            'menu'
+        ));
+    }
+
+    public function jobDetail(string $slug)
+    {
+        $menu = Menu::where('page_template', 'open-vacancy-position')->first();
+        $jobdetail = Vacancy::where('slug', $slug)->first();
+        return view('frontend.job_detail', compact(
+            'jobdetail',
             'menu'
         ));
     }

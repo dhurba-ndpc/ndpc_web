@@ -63,6 +63,9 @@ class SiteSettingRequest extends FormRequest
                 : 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // Status
             'is_active' => 'nullable|boolean',
+            'image' => $this->isMethod('post')
+                ? 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
+                : 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ];
     }
 }

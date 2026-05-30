@@ -1,30 +1,24 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('frontend/images/page_top_banner.jpg') }}')">
+    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="top_banner_content">
                         <div class="row">
                             <div class="col-lg-12 justify-content-center d-flex">
-                                <h1>Contact Us</h1>
+                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
                             </div>
-                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <p>Welcome to our company! We are a team of dedicated professionals committed to providing
-                                    the best
-                                    services to our clients. Welcome to our company! We are a team of dedicated
-                                    professionals
-                                    committed to providing the best services to our clients.</p>
-                            </div> --}}
-                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> Contact Us</span>
-                            </div> --}}
+                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
+                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <section id="contact_page_wrapper">
         <div class="container">
@@ -33,53 +27,58 @@
                     <div class="col-lg-7">
                         <div class="contact_detial_wrapper">
                             <div class="contact_header_wrapper">
-                                <h1 class="section-title mb-3">Connect<span>&nbsp;With Us</span></h1>
-                                <p>Experience the future of seamless transactions. Corporate Nepal offers secure, instant,
-                                    and reliable digital payment solutions tailored for your business growth. Go cashless
-                                    today!</p>
+                                <h1 class="section-title mb-3">{!! app()->getLocale() == 'ne' ? 'हामीसँग <span>जोडिनुहोस्।</span>' : 'Connect<span>&nbsp;With Us</span>' !!}</h1>
+                                <p>
+                                    {!! $site_setting_details->{'connect_short_message_' . app()->getLocale()} ?:
+                                        $site_setting_details->connect_short_message_en !!}
+                                </p>
                             </div>
                             <div class="contact_detail_wrapper">
-                                <h3>Office Address</h3>
+                                <h3>{{ app()->getLocale() == 'ne' ? 'कार्यालय ठेगाना' : 'Office Address' }}</h3>
                                 <ul>
                                     <li><span class="bi bi-send-fill"></span>
-                                        Tripureshwor, Kathmandu, Nepal
+                                        {!! $site_setting_details->{'address_' . app()->getLocale()} ?: $site_setting_details->address_en !!}
                                     </li>
                                     <li><span class="bi bi-telephone-fill"></span>
-                                        +977-1-4117100, +977-1-4117200
+                                        {{ $site_setting_details->phone_1 ?? '' }} &nbsp;
+                                        {{ $site_setting_details->phone_2 ?? '' }}
                                     </li>
                                     <li>
                                         <span class="bi bi-phone-fill"></span>
-                                        +977-9800000000
+                                        {{ $site_setting_details->mobile_no_1 ?? '' }} &nbsp;
+                                        {{ $site_setting_details->mobile_no_2 ?? '' }}
                                     </li>
                                     <li>
                                         <span class="bi bi-geo-alt-fill"></span>
-                                        4416
+                                        {{ $site_setting_details->zipcode ?? '' }}
                                     </li>
                                 </ul>
                             </div>
                             <div class="google_map_wrapper">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.6564078069805!2d85.3135884!3d27.6970125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a6b438f1b5%3A0x96ee929f5203636b!2sNepal%20Digital%20Payments%20Company!5e0!3m2!1sen!2snp!4v1776232517895!5m2!1sen!2snp"
-                                    style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                {!! $site_setting_details->google_map ?? '' !!}
                             </div>
                             <div class="social_icon_wrapper">
                                 <div class="text_label">
-                                    <h3>Get In Touch With Us:</h3>
+                                    <h3>{{ app()->getLocale() == 'ne' ? 'हामीलाई सम्पर्क गर्नुहोस्' : 'Get In Touch With Us' }}:
+                                    </h3>
                                 </div>
                                 <div class="social_icon_list">
                                     <ul>
                                         <li>
-                                            <a href="  "><i class="bi bi-facebook"></i></a>
+                                            <a href="{{ $site_setting_details->facebook_link ?? '' }}"><i
+                                                    class="bi bi-facebook"></i></a>
                                         </li>
                                         <li>
-                                            <a href="  "><i class="bi bi-instagram"></i></a>
+                                            <a href="{{ $site_setting_details->instagram_link ?? '' }}"><i
+                                                    class="bi bi-instagram"></i></a>
                                         </li>
                                         <li>
-                                            <a href="  "><i class="bi bi-linkedin"></i></a>
+                                            <a href="{{ $site_setting_details->linkedin_link ?? '' }}"><i
+                                                    class="bi bi-linkedin"></i></a>
                                         </li>
                                         <li>
-                                            <a href="  "><i class="bi bi-youtube"></i></a>
+                                            <a href="{{ $site_setting_details->youtube_link ?? '' }}"><i
+                                                    class="bi bi-youtube"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,40 +87,61 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="contact_form_wrapper">
-                            <form action=" " method="POST" enctype="multipart/form-data">
+                            @if (session('success'))
+                                <div class="mb-4" role="status">
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span class="bi bi-check-circle-fill text-success" style="font-size: 1.15rem;"></span>
+                                        <div>
+                                            <strong style="color: var(--dark);">{{ app()->getLocale() == 'ne' ? 'सन्देश पठाइयो' : 'Message sent successfully' }}</strong>
+                                            <div class="small mt-1" style="color: var(--text-mid);">{{ session('success') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <form action="{{ route('contact-message.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label">{{ app()->getLocale() == 'ne' ? 'नाम' : 'Name' }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         id="name" name="name" value="{{ old('name') }}"
-                                        placeholder="Enter your name">
+                                        placeholder="{{ app()->getLocale() == 'ne' ? 'तपाईंको नाम लेख्नुहोस्' : 'Enter your name' }}">
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
+                                    <label for="email" class="form-label">{{ app()->getLocale() == 'ne' ? 'इमेल' : 'Email' }}</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                         id="email" name="email" value="{{ old('email') }}"
                                         placeholder="name@example.com">
-
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone</label>
-                                    <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                    <label for="phone" class="form-label">{{ app()->getLocale() == 'ne' ? 'फोन' : 'Phone' }}</label>
+                                    <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                         id="phone" name="phone" value="{{ old('phone') }}"
                                         placeholder="+977-9800000000">
-
+                                    @error('phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
+                                    <label for="message" class="form-label">{{ app()->getLocale() == 'ne' ? 'सन्देश' : 'Message' }}</label>
                                     <textarea placeholder="Write Message" class="form-control @error('message') is-invalid @enderror" id="message"
-                                        rows="3" name="message" value="{{ old('message') }}"></textarea>
-
+                                        rows="4" name="message">{{ old('message') }}</textarea>
+                                    @error('message')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 google_captcha_placeholder text-center">
                                     Captcha Placeholder
                                 </div>
 
                                 <div class="mb-3 text-center">
-                                    <button type="submit" class="btn btn-contact">Send Message &nbsp;
+                                    <button type="submit" class="btn btn-contact">{{ app()->getLocale() == 'ne' ? 'सन्देश पठाउनुहोस्' : 'Send Message' }} &nbsp;
                                         <span class="bi bi-send-fill"></span>
                                     </button>
                                 </div>
@@ -135,4 +155,3 @@
             </div>
     </section>
 @endsection
- 
