@@ -11,7 +11,6 @@ use App\Models\CompanyGoal;
 use App\Models\EmployeeQuarter;
 use App\Models\FeatureAreas;
 use App\Models\Gallery;
-use App\Models\JobApplication;
 use App\Models\Menu;
 use App\Models\Notice;
 use App\Models\OurProduct;
