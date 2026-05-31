@@ -98,7 +98,6 @@
                                     </div>
                                 @endif
 
-                                <p class="mvg-num">{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}</p>
                                 <h4 class="mvg-title">
                                     {{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}
                                 </h4>
