@@ -25,7 +25,7 @@
             <div class="container">
                 <div class="row">
                     @foreach ($album_detail as $album)
-                        <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="col-md-6 col-lg-4 col-xl-4">
                             <div class="album-card">
                                 <div class="album-thumb">
                                     <img src="{{ asset('storage/' . ($album->image ?? '')) }}" alt="Album thumbnail">
@@ -34,10 +34,10 @@
                                     <span class="album-label"> {{ app()->getLocale() == 'ne' ? 'एल्बम' : 'Album' }}
                                         ({{ $album->galleries->count() }}-photo)</span>
                                     <h5 class="album-title">
-                                        {{ $album->{'title_' . app()->getLocale()} ?: $album->title_en }}
+                                        {{ \Illuminate\Support\Str::words($album->{'title_' . app()->getLocale()} ?: $album->title_en, 3, '...') }}
                                     </h5>
                                     <div class="album-text">
-                                        {!! $album->{'description_' . app()->getLocale()} ?: $album->description_en !!}
+                                        {!! Str::words($album->{'description_' . app()->getLocale()} ?: $album->description_en, 28, '...') !!}
                                     </div>
                                     <a href="{{ route('gallery', $album->slug) }}" class="btn-album">Open Gallery <i
                                             class="bi bi-arrow-right"></i></a>

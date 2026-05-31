@@ -1,6 +1,38 @@
 @extends('backend.layout.main')
 
 @section('content')
+    <style>
+        .album-admin-table {
+            table-layout: fixed;
+        }
+
+        .album-admin-table th,
+        .album-admin-table td {
+            vertical-align: middle;
+        }
+
+        .album-admin-info,
+        .album-admin-description {
+            min-width: 0;
+        }
+
+        .album-admin-title,
+        .album-admin-slug,
+        .album-admin-description-preview {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+        }
+
+        .album-admin-description-preview {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-height: 1.5;
+            max-height: 3em;
+        }
+    </style>
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
             <h1 class="h3 mb-1 text-gray-800">Album Management</h1>
@@ -29,13 +61,14 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover album-admin-table" id="dataTable" width="100%"
+                    cellspacing="0">
                     <thead class="bg-light">
                         <tr class="text-dark">
                             <th width="5%">S.No</th>
                             <th width="12%">Image</th>
-                            <th>Album Information</th>
-                            <th>Description</th>
+                            <th width="26%">Album Information</th>
+                            <th width="33%">Description</th>
                             <th width="12%">Status</th>
                             <th width="12%" class="text-center">Action</th>
                         </tr>
@@ -57,21 +90,25 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td class="align-middle">
-                                    <div class="font-weight-bold text-dark">{{ $list->title_en }}</div>
+                                <td class="align-middle album-admin-info">
+                                    <div class="font-weight-bold text-dark album-admin-title">{{ $list->title_en }}</div>
                                     @if (!empty($list->title_en))
-                                        <div class="small text-muted">{{ $list->title_en }}</div>
+                                        <div class="small text-muted album-admin-title">{{ $list->title_en }}</div>
                                     @endif
-                                    <div class="small text-info mt-1">
+                                    <div class="small text-info mt-1 album-admin-slug">
                                         <i class="fas fa-link mr-1"></i>{{ $list->slug }}
                                     </div>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle album-admin-description">
                                     @if (!empty($list->description_en))
-                                        <div class="small text-dark">{!! \Illuminate\Support\Str::limit($list->description_en, 80) !!}</div>
+                                        <div class="small text-dark album-admin-description-preview">
+                                            {{ \Illuminate\Support\Str::limit(strip_tags($list->description_en), 110) }}
+                                        </div>
                                     @endif
                                     @if (!empty($list->description_ne))
-                                        <div class="small text-muted mt-1">{!! \Illuminate\Support\Str::limit($list->description_ne, 80) !!}</div>
+                                        <div class="small text-muted mt-1 album-admin-description-preview">
+                                            {{ \Illuminate\Support\Str::limit(strip_tags($list->description_ne), 110) }}
+                                        </div>
                                     @endif
                                     @if (empty($list->description_en) && empty($list->description_ne))
                                         <span class="text-muted small">No description</span>

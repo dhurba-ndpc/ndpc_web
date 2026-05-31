@@ -71,47 +71,43 @@
         <section class="mvg-section">
             <div class="prayer-flags"></div>
             <div class="container">
-                <div class="row">
+                <div class="row g-4">
                     <!-- Mission Vission and Goal -->
                     @foreach ($missionVission as $key => $mvg)
                         <div class="col-lg-4 col-md-6">
                             <div class="mvg-card">
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-3">
-                                        @php
-                                            $title = Str::lower($mvg->title_en);
-                                        @endphp
+                                @php
+                                    $title = Str::lower($mvg->title_en);
+                                @endphp
 
-                                        @if (Str::contains($title, 'mission'))
-                                            <div class="mvg-icon">
-                                                <i class="bi bi-hand-thumbs-up-fill"></i>
-                                            </div>
-                                        @elseif (Str::contains($title, 'vision'))
-                                            <div class="mvg-icon">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </div>
-                                        @elseif (Str::contains($title, 'goal'))
-                                            <div class="mvg-icon">
-                                                <i class="bi bi-bullseye"></i>
-                                            </div>
-                                        @else
-                                            <div class="mvg-icon">
-                                                <i class="bi bi-star-fill"></i>
-                                            </div>
-                                        @endif
+                                @if (Str::contains($title, 'mission'))
+                                    <div class="mvg-icon">
+                                        <i class="bi bi-hand-thumbs-up-fill"></i>
                                     </div>
-                                    <div class="col-lg-9 col-sm-9">
+                                @elseif (Str::contains($title, 'vision'))
+                                    <div class="mvg-icon">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </div>
+                                @elseif (Str::contains($title, 'goal'))
+                                    <div class="mvg-icon">
+                                        <i class="bi bi-bullseye"></i>
+                                    </div>
+                                @else
+                                    <div class="mvg-icon">
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                @endif
 
-                                        <p class="mvg-num">{{ $key + 1 }}</p>
-                                        <h4 class="mvg-title"> {{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}
-                                        </h4>
-                                        {{-- <p class="mvg-text">  --}}
-                                        {!! Str::limit(
-                                            $mvg->{'description_' . app()->getLocale()} ?: $mvg->description_en,
-                                            110,
-                                            '... <a class="mission-vission" href="' . url('/about') . '#mission-vision-goal">More</a>',
-                                        ) !!}
-                                    </div>
+                                <p class="mvg-num">{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}</p>
+                                <h4 class="mvg-title">
+                                    {{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}
+                                </h4>
+                                <div class="mvg-text">
+                                    {!! Str::limit(
+                                        $mvg->{'description_' . app()->getLocale()} ?: $mvg->description_en,
+                                        110,
+                                        '... <a class="mission-vission" href="' . url('/about') . '#mission-vision-goal">More</a>',
+                                    ) !!}
                                 </div>
                             </div>
                         </div>

@@ -46,7 +46,7 @@
                 </div>
                 <div class="row g-4">
                     @forelse ($get_album_gallery->galleries as $gallery)
-                        <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="col-md-6 col-lg-4 col-xl-4">
                             <div class="gallery-card">
                                 <a href="{{ asset('storage/' . ($gallery->image ?? '')) }}" data-lightbox="roadtrip"
                                     class="gallery-thumb-link">

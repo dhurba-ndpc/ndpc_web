@@ -22,7 +22,7 @@
     <section id="default_page_wrapper" class="default-page-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-11">
+                <div class="col-xl-12 col-lg-12">
                     <article class="default-page-card">
                         <div class="default-page-content">
                             {!! $menu_page?->{'content_' . app()->getLocale()} ?: $menu_page?->content_en !!}

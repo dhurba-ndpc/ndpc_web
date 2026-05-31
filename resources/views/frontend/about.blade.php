@@ -127,34 +127,37 @@
     @endif
     <!-- ══════════════ MISSION / VISION / GOAL ══════════════ -->
     @if ($missionVission->count() > 0)
-        <section class="mvg-section py-5" id="mission-vision-goal">
-            <div class="prayer-flags"></div>
+        <section class="about-mvg-section py-5" id="mission-vision-goal">
             <div class="container">
-                <div class="row">
-                    @foreach ($missionVission as $key => $mvg)
-                        <div class="col-lg-12 border_seperator">
-                            <div class="mvg-card about_mvg-card">
-                                <div class="row">
-                                    <div class="col-lg-4 {{ $key % 2 == 0 ? 'order-2' : '' }}  ">
-                                        <div class="mvg-images">
-                                            <img src="{{ asset('storage/' . $mvg->image) }}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8 {{ $key % 2 == 0 ? 'order-1 text-end' : '' }}">
+                <div class="about-mvg-heading text-center">
+                    <span>{{ app()->getLocale() == 'ne' ? 'रणनीतिक दिशा' : 'STRATEGIC DIRECTION' }}</span>
+                    <h2>{{ app()->getLocale() == 'ne' ? 'मिशन, भिजन र लक्ष्य' : 'Mission, Vision & Goal' }}</h2>
+                </div>
 
-                                        {{-- <p class="mvg-num">01</p> --}}
-                                        <h4 class="mvg-title">
-                                            {{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}</h4>
-                                        <b> {{ $mvg->{'subtitle_' . app()->getLocale()} ?: $mvg->subtitle_en }}</b>
-                                        <div class="mvg-text">
+                <div class="about-mvg-list">
+                    @foreach ($missionVission as $key => $mvg)
+                        <article class="about-mvg-item">
+                            <div class="row align-items-center g-4">
+                                <div class="col-lg-5 {{ $key % 2 == 0 ? 'order-lg-2' : '' }}">
+                                    <div class="about-mvg-image">
+                                        <img src="{{ asset('storage/' . $mvg->image) }}"
+                                            alt="{{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 {{ $key % 2 == 0 ? 'order-lg-1' : '' }}">
+                                    <div class="about-mvg-content {{ $key % 2 == 0 ? 'about-mvg-content-right' : '' }}">
+                                        <h3>{{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}</h3>
+                                        <p class="about-mvg-subtitle">
+                                            {{ $mvg->{'subtitle_' . app()->getLocale()} ?: $mvg->subtitle_en }}
+                                        </p>
+                                        <div class="about-mvg-text">
                                             {!! $mvg->{'description_' . app()->getLocale()} ?: $mvg->description_en !!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </article>
                     @endforeach
-
                 </div>
             </div>
         </section>
@@ -278,8 +281,18 @@
                 return;
             }
 
-            // Default center: middle of first three (index 1) if >=3, else 0
+            const nav = document.querySelector('.tc-nav');
+            const canSlide = items.length > 1;
             let current = items.length >= 3 ? 1 : 0;
+
+            if (nav) {
+                nav.hidden = !canSlide;
+            }
+
+            function setSlot(slotEl, visible) {
+                slotEl.innerHTML = '';
+                slotEl.classList.toggle('is-hidden', !visible);
+            }
 
             function cloneInto(slotEl, itemIdx, makeFocusable = false) {
                 slotEl.innerHTML = ''; // clear old
@@ -287,7 +300,7 @@
 
                 // Clicking avatar in any slot should re-center to THAT real index
                 const avatar = clone.querySelector('.tc-avatar');
-                if (avatar) {
+                if (avatar && canSlide) {
                     if (!avatar.getAttribute('href')) {
                         avatar.setAttribute('role', 'button');
                         avatar.setAttribute('tabindex', '0');
@@ -302,7 +315,7 @@
                 }
                 slotEl.appendChild(clone);
 
-                if (makeFocusable && avatar) {
+                if (makeFocusable && avatar && canSlide) {
                     requestAnimationFrame(() => {
                         avatar.focus({
                             preventScroll: true
@@ -313,12 +326,46 @@
 
             function render(centerIdx) {
                 if (!items.length) return;
-                current = wrap(centerIdx, items.length);
+                current = canSlide ? wrap(centerIdx, items.length) : 0;
+
+                if (items.length === 1) {
+                    setSlot(slotPrev, false);
+                    setSlot(slotCenter, true);
+                    setSlot(slotNext, false);
+                    cloneInto(slotCenter, 0, false);
+
+                    const desc = items[current].querySelector('.tc-desc');
+                    if (quoteEl) {
+                        quoteEl.textContent = desc ? desc.textContent.trim() : '';
+                    }
+
+                    return;
+                }
+
+                if (items.length === 2) {
+                    const nextIdx = wrap(current + 1, items.length);
+
+                    setSlot(slotPrev, false);
+                    setSlot(slotCenter, true);
+                    setSlot(slotNext, true);
+                    cloneInto(slotCenter, current, false);
+                    cloneInto(slotNext, nextIdx, false);
+
+                    const desc = items[current].querySelector('.tc-desc');
+                    if (quoteEl) {
+                        quoteEl.textContent = desc ? desc.textContent.trim() : '';
+                    }
+
+                    return;
+                }
 
                 const prevIdx = wrap(current - 1, items.length);
                 const nextIdx = wrap(current + 1, items.length);
 
                 // Fill fixed slots with CLONES so order is always prev / center / next
+                setSlot(slotPrev, true);
+                setSlot(slotCenter, true);
+                setSlot(slotNext, true);
                 cloneInto(slotPrev, prevIdx, false);
                 cloneInto(slotCenter, current, true);
                 cloneInto(slotNext, nextIdx, false);
@@ -331,11 +378,14 @@
             }
 
             // Controls (wrap-around → first/last also land center-active)
-            prevBtn.addEventListener('click', () => render(current - 1));
-            nextBtn.addEventListener('click', () => render(current + 1));
+            if (canSlide) {
+                prevBtn.addEventListener('click', () => render(current - 1));
+                nextBtn.addEventListener('click', () => render(current + 1));
+            }
 
             // Keyboard arrows
             document.addEventListener('keydown', (e) => {
+                if (!canSlide) return;
                 if (e.key === 'ArrowRight') render(current + 1);
                 if (e.key === 'ArrowLeft') render(current - 1);
             });
