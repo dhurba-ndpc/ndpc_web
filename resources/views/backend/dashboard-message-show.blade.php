@@ -1,6 +1,60 @@
 @extends('backend.layout.main')
 
 @section('content')
+    <style>
+        .dashboard-email-compose {
+            border: 0;
+            border-radius: .75rem;
+            overflow: hidden;
+        }
+
+        .dashboard-email-compose .card-header {
+            background: linear-gradient(135deg, #193980, #2f51a3);
+            border-bottom: 0;
+            color: #fff;
+        }
+
+        .dashboard-email-compose .card-header h6 {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .dashboard-email-compose .card-body {
+            background: #f8f9fc;
+        }
+
+        .dashboard-email-compose label {
+            color: #1f2d4d;
+            font-size: .78rem;
+            font-weight: 700;
+            margin-bottom: .45rem;
+        }
+
+        .dashboard-email-compose .form-control {
+            background: #fff;
+            border-color: #d9e2f1;
+            border-radius: .45rem;
+            color: #1f2d4d;
+        }
+
+        .dashboard-email-compose .form-control:focus {
+            border-color: #2f51a3;
+            box-shadow: 0 0 0 .15rem rgba(47, 81, 163, .12);
+        }
+
+        .dashboard-email-compose textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .dashboard-email-compose .email-recipient-box {
+            background: #fff;
+            border: 1px solid #e2e8f4;
+            border-radius: .5rem;
+            padding: .85rem;
+        }
+    </style>
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div>
             <h1 class="h3 mb-1 text-gray-800">{{ $messageType }}</h1>
@@ -60,36 +114,44 @@
         </div>
 
         <div class="col-lg-4 mb-4">
-            <div class="card shadow">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Send Email</h6>
+            <div class="card shadow dashboard-email-compose">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold">
+                        <i class="fas fa-envelope mr-2"></i>Send Email
+                    </h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form action="{{ route('dashboard.send-email') }}" method="POST">
                         @csrf
                         <input type="hidden" name="source_type"
                             value="{{ $recordType === 'contact_message' ? 'contact_message' : ($record->application_type === 'free_vacancy_application' ? 'free_apply' : 'open_vacancy') }}">
                         <input type="hidden" name="source_id" value="{{ $record->id }}">
                         <div class="form-group">
-                            <label>To</label>
-                            <input type="email" class="form-control" value="{{ $recipientEmail }}" readonly>
+                            <label class="text-uppercase">Recipient</label>
+                            <div class="email-recipient-box">
+                                <div class="font-weight-bold text-dark">{{ $recipientName }}</div>
+                                <div class="small text-muted">{{ $recipientEmail }}</div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
+                            <label for="subject" class="text-uppercase">Subject</label>
                             <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject"
-                                name="subject" value="{{ old('subject') }}">
+                                name="subject" value="{{ old('subject') }}" placeholder="Enter email subject">
                             @error('subject')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="6">{{ old('message') }}</textarea>
+                            <label for="message" class="text-uppercase">Message</label>
+                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="6"
+                                placeholder="Write your reply here...">{{ old('message') }}</textarea>
                             @error('message')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send Email</button>
+                        <button type="submit" class="btn btn-primary btn-block shadow-sm">
+                            <i class="fas fa-paper-plane mr-1"></i> Send Email
+                        </button>
                     </form>
                 </div>
             </div>

@@ -96,18 +96,61 @@ class FrontendController extends Controller
                     ->get()
                     ->values();
 
-                $currentData = $employee_quaters->first();
+                if ($employee_quaters->isNotEmpty()) {
+                    $today = now('Asia/Kathmandu');
+                    $monthDay = (int) $today->format('md');
 
-                $currentIndex = $employee_quaters->search(function ($item) use ($currentData) {
-                    return (int) $item->year === (int) $currentData->year &&
-                        (int) $item->quarter === (int) $currentData->quarter;
-                });
+                    if ($monthDay >= 715 && $monthDay <= 1017) {
+                        $currentFiscalYear = (int) $today->format('Y') + 57;
+                        $currentQuarter = 1;
+                    } elseif ($monthDay >= 1018 || $monthDay <= 114) {
+                        $currentFiscalYear = (int) $today->format('Y') + ($monthDay >= 1018 ? 57 : 56);
+                        $currentQuarter = 2;
+                    } elseif ($monthDay >= 115 && $monthDay <= 413) {
+                        $currentFiscalYear = (int) $today->format('Y') + 56;
+                        $currentQuarter = 3;
+                    } else {
+                        $currentFiscalYear = (int) $today->format('Y') + 56;
+                        $currentQuarter = 4;
+                    }
 
-                if ($currentIndex !== false) {
-                    $employee_quaters = $employee_quaters
-                        ->slice($currentIndex - 1)
-                        ->concat($employee_quaters->slice(0, $currentIndex - 1))
-                        ->values();
+                    $currentPeriod = ($currentFiscalYear * 4) + $currentQuarter;
+
+                    $centerIndex = $employee_quaters->search(function ($item) use ($currentFiscalYear, $currentQuarter) {
+                        return (int) $item->year === $currentFiscalYear &&
+                            (int) $item->quarter === $currentQuarter;
+                    });
+
+                    if ($centerIndex === false) {
+                        $centerIndex = $employee_quaters->search(function ($item) use ($currentPeriod) {
+                            return (((int) $item->year * 4) + (int) $item->quarter) <= $currentPeriod;
+                        });
+                    }
+
+                    if ($centerIndex === false) {
+                        $centerIndex = 0;
+                    }
+
+                    if ($employee_quaters->count() === 2) {
+                        $employee_quaters = collect([
+                            $employee_quaters[$centerIndex],
+                            $employee_quaters[$centerIndex === 0 ? 1 : 0],
+                        ])->values();
+                    } elseif ($employee_quaters->count() > 2) {
+                        $previousIndex = $centerIndex === $employee_quaters->count() - 1 ? 0 : $centerIndex + 1;
+                        $lastPreviousIndex = $previousIndex === $employee_quaters->count() - 1 ? 0 : $previousIndex + 1;
+
+                        $fixedIndexes = [$lastPreviousIndex, $centerIndex, $previousIndex];
+                        $employee_quaters = collect([
+                            $employee_quaters[$lastPreviousIndex],
+                            $employee_quaters[$centerIndex],
+                            $employee_quaters[$previousIndex],
+                        ])
+                            ->concat($employee_quaters->reject(function ($item, $index) use ($fixedIndexes) {
+                                return in_array($index, $fixedIndexes, true);
+                            }))
+                            ->values();
+                    }
                 }
 
                 return view('frontend.employee_quaterly', compact(

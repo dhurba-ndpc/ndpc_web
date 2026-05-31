@@ -58,7 +58,7 @@
 
                                         <!-- Heading -->
                                         <p class="eq-title">
-                                            <i class="bi bi-trophy-fill me-1" style="color:#f5c842 !important;"></i>
+                                             
                                             {{ $list->{'employee_quarter_title_' . app()->getLocale()} ?: $list->employee_quarter_title_en }}
                                         </p>
 
@@ -107,11 +107,11 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
+            const carousel = document.querySelector('.employee_quarter_tcl');
             const source = document.getElementById('tcSource');
 
-            if (!source) {
-                console.warn('tcSource not found in DOM.');
+            if (!carousel || !source) {
+                console.warn('Employee quarter carousel: required elements missing.');
                 return;
             }
 
@@ -124,38 +124,43 @@
 
             const wrap = (i, len) => (i % len + len) % len;
 
-            const slotPrev = document.getElementById('slotPrev');
-            const slotCenter = document.getElementById('slotCenter');
-            const slotNext = document.getElementById('slotNext');
+            const slotPrev = carousel.querySelector('#slotPrev');
+            const slotCenter = carousel.querySelector('#slotCenter');
+            const slotNext = carousel.querySelector('#slotNext');
 
-            const prevBtn = document.querySelector('.tc-prev');
-            const nextBtn = document.querySelector('.tc-next');
+            const prevBtn = carousel.querySelector('.tc-prev');
+            const nextBtn = carousel.querySelector('.tc-next');
 
             if (!slotPrev || !slotCenter || !slotNext || !prevBtn || !nextBtn) {
-                console.warn('Testimonial carousel: required elements missing.');
+                console.warn('Employee quarter carousel: required controls missing.');
                 return;
             }
 
+            const nav = carousel.querySelector('.tc-nav');
+            const canSlide = items.length > 1;
             let current = items.length >= 3 ? 1 : 0;
 
-            function cloneInto(slotEl, itemIdx, isActive = false, makeFocusable = false) {
+            if (nav) {
+                nav.hidden = !canSlide;
+            }
 
+            function setSlot(slotEl, visible) {
                 slotEl.innerHTML = '';
+                slotEl.classList.toggle('is-hidden', !visible);
+            }
 
+            function cloneInto(slotEl, itemIdx, isActive = false, makeFocusable = false) {
                 const clone = items[itemIdx].cloneNode(true);
 
-                // remove old active class first
                 clone.classList.remove('active');
 
-                // add active class only to center item
                 if (isActive) {
                     clone.classList.add('active');
                 }
 
                 const avatar = clone.querySelector('.tc-avatar_quater');
 
-                if (avatar) {
-
+                if (avatar && canSlide) {
                     if (!avatar.getAttribute('href')) {
                         avatar.setAttribute('role', 'button');
                         avatar.setAttribute('tabindex', '0');
@@ -175,7 +180,7 @@
 
                 slotEl.appendChild(clone);
 
-                if (makeFocusable && avatar) {
+                if (makeFocusable && avatar && canSlide) {
                     requestAnimationFrame(() => {
                         avatar.focus({
                             preventScroll: true
@@ -188,32 +193,45 @@
 
                 if (!items.length) return;
 
-                current = wrap(centerIdx, items.length);
+                current = canSlide ? wrap(centerIdx, items.length) : 0;
+
+                if (items.length === 1) {
+                    setSlot(slotPrev, false);
+                    setSlot(slotCenter, true);
+                    setSlot(slotNext, false);
+                    cloneInto(slotCenter, 0, true, false);
+                    return;
+                }
+
+                if (items.length === 2) {
+                    const nextIdx = wrap(current + 1, items.length);
+
+                    setSlot(slotPrev, false);
+                    setSlot(slotCenter, true);
+                    setSlot(slotNext, true);
+                    cloneInto(slotCenter, current, true, false);
+                    cloneInto(slotNext, nextIdx, false, false);
+                    return;
+                }
 
                 const prevIdx = wrap(current - 1, items.length);
                 const nextIdx = wrap(current + 1, items.length);
 
-                // prev
+                setSlot(slotPrev, true);
+                setSlot(slotCenter, true);
+                setSlot(slotNext, true);
                 cloneInto(slotPrev, prevIdx, false);
-
-                // center with active class
                 cloneInto(slotCenter, current, true, true);
-
-                // next
                 cloneInto(slotNext, nextIdx, false);
-
-                const desc = items[current].querySelector('.tc-desc');
-
-                if (quoteEl) {
-                    quoteEl.textContent = desc ? desc.textContent.trim() : '';
-                }
             }
 
-            prevBtn.addEventListener('click', () => render(current - 1));
-
-            nextBtn.addEventListener('click', () => render(current + 1));
+            if (canSlide) {
+                prevBtn.addEventListener('click', () => render(current - 1));
+                nextBtn.addEventListener('click', () => render(current + 1));
+            }
 
             document.addEventListener('keydown', (e) => {
+                if (!canSlide) return;
 
                 if (e.key === 'ArrowRight') {
                     render(current + 1);
