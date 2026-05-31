@@ -10,85 +10,64 @@
         $publishedDate = optional($blog->created_at ?? $blog->updated_at)->format('M d, Y');
     @endphp
 
-    <section class="blog-editorial-hero">
+    <section class="blog-single-page-header">
         <div class="container">
-            <div class="blog-path">
-                <a href="{{ url('/') }}">Home</a>
-                <i class="bi bi-chevron-right"></i>
-                <a href="{{ url('/blogs') }}">Blogs</a>
-                <i class="bi bi-chevron-right"></i>
-                <span>Story</span>
-            </div>
-
-            <div class="blog-hero-grid">
-                <div class="blog-hero-copy">
-                    <p class="blog-journal-label">NDPC Journal</p>
-
+            <div class="blog-single-page-header-inner">
+                <p>NDPC Journal</p>
+                <h1>{{ $blogTitle }}</h1>
+                <div class="blog-single-header-meta">
                     @if ($blog->categories->count())
-                        <div class="blog-category-row">
+                        <div class="blog-single-header-categories">
                             @foreach ($blog->categories as $cats)
-                                <span class="blog_cat_list_name">
+                                <span>
                                     {{ $cats->{'title_' . app()->getLocale()} ?: $cats->title_en }}
                                 </span>
                             @endforeach
                         </div>
                     @endif
 
-                    <h1>{{ $blogTitle }}</h1>
-
-                    <div class="blog-post-meta">
+                    <div class="blog-single-header-details">
                         <span><i class="bi bi-person-fill"></i>{{ $blogAuthor }}</span>
                         @if ($publishedDate)
                             <span><i class="bi bi-calendar"></i>{{ $publishedDate }}</span>
                         @endif
                     </div>
                 </div>
-
-                <figure class="blog-hero-media">
-                    <div class="blog-hero-image-frame">
-                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blogTitle }}">
-                    </div>
-                </figure>
             </div>
         </div>
     </section>
 
-    <section class="blog-page blog-single-page">
+    <section class="blog-single-modern">
         <div class="container">
-            <div class="blog-reading-grid">
-                <aside class="blog-reading-rail">
-                    @if ($blog->categories->count())
-                        <div class="blog-rail-panel">
-                            <p class="blog-rail-label">Topics</p>
-                            <div class="blog-topic-list">
-                                @foreach ($blog->categories as $cats)
-                                    <span>{{ $cats->{'title_' . app()->getLocale()} ?: $cats->title_en }}</span>
-                                @endforeach
+            <article class="blog-single-shell">
+                <figure class="blog-single-image">
+                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blogTitle }}">
+                </figure>
+
+                <div class="blog-single-content ck-blog-content">
+                    {!! $blogDescription !!}
+                </div>
+            </article>
+
+            @if ($recentBlog->count())
+                <section class="blog-single-related">
+                    <div class="blog-single-related-head">
+                        <span>More Reads</span>
+                        <h2>Recent Articles</h2>
+                    </div>
+                    <div class="row g-4">
+                        @foreach ($recentBlog->take(3) as $list)
+                            <div class="col-lg-4 col-md-6">
+                                <a href="{{ route('blog-single', $list->slug) }}" class="blog-related-card">
+                                    <img src="{{ asset('storage/' . $list->image) }}"
+                                        alt="{{ $list->{'title_' . app()->getLocale()} ?: $list->title_en }}">
+                                    <span>{{ $list->{'title_' . app()->getLocale()} ?: $list->title_en }}</span>
+                                </a>
                             </div>
-                        </div>
-                    @endif
-
-                    <div class="blog-rail-panel blog-recent-panel">
-                        <p class="blog-rail-label">Recent Reads</p>
-                        <ul class="recent-list">
-                            @foreach ($recentBlog as $list)
-                                <li>
-                                    <a href="{{ route('blog-single', $list->slug) }}">
-                                        <img src="{{ asset('storage/' .$list->image) }}" alt="Digital payment blog">
-                                        <span>  {{ $list->{'title_' . app()->getLocale()} ?: $list->title_en }}</span>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @endforeach
                     </div>
-                </aside>
-
-                <article class="blog-story">
-                    <div class="blog-content ck-blog-content">
-                        {!! $blogDescription !!}
-                    </div>
-                </article>
-            </div>
+                </section>
+            @endif
         </div>
     </section>
 @endsection
