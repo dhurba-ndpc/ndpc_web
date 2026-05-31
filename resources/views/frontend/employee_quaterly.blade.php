@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                     
+
                     <div id="tcSource" hidden="">
                         @foreach ($employee_quaters as $key => $list)
                             <div class="tc-item" data-index="{{ $key }}">
@@ -58,7 +58,7 @@
 
                                         <!-- Heading -->
                                         <p class="eq-title">
-                                             
+
                                             {{ $list->{'employee_quarter_title_' . app()->getLocale()} ?: $list->employee_quarter_title_en }}
                                         </p>
 
