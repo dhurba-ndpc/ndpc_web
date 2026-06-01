@@ -2,8 +2,8 @@
     <div class="col-md-6 col-lg-4">
         <div class="notice-card">
             <div class="notice-card_title_wrap">
-                <span class="tag">{{ $notice->{'badge_title_' . app()->getLocale()} ?: $notice->badge_title_en }}</span>
-                <h5>{{ $notice->{'title_' . app()->getLocale()} ?: $notice->title_en }}</h5>
+                <span class="tag">{{ $notice->{'badge_title_' . app()->getLocale()} ?? $notice->badge_title_en ?? '' }}</span>
+                <h5>{{ $notice->{'title_' . app()->getLocale()} ?? $notice->title_en ?? '' }}</h5>
             </div>
             <div class="notice-footer">
                 <span><i class="bi bi-calendar-fill"></i>&nbsp;{{ $notice->created_at?->diffForHumans() }}</span>

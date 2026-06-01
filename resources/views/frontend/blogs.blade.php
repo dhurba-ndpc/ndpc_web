@@ -1,25 +1,8 @@
 @extends('frontend.layout.main')
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     <!-- ══════════════ NEWS / BLOGS ══════════════ -->
+   @if(!empty($blogs) && $blogs->count() > 0)
     <section class="news-section" id="innerPageBlogs">
         <div class="dots-pattern"></div>
         <div class="circular_floting_circle"></div>
@@ -32,17 +15,17 @@
                 @foreach ($blogs as $blog)
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="news-card">
-                            <img src="{{ asset('storage/' . $blog->image) }}" alt="Blog 1">
+                            <img src="{{ asset('storage/' . ($blog->image ?? '')) }}" alt="Blog 1">
                             <div class="news-body">
                                 <p class="news-meta"><i
                                         class="bi bi-clock me-1"></i>{{ $blog->created_at?->diffForHumans() }}</p>
                                 <h6 class="news-heading">
                                     <a href="{{ route('blog-single', $blog->slug) }}">
-                                        {{ $blog->{'title_' . app()->getLocale()} ?: $blog->title_en }}
+                                        {{ $blog->{'title_' . app()->getLocale()} ?? $blog->title_en ?? '' }}
                                     </a>
                                 </h6>
                                 <div class="news-excerpt">
-                                   {!! Str::limit(strip_tags($blog->{'description_' . app()->getLocale()} ?: $blog->description_en), 120) !!}
+                                   {!! Str::limit(strip_tags($blog->{'description_' . app()->getLocale()} ?? $blog->description_en ?? ''), 120) !!}
                                 </div>
                             </div>
                             <div class="news-footer">
@@ -94,4 +77,5 @@
             </div>
         </div>
     </section>
+    @endif
 @endsection

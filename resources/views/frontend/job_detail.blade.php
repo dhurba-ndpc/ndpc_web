@@ -11,25 +11,7 @@
         $successTitle = session('success_title', 'Application submitted successfully');
         $successMessage = session('success_message', 'Your application has been sent to our administration team for review.');
     @endphp
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }} {{ app()->getLocale() == 'ne' ? '-विस्तृत विवरण' : '-Detail' }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
 
     <section id="job_description_container_wrapper">
         <div class="container">
@@ -53,7 +35,7 @@
                                                 NDPC
                                                 <i class="bi bi-patch-check-fill verified-icon"></i>
                                             </div>
-                                            <h1 class="jd-title">{{ $jobdetail->{'title_' . app()->getLocale()} ?: $jobdetail->title_en }}</h1>
+                                            <h1 class="jd-title">{{ $jobdetail->{'title_' . app()->getLocale()} ?? $jobdetail->title_en ?? '' }}</h1>
                                         </div>
                                     </div>
  
@@ -79,7 +61,7 @@
 
                                 <!-- Tagline -->
                                 <div class="jd-tagline">
-                                    {{ $jobdetail->{'short_description_' . app()->getLocale()} ?: $jobdetail->short_description_en }}
+                                    {{ $jobdetail->{'short_description_' . app()->getLocale()} ?? $jobdetail->short_description_en ?? '' }}
                                 </div>
 
                                 <!-- CTA Buttons -->

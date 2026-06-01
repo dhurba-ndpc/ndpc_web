@@ -1,27 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> About Us</span>
-                            </div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     @if ($product !== null)
         <section class="section-about" id="about_products">
             <div class="container">
@@ -29,11 +9,11 @@
                     <!-- Text -->
                     <div class="col-lg-5">
                         <span class="know-badge">
-                            {{ $product->{'badge_title_' . app()->getLocale()} ?: $product->badge_title_en }}</span>
+                            {{ $product->{'badge_title_' . app()->getLocale()} ?? $product->badge_title_en ?? '' }}</span>
                         <h1 class="section-title mb-3 last_word_span_by_js">
-                            {{ $product->{'title_' . app()->getLocale()} ?: $product->title_en }}</h1>
+                            {{ $product->{'title_' . app()->getLocale()} ?? $product->title_en ?? '' }}</h1>
                         <div class="about-text mb-3">
-                            {!! $product->{'description_' . app()->getLocale()} ?: $product->description_en !!}
+                            {!! $product->{'description_' . app()->getLocale()} ?? $product->description_en ?? '' !!}
                         </div>
 
                     </div>
@@ -48,7 +28,7 @@
                             <div class="trusted-badge glass-panel">
                                 <i class="bi bi-shield-fill-check"></i>
                                 <span class="glass_badge_text">
-                                    {!! $product->{'glass_text_' . app()->getLocale()} ?: $product->glass_text_en !!}
+                                    {!! $product->{'glass_text_' . app()->getLocale()} ?? $product->glass_text_en ?? '' !!}
                                 </span>
                             </div>
                         </div>
@@ -67,7 +47,7 @@
                     <p class="news-label mb-0"> {{ app()->getLocale() == 'ne' ? 'उत्पादनहरू' : 'Products' }}</p>
                     <h2 class="news-title mb-1"> {{ app()->getLocale() == 'ne' ? 'हाम्रो समाधान' : 'Our Solutions' }}</h2>
                     <div class="main-desc mb-5">
-                        {{ $section_title->{'title_' . app()->getLocale()} ?: $section_title->title_en }}
+                        {{ $section_title->{'title_' . app()->getLocale()} ?? $section_title->title_en ?? '' }}
                     </div>
                 </div>
 
@@ -78,7 +58,7 @@
                         <li class="nav-item">
                             <button class="nav-link {{ $key === 0 ? 'active' : '' }}" data-bs-toggle="tab"
                                 data-bs-target="#tab{{ $key }}">
-                                {{ $categries->{'title_' . app()->getLocale()} ?: $categries->title_en }}
+                                {{ $categries->{'title_' . app()->getLocale()} ?? $categries->title_en ?? '' }}
                             </button>
                         </li>
                     @endforeach
@@ -89,7 +69,8 @@
                     <select class="form-select" id="tabDropdown">
                         @foreach ($tech_detail as $key => $categries)
                             <option value="#tab{{ $key }}" {{ $key === 0 ? 'selected' : '' }}>
-                                {{ $categries->{'title_' . app()->getLocale()} ?: $categries->title_en }}</option>
+                                {{ $categries->{'title_' . app()->getLocale()} ?? $categries->title_en ?? '' }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -113,7 +94,7 @@
                                             <div class="trusted-badge glass-panel">
                                                 <i class="bi bi-shield-fill-check"></i>
                                                 <span class="glass_badge_text">
-                                                    {{ $item->{'glass_text_' . app()->getLocale()} ?: $item->glass_text_en }}
+                                                    {{ $item->{'glass_text_' . app()->getLocale()} ?? $item->glass_text_en ?? '' }}
                                                 </span>
                                             </div>
                                         </div>
@@ -123,9 +104,9 @@
                                     <div class="col-lg-6 offset-lg-1">
 
                                         <h3 class="content-title">
-                                            {{ $item->{'title_' . app()->getLocale()} ?: $item->title_en }}</h3>
+                                            {{ $item->{'title_' . app()->getLocale()} ?? $item->title_en ?? '' }}</h3>
                                         <div class="content-desc">
-                                            {!! $item->{'short_description_' . app()->getLocale()} ?: $item->short_description_en !!}
+                                            {!! $item->{'short_description_' . app()->getLocale()} ?? $item->short_description_en ?? '' !!}
                                         </div>
 
                                         {{-- <button class="btn btn-outline-primary mb-4">Discover More</button> --}}
@@ -135,11 +116,11 @@
 
                                             <div class="mb-3">
                                                 <strong>
-                                                    {{ $item->{'use_case_title_' . app()->getLocale()} ?: $item->use_case_title_en }}</strong>
+                                                    {{ $item->{'use_case_title_' . app()->getLocale()} ?? $item->use_case_title_en ?? '' }}</strong>
                                             </div>
 
                                             <div class="small text-muted">
-                                                {!! $item->{'use_case_description_' . app()->getLocale()} ?: $item->use_case_description_en !!}
+                                                {!! $item->{'use_case_description_' . app()->getLocale()} ?? $item->use_case_description_en ?? '' !!}
                                             </div>
 
                                             <div class="row text-center mt-4">
@@ -147,25 +128,26 @@
                                                     <div class="score_counter">
                                                         <h4>{{ $item->stat_one_value }}</h4>
                                                         <small>
-                                                            {{ $item->{'stat_one_label_' . app()->getLocale()} ?: $item->stat_one_label_en }}</small>
+                                                            {{ $item->{'stat_one_label_' . app()->getLocale()} ?? $item->stat_one_label_en ?? '' }}
+                                                        </small>
                                                     </div>
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <div class="score_counter">
                                                         <h4>{{ $item->stat_two_value }}</h4>
-                                                        {{ $item->{'stat_two_label_' . app()->getLocale()} ?: $item->stat_two_label_en }}
+                                                        {{ $item->{'stat_two_label_' . app()->getLocale()} ?? $item->stat_two_label_en ?? '' }}
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="score_counter">
                                                         <h4>{{ $item->stat_three_value }}</h4>
-                                                        {{ $item->{'stat_three_label_' . app()->getLocale()} ?: $item->stat_three_label_en }}
+                                                        {{ $item->{'stat_three_label_' . app()->getLocale()} ?? $item->stat_three_label_en ?? '' }}
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="score_counter">
                                                         <h4>{{ $item->stat_four_value }}</h4>
-                                                        {{ $item->{'stat_four_label_' . app()->getLocale()} ?: $item->stat_four_label_en }}
+                                                        {{ $item->{'stat_four_label_' . app()->getLocale()} ?? $item->stat_four_label_en ?? '' }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,10 +181,11 @@
                                 <div class="service-header">
                                     <i class="{{ $service->bootstrap_icon ?? '' }} service-icon"></i>
                                     <h4 class="service-title">
-                                        {{ $service->{'title_' . app()->getLocale()} ?: $service->title_en }}</h4>
+                                        {{ $service->{'title_' . app()->getLocale()} ?? $service->title_en ?? '' }}
+                                    </h4>
                                 </div>
                                 <div class="service-text">
-                                    {!! $service->{'description_' . app()->getLocale()} ?: $service->description_en !!}
+                                    {!! $service->{'description_' . app()->getLocale()} ?? $service->description_en ?? '' !!}
                                 </div>
                             </div>
                         </div>
@@ -227,9 +210,10 @@
                                     <i class="{{ $feature->bootstrap_icon ?? '' }}"></i>
                                 </div>
                                 <h4 class="feature-title">
-                                    {{ $feature->{'title_' . app()->getLocale()} ?: $feature->title_en }}</h4>
+                                    {{ $feature->{'title_' . app()->getLocale()} ?? $feature->title_en ?? '' }}
+                                </h4>
                                 <div class="feature-text">
-                                    {!! $feature->{'description_' . app()->getLocale()} ?: $feature->description_en !!}
+                                    {!! $feature->{'description_' . app()->getLocale()} ?? $feature->description_en ?? '' !!}
                                 </div>
                             </div>
                         </div>
@@ -249,10 +233,11 @@
 
                         <div class="card-body p-5">
                             <h6 class="text-blue fw-bold mb-2">
-                                {{ $promotion_text->{'badge_title_' . app()->getLocale()} ?: $promotion_text->badge_title_en }}
+                                {{ $promotion_text->{'badge_title_' . app()->getLocale()} ?? $promotion_text->badge_title_en ?? '' }}
                             </h6>
                             <h1 class="main-title fw-bold">
-                                {{ $promotion_text->{'title_' . app()->getLocale()} ?: $promotion_text->title_en }}</h1>
+                                {{ $promotion_text->{'title_' . app()->getLocale()} ?? $promotion_text->title_en ?? '' }}
+                            </h1>
                         </div>
 
                         <a href="{{ url('about') }}" class="btn btn-pill-cta ">

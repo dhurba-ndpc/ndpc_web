@@ -1,28 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> About Us</span>
-                            </div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
 
     <section id="employee_quater_wrapper">
 
@@ -59,7 +38,7 @@
                                         <!-- Heading -->
                                         <p class="eq-title">
 
-                                            {{ $list->{'employee_quarter_title_' . app()->getLocale()} ?: $list->employee_quarter_title_en }}
+                                            {{ $list->{'employee_quarter_title_' . app()->getLocale()} ?? $list->employee_quarter_title_en ?? '' }}
                                         </p>
 
                                         <!-- Avatar -->
@@ -69,13 +48,13 @@
 
                                         <!-- Name -->
                                         <p class="eq-name">
-                                            {{ $list->{'name_' . app()->getLocale()} ?: $list->name_en }}
+                                            {{ $list->{'name_' . app()->getLocale()} ?? $list->name_en ?? '' }}
                                         </p>
 
                                         <!-- Role -->
                                         <p class="eq-role">
                                             <i class="bi bi-briefcase-fill me-1"></i>
-                                            {{ $list->{'designation_' . app()->getLocale()} ?: $list->designation_en }}
+                                            {{ $list->{'designation_' . app()->getLocale()} ?? $list->designation_en ?? '' }}
                                         </p>
 
                                         <!-- Quarter badge -->
@@ -89,7 +68,7 @@
 
                                         <!-- Message -->
                                         <div class="eq-message">
-                                            {!! $list->{'description_' . app()->getLocale()} ?: $list->description_en !!}
+                                            {!! $list->{'description_' . app()->getLocale()} ?? $list->description_en ?? '' !!}
                                         </div>
 
                                     </div>

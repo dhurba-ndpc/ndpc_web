@@ -1,25 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     <section id="contact_page_wrapper">
         <div class="container">
             <div class="inner_contact_background_wrapper">
@@ -29,34 +11,43 @@
                             <div class="contact_header_wrapper">
                                 <h1 class="section-title mb-3">{!! app()->getLocale() == 'ne' ? 'हामीसँग <span>जोडिनुहोस्।</span>' : 'Connect<span>&nbsp;With Us</span>' !!}</h1>
                                 <p>
-                                    {!! $site_setting_details->{'connect_short_message_' . app()->getLocale()} ?:
-                                        $site_setting_details->connect_short_message_en !!}
+                                    {!! $site_setting_details->{'connect_short_message_' . app()->getLocale()} ??
+                                        $site_setting_details->connect_short_message_en ?? '' !!}
                                 </p>
                             </div>
                             <div class="contact_detail_wrapper">
                                 <h3>{{ app()->getLocale() == 'ne' ? 'कार्यालय ठेगाना' : 'Office Address' }}</h3>
                                 <ul>
+                                    @if(!empty($site_setting_details->{'address_' . app()->getLocale()} ?? $site_setting_details->address_en ?? ''))
                                     <li><span class="bi bi-send-fill"></span>
-                                        {!! $site_setting_details->{'address_' . app()->getLocale()} ?: $site_setting_details->address_en !!}
+                                        {!! $site_setting_details->{'address_' . app()->getLocale()} ?? $site_setting_details->address_en ?? '' !!}
                                     </li>
+                                    @endif
+                                    @if(!empty($site_setting_details->phone_1) || !empty($site_setting_details->phone_2))
                                     <li><span class="bi bi-telephone-fill"></span>
                                         {{ $site_setting_details->phone_1 ?? '' }} &nbsp;
                                         {{ $site_setting_details->phone_2 ?? '' }}
                                     </li>
+                                    @endif
+                                    @if(!empty($site_setting_details->mobile_no_1) || !empty($site_setting_details->mobile_no_2))
                                     <li>
                                         <span class="bi bi-phone-fill"></span>
                                         {{ $site_setting_details->mobile_no_1 ?? '' }} &nbsp;
                                         {{ $site_setting_details->mobile_no_2 ?? '' }}
                                     </li>
+                                    @endif
+                                    @if(!empty($site_setting_details->zipcode))
                                     <li>
                                         <span class="bi bi-geo-alt-fill"></span>
                                         {{ $site_setting_details->zipcode ?? '' }}
                                     </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="google_map_wrapper">
                                 {!! $site_setting_details->google_map ?? '' !!}
                             </div>
+                            @if(!empty($site_setting_details->facebook_link) || !empty($site_setting_details->instagram_link) || !empty($site_setting_details->linkedin_link) || !empty($site_setting_details->youtube_link))
                             <div class="social_icon_wrapper">
                                 <div class="text_label">
                                     <h3>{{ app()->getLocale() == 'ne' ? 'हामीलाई सम्पर्क गर्नुहोस्' : 'Get In Touch With Us' }}:
@@ -83,6 +74,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-5">

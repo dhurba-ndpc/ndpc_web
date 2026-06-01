@@ -1,32 +1,11 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                            {{-- <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                <span>Home -> About Us</span>
-                            </div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+    @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     <!-- ══════════════ ABOUT ══════════════ -->
     @if ($about !== null)
         @php
-            $description = $about->{'description_' . app()->getLocale()} ?: $about->description_en;
+            $description = $about->{'description_' . app()->getLocale()} ?? $about->description_en ?? '';
             preg_match_all('/<p\b[^>]*>.*?<\/p>/is', $description, $paragraphs);
             $paragraphs = $paragraphs[0] ?? [];
             $firstParagraphs = [];
@@ -54,9 +33,9 @@
                     <!-- Text -->
                     <div class="col-lg-5">
                         <span
-                            class="know-badge">{{ $about->{'badge_text_' . app()->getLocale()} ?: $about->badge_text_en }}</span>
+                            class="know-badge">{{ $about->{'badge_text_' . app()->getLocale()} ?? $about->badge_text_en ?? '' }}</span>
                         <h1 class="section-title mb-3 last_word_span_by_js">
-                            {{ $about->{'title_' . app()->getLocale()} ?: $about->title_en }}</h1>
+                            {{ $about->{'title_' . app()->getLocale()} ?? $about->title_en ?? '' }}</h1>
                         <div class="about-text mb-3">
                             {!! $firstPart !!}
                         </div>
@@ -68,8 +47,8 @@
                             <div class="circular_floting_circle"></div>
                             <div class="dots-pattern"></div>
                             <div class="img_wrap_1">
-                                <img src="{{ asset('storage/' . $about->image) }}"
-                                    alt="{{ $about->{'title_' . app()->getLocale()} ?: $about->title_en }}"
+                                <img src="{{ asset('storage/' . ($about->image ?? '')) }}"
+                                    alt="{{ $about->{'title_' . app()->getLocale()} ?? $about->title_en ?? '' }}"
                                     class="about-img">
                             </div>
                             <div class="trusted-badge glass-panel">
@@ -108,14 +87,14 @@
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div class="team-card h-100 border-0 shadow-sm text-center p-2">
                                 <div class="card-img-wrapper">
-                                    <img src="{{ asset('storage/' . $list->image) }}" class="img-fluid rounded"
+                                    <img src="{{ asset('storage/' . ($list->image ?? '')) }}" class="img-fluid rounded"
                                         alt="{{ $list->name_en }}">
                                 </div>
                                 <div class="card-body px-0">
                                     <h5 class="fw-bold text-navy mb-1">
-                                        {{ $list->{'name_' . app()->getLocale()} ?: $list->name_en }}</h5>
+                                        {{ $list->{'name_' . app()->getLocale()} ?? $list->name_en ?? '' }}</h5>
                                     <p class="text-muted small mb-0">
-                                        {{ $list->{'designation_' . app()->getLocale()} ?: $list->designation_en }}</p>
+                                        {{ $list->{'designation_' . app()->getLocale()} ?? $list->designation_en ?? '' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -140,18 +119,18 @@
                             <div class="row align-items-center g-4">
                                 <div class="col-lg-5 {{ $key % 2 == 0 ? 'order-lg-2' : '' }}">
                                     <div class="about-mvg-image">
-                                        <img src="{{ asset('storage/' . $mvg->image) }}"
-                                            alt="{{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}">
+                                        <img src="{{ asset('storage/' . ($mvg->image ?? '')) }}"
+                                            alt="{{ $mvg->{'title_' . app()->getLocale()} ?? $mvg->title_en ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-7 {{ $key % 2 == 0 ? 'order-lg-1' : '' }}">
                                     <div class="about-mvg-content {{ $key % 2 == 0 ? 'about-mvg-content-right' : '' }}">
-                                        <h3>{{ $mvg->{'title_' . app()->getLocale()} ?: $mvg->title_en }}</h3>
+                                        <h3>{{ $mvg->{'title_' . app()->getLocale()} ?? $mvg->title_en ?? '' }}</h3>
                                         <p class="about-mvg-subtitle">
-                                            {{ $mvg->{'subtitle_' . app()->getLocale()} ?: $mvg->subtitle_en }}
+                                            {{ $mvg->{'subtitle_' . app()->getLocale()} ?? $mvg->subtitle_en ?? '' }}
                                         </p>
                                         <div class="about-mvg-text">
-                                            {!! $mvg->{'description_' . app()->getLocale()} ?: $mvg->description_en !!}
+                                            {!! $mvg->{'description_' . app()->getLocale()} ?? $mvg->description_en ?? '' !!}
                                         </div>
                                     </div>
                                 </div>
@@ -171,9 +150,9 @@
                 <div class="row align-items-center">
                     <div class="col-lg-9 m-auto text-center">
                         <span class="built-badge">
-                            {{ $companyGoal->{'badge_title_' . app()->getLocale()} ?: $companyGoal->badge_title_en }}</span>
+                            {{ $companyGoal->{'badge_title_' . app()->getLocale()} ?? $companyGoal->badge_title_en ?? '' }}</span>
                         <h2 class="banner-title">
-                            {{ $companyGoal->{'description_' . app()->getLocale()} ?: $companyGoal->description_en }}
+                            {{ $companyGoal->{'description_' . app()->getLocale()} ?? $companyGoal->description_en ?? '' }}
                         </h2>
                     </div>
                 </div>
@@ -230,13 +209,13 @@
                                             alt="Sophia Lee"></a>
                                     <div class="tc-meta">
                                         <p class="tc-name">
-                                            {{ $testimonial->{'name_' . app()->getLocale()} ?: $testimonial->name_en }}</p>
+                                            {{ $testimonial->{'name_' . app()->getLocale()} ?? $testimonial->name_en ?? '' }}</p>
                                         <p class="tc-role">
-                                            {{ $testimonial->{'designation_' . app()->getLocale()} ?: $testimonial->designation_en }}
+                                            {{ $testimonial->{'designation_' . app()->getLocale()} ?? $testimonial->designation_en ?? '' }}
                                         </p>
                                     </div>
                                     <div class="tc-desc" hidden="">
-                                        {!! $testimonial->{'description_' . app()->getLocale()} ?: $testimonial->description_en !!}
+                                        {!! $testimonial->{'description_' . app()->getLocale()} ?? $testimonial->description_en ?? '' !!}
                                     </div>
                                 </div>
                             @endforeach

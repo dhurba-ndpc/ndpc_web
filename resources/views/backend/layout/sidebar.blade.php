@@ -12,7 +12,7 @@
                 'Role-Create',
                 'Role-Edit',
                 'Role-Delete',
-                'Dashboard-View',
+               
             ];
 
             $permissions = is_array($permissions) ? $permissions : [$permissions];

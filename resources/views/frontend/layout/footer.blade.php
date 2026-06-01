@@ -10,16 +10,22 @@
                 <div class="footer_info">
                     <p>
 
-                        {{ $site_setting_details->{'footer_short_description_' . app()->getLocale()} ?: $site_setting_details->footer_short_description_en }}
+                        {{ $site_setting_details->{'footer_short_description_' . app()->getLocale()} ?? ($site_setting_details->footer_short_description_en ?? '') }}
                     </p>
                 </div>
                 <div class="footer-contact">
-                    <p><i class="bi bi-telephone-fill"></i>
-                        {{ $site_setting_details->phone_1 ?? '' }} &nbsp;
-                        {{ $site_setting_details->phone_2 ?? '' }}
-                    </p>
-                    <p><i class="bi bi-geo-alt-fill"></i> {!! $site_setting_details->{'address_' . app()->getLocale()} ?: $site_setting_details->address_en !!}</p>
-                    <p><i class="bi bi-envelope-fill"></i> {{ $site_setting_details->email ?? '' }}</p>
+                    @if (!empty($site_setting_details->phone_1) || !empty($site_setting_details->phone_2))
+                        <p><i class="bi bi-telephone-fill"></i>
+                            {{ $site_setting_details->phone_1 ?? '' }} &nbsp;
+                            {{ $site_setting_details->phone_2 ?? '' }}
+                        </p>
+                    @endif
+                    @if (!empty($site_setting_details->mobile_no_1) || !empty($site_setting_details->mobile_no_2))
+                        <p><i class="bi bi-geo-alt-fill"></i> {!! $site_setting_details->{'address_' . app()->getLocale()} ?? ($site_setting_details->address_en ?? '') !!}</p>
+                    @endif
+                    @if (!empty($site_setting_details->email))
+                        <p><i class="bi bi-envelope-fill"></i> {{ $site_setting_details->email ?? '' }}</p>
+                    @endif
                 </div>
             </div>
 
@@ -60,7 +66,7 @@
                                     href="{{ route('defaultPage', $menu->slug) }}"
                                 @else
                                     href="{{ route('pageTemplate', $menu->page_template) }}" @endif>
-                                    {{ $menu->{'menu_name_' . app()->getLocale()} ?: $menu->menu_name_en }}
+                                    {{ $menu->{'menu_name_' . app()->getLocale()} ?? ($menu->menu_name_en ?? '') }}
                                 </a>
                             </li>
                         @endforeach
@@ -68,39 +74,53 @@
                 </div>
             @endif
             <!-- Col 4 – Information Officer -->
-            <div class="col-lg-4 col-md-6">
-                <h6 class="footer-heading">
-                    {{ app()->getLocale() == 'ne' ? 'सूचना अधिकारी / प्रवक्ता' : 'Information Officer / Spokesperson' }}
-                </h6>
-                <div class="d-flex align-items-center gap-3 mb-3">
-                    <img class="officer-img" src="{{ asset('storage/' . ($site_setting_details->image ?? '')) }}"
-                        alt="Information Officer">
-                    <div class="footer-officer">
-                        <p style="color:#fff;font-weight:600;">
-                            {{ $site_setting_details->{'information_officer_name_' . app()->getLocale()} ?: $site_setting_details->information_officer_name_en }}
-                        </p>
-                        <p>Contact no: {{ $site_setting_details->information_officer_contact_no ?? '' }}</p>
-                        <p>Email: {{ $site_setting_details->information_officer_email ?? '' }}</p>
+            @if (!@empty($site_setting_details->information_officer_name_en))
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="footer-heading justify-content-end d-flex">
+                        {{ app()->getLocale() == 'ne' ? 'सूचना अधिकारी / प्रवक्ता' : 'Information Officer / Spokesperson' }}
+                    </h6>
+                    <div class="d-flex align-items-center justify-content-end gap-3 mb-3">
+                       
+                        <div class="footer-officer text-end">
+                            <p style="color:#fff;font-weight:600;">
+                                {{ $site_setting_details->{'information_officer_name_' . app()->getLocale()} ?? ($site_setting_details->information_officer_name_en ?? '') }}
+                            </p>
+                            <p>Contact no: {{ $site_setting_details->information_officer_contact_no ?? '' }}</p>
+                            <p>Email: {{ $site_setting_details->information_officer_email ?? '' }}</p>
+                        </div>
+                         <img class="officer-img" src="{{ asset('storage/' . ($site_setting_details->image ?? '')) }}"
+                            alt="Information Officer">
                     </div>
                 </div>
-            </div>
-        </div>
+            @endempty
+    </div>
 
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <p>2024 -
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>&nbsp; &copy; All rights reserved. Nepal Digital Payment Company Ltd. (NDPC)
-            </p>
-            <div class="social-icons">
-                <a href="{{$site_setting_details->facebook_link ?? ''}}"><i class="bi bi-facebook"></i></a>
-                <a href="{{$site_setting_details->instagram_link ?? ''}}"><i class="bi bi-instagram"></i></a>
-                <a href="{{$site_setting_details->linkedin_link ?? ''}}"><i class="bi bi-linkedin"></i></a>
-                <a href="{{$site_setting_details->youtube_link ?? ''}}"><i class="bi bi-youtube"></i></a>
-            </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <p>2024 -
+            <script>
+                document.write(new Date().getFullYear())
+            </script>&nbsp; &copy; All rights reserved. Nepal Digital Payment Company Ltd. (NDPC)
+        </p>
+        <div class="social-icons">
+            @if (!empty($site_setting_details->facebook_link) && $site_setting_details->facebook_link != '#')
+                <a href="{{ $site_setting_details->facebook_link ?? '' }}"><i class="bi bi-facebook"></i></a>
+            @endif
+
+            @if (!empty($site_setting_details->instagram_link) && $site_setting_details->instagram_link != '#')
+                <a href="{{ $site_setting_details->instagram_link ?? '' }}"><i class="bi bi-instagram"></i></a>
+            @endif
+
+            @if (!empty($site_setting_details->linkedin_link) && $site_setting_details->linkedin_link != '#')
+                <a href="{{ $site_setting_details->linkedin_link ?? '' }}"><i class="bi bi-linkedin"></i></a>
+            @endif
+
+            @if (!empty($site_setting_details->youtube_link) && $site_setting_details->youtube_link != '#')
+                <a href="{{ $site_setting_details->youtube_link ?? '' }}"><i class="bi bi-youtube"></i></a>
+            @endif
         </div>
     </div>
+</div>
 </footer>
 <!-- Floating Action Button -->
 <a href="#" class="fab-btn"><i class="bi bi-arrow-up"></i></a>

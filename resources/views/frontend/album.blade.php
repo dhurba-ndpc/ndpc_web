@@ -1,25 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     @if ($album_detail->count() > 0)
         <section id="album_wrapper" class="py-5">
             <div class="container">
@@ -34,10 +16,10 @@
                                     <span class="album-label"> {{ app()->getLocale() == 'ne' ? 'एल्बम' : 'Album' }}
                                         ({{ $album->galleries->count() }}-photo)</span>
                                     <h5 class="album-title">
-                                        {{ \Illuminate\Support\Str::words($album->{'title_' . app()->getLocale()} ?: $album->title_en, 3, '...') }}
+                                        {{ \Illuminate\Support\Str::words($album->{'title_' . app()->getLocale()} ?? $album->title_en ?? '', 3, '...') }}
                                     </h5>
                                     <div class="album-text">
-                                        {!! Str::words($album->{'description_' . app()->getLocale()} ?: $album->description_en, 28, '...') !!}
+                                        {!! Str::words($album->{'description_' . app()->getLocale()} ?? $album->description_en ?? '', 28, '...') !!}
                                     </div>
                                     <a href="{{ route('gallery', $album->slug) }}" class="btn-album">Open Gallery <i
                                             class="bi bi-arrow-right"></i></a>

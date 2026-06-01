@@ -1,26 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('content')
-    <section class="page_top_banner" style="background-image:url('{{ asset('storage/' . $menu->image) }}')">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="top_banner_content">
-                        <div class="row">
-                            <div class="col-lg-12 justify-content-center d-flex">
-                                <h1> {{ $menu->{'page_title_' . app()->getLocale()} ?: $menu->page_title_en }} {{ app()->getLocale() == 'ne' ? '-ग्यालेरी' : '-Gallery' }}</h1>
-                            </div>
-                            <div class="col-lg-8 m-auto justify-content-center d-flex text-center">
-                                {!! $menu->{'description_' . app()->getLocale()} ?: $menu->description_en !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
+ @include('frontend.partials.menu_head_banner', ['menu' => $menu])
     @if ($get_album_gallery->count() > 0)
         <section id="gallery_page_wrapper" class="py-5">
             <div class="container">
@@ -31,7 +12,7 @@
                                 <h4 class="gallery-card-title">
                                     {{ app()->getLocale() == 'ne' ? 'एल्बमको फोटो ग्यालेरी' : 'Photo Gallery of Album' }} "
                                     <a
-                                        href="{{ url('/album') }}">{{ $album_name->{'title_' . app()->getLocale()} ?: $album_name->title_en }}</a>
+                                        href="{{ url('/album') }}">{{ $album_name->{'title_' . app()->getLocale()} ?? $album_name->title_en ?? '' }}</a>
                                     "
                                 </h4>
                                 <p class="gallery-card-text">
@@ -53,7 +34,8 @@
                                     <img src="{{ asset('storage/' . ($gallery->image ?? '')) }}" alt="Gallery image 1">
                                 </a>
                                 <div class="gallery-thumb-title">
-                                    {{ $gallery->{'title_' . app()->getLocale()} ?: $gallery->title_en }}</div>
+                                    {{ $gallery->{'title_' . app()->getLocale()} ?? $gallery->title_en ?? '' }}
+                                </div>
                             </div>
                         </div>
                     @empty

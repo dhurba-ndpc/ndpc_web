@@ -115,9 +115,7 @@ p {
     z-index: 99;
 }
 
-.page_top_banner {
-    background-position: center;
-}
+ 
 
 /* ===== FLOATING & ANIMATION ELEMENTS ===== */
 .circular_floting_circle {
@@ -333,6 +331,8 @@ p {
 .hero {
     position: relative;
     min-height: 520px;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .hero::before {
@@ -3915,7 +3915,7 @@ figure img {
     position: relative;
 }
 
-#company_product_details::before  {
+#company_product_details::before {
     content: '';
     position: absolute;
     pointer-events: none;
